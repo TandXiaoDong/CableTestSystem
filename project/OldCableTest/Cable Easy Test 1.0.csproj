@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{F5B02EA3-49D6-4D30-9ADA-34CBD4E6AEDD}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>Cable Easy Test 1.0</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aspose.Cells" />
+    <Reference Include="Aspose.Words" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.VisualC" />
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="-CrtImplementationDetails-\AtExitLock.cs" />
+    <Compile Include="-CrtImplementationDetails-\Exception.cs" />
+    <Compile Include="-CrtImplementationDetails-\LanguageSupport.cs" />
+    <Compile Include="-CrtImplementationDetails-\ModuleLoadException.cs" />
+    <Compile Include="-CrtImplementationDetails-\ModuleUninitializer.cs" />
+    <Compile Include="CableTestManager\CanCmdEx.cs" />
+    <Compile Include="CableTestManager\ctFormAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormActiveProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormAddCable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormAddConnector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormAddConverter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormAddInterface.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormBarcodeScanOpenProj.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormBatchAddABC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormBatchAddPin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormBatchAddZD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormBatchEditCoreRelation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormBatchEditGroupTestPara.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormBatchEditIRTPinRelation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormBatchEditRC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormCableInfoView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormCableInterfaceManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormCableLibrary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormComponentMeasure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormConnectorLibManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormConnectorQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormConverterInfoView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormConverterInterfaceManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormConverterLibManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormDDJYTestResultView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormDefaultTestParaSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormDeviceCalibration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormDeviceDebugging.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormDLTestResultView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormEditCable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormEditConnector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormEditConverter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormEditCoreRelation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormEditGroupTestPara.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormEditInterface.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormEnvironmentParaSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormErrorQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormFaultHandling.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormGroupTestParaSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormIAndRTPinReletionManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormInterfaceLibrary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormInterfaceModelConnectorManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormInterfaceTypeImportPin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormPinPinContrast.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormProbeMeasure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormProjectCopy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormProjectCreate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormProjectEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormProjectOpen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormProjectTestDataDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormProjectTestDataView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormReportFileTypeChoice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormReportFormatSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormResistanceCompensation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormSD_LCRMeasure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormSD_WVTMeasure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormSelfStudy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormSelfStudyPinRelation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormSelfStudyPinRelationView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormSelfTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormSetDefaultSavePath.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormUnDefinedInterfaceMeasure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormVoltMeasure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormWait.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\ctFormWarningHint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\DLErrorRecord.cs" />
+    <Compile Include="CableTestManager\FormAddUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\FormEquipmentInfoManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\FormOperRecordManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\FormRunningHint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\FormUpdateSecret.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\FormUpdateUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\FormUserManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CableTestManager\GroupTestParaStruct.cs" />
+    <Compile Include="CableTestManager\InterfaceDefineStruct.cs" />
+    <Compile Include="CableTestManager\JYNYTestStruct.cs" />
+    <Compile Include="CableTestManager\KGroupTestParaInfo.cs" />
+    <Compile Include="CableTestManager\KLineTestProcessor.cs" />
+    <Compile Include="CableTestManager\KParseRepCmd.cs" />
+    <Compile Include="CableTestManager\KTestDevComm.cs" />
+    <Compile Include="CableTestManager\ParStruct.cs" />
+    <Compile Include="CableTestManager\PinConnRelationStruct.cs" />
+    <Compile Include="CableTestManager\SDLPinConnectInfo.cs" />
+    <Compile Include="CableTestManager\TestCmdMap.cs" />
+    <Compile Include="CableTestManager\TestJNPinClass.cs" />
+    <Compile Include="CableTestManager\TLineStructJKIDStruct.cs" />
+    <Compile Include="CableTestManager\TLineStructLibraryDetailStruct.cs" />
+    <Compile Include="CableTestManager\TLineStructLibraryStruct.cs" />
+    <Compile Include="CableTestManager\TProjectInfoStruct.cs" />
+    <Compile Include="CableTestManager\TranLinkDLInfo.cs" />
+    <Compile Include="CableTestManager\VCI_FILTER_RECORD.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CableTestManager\ctFormAbout.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormActiveProduct.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormAddCable.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormAddConnector.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormAddConverter.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormAddInterface.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormBarcodeScanOpenProj.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormBatchAddABC.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormBatchAddPin.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormBatchAddZD.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormBatchEditCoreRelation.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormBatchEditGroupTestPara.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormBatchEditIRTPinRelation.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormBatchEditRC.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormCableInfoView.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormCableInterfaceManage.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormCableLibrary.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormComponentMeasure.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormConnectorLibManage.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormConnectorQuery.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormConverterInfoView.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormConverterInterfaceManage.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormConverterLibManage.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormDDJYTestResultView.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormDefaultTestParaSet.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormDeviceCalibration.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormDeviceDebugging.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormDLTestResultView.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormEditCable.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormEditConnector.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormEditConverter.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormEditCoreRelation.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormEditGroupTestPara.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormEditInterface.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormEnvironmentParaSet.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormErrorQuery.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormFaultHandling.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormGroupTestParaSet.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormIAndRTPinReletionManage.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormInterfaceLibrary.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormInterfaceModelConnectorManage.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormInterfaceTypeImportPin.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormMain.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormPinPinContrast.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormProbeMeasure.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormProjectCopy.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormProjectCreate.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormProjectEdit.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormProjectOpen.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormProjectTestDataDetail.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormProjectTestDataView.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormReportFileTypeChoice.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormReportFormatSet.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormResistanceCompensation.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormSD_LCRMeasure.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormSD_LCRMeasure.resx">
+      <DependentUpon>ctFormSD_LCRMeasure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CableTestManager\ctFormSD_WVTMeasure.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormSD_WVTMeasure.resx">
+      <DependentUpon>ctFormSD_WVTMeasure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CableTestManager\ctFormSelfStudy.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormSelfStudyPinRelation.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormSelfStudyPinRelationView.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormSelfTest.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormSelfTest.resx">
+      <DependentUpon>ctFormSelfTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CableTestManager\ctFormSetDefaultSavePath.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormUnDefinedInterfaceMeasure.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormVoltMeasure.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormWait.resources" />
+    <EmbeddedResource Include="CableTestManager\ctFormWarningHint.resources" />
+    <EmbeddedResource Include="CableTestManager\FormAddUser.resources" />
+    <EmbeddedResource Include="CableTestManager\FormEquipmentInfoManage.resources" />
+    <EmbeddedResource Include="CableTestManager\FormLogin.resources" />
+    <EmbeddedResource Include="CableTestManager\FormOperRecordManage.resources" />
+    <EmbeddedResource Include="CableTestManager\FormRunningHint.resources" />
+    <EmbeddedResource Include="CableTestManager\FormUpdateSecret.resources" />
+    <EmbeddedResource Include="CableTestManager\FormUpdateUser.resources" />
+    <EmbeddedResource Include="CableTestManager\FormUserManage.resources" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

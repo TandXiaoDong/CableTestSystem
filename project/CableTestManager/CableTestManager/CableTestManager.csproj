@@ -1,0 +1,1249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C49D27E8-D825-4274-9E8F-5C25C5E15151}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>CableTestManager</RootNamespace>
+    <AssemblyName>CableTestManager</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>cabletest.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Sqlite, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Sqlite.Core.3.1.2\lib\netstandard2.0\Microsoft.Data.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.batteries_v2, Version=2.0.2.669, Culture=neutral, PublicKeyToken=8226ea5df37bcae9, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLitePCLRaw.bundle_e_sqlite3.2.0.2\lib\net461\SQLitePCLRaw.batteries_v2.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.core, Version=2.0.2.669, Culture=neutral, PublicKeyToken=1488e028ca7ab535, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLitePCLRaw.core.2.0.2\lib\netstandard2.0\SQLitePCLRaw.core.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.nativelibrary, Version=2.0.2.669, Culture=neutral, PublicKeyToken=502ed628492ab262, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLitePCLRaw.bundle_e_sqlite3.2.0.2\lib\net461\SQLitePCLRaw.nativelibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.provider.dynamic_cdecl, Version=2.0.2.669, Culture=neutral, PublicKeyToken=b68184102cba0b3b, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLitePCLRaw.provider.dynamic_cdecl.2.0.2\lib\netstandard2.0\SQLitePCLRaw.provider.dynamic_cdecl.dll</HintPath>
+    </Reference>
+    <Reference Include="SuperSocket.ClientEngine, Version=0.10.0.0, Culture=neutral, PublicKeyToken=ee9af13f57f00acc, processorArchitecture=MSIL">
+      <HintPath>..\packages\SuperSocket.ClientEngine.0.10.0\lib\net45\SuperSocket.ClientEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="SuperSocket.Common, Version=1.6.6.1, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
+      <HintPath>..\packages\SuperSocket.1.6.6.1\lib\net45\SuperSocket.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="SuperSocket.Facility, Version=1.6.6.1, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
+      <HintPath>..\packages\SuperSocket.1.6.6.1\lib\net45\SuperSocket.Facility.dll</HintPath>
+    </Reference>
+    <Reference Include="SuperSocket.ProtoBase, Version=1.7.0.17, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
+      <HintPath>..\packages\SuperSocket.ProtoBase.1.7.0.17\lib\net45\SuperSocket.ProtoBase.dll</HintPath>
+    </Reference>
+    <Reference Include="SuperSocket.SocketBase, Version=1.6.6.1, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
+      <HintPath>..\packages\SuperSocket.1.6.6.1\lib\net45\SuperSocket.SocketBase.dll</HintPath>
+    </Reference>
+    <Reference Include="SuperSocket.SocketEngine, Version=1.6.6.1, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
+      <HintPath>..\packages\SuperSocket.Engine.1.6.6.1\lib\net45\SuperSocket.SocketEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="SuperSocket.SocketService, Version=1.6.6.1, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
+      <HintPath>..\packages\SuperSocket.Engine.1.6.6.1\lib\net45\SuperSocket.SocketService.exe</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Specialized, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Specialized.4.3.0\lib\net46\System.Collections.Specialized.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.112.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.112.0\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.112.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.112.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.112.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.112.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Linq, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.4.3.0\lib\net463\System.Linq.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.NameResolution, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.NameResolution.4.3.0\lib\net46\System.Net.NameResolution.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Security, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Security.4.3.0\lib\net46\System.Net.Security.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.Extensions.4.3.0\lib\net462\System.Runtime.Extensions.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.4.3.0\lib\net463\System.Runtime.InteropServices.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Telerik.WinControls, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e" />
+    <Reference Include="Telerik.WinControls.GridView, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.RadDock, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.Aqua, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.Breeze, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.Crystal, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.CrystalDark, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.Desert, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.Fluent, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for WinForms R1 2019\Bin40\Telerik.WinControls.Themes.Fluent.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.FluentDark, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for WinForms R1 2019\Bin40\Telerik.WinControls.Themes.FluentDark.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.HighContrastBlack, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for WinForms R1 2019\Bin40\Telerik.WinControls.Themes.HighContrastBlack.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Material, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.MaterialBlueGrey, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for WinForms R1 2019\Bin40\Telerik.WinControls.Themes.MaterialBlueGrey.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.MaterialPink, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for WinForms R1 2019\Bin40\Telerik.WinControls.Themes.MaterialPink.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.MaterialTeal, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.Office2007Black, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for WinForms R1 2019\Bin40\Telerik.WinControls.Themes.Office2007Black.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Office2007Silver, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for WinForms R1 2019\Bin40\Telerik.WinControls.Themes.Office2007Silver.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Office2010Black, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for WinForms R1 2019\Bin40\Telerik.WinControls.Themes.Office2010Black.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Office2010Blue, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for WinForms R1 2019\Bin40\Telerik.WinControls.Themes.Office2010Blue.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Office2010Silver, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for WinForms R1 2019\Bin40\Telerik.WinControls.Themes.Office2010Silver.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Office2013Dark, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for WinForms R1 2019\Bin40\Telerik.WinControls.Themes.Office2013Dark.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Office2013Light, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for WinForms R1 2019\Bin40\Telerik.WinControls.Themes.Office2013Light.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.TelerikMetro, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.TelerikMetroBlue, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for WinForms R1 2019\Bin40\Telerik.WinControls.Themes.TelerikMetroBlue.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.TelerikMetroTouch, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.VisualStudio2012Dark, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for WinForms R1 2019\Bin40\Telerik.WinControls.Themes.VisualStudio2012Dark.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.VisualStudio2012Light, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for WinForms R1 2019\Bin40\Telerik.WinControls.Themes.VisualStudio2012Light.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Windows7, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.Windows8, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.UI, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="TelerikCommon, Version=2019.1.219.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CableTestManager\Business\BaseManager.cs" />
+    <Compile Include="CableTestManager\Business\IBaseManager.cs" />
+    <Compile Include="CableTestManager\Business\Implements\DeviceFaultRecordManager.cs" />
+    <Compile Include="CableTestManager\Business\Implements\InterfaceInfoLibraryManager.cs" />
+    <Compile Include="CableTestManager\Business\Implements\Sqlite_sequenceManager.cs" />
+    <Compile Include="CableTestManager\Business\Implements\TCableTestLibraryManager.cs" />
+    <Compile Include="CableTestManager\Business\Implements\TConnectorLibraryDetailManager.cs" />
+    <Compile Include="CableTestManager\Business\Implements\TConnectorLibraryManager.cs" />
+    <Compile Include="CableTestManager\Business\Implements\TesterAndSwitchStandMapRelationManager.cs" />
+    <Compile Include="CableTestManager\Business\Implements\THistoryDataBasicManager.cs" />
+    <Compile Include="CableTestManager\Business\Implements\THistoryDataDetailManager.cs" />
+    <Compile Include="CableTestManager\Business\Implements\TOperateRecordManager.cs" />
+    <Compile Include="CableTestManager\Business\Implements\TProjectBasicInfoManager.cs" />
+    <Compile Include="CableTestManager\Business\Implements\TSwitchWorkWearLibraryManager.cs" />
+    <Compile Include="CableTestManager\Business\Implements\TUserManager.cs" />
+    <Compile Include="CableTestManager\Business\Implements\_THistoryDataBasic_old_20200318Manager.cs" />
+    <Compile Include="CableTestManager\Business\Implements\_THistoryDataBasic_old_20200318_1Manager.cs" />
+    <Compile Include="CableTestManager\Business\Interface\IDeviceFaultRecordManager.cs" />
+    <Compile Include="CableTestManager\Business\Interface\IInterfaceInfoLibraryManager.cs" />
+    <Compile Include="CableTestManager\Business\Interface\ISqlite_sequenceManager.cs" />
+    <Compile Include="CableTestManager\Business\Interface\ITCableTestLibraryManager.cs" />
+    <Compile Include="CableTestManager\Business\Interface\ITConnectorLibraryDetailManager.cs" />
+    <Compile Include="CableTestManager\Business\Interface\ITConnectorLibraryManager.cs" />
+    <Compile Include="CableTestManager\Business\Interface\ITesterAndSwitchStandMapRelationManager.cs" />
+    <Compile Include="CableTestManager\Business\Interface\ITHistoryDataBasicManager.cs" />
+    <Compile Include="CableTestManager\Business\Interface\ITHistoryDataDetailManager.cs" />
+    <Compile Include="CableTestManager\Business\Interface\ITOperateRecordManager.cs" />
+    <Compile Include="CableTestManager\Business\Interface\ITProjectBasicInfoManager.cs" />
+    <Compile Include="CableTestManager\Business\Interface\ITSwitchWorkWearLibraryManager.cs" />
+    <Compile Include="CableTestManager\Business\Interface\ITUserManager.cs" />
+    <Compile Include="CableTestManager\Business\Interface\I_THistoryDataBasic_old_20200318Manager.cs" />
+    <Compile Include="CableTestManager\Business\Interface\I_THistoryDataBasic_old_20200318_1Manager.cs" />
+    <Compile Include="CableTestManager\Components\PageResult.cs" />
+    <Compile Include="CableTestManager\Components\XmlClassMap.cs" />
+    <Compile Include="CableTestManager\Components\XmlPropertyMap.cs" />
+    <Compile Include="CableTestManager\Data\BaseSQLiteService.cs" />
+    <Compile Include="CableTestManager\Data\IBaseService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\DeviceFaultRecordService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\InterfaceInfoLibraryService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\Sqlite_sequenceService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\TCableTestLibraryService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\TConnectorLibraryDetailService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\TConnectorLibraryService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\TesterAndSwitchStandMapRelationService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\THistoryDataBasicService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\THistoryDataDetailService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\TOperateRecordService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\TProjectBasicInfoService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\TSwitchWorkWearLibraryService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\TUserService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\_THistoryDataBasic_old_20200318Service.cs" />
+    <Compile Include="CableTestManager\Data\Implements\_THistoryDataBasic_old_20200318_1Service.cs" />
+    <Compile Include="CableTestManager\Data\Interface\IDeviceFaultRecordService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\IInterfaceInfoLibraryService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\ISqlite_sequenceService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\ITCableTestLibraryService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\ITConnectorLibraryDetailService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\ITConnectorLibraryService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\ITesterAndSwitchStandMapRelationService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\ITHistoryDataBasicService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\ITHistoryDataDetailService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\ITOperateRecordService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\ITProjectBasicInfoService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\ITSwitchWorkWearLibraryService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\ITUserService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\I_THistoryDataBasic_old_20200318Service.cs" />
+    <Compile Include="CableTestManager\Data\Interface\I_THistoryDataBasic_old_20200318_1Service.cs" />
+    <Compile Include="CableTestManager\Data\SQLiteHelper.cs" />
+    <Compile Include="CableTestManager\EntityMapperHandler.cs" />
+    <Compile Include="CableTestManager\Entity\DeviceFaultRecord.cs" />
+    <Compile Include="CableTestManager\Entity\InterfaceInfoLibrary.cs" />
+    <Compile Include="CableTestManager\Entity\Sqlite_sequence.cs" />
+    <Compile Include="CableTestManager\Entity\TCableTestLibrary.cs" />
+    <Compile Include="CableTestManager\Entity\TConnectorLibrary.cs" />
+    <Compile Include="CableTestManager\Entity\TConnectorLibraryDetail.cs" />
+    <Compile Include="CableTestManager\Entity\TesterAndSwitchStandMapRelation.cs" />
+    <Compile Include="CableTestManager\Entity\THistoryDataBasic.cs" />
+    <Compile Include="CableTestManager\Entity\THistoryDataDetail.cs" />
+    <Compile Include="CableTestManager\Entity\TOperateRecord.cs" />
+    <Compile Include="CableTestManager\Entity\TProjectBasicInfo.cs" />
+    <Compile Include="CableTestManager\Entity\TSwitchWorkWearLibrary.cs" />
+    <Compile Include="CableTestManager\Entity\TUser.cs" />
+    <Compile Include="CableTestManager\Entity\_THistoryDataBasic_old_20200318.cs" />
+    <Compile Include="CableTestManager\Entity\_THistoryDataBasic_old_20200318_1.cs" />
+    <Compile Include="ClientSocket\AppBase\Commands.cs" />
+    <Compile Include="ClientSocket\AppBase\MyPackageInfo.cs" />
+    <Compile Include="ClientSocket\AppBase\MyReceiveFilter.cs" />
+    <Compile Include="ClientSocket\SocketClient.cs" />
+    <Compile Include="ClientSocket\SuperEasyClient.cs" />
+    <Compile Include="ClientSocket\SuperSocketServer\AppBase\MyReceiveFilter.cs" />
+    <Compile Include="ClientSocket\SuperSocketServer\AppBase\MyRequestInfo.cs" />
+    <Compile Include="ClientSocket\SuperSocketServer\AppBase\MyServer.cs" />
+    <Compile Include="ClientSocket\SuperSocketServer\AppBase\MySession.cs" />
+    <Compile Include="ClientSocket\SuperSocketServer\SocketServerControl.cs" />
+    <Compile Include="ClientSocket\SuperSocketServer\StartServerOfConfig.cs" />
+    <Compile Include="ClientSocket\SuperSocketServer\SuperSocketConfig.cs" />
+    <Compile Include="Common\TablePrimaryKey.cs" />
+    <Compile Include="CUserManager\OperatorLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CUserManager\OperatorLog.Designer.cs">
+      <DependentUpon>OperatorLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceUtils\CanCmdEx.cs" />
+    <Compile Include="DeviceUtils\GroupTestParaStruct.cs" />
+    <Compile Include="DeviceUtils\InterfaceDefineStruct.cs" />
+    <Compile Include="DeviceUtils\JYNYTestStruct.cs" />
+    <Compile Include="DeviceUtils\KGroupTestParaInfo.cs" />
+    <Compile Include="DeviceUtils\KLineTestProcessor.cs" />
+    <Compile Include="DeviceUtils\KParseRepCmd.cs" />
+    <Compile Include="DeviceUtils\KTestDevComm.cs" />
+    <Compile Include="DeviceUtils\ParStruct.cs" />
+    <Compile Include="DeviceUtils\PinConnRelationStruct.cs" />
+    <Compile Include="DeviceUtils\SDLPinConnectInfo.cs" />
+    <Compile Include="DeviceUtils\TestCmdMap.cs" />
+    <Compile Include="DeviceUtils\TestJNPinClass.cs" />
+    <Compile Include="DeviceUtils\TLineStructJKIDStruct.cs" />
+    <Compile Include="DeviceUtils\TLineStructLibraryDetailStruct.cs" />
+    <Compile Include="DeviceUtils\TLineStructLibraryStruct.cs" />
+    <Compile Include="DeviceUtils\TProjectInfoStruct.cs" />
+    <Compile Include="DeviceUtils\TranLinkDLInfo.cs" />
+    <Compile Include="DeviceUtils\VCI_FILTER_RECORD.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CableJudgeThreshold.cs" />
+    <Compile Include="Model\InterfaceLibaryInfo.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RadForm1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RadForm1.Designer.cs">
+      <DependentUpon>RadForm1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CUserManager\GetBackPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CUserManager\GetBackPwd.designer.cs">
+      <DependentUpon>GetBackPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CUserManager\LocalLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CUserManager\LocalLogin.designer.cs">
+      <DependentUpon>LocalLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CUserManager\ModifyPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CUserManager\ModifyPwd.designer.cs">
+      <DependentUpon>ModifyPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CUserManager\Register.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CUserManager\Register.designer.cs">
+      <DependentUpon>Register.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CUserManager\UserHelper.cs" />
+    <Compile Include="CUserManager\UserManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CUserManager\UserManager.designer.cs">
+      <DependentUpon>UserManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ActiveProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ActiveProduct.Designer.cs">
+      <DependentUpon>ActiveProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddConnection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\AddConnection.designer.cs">
+      <DependentUpon>AddConnection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\CMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\CMainForm.Designer.cs">
+      <DependentUpon>CMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\FaultCodeInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\FaultCodeInfo.Designer.cs">
+      <DependentUpon>FaultCodeInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\FrmEnvironmentParams.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\FrmEnvironmentParams.Designer.cs">
+      <DependentUpon>FrmEnvironmentParams.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\OneClickTestConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\OneClickTestConfig.Designer.cs">
+      <DependentUpon>OneClickTestConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VEquipment\DevCalibration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VEquipment\DevCalibration.Designer.cs">
+      <DependentUpon>DevCalibration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VEquipment\DevDebugAssitant.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VEquipment\DevDebugAssitant.Designer.cs">
+      <DependentUpon>DevDebugAssitant.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VEquipment\DevSelfCheck.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VEquipment\DevSelfCheck.Designer.cs">
+      <DependentUpon>DevSelfCheck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VInterface\AddConnector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VInterface\AddConnector.Designer.cs">
+      <DependentUpon>AddConnector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VInterface\AddSignalInterfaceDefine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VInterface\AddSignalInterfaceDefine.Designer.cs">
+      <DependentUpon>AddSignalInterfaceDefine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VInterface\AddSwitchWorkWear.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VInterface\AddSwitchWorkWear.Designer.cs">
+      <DependentUpon>AddSwitchWorkWear.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VInterface\BatchAddCableSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VInterface\BatchAddCableSet.Designer.cs">
+      <DependentUpon>BatchAddCableSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VInterface\BatchAddInterfaceDefine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VInterface\BatchAddInterfaceDefine.Designer.cs">
+      <DependentUpon>BatchAddInterfaceDefine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VInterface\BatchAddPinPoint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VInterface\BatchAddPinPoint.Designer.cs">
+      <DependentUpon>BatchAddPinPoint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VInterface\BatchModifyTesterAndSwitcherRelation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VInterface\BatchModifyTesterAndSwitcherRelation.Designer.cs">
+      <DependentUpon>BatchModifyTesterAndSwitcherRelation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VInterface\BatchModifyTesterSwitchRelation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VInterface\BatchModifyTesterSwitchRelation.Designer.cs">
+      <DependentUpon>BatchModifyTesterSwitchRelation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VInterface\EditSwitchWorkWear.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VInterface\EditSwitchWorkWear.Designer.cs">
+      <DependentUpon>EditSwitchWorkWear.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VInterface\ImportInterfacePointByConnector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VInterface\ImportInterfacePointByConnector.Designer.cs">
+      <DependentUpon>ImportInterfacePointByConnector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VInterface\RadCableLibraryManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VInterface\RadCableLibraryManager.Designer.cs">
+      <DependentUpon>RadCableLibraryManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VInterface\RadConnectorLibrary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VInterface\RadConnectorLibrary.Designer.cs">
+      <DependentUpon>RadConnectorLibrary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VInterface\RadUpdateInterface.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VInterface\RadUpdateInterface.Designer.cs">
+      <DependentUpon>RadUpdateInterface.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VInterface\RadCableLibrary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VInterface\RadCableLibrary.Designer.cs">
+      <DependentUpon>RadCableLibrary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VInterface\RadInterfaceLibrary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VInterface\RadInterfaceLibrary.Designer.cs">
+      <DependentUpon>RadInterfaceLibrary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VInterface\RadUpdateCable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VInterface\RadUpdateCable.Designer.cs">
+      <DependentUpon>RadUpdateCable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VInterface\SwitchWorkWearLibrary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VInterface\SwitchWorkWearLibrary.Designer.cs">
+      <DependentUpon>SwitchWorkWearLibrary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VInterface\TesterSwitchMapRelation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VInterface\TesterSwitchMapRelation.Designer.cs">
+      <DependentUpon>TesterSwitchMapRelation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VMeasurePara\RadProbMeasure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VMeasurePara\RadProbMeasure.Designer.cs">
+      <DependentUpon>RadProbMeasure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VProject\BarcodeScanOpenProject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VProject\BarcodeScanOpenProject.Designer.cs">
+      <DependentUpon>BarcodeScanOpenProject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\CAbort.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\CAbort.Designer.cs">
+      <DependentUpon>CAbort.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ComponentMeasure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ComponentMeasure.Designer.cs">
+      <DependentUpon>ComponentMeasure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\DDJYTestResultView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\DDJYTestResultView.Designer.cs">
+      <DependentUpon>DDJYTestResultView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\DefaultTestParaSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\DefaultTestParaSet.Designer.cs">
+      <DependentUpon>DefaultTestParaSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\DLTestResultView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\DLTestResultView.Designer.cs">
+      <DependentUpon>DLTestResultView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\EquipmentInfoManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\EquipmentInfoManager.Designer.cs">
+      <DependentUpon>EquipmentInfoManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VProject\GroupTestStandardParams.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VProject\GroupTestStandardParams.Designer.cs">
+      <DependentUpon>GroupTestStandardParams.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VProject\ProjectManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VProject\ProjectManage.Designer.cs">
+      <DependentUpon>ProjectManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VProject\RadProjectCreat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VProject\RadProjectCreat.Designer.cs">
+      <DependentUpon>RadProjectCreat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VProject\RadTestDataBasicInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VProject\RadTestDataBasicInfo.Designer.cs">
+      <DependentUpon>RadTestDataBasicInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VProject\RadTestDataDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VProject\RadTestDataDetail.Designer.cs">
+      <DependentUpon>RadTestDataDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VProject\SetFixedTestParams.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VProject\SetFixedTestParams.Designer.cs">
+      <DependentUpon>SetFixedTestParams.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ErrorQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ErrorQuery.Designer.cs">
+      <DependentUpon>ErrorQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\FaultHandling.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\FaultHandling.Designer.cs">
+      <DependentUpon>FaultHandling.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\FormWaiting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\FormWaiting.Designer.cs">
+      <DependentUpon>FormWaiting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\GroupTestParaSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\GroupTestParaSet.Designer.cs">
+      <DependentUpon>GroupTestParaSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VInterface\InterfaceModelConnectorManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VInterface\InterfaceModelConnectorManager.Designer.cs">
+      <DependentUpon>InterfaceModelConnectorManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VInterface\InterfaceTypeImportPin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VInterface\InterfaceTypeImportPin.Designer.cs">
+      <DependentUpon>InterfaceTypeImportPin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\lANDRTPinRelationManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\lANDRTPinRelationManager.Designer.cs">
+      <DependentUpon>lANDRTPinRelationManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoginSystem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\LoginSystem.Designer.cs">
+      <DependentUpon>LoginSystem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\OperaRecordManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\OperaRecordManager.Designer.cs">
+      <DependentUpon>OperaRecordManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\PinPinContrast.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\PinPinContrast.Designer.cs">
+      <DependentUpon>PinPinContrast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VProject\ProjectCopy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VProject\ProjectCopy.Designer.cs">
+      <DependentUpon>ProjectCopy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VReport\ReportFileTypeSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VReport\ReportFileTypeSelect.Designer.cs">
+      <DependentUpon>ReportFileTypeSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VReport\ReportFormatSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VReport\ReportFormatSet.Designer.cs">
+      <DependentUpon>ReportFormatSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ResistanceCompensation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ResistanceCompensation.Designer.cs">
+      <DependentUpon>ResistanceCompensation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\RunningHint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\RunningHint.Designer.cs">
+      <DependentUpon>RunningHint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VMeasurePara\SD_LCRMeasure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VMeasurePara\SD_LCRMeasure.Designer.cs">
+      <DependentUpon>SD_LCRMeasure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VMeasurePara\SD_WVTMeasure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VMeasurePara\SD_WVTMeasure.Designer.cs">
+      <DependentUpon>SD_WVTMeasure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VSelfStydy\frmSefStudy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VSelfStydy\frmSefStudy.Designer.cs">
+      <DependentUpon>frmSefStudy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VSelfStydy\SeftTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VSelfStydy\SeftTest.Designer.cs">
+      <DependentUpon>SeftTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VSelfStydy\SelfStudyPinRelation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VSelfStydy\SelfStudyPinRelation.Designer.cs">
+      <DependentUpon>SelfStudyPinRelation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VSelfStydy\SelfStudyPinRelationView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VSelfStydy\SelfStudyPinRelationView.Designer.cs">
+      <DependentUpon>SelfStudyPinRelationView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VSelfStydy\SelfStydy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VSelfStydy\SelfStydy.Designer.cs">
+      <DependentUpon>SelfStydy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VReport\SetDefaultSavePath.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VReport\SetDefaultSavePath.Designer.cs">
+      <DependentUpon>SetDefaultSavePath.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VMeasurePara\UnDefineInterfaceMeasure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VMeasurePara\UnDefineInterfaceMeasure.Designer.cs">
+      <DependentUpon>UnDefineInterfaceMeasure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VUser\AddUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VUser\AddUser.Designer.cs">
+      <DependentUpon>AddUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VUser\FormUseManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VUser\FormUseManager.Designer.cs">
+      <DependentUpon>FormUseManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VUser\UpdatePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VUser\UpdatePassword.Designer.cs">
+      <DependentUpon>UpdatePassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VUser\UpdateUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VUser\UpdateUser.Designer.cs">
+      <DependentUpon>UpdateUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VMeasurePara\VoltMeasure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VMeasurePara\VoltMeasure.Designer.cs">
+      <DependentUpon>VoltMeasure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\WarnHint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\WarnHint.Designer.cs">
+      <DependentUpon>WarnHint.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="CUserManager\OperatorLog.resx">
+      <DependentUpon>OperatorLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="RadForm1.resx">
+      <DependentUpon>RadForm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CUserManager\GetBackPwd.resx">
+      <DependentUpon>GetBackPwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CUserManager\LocalLogin.resx">
+      <DependentUpon>LocalLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CUserManager\ModifyPwd.resx">
+      <DependentUpon>ModifyPwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CUserManager\Register.resx">
+      <DependentUpon>Register.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CUserManager\UserManager.resx">
+      <DependentUpon>UserManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ActiveProduct.resx">
+      <DependentUpon>ActiveProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\AddConnection.resx">
+      <DependentUpon>AddConnection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\CMainForm.resx">
+      <DependentUpon>CMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\FaultCodeInfo.resx">
+      <DependentUpon>FaultCodeInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\FrmEnvironmentParams.resx">
+      <DependentUpon>FrmEnvironmentParams.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\OneClickTestConfig.resx">
+      <DependentUpon>OneClickTestConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VEquipment\DevCalibration.resx">
+      <DependentUpon>DevCalibration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VEquipment\DevDebugAssitant.resx">
+      <DependentUpon>DevDebugAssitant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VEquipment\DevSelfCheck.resx">
+      <DependentUpon>DevSelfCheck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VInterface\AddConnector.resx">
+      <DependentUpon>AddConnector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VInterface\AddSignalInterfaceDefine.resx">
+      <DependentUpon>AddSignalInterfaceDefine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VInterface\AddSwitchWorkWear.resx">
+      <DependentUpon>AddSwitchWorkWear.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VInterface\BatchAddCableSet.resx">
+      <DependentUpon>BatchAddCableSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VInterface\BatchAddInterfaceDefine.resx">
+      <DependentUpon>BatchAddInterfaceDefine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VInterface\BatchAddPinPoint.resx">
+      <DependentUpon>BatchAddPinPoint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VInterface\BatchModifyTesterAndSwitcherRelation.resx">
+      <DependentUpon>BatchModifyTesterAndSwitcherRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VInterface\BatchModifyTesterSwitchRelation.resx">
+      <DependentUpon>BatchModifyTesterSwitchRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VInterface\EditSwitchWorkWear.resx">
+      <DependentUpon>EditSwitchWorkWear.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VInterface\ImportInterfacePointByConnector.resx">
+      <DependentUpon>ImportInterfacePointByConnector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VInterface\RadCableLibraryManager.resx">
+      <DependentUpon>RadCableLibraryManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VInterface\RadConnectorLibrary.resx">
+      <DependentUpon>RadConnectorLibrary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VInterface\RadUpdateInterface.resx">
+      <DependentUpon>RadUpdateInterface.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VInterface\RadCableLibrary.resx">
+      <DependentUpon>RadCableLibrary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VInterface\RadInterfaceLibrary.resx">
+      <DependentUpon>RadInterfaceLibrary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VInterface\RadUpdateCable.resx">
+      <DependentUpon>RadUpdateCable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VInterface\SwitchWorkWearLibrary.resx">
+      <DependentUpon>SwitchWorkWearLibrary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VInterface\TesterSwitchMapRelation.resx">
+      <DependentUpon>TesterSwitchMapRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VMeasurePara\RadProbMeasure.resx">
+      <DependentUpon>RadProbMeasure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VMeasurePara\UnDefineInterfaceMeasure.resx">
+      <DependentUpon>UnDefineInterfaceMeasure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VProject\BarcodeScanOpenProject.resx">
+      <DependentUpon>BarcodeScanOpenProject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\CAbort.resx">
+      <DependentUpon>CAbort.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ComponentMeasure.resx">
+      <DependentUpon>ComponentMeasure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\DDJYTestResultView.resx">
+      <DependentUpon>DDJYTestResultView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\DefaultTestParaSet.resx">
+      <DependentUpon>DefaultTestParaSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\DLTestResultView.resx">
+      <DependentUpon>DLTestResultView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\EquipmentInfoManager.resx">
+      <DependentUpon>EquipmentInfoManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VProject\GroupTestStandardParams.resx">
+      <DependentUpon>GroupTestStandardParams.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VProject\ProjectManage.resx">
+      <DependentUpon>ProjectManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VProject\RadProjectCreat.resx">
+      <DependentUpon>RadProjectCreat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VProject\RadTestDataBasicInfo.resx">
+      <DependentUpon>RadTestDataBasicInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VProject\RadTestDataDetail.resx">
+      <DependentUpon>RadTestDataDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VProject\SetFixedTestParams.resx">
+      <DependentUpon>SetFixedTestParams.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ErrorQuery.resx">
+      <DependentUpon>ErrorQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\FaultHandling.resx">
+      <DependentUpon>FaultHandling.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\FormWaiting.resx">
+      <DependentUpon>FormWaiting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\GroupTestParaSet.resx">
+      <DependentUpon>GroupTestParaSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VInterface\InterfaceModelConnectorManager.resx">
+      <DependentUpon>InterfaceModelConnectorManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VInterface\InterfaceTypeImportPin.resx">
+      <DependentUpon>InterfaceTypeImportPin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\lANDRTPinRelationManager.resx">
+      <DependentUpon>lANDRTPinRelationManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\LoginSystem.resx">
+      <DependentUpon>LoginSystem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\OperaRecordManager.resx">
+      <DependentUpon>OperaRecordManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\PinPinContrast.resx">
+      <DependentUpon>PinPinContrast.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VProject\ProjectCopy.resx">
+      <DependentUpon>ProjectCopy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VReport\ReportFileTypeSelect.resx">
+      <DependentUpon>ReportFileTypeSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VReport\ReportFormatSet.resx">
+      <DependentUpon>ReportFormatSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ResistanceCompensation.resx">
+      <DependentUpon>ResistanceCompensation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\RunningHint.resx">
+      <DependentUpon>RunningHint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VMeasurePara\SD_LCRMeasure.resx">
+      <DependentUpon>SD_LCRMeasure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VMeasurePara\SD_WVTMeasure.resx">
+      <DependentUpon>SD_WVTMeasure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VSelfStydy\frmSefStudy.resx">
+      <DependentUpon>frmSefStudy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VSelfStydy\SeftTest.resx">
+      <DependentUpon>SeftTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VSelfStydy\SelfStudyPinRelation.resx">
+      <DependentUpon>SelfStudyPinRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VSelfStydy\SelfStudyPinRelationView.resx">
+      <DependentUpon>SelfStudyPinRelationView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VSelfStydy\SelfStydy.resx">
+      <DependentUpon>SelfStydy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VReport\SetDefaultSavePath.resx">
+      <DependentUpon>SetDefaultSavePath.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VUser\AddUser.resx">
+      <DependentUpon>AddUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VUser\FormUseManager.resx">
+      <DependentUpon>FormUseManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VUser\UpdatePassword.resx">
+      <DependentUpon>UpdatePassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VUser\UpdateUser.resx">
+      <DependentUpon>UpdateUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VMeasurePara\VoltMeasure.resx">
+      <DependentUpon>VoltMeasure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\WarnHint.resx">
+      <DependentUpon>WarnHint.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.manifest" />
+    <None Include="Config\log4net.config" />
+    <None Include="Config\log4net.unix.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="supersocket.cmd" />
+    <None Include="supersocket.sh" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\tiles-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\flag_saudi_arabia.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chinaz12v.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\CommonRepository\MyCommonLibrary001\CommonUtils\CommonUtils\CommonUtils.csproj">
+      <Project>{ebfca1b5-23f1-4f94-928a-db1a7b98eed6}</Project>
+      <Name>CommonUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\CommonRepository\MyCommonLibrary001\CommonUtils\WindowsFormTelerik\WindowsFormTelerik.csproj">
+      <Project>{f35ef484-7884-4954-ae3b-2323db3a0e62}</Project>
+      <Name>WindowsFormTelerik</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Version_16x16.png" />
+    <None Include="Resources\add.png" />
+    <None Include="Resources\Apply_16x16.png" />
+    <None Include="Resources\arrow_down.png" />
+    <None Include="Resources\arrow_up.png" />
+    <None Include="Resources\box_open.png" />
+    <None Include="Resources\bullet_add.png" />
+    <None Include="Resources\bullet_down.png" />
+    <None Include="Resources\cancel.png" />
+    <None Include="Resources\Cancel_16x16.png" />
+    <None Include="Resources\ClearGrid.png" />
+    <None Include="Resources\delete.png" />
+    <None Include="Resources\DeleteDataSource_16x16.png" />
+    <None Include="Resources\exclamation.png" />
+    <None Include="Resources\Export_16x16.png" />
+    <None Include="Resources\OpenDoc_16x16.png" />
+    <None Include="Resources\Project_16x16.png" />
+    <None Include="Resources\Refresh_16x16.png" />
+    <None Include="Resources\Search_16x16.png" />
+    <None Include="Resources\update.png" />
+    <None Include="Resources\upload_for_cloud.png" />
+    <None Include="Resources\WordArtEditTextClassic.png" />
+    <None Include="Resources\forward %282%29.png" />
+    <None Include="Resources\back.png" />
+    <None Include="Resources\left_grey.png" />
+    <None Include="Resources\cable.png" />
+    <None Include="Resources\folder_new.png" />
+    <None Include="Resources\folder_new1.png" />
+    <None Include="Resources\folder_new %281%29.png" />
+    <None Include="Resources\cable %281%29.png" />
+    <None Include="Resources\folder_open %281%29.png" />
+    <None Include="Resources\database_active %281%29.png" />
+    <None Include="Resources\server_connect %281%29.png" />
+    <None Include="Resources\server_connect.png" />
+    <None Include="Resources\server_connect %282%29.png" />
+    <None Include="Resources\folder_new %282%29.png" />
+    <None Include="Resources\folder_open %282%29.png" />
+    <None Include="Resources\cable %282%29.png" />
+    <None Include="Resources\database_active %282%29.png" />
+    <None Include="Resources\probe.png" />
+    <None Include="Resources\selfStudy.png" />
+    <None Include="Resources\IntefaceLibrary.png" />
+    <Content Include="cabletest.ico" />
+    <None Include="Resources\万通公司LOG.png" />
+    <None Include="Resources\万通公司LOG426x90.png" />
+    <None Include="Resources\ffpic1306125140893.png" />
+    <None Include="Resources\server_link.png" />
+    <None Include="Resources\server_delete.png" />
+    <None Include="Resources\user.png" />
+    <None Include="Resources\user %281%29.png" />
+    <None Include="Resources\kgpg_key1_kopete %281%29.png" />
+    <None Include="Resources\logoff %281%29.png" />
+    <EmbeddedResource Include="CableTestManager\Entity\EntityMapper.xml" />
+    <Content Include="需求梳理.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\SQLitePCLRaw.lib.e_sqlite3.2.0.2\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets" Condition="Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.2.0.2\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.2.0.2\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SQLitePCLRaw.lib.e_sqlite3.2.0.2\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.112.0\build\net46\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.112.0\build\net46\System.Data.SQLite.Core.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.112.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.112.0\build\net46\System.Data.SQLite.Core.targets')" />
+</Project>

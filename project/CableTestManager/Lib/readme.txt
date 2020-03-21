@@ -1,0 +1,3 @@
+1、引用dll后using AccessHelper
+2、数据实体继承BaseModel
+3、实例化Access类进行增册改查
