@@ -622,7 +622,7 @@ namespace CableTestManager.View
                 //断开连接状态，开始连接服务
                 if (this.serviceURL == "" || this.servicePort == 0)
                 {
-                    if (MessageBox.Show("服务器参数未配置，是否立即打开配置！", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.OK)
+                    if (MessageBox.Show("服务器参数未配置，是否立即打开配置！", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                     {
                         OpenConnectConfig();
                         if (this.serviceURL == "")
