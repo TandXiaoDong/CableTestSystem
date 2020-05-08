@@ -25,7 +25,6 @@ using CommonUtils.ByteHelper;
 using System.IO;
 using CableTestManager.Properties;
 using CableTestManager.Model;
-using CommonUtils.FileHelper;
 using CableTestManager.ClientSocket.AppBase;
 using CableTestManager.Common;
 
@@ -1369,11 +1368,11 @@ namespace CableTestManager.View
             }
             else
             {
-                this.serviceURL = INIFile.GetValue(DEVICE_CONFIG_SECTION, DEVICE_CONFIG_SERVER_URL_KEY, configPath);
-                var port = INIFile.GetValue(DEVICE_CONFIG_SECTION, DEVICE_CONFIG_SERVER_PORT_KEY, configPath);
+                this.serviceURL = INIFile.GetValue(DEVICE_CONFIG_SECTION, DEVICE_CONFIG_SERVER_URL_KEY, configPath).ToString();
+                var port = INIFile.GetValue(DEVICE_CONFIG_SECTION, DEVICE_CONFIG_SERVER_PORT_KEY, configPath).ToString();
                 int.TryParse(port, out this.servicePort);
 
-                var testNumberLen = INIFile.GetValue(CONFIG_SECTION_TEST_NAME, PROJECT_TEST_NUMBER_LEN_KEY, configPath);
+                var testNumberLen = INIFile.GetValue(CONFIG_SECTION_TEST_NAME, PROJECT_TEST_NUMBER_LEN_KEY, configPath).ToString();
                 int testnLen;
                 if (testNumberLen != "")
                 {
@@ -1384,32 +1383,32 @@ namespace CableTestManager.View
                     this.projectTestNumberLen = 8;
                 var conduction_threshold = INIFile.GetValue(CONFIG_SECTION_NAME, CONDUCTION_THRESHOLD_KEY, configPath);
                 if (conduction_threshold != "")
-                    this.CONDUCTION_THRESHOLD = conduction_threshold;
-                var is_conduction_judge_than_threshold = INIFile.GetValue(CONFIG_SECTION_NAME, IS_CONDUCTION_JUDGE_THAN_THRESHOLD_KEY, configPath);
+                    this.CONDUCTION_THRESHOLD = conduction_threshold.ToString();
+                var is_conduction_judge_than_threshold = INIFile.GetValue(CONFIG_SECTION_NAME, IS_CONDUCTION_JUDGE_THAN_THRESHOLD_KEY, configPath).ToString();
                 if (is_conduction_judge_than_threshold != "")
                     this.IS_CONDUCTION_JUDGE_THAN_THRESHOLD = is_conduction_judge_than_threshold;
-                var insulate_threshold = INIFile.GetValue(CONFIG_SECTION_NAME, INSULATE_THRESHOLD_KEY, configPath);
+                var insulate_threshold = INIFile.GetValue(CONFIG_SECTION_NAME, INSULATE_THRESHOLD_KEY, configPath).ToString();
                 if (insulate_threshold != "")
                     this.INSULATE_THRESHOLD = insulate_threshold;
-                var is_insulate_judge_than_threshold = INIFile.GetValue(CONFIG_SECTION_NAME, IS_INSULATE_JUDGE_THAN_THRESHOLD_KEY, configPath);
+                var is_insulate_judge_than_threshold = INIFile.GetValue(CONFIG_SECTION_NAME, IS_INSULATE_JUDGE_THAN_THRESHOLD_KEY, configPath).ToString();
                 if (is_insulate_judge_than_threshold != "")
                     this.IS_INSULATE_JUDGE_THAN_THRESHOLD = is_insulate_judge_than_threshold;
-                var insulate_voltage = INIFile.GetValue(CONFIG_SECTION_NAME, INSULATE_VOLTAGE_KEY, configPath);
+                var insulate_voltage = INIFile.GetValue(CONFIG_SECTION_NAME, INSULATE_VOLTAGE_KEY, configPath).ToString();
                 if (insulate_voltage != "")
                     this.INSULATE_VOLTAGE = insulate_voltage;
-                var insulate_hold_time = INIFile.GetValue(CONFIG_SECTION_NAME, INSULATE_HOLD_TIME_KEY, configPath);
+                var insulate_hold_time = INIFile.GetValue(CONFIG_SECTION_NAME, INSULATE_HOLD_TIME_KEY, configPath).ToString();
                 if (insulate_hold_time != "")
                     this.INSULATE_HOLD_TIME = insulate_hold_time;
-                var presure_proof_threshold = INIFile.GetValue(CONFIG_SECTION_NAME, PRESSURE_PROOF_THRESHOLD_KEY, configPath);
+                var presure_proof_threshold = INIFile.GetValue(CONFIG_SECTION_NAME, PRESSURE_PROOF_THRESHOLD_KEY, configPath).ToString();
                 if (presure_proof_threshold != "")
                     this.PRESSURE_PROOF_THRESHOLD = presure_proof_threshold;
-                var is_pressure_judge_than_threshold = INIFile.GetValue(CONFIG_SECTION_NAME, IS_PRESSURE_JUDGE_THAN_THRESHOLD_KEY, configPath);
+                var is_pressure_judge_than_threshold = INIFile.GetValue(CONFIG_SECTION_NAME, IS_PRESSURE_JUDGE_THAN_THRESHOLD_KEY, configPath).ToString();
                 if (is_pressure_judge_than_threshold != "")
                     this.IS_CONDUCTION_JUDGE_THAN_THRESHOLD = is_pressure_judge_than_threshold;
-                var pressure_voltage = INIFile.GetValue(CONFIG_SECTION_NAME, PRESSURE_PROOF_VOLTAGE_KEY, configPath);
+                var pressure_voltage = INIFile.GetValue(CONFIG_SECTION_NAME, PRESSURE_PROOF_VOLTAGE_KEY, configPath).ToString();
                 if (pressure_voltage != "")
                     this.PRESSURE_PROOF_VOLTAGE = pressure_voltage;
-                var pressure_hold_time = INIFile.GetValue(CONFIG_SECTION_NAME, PRESSURE_PROOF_HOLD_TIME_KEY, configPath);
+                var pressure_hold_time = INIFile.GetValue(CONFIG_SECTION_NAME, PRESSURE_PROOF_HOLD_TIME_KEY, configPath).ToString();
                 if (pressure_hold_time != "")
                     this.PRESSURE_PROOF_HOLD_TIME = pressure_hold_time;
             }

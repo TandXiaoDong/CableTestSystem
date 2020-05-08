@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>CableTestManager</RootNamespace>
     <AssemblyName>CableTestManager</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -30,6 +30,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -52,7 +53,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>cabletest.ico</ApplicationIcon>
+    <ApplicationIcon>cable16x16.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -1220,7 +1221,6 @@
     <None Include="Resources\probe.png" />
     <None Include="Resources\selfStudy.png" />
     <None Include="Resources\IntefaceLibrary.png" />
-    <Content Include="cabletest.ico" />
     <None Include="Resources\万通公司LOG.png" />
     <None Include="Resources\万通公司LOG426x90.png" />
     <None Include="Resources\ffpic1306125140893.png" />
@@ -1231,6 +1231,7 @@
     <None Include="Resources\kgpg_key1_kopete %281%29.png" />
     <None Include="Resources\logoff %281%29.png" />
     <EmbeddedResource Include="CableTestManager\Entity\EntityMapper.xml" />
+    <Content Include="cable16x16.ico" />
     <Content Include="需求梳理.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
