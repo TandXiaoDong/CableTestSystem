@@ -627,12 +627,6 @@
     <Compile Include="View\VProject\BarcodeScanOpenProject.Designer.cs">
       <DependentUpon>BarcodeScanOpenProject.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\CAbort.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\CAbort.Designer.cs">
-      <DependentUpon>CAbort.cs</DependentUpon>
-    </Compile>
     <Compile Include="View\ComponentMeasure.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1003,9 +997,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\VProject\BarcodeScanOpenProject.resx">
       <DependentUpon>BarcodeScanOpenProject.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\CAbort.resx">
-      <DependentUpon>CAbort.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ComponentMeasure.resx">
       <DependentUpon>ComponentMeasure.cs</DependentUpon>

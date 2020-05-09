@@ -25,7 +25,7 @@ namespace CableTestManager
             this.comboBox1.SelectedIndexChanged += ComboBox1_SelectedIndexChanged;
             this.comboBox2.SelectedIndexChanged += ComboBox2_SelectedIndexChanged;
 
-            this.radDock1.RemoveAllDocumentWindows();
+            //this.radDock1.RemoveAllDocumentWindows();
         }
 
         private void ComboBox2_SelectedIndexChanged(object sender, EventArgs e)
@@ -40,7 +40,7 @@ namespace CableTestManager
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.radDock1.AddDocument(this.documentWindow1);
+            //this.radDock1.AddDocument(this.documentWindow1);
             MessageBox.Show("Mess");
         }
     }
