@@ -38,19 +38,19 @@ namespace CableTestManager.CUserManager
             this.office2013LightTheme1 = new Telerik.WinControls.Themes.Office2013LightTheme();
             this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tbx_username = new Telerik.WinControls.UI.RadTextBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.tbx_pwd = new Telerik.WinControls.UI.RadTextBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.cb_memberpwd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_login)).BeginInit();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbx_username)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbx_pwd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -122,6 +122,28 @@ namespace CableTestManager.CUserManager
             this.panel1.Size = new System.Drawing.Size(259, 41);
             this.panel1.TabIndex = 28;
             // 
+            // tbx_username
+            // 
+            this.tbx_username.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbx_username.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbx_username.Location = new System.Drawing.Point(48, 0);
+            this.tbx_username.Name = "tbx_username";
+            this.tbx_username.Size = new System.Drawing.Size(211, 41);
+            this.tbx_username.TabIndex = 30;
+            this.tbx_username.ThemeName = "MaterialBlueGrey";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pictureBox2.Image = global::CableTestManager.Properties.Resources.user__5_;
+            this.pictureBox2.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(48, 41);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 29;
+            this.pictureBox2.TabStop = false;
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.tbx_pwd);
@@ -131,47 +153,27 @@ namespace CableTestManager.CUserManager
             this.panel2.Size = new System.Drawing.Size(259, 42);
             this.panel2.TabIndex = 29;
             // 
-            // pictureBox3
-            // 
-            this.pictureBox3.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pictureBox3.Image = global::CableTestManager.Properties.Resources.logoff__1_;
-            this.pictureBox3.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(32, 42);
-            this.pictureBox3.TabIndex = 30;
-            this.pictureBox3.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pictureBox2.Image = global::CableTestManager.Properties.Resources.user__1_;
-            this.pictureBox2.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(35, 41);
-            this.pictureBox2.TabIndex = 29;
-            this.pictureBox2.TabStop = false;
-            // 
-            // tbx_username
-            // 
-            this.tbx_username.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbx_username.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_username.Location = new System.Drawing.Point(35, 0);
-            this.tbx_username.Name = "tbx_username";
-            this.tbx_username.Size = new System.Drawing.Size(224, 41);
-            this.tbx_username.TabIndex = 30;
-            this.tbx_username.ThemeName = "MaterialBlueGrey";
-            // 
             // tbx_pwd
             // 
             this.tbx_pwd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbx_pwd.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_pwd.Location = new System.Drawing.Point(32, 0);
+            this.tbx_pwd.Location = new System.Drawing.Point(48, 0);
             this.tbx_pwd.Name = "tbx_pwd";
-            this.tbx_pwd.Size = new System.Drawing.Size(227, 41);
+            this.tbx_pwd.Size = new System.Drawing.Size(211, 42);
             this.tbx_pwd.TabIndex = 31;
             this.tbx_pwd.ThemeName = "MaterialBlueGrey";
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pictureBox3.Image = global::CableTestManager.Properties.Resources.password__3_;
+            this.pictureBox3.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(48, 42);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 30;
+            this.pictureBox3.TabStop = false;
             // 
             // LocalLogin
             // 
@@ -179,7 +181,7 @@ namespace CableTestManager.CUserManager
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(324, 283);
+            this.ClientSize = new System.Drawing.Size(322, 283);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lbx_register);
@@ -202,12 +204,12 @@ namespace CableTestManager.CUserManager
             ((System.ComponentModel.ISupportInitialize)(this.btn_login)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbx_username)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbx_username)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbx_pwd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

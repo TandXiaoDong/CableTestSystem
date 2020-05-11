@@ -74,7 +74,7 @@
             // 
             this.btnApply.Location = new System.Drawing.Point(107, 95);
             this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new System.Drawing.Size(76, 30);
+            this.btnApply.Size = new System.Drawing.Size(76, 31);
             this.btnApply.TabIndex = 3;
             this.btnApply.Text = "确定";
             this.btnApply.ThemeName = "MaterialBlueGrey";
@@ -83,7 +83,7 @@
             // 
             this.btnCancel.Location = new System.Drawing.Point(205, 95);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(71, 30);
+            this.btnCancel.Size = new System.Drawing.Size(71, 31);
             this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "取消";
             this.btnCancel.ThemeName = "MaterialBlueGrey";

@@ -243,6 +243,16 @@ namespace CableTestManager.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap fg {
+            get {
+                object obj = ResourceManager.GetObject("fg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap flag_saudi_arabia {
             get {
                 object obj = ResourceManager.GetObject("flag_saudi_arabia", resourceCulture);
@@ -326,6 +336,16 @@ namespace CableTestManager.Properties {
         internal static System.Drawing.Bitmap OpenDoc_16x16 {
             get {
                 object obj = ResourceManager.GetObject("OpenDoc_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap password__3_ {
+            get {
+                object obj = ResourceManager.GetObject("password__3_", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -443,9 +463,9 @@ namespace CableTestManager.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap user__1_ {
+        internal static System.Drawing.Bitmap user__5_ {
             get {
-                object obj = ResourceManager.GetObject("user__1_", resourceCulture);
+                object obj = ResourceManager.GetObject("user__5_", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
