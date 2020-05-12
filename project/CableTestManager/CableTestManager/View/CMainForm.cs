@@ -368,26 +368,36 @@ namespace CableTestManager.View
             var dataLength = packageInfo.Data.Length;
             //导通测试成功后，更新UI，并开始测试下一个
             //收到f2 cc
-            if (packageInfo.Data.Length < 1 && packageInfo.Header.Length < 1)
+            if (packageInfo.Header.Length < 4 || packageInfo.Data.Length < 4)
+                return;
+            if (packageInfo.Data[0] != 0xff || packageInfo.Data[1] != 0xff)
             {
-                LogHelper.Log.Info("消息头和内容都为空！");
                 return;
             }
-            //返回数据不包含头和数据长度
             //返回数据格式为功能码 + 方法类型 + 接点内容 + 测试结果
-            if (packageInfo.Header[0] == 0xf1 && packageInfo.Header[1] == 0xbb)//自学习
+            if (packageInfo.Data[4] == 0xf1 && packageInfo.Data[5] == 0xbb)//自学习
             {
-
+                //FF-FF-00-0C-F1-BB-00-01-00-02-01-01-00-00-1A-C9
+                var startInterPoint = ((int)packageInfo.Data[6]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[7]).ToString().PadLeft(2, '0');
+                var endInterPoint = ((int)packageInfo.Data[8]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[9]).ToString().PadLeft(2, '0');
+                var baseNum = ((int)packageInfo.Data[10]).ToString().PadLeft(2, '0');
+                var power = (int)packageInfo.Data[11];
+                byte[] buffer = new byte[4];
+                Array.Copy(packageInfo.Data, 12, buffer, 0, 4);
+                var resistance = Convert.ToInt32(BitConverter.ToString(buffer).Replace("-",""),16) / 65536.0;
+                var factor = 10 * Math.Pow(10,power);
+                var calResult = resistance * factor;
             }
-            else if (packageInfo.Header[0] == 0xf1 && packageInfo.Header[1] == 0xcc)//自学习结束
+            else if (packageInfo.Data[4] == 0xf1 && packageInfo.Data[5] == 0xcc)//自学习结束
             {
                 
             }
-            else if (packageInfo.Header[0] == 0xf2 && packageInfo.Header[1] == 0xbb)//导通测试
+            else if (packageInfo.Data[4] == 0xf2 && packageInfo.Data[5] == 0xbb)//导通测试
             {//02-00-01-00-05-00-00-00-02
-                var startInterPoint = ((int)packageInfo.Data[1]).ToString().PadLeft(2,'0') + ((int)packageInfo.Data[2]).ToString().PadLeft(2, '0');
-                var endInterPoint = ((int)packageInfo.Data[3]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[4]).ToString().PadLeft(2, '0');
-                var testResultValue = BitConverter.ToSingle(packageInfo.Data,5);
+                var startInterPoint = ((int)packageInfo.Data[6]).ToString().PadLeft(2,'0') + ((int)packageInfo.Data[7]).ToString().PadLeft(2, '0');
+                var endInterPoint = ((int)packageInfo.Data[8]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[9]).ToString().PadLeft(2, '0');
+                var factor = ((int)packageInfo.Data[10]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[11]).ToString().PadLeft(2, '0');
+                var testResultValue = BitConverter.ToSingle(packageInfo.Data, 12);
                 LogHelper.Log.Info("导通测试-testResultValue:" + testResultValue);
                 var conductResult = "";
                 if (testResultValue <= this.conductPassThreshold)
@@ -396,7 +406,7 @@ namespace CableTestManager.View
                     conductResult = "不合格";
                 UpdateTestResultByTestPoint(startInterPoint.ToString(),endInterPoint.ToString(), testResultValue.ToString("f4"),conductResult,5);
             }
-            else if (packageInfo.Header[0] == 0xf2 && packageInfo.Header[1] == 0xcc)//导通测试结束
+            else if (packageInfo.Data[4] == 0xf2 && packageInfo.Data[5] == 0xcc)//导通测试结束
             {
                 this.IsPassConductionTest = true;
                 this.IsConductLatestCompleteStatus = true;//更新导通测试最新测试状态
@@ -435,11 +445,12 @@ namespace CableTestManager.View
                     }));
                 }
             }
-            else if (packageInfo.Header[0] == 0xf3 && packageInfo.Header[1] == 0xbb)//短路测试测试
+            else if (packageInfo.Data[4] == 0xf3 && packageInfo.Data[5] == 0xbb)//短路测试测试
             {
-                var startInterPoint = ((int)packageInfo.Data[1]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[2]).ToString().PadLeft(2, '0');
-                var endInterPoint = ((int)packageInfo.Data[3]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[4]).ToString().PadLeft(2, '0');
-                var testResultValue = BitConverter.ToSingle(packageInfo.Data, 5);
+                var startInterPoint = ((int)packageInfo.Data[6]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[7]).ToString().PadLeft(2, '0');
+                var endInterPoint = ((int)packageInfo.Data[8]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[9]).ToString().PadLeft(2, '0');
+                var factor = ((int)packageInfo.Data[10]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[11]).ToString().PadLeft(2, '0');
+                var testResultValue = BitConverter.ToSingle(packageInfo.Data, 12);
                 LogHelper.Log.Info("短路测试-testResultValue:" + testResultValue);
                 var circuitResult = "";
                 if (testResultValue <= this.shortCircuitPassThreshold)
@@ -448,7 +459,7 @@ namespace CableTestManager.View
                     circuitResult = "不合格";
                 UpdateTestResultByTestPoint(startInterPoint.ToString(), endInterPoint.ToString(), testResultValue.ToString("f4"), circuitResult, 7);
             }
-            else if (packageInfo.Header[0] == 0xf3 && packageInfo.Header[1] == 0xcc)//短路测试结束
+            else if (packageInfo.Data[4] == 0xf3 && packageInfo.Data[5] == 0xcc)//短路测试结束
             {
                 this.IsPassShortCircuitTest = true;
                 this.IsShortCircuitLatestCompleteStatus = true;
@@ -475,11 +486,12 @@ namespace CableTestManager.View
                     }));
                 }
             }
-            else if (packageInfo.Header[0] == 0xf4 && packageInfo.Header[1] == 0xbb)//绝缘测试
+            else if (packageInfo.Data[4] == 0xf4 && packageInfo.Data[5] == 0xbb)//绝缘测试
             {
-                var startInterPoint = ((int)packageInfo.Data[1]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[2]).ToString().PadLeft(2, '0');
-                var endInterPoint = ((int)packageInfo.Data[3]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[4]).ToString().PadLeft(2, '0');
-                var testResultValue = BitConverter.ToSingle(packageInfo.Data, 5);
+                var startInterPoint = ((int)packageInfo.Data[6]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[7]).ToString().PadLeft(2, '0');
+                var endInterPoint = ((int)packageInfo.Data[8]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[9]).ToString().PadLeft(2, '0');
+                var factor = ((int)packageInfo.Data[10]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[11]).ToString().PadLeft(2, '0');
+                var testResultValue = BitConverter.ToSingle(packageInfo.Data, 12);
                 LogHelper.Log.Info("绝缘测试-testResultValue:" + testResultValue);
                 var insulateResult = "";
                 if (testResultValue <= this.insulatePassThreshold)
@@ -488,7 +500,7 @@ namespace CableTestManager.View
                     insulateResult = "不合格";
                 UpdateTestResultByTestPoint(startInterPoint.ToString(), endInterPoint.ToString(), testResultValue.ToString("f4"), insulateResult, 9);
             }
-            else if (packageInfo.Header[0] == 0xf4 && packageInfo.Header[1] == 0xcc)//绝缘测试结束
+            else if (packageInfo.Data[4] == 0xf4 && packageInfo.Data[5] == 0xcc)//绝缘测试结束
             {
                 this.IsPassInsulateTest = true;
                 this.IsInsulateLatestCompleteStatus = true;
@@ -513,11 +525,12 @@ namespace CableTestManager.View
                     }));
                 }
             }
-            else if (packageInfo.Header[0] == 0xf5 && packageInfo.Header[1] == 0xbb)//耐压测试测试
+            else if (packageInfo.Data[4] == 0xf5 && packageInfo.Data[5] == 0xbb)//耐压测试测试
             {
-                var startInterPoint = ((int)packageInfo.Data[1]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[2]).ToString().PadLeft(2, '0');
-                var endInterPoint = ((int)packageInfo.Data[3]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[4]).ToString().PadLeft(2, '0');
-                var testResultValue = BitConverter.ToSingle(packageInfo.Data, 5);
+                var startInterPoint = ((int)packageInfo.Data[6]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[7]).ToString().PadLeft(2, '0');
+                var endInterPoint = ((int)packageInfo.Data[8]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[9]).ToString().PadLeft(2, '0');
+                var factor = ((int)packageInfo.Data[10]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[11]).ToString().PadLeft(2, '0');
+                var testResultValue = BitConverter.ToSingle(packageInfo.Data, 12);
                 LogHelper.Log.Info("耐压测试-testResultValue:" + testResultValue);
                 var voltageResult = "";
                 if (testResultValue <= this.insulatePassThreshold)
@@ -526,7 +539,7 @@ namespace CableTestManager.View
                     voltageResult = "不合格";
                 UpdateTestResultByTestPoint(startInterPoint.ToString(), endInterPoint.ToString(), testResultValue.ToString("f4"), voltageResult, 11);
             }
-            else if (packageInfo.Header[0] == 0xf5 && packageInfo.Header[1] == 0xcc)//耐压测试测试结束
+            else if (packageInfo.Data[4] == 0xf5 && packageInfo.Data[5] == 0xcc)//耐压测试测试结束
             {
                 this.IsPassVoltageWithStandardTest = true;
                 this.IsVoltageWithStandardLatestCompleteStatus = true;
