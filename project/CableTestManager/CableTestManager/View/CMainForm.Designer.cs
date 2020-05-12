@@ -44,7 +44,6 @@
             Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn14 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
             Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CMainForm));
-            this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
             this.radMenuItem1 = new Telerik.WinControls.UI.RadMenuItem();
             this.radMenuItem9 = new Telerik.WinControls.UI.RadMenuItem();
             this.radMenuItem10 = new Telerik.WinControls.UI.RadMenuItem();
@@ -62,8 +61,6 @@
             this.menu_cableLibrary = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_switchStandMapLib = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_switchWorkWearLib = new Telerik.WinControls.UI.RadMenuItem();
-            this.radMenuItem3 = new Telerik.WinControls.UI.RadMenuItem();
-            this.radMenuItem21 = new Telerik.WinControls.UI.RadMenuItem();
             this.radMenuItem4 = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_historyData = new Telerik.WinControls.UI.RadMenuItem();
             this.radMenuItem5 = new Telerik.WinControls.UI.RadMenuItem();
@@ -151,7 +148,7 @@
             this.office2013LightTheme1 = new Telerik.WinControls.Themes.Office2013LightTheme();
             this.telerikMetroTouchTheme1 = new Telerik.WinControls.Themes.TelerikMetroTouchTheme();
             this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
-            ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
+            this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu2)).BeginInit();
@@ -174,26 +171,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.lbx_testStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radStatusStrip1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // radMenu1
-            // 
-            this.radMenu1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.radMenu1.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radMenu1.Items.AddRange(new Telerik.WinControls.RadItem[] {
-            this.radMenuItem1,
-            this.radMenuItem8,
-            this.radMenuItem2,
-            this.radMenuItem3,
-            this.radMenuItem4,
-            this.radMenuItem5,
-            this.radMenuItem6,
-            this.radMenuItem7});
-            this.radMenu1.Location = new System.Drawing.Point(0, 0);
-            this.radMenu1.Name = "radMenu1";
-            this.radMenu1.Size = new System.Drawing.Size(1294, 38);
-            this.radMenu1.TabIndex = 0;
-            this.radMenu1.ThemeName = "MaterialBlueGrey";
             // 
             // radMenuItem1
             // 
@@ -205,7 +184,7 @@
             this.radMenuItem13});
             this.radMenuItem1.Margin = new System.Windows.Forms.Padding(0);
             this.radMenuItem1.Name = "radMenuItem1";
-            this.radMenuItem1.Text = "文件";
+            this.radMenuItem1.Text = "文件(F)";
             // 
             // radMenuItem9
             // 
@@ -240,7 +219,7 @@
             this.menu_userManager,
             this.menu_authorManager});
             this.radMenuItem8.Name = "radMenuItem8";
-            this.radMenuItem8.Text = "用户";
+            this.radMenuItem8.Text = "用户管理(U)";
             // 
             // menu_modifyPassword
             // 
@@ -272,7 +251,7 @@
             this.menu_switchWorkWearLib});
             this.radMenuItem2.Margin = new System.Windows.Forms.Padding(0);
             this.radMenuItem2.Name = "radMenuItem2";
-            this.radMenuItem2.Text = "库管理";
+            this.radMenuItem2.Text = "库管理(L)";
             // 
             // menu_connectorLibrary
             // 
@@ -299,24 +278,12 @@
             this.menu_switchWorkWearLib.Name = "menu_switchWorkWearLib";
             this.menu_switchWorkWearLib.Text = "转接工装库管理";
             // 
-            // radMenuItem3
-            // 
-            this.radMenuItem3.Items.AddRange(new Telerik.WinControls.RadItem[] {
-            this.radMenuItem21});
-            this.radMenuItem3.Name = "radMenuItem3";
-            this.radMenuItem3.Text = "测试";
-            // 
-            // radMenuItem21
-            // 
-            this.radMenuItem21.Name = "radMenuItem21";
-            this.radMenuItem21.Text = "自学习";
-            // 
             // radMenuItem4
             // 
             this.radMenuItem4.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.menu_historyData});
             this.radMenuItem4.Name = "radMenuItem4";
-            this.radMenuItem4.Text = "数据";
+            this.radMenuItem4.Text = "数据(D)";
             // 
             // menu_historyData
             // 
@@ -331,7 +298,7 @@
             this.menu_faultCode,
             this.radMenuItem30});
             this.radMenuItem5.Name = "radMenuItem5";
-            this.radMenuItem5.Text = "工具";
+            this.radMenuItem5.Text = "工具(T)";
             // 
             // menu_connectServer
             // 
@@ -383,7 +350,7 @@
             this.radMenuItem32,
             this.menu_connectCfg});
             this.radMenuItem6.Name = "radMenuItem6";
-            this.radMenuItem6.Text = "设置";
+            this.radMenuItem6.Text = "设置(S)";
             // 
             // radMenuItem25
             // 
@@ -451,7 +418,7 @@
             this.radMenuItem33,
             this.radMenuItem34});
             this.radMenuItem7.Name = "radMenuItem7";
-            this.radMenuItem7.Text = "帮助";
+            this.radMenuItem7.Text = "帮助(H)";
             // 
             // radMenuItem33
             // 
@@ -1115,6 +1082,24 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1294, 667);
+            // 
+            // radMenu1
+            // 
+            this.radMenu1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.radMenu1.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radMenu1.Items.AddRange(new Telerik.WinControls.RadItem[] {
+            this.radMenuItem1,
+            this.radMenuItem8,
+            this.radMenuItem2,
+            this.radMenuItem4,
+            this.radMenuItem5,
+            this.radMenuItem6,
+            this.radMenuItem7});
+            this.radMenu1.Location = new System.Drawing.Point(0, 0);
+            this.radMenu1.Name = "radMenu1";
+            this.radMenu1.Size = new System.Drawing.Size(1294, 38);
+            this.radMenu1.TabIndex = 0;
+            this.radMenu1.ThemeName = "MaterialBlueGrey";
             this.Controls.Add(this.radDock1);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.panel1);
@@ -1130,7 +1115,6 @@
             this.Text = "Cable Test";
             this.ThemeName = "Office2013Light";
             this.Load += new System.EventHandler(this.CMainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -1156,6 +1140,7 @@
             this.panelStatus.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lbx_testStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radStatusStrip1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1163,14 +1148,12 @@
         }
 
         #endregion
-        private Telerik.WinControls.UI.RadMenu radMenu1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton tool_InterfaceLibrary;
         private System.Windows.Forms.ToolStripButton tool_HarnessLibrary;
         private System.Windows.Forms.Panel panel1;
         private Telerik.WinControls.UI.RadMenuItem radMenuItem1;
         private Telerik.WinControls.UI.RadMenuItem radMenuItem2;
-        private Telerik.WinControls.UI.RadMenuItem radMenuItem3;
         private Telerik.WinControls.UI.RadMenuItem radMenuItem4;
         private Telerik.WinControls.UI.RadMenuItem radMenuItem5;
         private Telerik.WinControls.UI.RadMenuItem radMenuItem6;
@@ -1208,7 +1191,6 @@
         private Telerik.WinControls.UI.RadMenuItem menu_cableLibrary;
         private Telerik.WinControls.UI.RadMenuItem menu_switchStandMapLib;
         private Telerik.WinControls.UI.RadMenuItem menu_switchWorkWearLib;
-        private Telerik.WinControls.UI.RadMenuItem radMenuItem21;
         private Telerik.WinControls.UI.RadMenuItem menu_historyData;
         private Telerik.WinControls.UI.RadMenuItem menu_connectServer;
         private Telerik.WinControls.UI.RadMenuItem menu_disConnect;
@@ -1270,5 +1252,6 @@
         private Telerik.WinControls.UI.RadMenuItem tool_reportDefaultFormat;
         private Telerik.WinControls.UI.RadGridView radGridView1;
         private Telerik.WinControls.UI.RadPanel panelStatus;
+        private Telerik.WinControls.UI.RadMenu radMenu1;
     }
 }

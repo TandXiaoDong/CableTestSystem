@@ -172,6 +172,9 @@
   <data name="ffpic1306125140893" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ffpic1306125140893.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="fg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="flag_saudi_arabia" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_saudi_arabia.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -198,6 +201,9 @@
   </data>
   <data name="OpenDoc_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\OpenDoc_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="password__3_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\password (3).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="probe" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\probe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -232,8 +238,8 @@
   <data name="upload_for_cloud" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\upload_for_cloud.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="user__1_" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\user (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="user__5_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\user (5).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Version_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Version_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

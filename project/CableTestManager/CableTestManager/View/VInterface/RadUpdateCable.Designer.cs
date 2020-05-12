@@ -641,6 +641,7 @@
             // 
             // tb_queryCondition
             // 
+            this.tb_queryCondition.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.tb_queryCondition.Name = "tb_queryCondition";
             this.tb_queryCondition.Size = new System.Drawing.Size(130, 28);
             // 

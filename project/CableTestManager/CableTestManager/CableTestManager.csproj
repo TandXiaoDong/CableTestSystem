@@ -412,6 +412,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Helper.Designer.cs">
+      <DependentUpon>Helper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\CableJudgeThreshold.cs" />
     <Compile Include="Model\InterfaceLibaryInfo.cs" />
     <Compile Include="Program.cs" />
@@ -542,12 +548,6 @@
     </Compile>
     <Compile Include="View\VInterface\BatchAddPinPoint.Designer.cs">
       <DependentUpon>BatchAddPinPoint.cs</DependentUpon>
-    </Compile>
-    <Compile Include="View\VInterface\BatchModifyTesterAndSwitcherRelation.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\VInterface\BatchModifyTesterAndSwitcherRelation.Designer.cs">
-      <DependentUpon>BatchModifyTesterAndSwitcherRelation.cs</DependentUpon>
     </Compile>
     <Compile Include="View\VInterface\BatchModifyTesterSwitchRelation.cs">
       <SubType>Form</SubType>
@@ -879,6 +879,9 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Helper.resx">
+      <DependentUpon>Helper.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -952,9 +955,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\VInterface\BatchAddPinPoint.resx">
       <DependentUpon>BatchAddPinPoint.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\VInterface\BatchModifyTesterAndSwitcherRelation.resx">
-      <DependentUpon>BatchModifyTesterAndSwitcherRelation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\VInterface\BatchModifyTesterSwitchRelation.resx">
       <DependentUpon>BatchModifyTesterSwitchRelation.cs</DependentUpon>
@@ -1223,6 +1223,14 @@
     <None Include="Resources\logoff %281%29.png" />
     <EmbeddedResource Include="CableTestManager\Entity\EntityMapper.xml" />
     <Content Include="cable16x16.ico" />
+    <None Include="Resources\password.png" />
+    <None Include="Resources\user %283%29.png" />
+    <None Include="Resources\user %284%29.png" />
+    <None Include="Resources\password %281%29.png" />
+    <None Include="Resources\password %282%29.png" />
+    <None Include="Resources\password %283%29.png" />
+    <None Include="Resources\user %285%29.png" />
+    <None Include="Resources\fg.png" />
     <Content Include="需求梳理.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

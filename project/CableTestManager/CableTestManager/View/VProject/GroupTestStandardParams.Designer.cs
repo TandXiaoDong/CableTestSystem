@@ -46,22 +46,22 @@
             this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
             this.telerikMetroTouchTheme1 = new Telerik.WinControls.Themes.TelerikMetroTouchTheme();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
+            this.btn_export = new Telerik.WinControls.UI.RadButton();
+            this.btn_batchModify = new Telerik.WinControls.UI.RadButton();
             this.tb_testLineCable = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radGridView1 = new Telerik.WinControls.UI.RadGridView();
-            this.btn_batchModify = new Telerik.WinControls.UI.RadButton();
-            this.btn_export = new Telerik.WinControls.UI.RadButton();
             this.btn_apply = new Telerik.WinControls.UI.RadButton();
             this.btn_cancel = new Telerik.WinControls.UI.RadButton();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_export)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_batchModify)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_testLineCable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_batchModify)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_export)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_apply)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_cancel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
@@ -79,14 +79,23 @@
             this.panel1.Size = new System.Drawing.Size(1100, 63);
             this.panel1.TabIndex = 0;
             // 
-            // radLabel1
+            // btn_export
             // 
-            this.radLabel1.Location = new System.Drawing.Point(12, 23);
-            this.radLabel1.Name = "radLabel1";
-            this.radLabel1.Size = new System.Drawing.Size(86, 21);
-            this.radLabel1.TabIndex = 1;
-            this.radLabel1.Text = "被测线束：";
-            this.radLabel1.ThemeName = "MaterialBlueGrey";
+            this.btn_export.Location = new System.Drawing.Point(952, 12);
+            this.btn_export.Name = "btn_export";
+            this.btn_export.Size = new System.Drawing.Size(120, 36);
+            this.btn_export.TabIndex = 7;
+            this.btn_export.Text = "导出";
+            this.btn_export.ThemeName = "MaterialBlueGrey";
+            // 
+            // btn_batchModify
+            // 
+            this.btn_batchModify.Location = new System.Drawing.Point(802, 12);
+            this.btn_batchModify.Name = "btn_batchModify";
+            this.btn_batchModify.Size = new System.Drawing.Size(120, 36);
+            this.btn_batchModify.TabIndex = 6;
+            this.btn_batchModify.Text = "批量修改";
+            this.btn_batchModify.ThemeName = "MaterialBlueGrey";
             // 
             // tb_testLineCable
             // 
@@ -96,6 +105,15 @@
             this.tb_testLineCable.TabIndex = 2;
             this.tb_testLineCable.Text = "test001";
             this.tb_testLineCable.ThemeName = "MaterialBlueGrey";
+            // 
+            // radLabel1
+            // 
+            this.radLabel1.Location = new System.Drawing.Point(12, 23);
+            this.radLabel1.Name = "radLabel1";
+            this.radLabel1.Size = new System.Drawing.Size(86, 21);
+            this.radLabel1.TabIndex = 1;
+            this.radLabel1.Text = "被测线束：";
+            this.radLabel1.ThemeName = "MaterialBlueGrey";
             // 
             // groupBox1
             // 
@@ -176,24 +194,6 @@
             this.radGridView1.TabIndex = 0;
             this.radGridView1.ThemeName = "TelerikMetroTouch";
             // 
-            // btn_batchModify
-            // 
-            this.btn_batchModify.Location = new System.Drawing.Point(802, 12);
-            this.btn_batchModify.Name = "btn_batchModify";
-            this.btn_batchModify.Size = new System.Drawing.Size(120, 36);
-            this.btn_batchModify.TabIndex = 6;
-            this.btn_batchModify.Text = "批量修改";
-            this.btn_batchModify.ThemeName = "MaterialBlueGrey";
-            // 
-            // btn_export
-            // 
-            this.btn_export.Location = new System.Drawing.Point(952, 12);
-            this.btn_export.Name = "btn_export";
-            this.btn_export.Size = new System.Drawing.Size(120, 36);
-            this.btn_export.TabIndex = 7;
-            this.btn_export.Text = "导出";
-            this.btn_export.ThemeName = "MaterialBlueGrey";
-            // 
             // btn_apply
             // 
             this.btn_apply.Location = new System.Drawing.Point(711, 597);
@@ -233,13 +233,13 @@
             this.Load += new System.EventHandler(this.GroupTestStandardParams_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_export)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_batchModify)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_testLineCable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_batchModify)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_export)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_apply)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_cancel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();

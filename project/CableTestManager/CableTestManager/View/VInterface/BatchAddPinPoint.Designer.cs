@@ -100,18 +100,18 @@
             // 
             // btn_apply
             // 
-            this.btn_apply.Location = new System.Drawing.Point(131, 181);
+            this.btn_apply.Location = new System.Drawing.Point(131, 170);
             this.btn_apply.Name = "btn_apply";
-            this.btn_apply.Size = new System.Drawing.Size(70, 25);
+            this.btn_apply.Size = new System.Drawing.Size(70, 24);
             this.btn_apply.TabIndex = 6;
             this.btn_apply.Text = "确定";
             this.btn_apply.ThemeName = "MaterialBlueGrey";
             // 
             // btn_cancel
             // 
-            this.btn_cancel.Location = new System.Drawing.Point(247, 181);
+            this.btn_cancel.Location = new System.Drawing.Point(247, 170);
             this.btn_cancel.Name = "btn_cancel";
-            this.btn_cancel.Size = new System.Drawing.Size(70, 25);
+            this.btn_cancel.Size = new System.Drawing.Size(70, 24);
             this.btn_cancel.TabIndex = 7;
             this.btn_cancel.Text = "取消";
             this.btn_cancel.ThemeName = "MaterialBlueGrey";
@@ -121,7 +121,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(354, 226);
+            this.ClientSize = new System.Drawing.Size(354, 210);
             this.Controls.Add(this.btn_cancel);
             this.Controls.Add(this.btn_apply);
             this.Controls.Add(this.tb_startPin);

@@ -81,10 +81,14 @@ namespace CableTestManager.View.VInterface
             int rIndex = this.radGridView1.CurrentRow.Index;
             if (rIndex < 0)
             {
-                MessageBox.Show("请选择要删除的线束代号！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                MessageBox.Show("请选择要删除的线束代号！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             var LineStructName = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
+            if (MessageBox.Show($"确认要删除线束代号{LineStructName}?", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
+            {
+                return;
+            }
             var delRow = lineStructLibraryDetailManager.DeleteByWhere($"where CableName = '{LineStructName}'");
             if (delRow > 0)
             {

@@ -36,6 +36,7 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.rbt_signalProb = new Telerik.WinControls.UI.RadRadioButton();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvTBC_StartPin = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -77,13 +78,13 @@
             this.label_Probe_JK_DTYZ = new System.Windows.Forms.Label();
             this.windows8Theme1 = new Telerik.WinControls.Themes.Windows8Theme();
             this.office2013LightTheme1 = new Telerik.WinControls.Themes.Office2013LightTheme();
-            this.rbt_signalProb = new Telerik.WinControls.UI.RadRadioButton();
             this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
             this.groupBox_Debugging.SuspendLayout();
             this.tabControl_Debugging.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.rbt_signalProb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Probe_Pin)).BeginInit();
             this.tabPage5.SuspendLayout();
@@ -96,7 +97,6 @@
             this.tabPage7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Probe_JK_DTYZ)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rbt_signalProb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -194,6 +194,15 @@
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "探针测试";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // rbt_signalProb
+            // 
+            this.rbt_signalProb.Location = new System.Drawing.Point(56, 37);
+            this.rbt_signalProb.Name = "rbt_signalProb";
+            this.rbt_signalProb.Size = new System.Drawing.Size(90, 22);
+            this.rbt_signalProb.TabIndex = 46;
+            this.rbt_signalProb.Text = "单针方式";
+            this.rbt_signalProb.ThemeName = "MaterialBlueGrey";
             // 
             // dataGridView3
             // 
@@ -681,15 +690,6 @@
             this.label_Probe_JK_DTYZ.TabIndex = 62;
             this.label_Probe_JK_DTYZ.Text = "导通阈值:";
             // 
-            // rbt_signalProb
-            // 
-            this.rbt_signalProb.Location = new System.Drawing.Point(56, 37);
-            this.rbt_signalProb.Name = "rbt_signalProb";
-            this.rbt_signalProb.Size = new System.Drawing.Size(90, 22);
-            this.rbt_signalProb.TabIndex = 46;
-            this.rbt_signalProb.Text = "单针方式";
-            this.rbt_signalProb.ThemeName = "MaterialBlueGrey";
-            // 
             // RadProbMeasure
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -712,6 +712,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.rbt_signalProb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Probe_Pin)).EndInit();
             this.tabPage5.ResumeLayout(false);
@@ -726,7 +727,6 @@
             this.tabPage7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Probe_JK_DTYZ)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rbt_signalProb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 

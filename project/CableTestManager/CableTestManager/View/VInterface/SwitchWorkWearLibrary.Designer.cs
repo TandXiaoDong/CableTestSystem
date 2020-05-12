@@ -78,6 +78,7 @@
             // 
             // tool_condition
             // 
+            this.tool_condition.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.tool_condition.Name = "tool_condition";
             this.tool_condition.Size = new System.Drawing.Size(130, 27);
             // 
