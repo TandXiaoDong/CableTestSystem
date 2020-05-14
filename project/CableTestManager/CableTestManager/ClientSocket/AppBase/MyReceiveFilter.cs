@@ -33,32 +33,57 @@ namespace CableTestManager.ClientSocket.AppBase
         //    return new MyPackageInfo(header.Array, body);
         //}
 
-        protected override int GetBodyLengthFromHeader(IBufferStream bufferStream, int length)
-        {
-            ArraySegment<byte> buffers = bufferStream.Buffers[0];
-            byte[] array = buffers.ToArray();
-            if (array.Length < 4)
-                return 0;
-            //int len = array[length - 1] * 256 + array[length - 2];//长度-低位在前
-            int len = array[length - 2] * 256 + array[length - 1];//高位在前
-            //int len = (int)array[buffers.Offset + 2] * 256 + (int)array[buffers.Offset + 3];
+        //protected override int GetBodyLengthFromHeader(IBufferStream bufferStream, int length)
+        //{
+        //    ArraySegment<byte> buffers = bufferStream.Buffers[0];
+        //    byte[] array = buffers.ToArray();
+        //    if (array.Length < 4)
+        //        return 0;
+        //    //int len = array[length - 1] * 256 + array[length - 2];//长度-低位在前
+        //    int len = array[length - 2] * 256 + array[length - 1];//高位在前
+        //    //int len = (int)array[buffers.Offset + 2] * 256 + (int)array[buffers.Offset + 3];
             
-            return len;//+ 2
-        }
+        //    return len;//+ 2
+        //}
+
+        //public override MyPackageInfo ResolvePackage(IBufferStream bufferStream)
+        //{
+        //    //第三个参数用0,1都可以
+        //    byte[] header = bufferStream.Buffers[0].ToArray();
+        //    if (bufferStream.Buffers.Count > 1)
+        //    {
+        //        byte[] bodyBuffer = bufferStream.Buffers[1].ToArray();
+        //        return new MyPackageInfo(header, bodyBuffer);
+        //    }
+        //    //byte[] allBuffer = bufferStream.Buffers[0].Array.CloneRange(0, (int)bufferStream.Length);
+        //    //合并所有buffer
+        //    //byte[] allBuffer
+        //    return new MyPackageInfo(header, new byte[] { });
+        //}
 
         public override MyPackageInfo ResolvePackage(IBufferStream bufferStream)
         {
-            //第三个参数用0,1都可以
-            byte[] header = bufferStream.Buffers[0].ToArray();
-            if (bufferStream.Buffers.Count > 1)
+            var header = bufferStream.Buffers[0].ToArray();
+            byte[] allBuffer = new byte[(int)bufferStream.Length];
+            int sumLen = 0;
+            foreach (var array in bufferStream.Buffers)
             {
-                byte[] bodyBuffer = bufferStream.Buffers[1].ToArray();
-                return new MyPackageInfo(header, bodyBuffer);
+                Array.Copy(array.ToArray(), 0, allBuffer, sumLen, array.Count);
+                sumLen += array.Count;
             }
-            //byte[] allBuffer = bufferStream.Buffers[0].Array.CloneRange(0, (int)bufferStream.Length);
-            //合并所有buffer
-            //byte[] allBuffer
-            return new MyPackageInfo(header, new byte[] { });
+            var total = (int)bufferStream.Length;
+            return new MyPackageInfo(header, allBuffer);
+        }
+
+        protected override int GetBodyLengthFromHeader(IBufferStream bufferStream, int length)
+        {
+            var header = bufferStream.Buffers[0].ToArray();
+            if (header.Length < 4)
+            {
+                return 0;
+            }
+            int len = header[length - 2] * 256 + header[length - 1];//高位在前
+            return len;
         }
     }
 }

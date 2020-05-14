@@ -27,6 +27,9 @@ using CableTestManager.Properties;
 using CableTestManager.Model;
 using CableTestManager.ClientSocket.AppBase;
 using CableTestManager.Common;
+using System.Threading.Tasks;
+using System.Threading;
+using System.Diagnostics;
 
 namespace CableTestManager.View
 {
@@ -40,6 +43,7 @@ namespace CableTestManager.View
         private CableJudgeThreshold cableJudgeThreshold;
         private TProjectBasicInfo projectInfo;
         private System.Timers.Timer sysTimer;
+
 
         private bool IsConnectServer;
         private string serviceURL = "";
@@ -72,6 +76,8 @@ namespace CableTestManager.View
         private int projectTestNumberLen = 8;
         private string startTestDate;
         private string endTestDate;
+
+        private Queue<SelfStudyParams> studyParamQueue;
 
         #region 测试项与逻辑
         /*
@@ -204,6 +210,8 @@ namespace CableTestManager.View
         private const string selfStudyTestFunCode = "F1 AA";
         #endregion
 
+        private double selfStudyThreshold;//自学习设定的标准值
+
         public CMainForm()
         {
             InitializeComponent();
@@ -211,7 +219,14 @@ namespace CableTestManager.View
 
         private void CMainForm_Load(object sender, EventArgs e)
         {
-            
+            Task.Run(()=>
+            {
+                while (true)
+                {
+                    //UpdateTestSelfStudyGridView();
+                    Thread.Sleep(1);
+                }
+            });
         }
 
         public void Init()
@@ -225,8 +240,10 @@ namespace CableTestManager.View
             //this.WindowState = FormWindowState.Maximized;
             //this.radDock1.DocumentTabsVisible = false;
             this.radDock1.RemoveAllDocumentWindows();
-            RadGridViewProperties.SetRadGridViewProperty(this.radGridView1,false,true,13);
-            this.radGridView1.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;
+            //this.radDock1.AddDocument(this.documentWindow1);
+            InitDatable(false);
+
+            this.studyParamQueue = new Queue<SelfStudyParams>();
             this.projectInfoManager = new TProjectBasicInfoManager();
             this.historyDataInfoManager = new THistoryDataBasicManager();
             this.historyDataDetailManager = new THistoryDataDetailManager();
@@ -236,19 +253,59 @@ namespace CableTestManager.View
             sysTimer.Start();
 
             #region update control status
-            this.menu_InsulationTest.Enabled = false;
-            this.menu_shortCircuitTest.Enabled = false;
-            this.menu_VoltageWithStandTest.Enabled = false;
+            this.menu_InsulationTest.Enabled = true;
+            this.menu_shortCircuitTest.Enabled = true;
+            this.menu_VoltageWithStandTest.Enabled = true;
             #endregion
 
             configPath = AppDomain.CurrentDomain.BaseDirectory + "config\\";
             if (!Directory.Exists(configPath))
                 Directory.CreateDirectory(configPath);
             this.lbx_curLoginUser.Text = LocalLogin.CurrentUserName;
-
             InitDefaultConfig();
             UpdateTreeView();
             EventHandles();
+        }
+
+        private void InitDatable(bool IsSelfStudy)
+        {
+            if (IsSelfStudy)
+            {
+                this.radGridView2.Columns.Clear();
+                this.radGridView2.Rows.Clear();
+                this.radGridView2.Columns.Add("序号");
+                this.radGridView2.Columns.Add("起点接点");
+                this.radGridView2.Columns.Add("终点接点");
+                this.radGridView2.Columns.Add("测量值(Ω)");
+                this.radGridView2.Columns.Add("测量结果");
+                RadGridViewProperties.SetRadGridViewProperty(this.radGridView2, false, true, 5);
+                this.radGridView2.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;
+            }
+            else
+            {
+                this.radGridView1.Columns.Clear();
+                this.radGridView1.Rows.Clear();
+                this.radGridView1.Columns.Add("序号");
+                this.radGridView1.Columns.Add("起点接口");
+                this.radGridView1.Columns.Add("起点接点");
+                this.radGridView1.Columns.Add("终点接口");
+                this.radGridView1.Columns.Add("终点接点");
+                this.radGridView1.Columns.Add("导通电阻(Ω)");
+                this.radGridView1.Columns.Add("导通测试结果");
+                this.radGridView1.Columns.Add("短路测试(Ω)");
+                this.radGridView1.Columns.Add("短路测试结果");
+                this.radGridView1.Columns.Add("绝缘电阻(Ω)");
+                this.radGridView1.Columns.Add("绝缘测试结果");
+                this.radGridView1.Columns.Add("耐压电流(Ω)");
+                this.radGridView1.Columns.Add("耐压测试结果");
+                this.radGridView1.Columns.Add("testMethod");
+                this.radGridView1.Columns[11].IsVisible = false;
+                this.radGridView1.Columns[12].IsVisible = false;
+                this.radGridView1.Columns[13].IsVisible = false;
+
+                RadGridViewProperties.SetRadGridViewProperty(this.radGridView1, false, true, 13);
+                this.radGridView1.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;
+            }
         }
 
         private void EventHandles()
@@ -295,8 +352,21 @@ namespace CableTestManager.View
             this.sysTimer.Elapsed += SysTimer_Elapsed;
             this.SizeChanged += CMainForm_SizeChanged;
 
+            this.radGridView2.CellValueNeeded += RadGridView2_CellValueNeeded;
+            this.radGridView2.CellValuePushed += RadGridView2_CellValuePushed;
+
             SuperEasyClient.NoticeConnectEvent += SuperEasyClient_NoticeConnectEvent;
             SuperEasyClient.NoticeMessageEvent += SuperEasyClient_NoticeMessageEvent;
+        }
+
+        private void RadGridView2_CellValuePushed(object sender, GridViewCellValueEventArgs e)
+        {
+            
+        }
+
+        private void RadGridView2_CellValueNeeded(object sender, GridViewCellValueEventArgs e)
+        {
+            
         }
 
         private void CMainForm_SizeChanged(object sender, EventArgs e)
@@ -368,35 +438,62 @@ namespace CableTestManager.View
             var dataLength = packageInfo.Data.Length;
             //导通测试成功后，更新UI，并开始测试下一个
             //收到f2 cc
-            if (packageInfo.Data.Length < 1 && packageInfo.Header.Length < 1)
+            if (packageInfo.Header.Length < 4 || packageInfo.Data.Length < 4)
+                return;
+            if (packageInfo.Data[0] != 0xff || packageInfo.Data[1] != 0xff)
             {
-                LogHelper.Log.Info("消息头和内容都为空！");
                 return;
             }
-            //返回数据不包含头和数据长度
             //返回数据格式为功能码 + 方法类型 + 接点内容 + 测试结果
-            if (packageInfo.Header[0] == 0xf1 && packageInfo.Header[1] == 0xbb)//自学习
+            if (packageInfo.Data[4] == 0xf1 && packageInfo.Data[5] == 0xbb)//自学习
             {
-
+                //FF-FF-00-0C-F1-BB-00-01-00-02-01-01-00-00-1A-C9
+                //min/max/setthreshold
+                var startInterPoint = ((int)packageInfo.Data[6]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[7]).ToString().PadLeft(2, '0');
+                var endInterPoint = ((int)packageInfo.Data[8]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[9]).ToString().PadLeft(2, '0');
+                var baseNum = ((int)packageInfo.Data[10]).ToString().PadLeft(2, '0');
+                var power = (int)packageInfo.Data[11];
+                byte[] buffer = new byte[4];
+                Array.Copy(packageInfo.Data, 12, buffer, 0, 4);
+                var resistance = Convert.ToInt32(BitConverter.ToString(buffer).Replace("-",""),16) / 65536.0;
+                var factor = 10 * Math.Pow(10,power);
+                var calResult = resistance * factor;
+                var selfStudyResult = "";
+                if (calResult < this.selfStudyThreshold)
+                    selfStudyResult = "合格";
+                else
+                    selfStudyResult = "不合格";
+                SelfStudyParams studyParams = new SelfStudyParams();
+                studyParams.StartPoint = startInterPoint;
+                studyParams.EndPoint = endInterPoint;
+                studyParams.TestResultVal = calResult.ToString("f2");
+                studyParams.TestReulst = selfStudyResult;
+                this.studyParamQueue.Enqueue(studyParams);
+                UpdateTestSelfStudyGridView();
             }
-            else if (packageInfo.Header[0] == 0xf1 && packageInfo.Header[1] == 0xcc)//自学习结束
+            else if (packageInfo.Data[4] == 0xf1 && packageInfo.Data[5] == 0xcc)//自学习结束
             {
                 
             }
-            else if (packageInfo.Header[0] == 0xf2 && packageInfo.Header[1] == 0xbb)//导通测试
+            else if (packageInfo.Data[4] == 0xf2 && packageInfo.Data[5] == 0xbb)//导通测试
             {//02-00-01-00-05-00-00-00-02
-                var startInterPoint = ((int)packageInfo.Data[1]).ToString().PadLeft(2,'0') + ((int)packageInfo.Data[2]).ToString().PadLeft(2, '0');
-                var endInterPoint = ((int)packageInfo.Data[3]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[4]).ToString().PadLeft(2, '0');
-                var testResultValue = BitConverter.ToSingle(packageInfo.Data,5);
-                LogHelper.Log.Info("导通测试-testResultValue:" + testResultValue);
+                var startInterPoint = ((int)packageInfo.Data[6]).ToString().PadLeft(2,'0') + ((int)packageInfo.Data[7]).ToString().PadLeft(2, '0');
+                var endInterPoint = ((int)packageInfo.Data[8]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[9]).ToString().PadLeft(2, '0');
+                var baseNum = ((int)packageInfo.Data[10]).ToString().PadLeft(2, '0');
+                var power = (int)packageInfo.Data[11];
+                byte[] buffer = new byte[4];
+                Array.Copy(packageInfo.Data, 12, buffer, 0, 4);
+                var resistance = Convert.ToInt32(BitConverter.ToString(buffer).Replace("-", ""), 16) / 65536.0;
+                var factor = 10 * Math.Pow(10, power);
+                var calResult = resistance * factor;
                 var conductResult = "";
-                if (testResultValue <= this.conductPassThreshold)
+                if (calResult <= this.conductPassThreshold)
                     conductResult = "合格";
                 else
                     conductResult = "不合格";
-                UpdateTestResultByTestPoint(startInterPoint.ToString(),endInterPoint.ToString(), testResultValue.ToString("f4"),conductResult,5);
+                UpdateTestResultByTestPoint(startInterPoint.ToString(),endInterPoint.ToString(), calResult.ToString("f2"),conductResult,5);
             }
-            else if (packageInfo.Header[0] == 0xf2 && packageInfo.Header[1] == 0xcc)//导通测试结束
+            else if (packageInfo.Data[4] == 0xf2 && packageInfo.Data[5] == 0xcc)//导通测试结束
             {
                 this.IsPassConductionTest = true;
                 this.IsConductLatestCompleteStatus = true;//更新导通测试最新测试状态
@@ -435,20 +532,25 @@ namespace CableTestManager.View
                     }));
                 }
             }
-            else if (packageInfo.Header[0] == 0xf3 && packageInfo.Header[1] == 0xbb)//短路测试测试
+            else if (packageInfo.Data[4] == 0xf3 && packageInfo.Data[5] == 0xbb)//短路测试测试
             {
-                var startInterPoint = ((int)packageInfo.Data[1]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[2]).ToString().PadLeft(2, '0');
-                var endInterPoint = ((int)packageInfo.Data[3]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[4]).ToString().PadLeft(2, '0');
-                var testResultValue = BitConverter.ToSingle(packageInfo.Data, 5);
-                LogHelper.Log.Info("短路测试-testResultValue:" + testResultValue);
+                var startInterPoint = ((int)packageInfo.Data[6]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[7]).ToString().PadLeft(2, '0');
+                var endInterPoint = ((int)packageInfo.Data[8]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[9]).ToString().PadLeft(2, '0');
+                var baseNum = ((int)packageInfo.Data[10]).ToString().PadLeft(2, '0');
+                var power = (int)packageInfo.Data[11];
+                byte[] buffer = new byte[4];
+                Array.Copy(packageInfo.Data, 12, buffer, 0, 4);
+                var resistance = Convert.ToInt32(BitConverter.ToString(buffer).Replace("-", ""), 16) / 65536.0;
+                var factor = 10 * Math.Pow(10, power);
+                var calResult = resistance * factor;
                 var circuitResult = "";
-                if (testResultValue <= this.shortCircuitPassThreshold)
+                if (calResult <= this.shortCircuitPassThreshold)
                     circuitResult = "合格";
                 else
                     circuitResult = "不合格";
-                UpdateTestResultByTestPoint(startInterPoint.ToString(), endInterPoint.ToString(), testResultValue.ToString("f4"), circuitResult, 7);
+                UpdateTestResultByTestPoint(startInterPoint.ToString(), endInterPoint.ToString(), calResult.ToString("f2"), circuitResult, 7);
             }
-            else if (packageInfo.Header[0] == 0xf3 && packageInfo.Header[1] == 0xcc)//短路测试结束
+            else if (packageInfo.Data[4] == 0xf3 && packageInfo.Data[5] == 0xcc)//短路测试结束
             {
                 this.IsPassShortCircuitTest = true;
                 this.IsShortCircuitLatestCompleteStatus = true;
@@ -475,20 +577,25 @@ namespace CableTestManager.View
                     }));
                 }
             }
-            else if (packageInfo.Header[0] == 0xf4 && packageInfo.Header[1] == 0xbb)//绝缘测试
+            else if (packageInfo.Data[4] == 0xf4 && packageInfo.Data[5] == 0xbb)//绝缘测试
             {
-                var startInterPoint = ((int)packageInfo.Data[1]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[2]).ToString().PadLeft(2, '0');
-                var endInterPoint = ((int)packageInfo.Data[3]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[4]).ToString().PadLeft(2, '0');
-                var testResultValue = BitConverter.ToSingle(packageInfo.Data, 5);
-                LogHelper.Log.Info("绝缘测试-testResultValue:" + testResultValue);
+                var startInterPoint = ((int)packageInfo.Data[6]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[7]).ToString().PadLeft(2, '0');
+                var endInterPoint = ((int)packageInfo.Data[8]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[9]).ToString().PadLeft(2, '0');
+                var baseNum = ((int)packageInfo.Data[10]).ToString().PadLeft(2, '0');
+                var power = (int)packageInfo.Data[11];
+                byte[] buffer = new byte[4];
+                Array.Copy(packageInfo.Data, 12, buffer, 0, 4);
+                var resistance = Convert.ToInt32(BitConverter.ToString(buffer).Replace("-", ""), 16) / 65536.0;
+                var factor = 10 * Math.Pow(10, power);
+                var calResult = resistance * factor;
                 var insulateResult = "";
-                if (testResultValue <= this.insulatePassThreshold)
+                if (calResult <= this.insulatePassThreshold)
                     insulateResult = "合格";
                 else
                     insulateResult = "不合格";
-                UpdateTestResultByTestPoint(startInterPoint.ToString(), endInterPoint.ToString(), testResultValue.ToString("f4"), insulateResult, 9);
+                UpdateTestResultByTestPoint(startInterPoint.ToString(), endInterPoint.ToString(), calResult.ToString("f2"), insulateResult, 9);
             }
-            else if (packageInfo.Header[0] == 0xf4 && packageInfo.Header[1] == 0xcc)//绝缘测试结束
+            else if (packageInfo.Data[4] == 0xf4 && packageInfo.Data[5] == 0xcc)//绝缘测试结束
             {
                 this.IsPassInsulateTest = true;
                 this.IsInsulateLatestCompleteStatus = true;
@@ -513,20 +620,25 @@ namespace CableTestManager.View
                     }));
                 }
             }
-            else if (packageInfo.Header[0] == 0xf5 && packageInfo.Header[1] == 0xbb)//耐压测试测试
+            else if (packageInfo.Data[4] == 0xf5 && packageInfo.Data[5] == 0xbb)//耐压测试测试
             {
-                var startInterPoint = ((int)packageInfo.Data[1]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[2]).ToString().PadLeft(2, '0');
-                var endInterPoint = ((int)packageInfo.Data[3]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[4]).ToString().PadLeft(2, '0');
-                var testResultValue = BitConverter.ToSingle(packageInfo.Data, 5);
-                LogHelper.Log.Info("耐压测试-testResultValue:" + testResultValue);
+                var startInterPoint = ((int)packageInfo.Data[6]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[7]).ToString().PadLeft(2, '0');
+                var endInterPoint = ((int)packageInfo.Data[8]).ToString().PadLeft(2, '0') + ((int)packageInfo.Data[9]).ToString().PadLeft(2, '0');
+                var baseNum = ((int)packageInfo.Data[10]).ToString().PadLeft(2, '0');
+                var power = (int)packageInfo.Data[11];
+                byte[] buffer = new byte[4];
+                Array.Copy(packageInfo.Data, 12, buffer, 0, 4);
+                var resistance = Convert.ToInt32(BitConverter.ToString(buffer).Replace("-", ""), 16) / 65536.0;
+                var factor = 10 * Math.Pow(10, power);
+                var calResult = resistance * factor;
                 var voltageResult = "";
-                if (testResultValue <= this.insulatePassThreshold)
+                if (calResult <= this.insulatePassThreshold)
                     voltageResult = "合格";
                 else
                     voltageResult = "不合格";
-                UpdateTestResultByTestPoint(startInterPoint.ToString(), endInterPoint.ToString(), testResultValue.ToString("f4"), voltageResult, 11);
+                UpdateTestResultByTestPoint(startInterPoint.ToString(), endInterPoint.ToString(), calResult.ToString("f2"), voltageResult, 11);
             }
-            else if (packageInfo.Header[0] == 0xf5 && packageInfo.Header[1] == 0xcc)//耐压测试测试结束
+            else if (packageInfo.Data[4] == 0xf5 && packageInfo.Data[5] == 0xcc)//耐压测试测试结束
             {
                 this.IsPassVoltageWithStandardTest = true;
                 this.IsVoltageWithStandardLatestCompleteStatus = true;
@@ -580,6 +692,67 @@ namespace CableTestManager.View
                     }));
                 }
             }
+        }
+
+        /* 数据刷新：缓存数据，判断数据大小，数据量大时启用虚模式刷新 */
+        private void UpdateTestSelfStudyGridView()
+        {
+            //if (IsGridView2Exist(startPoint, endPoint))
+            //    return;
+            //100
+
+            if (this.studyParamQueue.Count > 0)
+            {
+                var selfStudyObj = this.studyParamQueue.Dequeue();
+                string startPoint = selfStudyObj.StartPoint;
+                string endPoint = selfStudyObj.EndPoint;
+                string testResultVal = selfStudyObj.TestResultVal;
+                string testResult = selfStudyObj.TestReulst;
+
+                this.Invoke(new Action(() =>
+                {
+                    this.radGridView2.BeginEdit();
+                    this.radGridView2.Rows.AddNew();
+                    var rCount = this.radGridView2.RowCount;
+                    this.radGridView2.Rows[rCount - 1].Cells[0].Value = rCount;
+                    this.radGridView2.Rows[rCount - 1].Cells[1].Value = startPoint;
+                    this.radGridView2.Rows[rCount - 1].Cells[2].Value = endPoint;
+                    this.radGridView2.Rows[rCount - 1].Cells[3].Value = testResultVal;
+                    this.radGridView2.Rows[rCount - 1].Cells[4].Value = testResult;
+                    this.radGridView2.CurrentRow = this.radGridView2.Rows[rCount - 1];
+                    if (testResult == "合格")
+                    {
+                        RadGridViewProperties.SetRadGridViewStyle(this.radGridView2, this.radGridView2.ColumnCount, RadGridViewProperties.GridViewRecordEnum.Qualification);
+                    }
+                    else if (testResult == "不合格")
+                    {
+                        RadGridViewProperties.SetRadGridViewStyle(this.radGridView2, this.radGridView2.ColumnCount, RadGridViewProperties.GridViewRecordEnum.Disqualification);
+                    }
+                    this.radGridView2.EndEdit();
+                }));
+                Application.DoEvents();
+            }
+        }
+
+        
+
+        private bool IsGridView2Exist(string startPoint, string endPoint)
+        {
+            if (this.radGridView2.RowCount < 1)
+            {
+                return false;
+            }
+            foreach (var rowInfo in this.radGridView2.Rows)
+            {
+                var sp = rowInfo.Cells[1].Value;
+                var ep = rowInfo.Cells[2].Value;
+                if (sp != null && ep != null)
+                {
+                    if (sp.ToString() == startPoint && ep.ToString() == endPoint)
+                        return true;
+                }
+            }
+            return false;
         }
 
         private void SuperEasyClient_NoticeConnectEvent(bool IsConnect, string tipMessage)
@@ -898,6 +1071,9 @@ namespace CableTestManager.View
                 var selftStudyString = Convert.ToString(studyMinByPin, 16).PadLeft(4, '0') +
                     Convert.ToString(studyMaxByPin, 16).PadLeft(4, '0') + FloatConvert.FloatConvertByte(conductThresholdByPin);
                 SendSelfStudyCommand(selftStudyString);
+                this.selfStudyThreshold = sefStudy.conductThresholdByPin;
+                this.radDock1.AddDocument(this.documentWindow2);
+                InitDatable(true);
             }
         }
 
@@ -1667,7 +1843,7 @@ namespace CableTestManager.View
             var selfStudyData = (selfStudyTestFunCode + " " + SplitStringByEmpty(selfStudyString)).Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             var commandHex = ConvertByte.HexStringToByte(selfStudyCommand, selfStudyData, 0);
             SuperEasyClient.SendMessage(DeviceFunCodeEnum.RequestHead, commandHex);
-            MessageBox.Show("已发送自学习指令！", "提示", MessageBoxButtons.OK);
+            //MessageBox.Show("已发送自学习指令！", "提示", MessageBoxButtons.OK);
         }
 
         #region this is conduct test content

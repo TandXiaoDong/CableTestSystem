@@ -28,20 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn1 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
-            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn2 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
-            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn3 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
-            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn4 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
-            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn5 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
-            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn6 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
-            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn7 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
-            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn8 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
-            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn9 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
-            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn10 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
-            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn11 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
-            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn12 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
-            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn13 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
-            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn14 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition2 = new Telerik.WinControls.UI.TableViewDefinition();
             Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CMainForm));
             this.radMenuItem1 = new Telerik.WinControls.UI.RadMenuItem();
@@ -149,6 +136,8 @@
             this.telerikMetroTouchTheme1 = new Telerik.WinControls.Themes.TelerikMetroTouchTheme();
             this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
             this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
+            this.documentWindow2 = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.radGridView2 = new Telerik.WinControls.UI.RadGridView();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu2)).BeginInit();
@@ -170,8 +159,11 @@
             this.panelStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lbx_testStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radStatusStrip1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
+            this.documentWindow2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridView2.MasterTemplate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // radMenuItem1
@@ -762,7 +754,7 @@
             // 
             // radDock1
             // 
-            this.radDock1.ActiveWindow = this.toolWindow1;
+            this.radDock1.ActiveWindow = this.documentWindow2;
             this.radDock1.Controls.Add(this.toolTabStrip1);
             this.radDock1.Controls.Add(this.documentContainer2);
             this.radDock1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -841,6 +833,7 @@
             // documentTabStrip1
             // 
             this.documentTabStrip1.CanUpdateChildIndex = true;
+            this.documentTabStrip1.Controls.Add(this.documentWindow2);
             this.documentTabStrip1.Controls.Add(this.documentWindow1);
             this.documentTabStrip1.Location = new System.Drawing.Point(0, 0);
             this.documentTabStrip1.Name = "documentTabStrip1";
@@ -879,83 +872,11 @@
             // 
             // 
             // 
-            gridViewTextBoxColumn1.EnableExpressionEditor = false;
-            gridViewTextBoxColumn1.HeaderText = "序号";
-            gridViewTextBoxColumn1.Name = "column1";
-            gridViewTextBoxColumn1.Width = 88;
-            gridViewTextBoxColumn2.EnableExpressionEditor = false;
-            gridViewTextBoxColumn2.HeaderText = "起点接口";
-            gridViewTextBoxColumn2.Name = "column2";
-            gridViewTextBoxColumn2.Width = 75;
-            gridViewTextBoxColumn3.EnableExpressionEditor = false;
-            gridViewTextBoxColumn3.HeaderText = "起点接点";
-            gridViewTextBoxColumn3.Name = "column3";
-            gridViewTextBoxColumn3.Width = 84;
-            gridViewTextBoxColumn4.EnableExpressionEditor = false;
-            gridViewTextBoxColumn4.HeaderText = "终点接口";
-            gridViewTextBoxColumn4.Name = "column4";
-            gridViewTextBoxColumn4.Width = 98;
-            gridViewTextBoxColumn5.EnableExpressionEditor = false;
-            gridViewTextBoxColumn5.HeaderText = "终点接点";
-            gridViewTextBoxColumn5.Name = "column5";
-            gridViewTextBoxColumn5.Width = 102;
-            gridViewTextBoxColumn6.EnableExpressionEditor = false;
-            gridViewTextBoxColumn6.HeaderText = "导通电阻";
-            gridViewTextBoxColumn6.Name = "column6";
-            gridViewTextBoxColumn6.Width = 82;
-            gridViewTextBoxColumn7.EnableExpressionEditor = false;
-            gridViewTextBoxColumn7.HeaderText = "导通测试结果";
-            gridViewTextBoxColumn7.Name = "column7";
-            gridViewTextBoxColumn7.Width = 100;
-            gridViewTextBoxColumn8.EnableExpressionEditor = false;
-            gridViewTextBoxColumn8.HeaderText = "短路测试";
-            gridViewTextBoxColumn8.Name = "column12";
-            gridViewTextBoxColumn8.Width = 106;
-            gridViewTextBoxColumn9.EnableExpressionEditor = false;
-            gridViewTextBoxColumn9.HeaderText = "短路测试结果";
-            gridViewTextBoxColumn9.Name = "column13";
-            gridViewTextBoxColumn9.Width = 98;
-            gridViewTextBoxColumn10.EnableExpressionEditor = false;
-            gridViewTextBoxColumn10.HeaderText = "绝缘电阻";
-            gridViewTextBoxColumn10.Name = "column8";
-            gridViewTextBoxColumn10.Width = 80;
-            gridViewTextBoxColumn11.EnableExpressionEditor = false;
-            gridViewTextBoxColumn11.HeaderText = "绝缘测试结果";
-            gridViewTextBoxColumn11.Name = "column9";
-            gridViewTextBoxColumn11.Width = 100;
-            gridViewTextBoxColumn12.EnableExpressionEditor = false;
-            gridViewTextBoxColumn12.HeaderText = "耐压电流";
-            gridViewTextBoxColumn12.Name = "column10";
-            gridViewTextBoxColumn12.Width = 89;
-            gridViewTextBoxColumn13.EnableExpressionEditor = false;
-            gridViewTextBoxColumn13.HeaderText = "耐压测试结果";
-            gridViewTextBoxColumn13.Name = "column11";
-            gridViewTextBoxColumn13.Width = 106;
-            gridViewTextBoxColumn14.EnableExpressionEditor = false;
-            gridViewTextBoxColumn14.HeaderText = "测量方法";
-            gridViewTextBoxColumn14.IsVisible = false;
-            gridViewTextBoxColumn14.Name = "column14";
-            gridViewTextBoxColumn14.Width = 73;
-            this.radGridView1.MasterTemplate.Columns.AddRange(new Telerik.WinControls.UI.GridViewDataColumn[] {
-            gridViewTextBoxColumn1,
-            gridViewTextBoxColumn2,
-            gridViewTextBoxColumn3,
-            gridViewTextBoxColumn4,
-            gridViewTextBoxColumn5,
-            gridViewTextBoxColumn6,
-            gridViewTextBoxColumn7,
-            gridViewTextBoxColumn8,
-            gridViewTextBoxColumn9,
-            gridViewTextBoxColumn10,
-            gridViewTextBoxColumn11,
-            gridViewTextBoxColumn12,
-            gridViewTextBoxColumn13,
-            gridViewTextBoxColumn14});
-            this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition1;
+            this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition2;
             this.radGridView1.Name = "radGridView1";
             this.radGridView1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.radGridView1.Size = new System.Drawing.Size(1024, 375);
-            this.radGridView1.TabIndex = 7;
+            this.radGridView1.TabIndex = 8;
             this.radGridView1.ThemeName = "TelerikMetroTouch";
             // 
             // panelStatus
@@ -1077,12 +998,6 @@
             this.radLabelElement17.Text = "0条;";
             this.radLabelElement17.TextWrap = true;
             // 
-            // CMainForm
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1294, 667);
-            // 
             // radMenu1
             // 
             this.radMenu1.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -1100,6 +1015,35 @@
             this.radMenu1.Size = new System.Drawing.Size(1294, 38);
             this.radMenu1.TabIndex = 0;
             this.radMenu1.ThemeName = "MaterialBlueGrey";
+            // 
+            // documentWindow2
+            // 
+            this.documentWindow2.Controls.Add(this.radGridView2);
+            this.documentWindow2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.documentWindow2.Location = new System.Drawing.Point(4, 54);
+            this.documentWindow2.Name = "documentWindow2";
+            this.documentWindow2.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.documentWindow2.Size = new System.Drawing.Size(1024, 435);
+            this.documentWindow2.Text = "自学习";
+            // 
+            // radGridView2
+            // 
+            this.radGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radGridView2.Location = new System.Drawing.Point(0, 0);
+            // 
+            // 
+            // 
+            this.radGridView2.MasterTemplate.ViewDefinition = tableViewDefinition1;
+            this.radGridView2.Name = "radGridView2";
+            this.radGridView2.Size = new System.Drawing.Size(1024, 435);
+            this.radGridView2.TabIndex = 0;
+            this.radGridView2.ThemeName = "TelerikMetroTouch";
+            // 
+            // CMainForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1294, 667);
             this.Controls.Add(this.radDock1);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.panel1);
@@ -1141,6 +1085,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.lbx_testStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radStatusStrip1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).EndInit();
+            this.documentWindow2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radGridView2.MasterTemplate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1250,8 +1197,10 @@
         private Telerik.WinControls.UI.RadMenuItem tool_defaultTestParams;
         private Telerik.WinControls.UI.RadMenuItem tool_reportSavePath;
         private Telerik.WinControls.UI.RadMenuItem tool_reportDefaultFormat;
-        private Telerik.WinControls.UI.RadGridView radGridView1;
         private Telerik.WinControls.UI.RadPanel panelStatus;
         private Telerik.WinControls.UI.RadMenu radMenu1;
+        private Telerik.WinControls.UI.RadGridView radGridView1;
+        private Telerik.WinControls.UI.Docking.DocumentWindow documentWindow2;
+        private Telerik.WinControls.UI.RadGridView radGridView2;
     }
 }
