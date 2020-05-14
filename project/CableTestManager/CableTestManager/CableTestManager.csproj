@@ -466,6 +466,7 @@
     </Compile>
     <Compile Include="Model\CableJudgeThreshold.cs" />
     <Compile Include="Model\InterfaceLibaryInfo.cs" />
+    <Compile Include="Model\SelfStudyParams.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RadForm1.cs">

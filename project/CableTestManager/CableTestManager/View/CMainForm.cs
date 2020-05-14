@@ -27,6 +27,9 @@ using CableTestManager.Properties;
 using CableTestManager.Model;
 using CableTestManager.ClientSocket.AppBase;
 using CableTestManager.Common;
+using System.Threading.Tasks;
+using System.Threading;
+using System.Diagnostics;
 
 namespace CableTestManager.View
 {
@@ -40,6 +43,7 @@ namespace CableTestManager.View
         private CableJudgeThreshold cableJudgeThreshold;
         private TProjectBasicInfo projectInfo;
         private System.Timers.Timer sysTimer;
+
 
         private bool IsConnectServer;
         private string serviceURL = "";
@@ -72,6 +76,8 @@ namespace CableTestManager.View
         private int projectTestNumberLen = 8;
         private string startTestDate;
         private string endTestDate;
+
+        private Queue<SelfStudyParams> studyParamQueue;
 
         #region 测试项与逻辑
         /*
@@ -213,7 +219,14 @@ namespace CableTestManager.View
 
         private void CMainForm_Load(object sender, EventArgs e)
         {
-            
+            Task.Run(()=>
+            {
+                while (true)
+                {
+                    //UpdateTestSelfStudyGridView();
+                    Thread.Sleep(1);
+                }
+            });
         }
 
         public void Init()
@@ -230,6 +243,7 @@ namespace CableTestManager.View
             //this.radDock1.AddDocument(this.documentWindow1);
             InitDatable(false);
 
+            this.studyParamQueue = new Queue<SelfStudyParams>();
             this.projectInfoManager = new TProjectBasicInfoManager();
             this.historyDataInfoManager = new THistoryDataBasicManager();
             this.historyDataDetailManager = new THistoryDataDetailManager();
@@ -338,8 +352,21 @@ namespace CableTestManager.View
             this.sysTimer.Elapsed += SysTimer_Elapsed;
             this.SizeChanged += CMainForm_SizeChanged;
 
+            this.radGridView2.CellValueNeeded += RadGridView2_CellValueNeeded;
+            this.radGridView2.CellValuePushed += RadGridView2_CellValuePushed;
+
             SuperEasyClient.NoticeConnectEvent += SuperEasyClient_NoticeConnectEvent;
             SuperEasyClient.NoticeMessageEvent += SuperEasyClient_NoticeMessageEvent;
+        }
+
+        private void RadGridView2_CellValuePushed(object sender, GridViewCellValueEventArgs e)
+        {
+            
+        }
+
+        private void RadGridView2_CellValueNeeded(object sender, GridViewCellValueEventArgs e)
+        {
+            
         }
 
         private void CMainForm_SizeChanged(object sender, EventArgs e)
@@ -436,7 +463,13 @@ namespace CableTestManager.View
                     selfStudyResult = "合格";
                 else
                     selfStudyResult = "不合格";
-                UpdateTestSelfStudyGridView(startInterPoint, endInterPoint, calResult.ToString("f2"),selfStudyResult);
+                SelfStudyParams studyParams = new SelfStudyParams();
+                studyParams.StartPoint = startInterPoint;
+                studyParams.EndPoint = endInterPoint;
+                studyParams.TestResultVal = calResult.ToString("f2");
+                studyParams.TestReulst = selfStudyResult;
+                this.studyParamQueue.Enqueue(studyParams);
+                UpdateTestSelfStudyGridView();
             }
             else if (packageInfo.Data[4] == 0xf1 && packageInfo.Data[5] == 0xcc)//自学习结束
             {
@@ -661,32 +694,47 @@ namespace CableTestManager.View
             }
         }
 
-        private void UpdateTestSelfStudyGridView(string startPoint,string endPoint,string testResultVal,string testResult)
+        /* 数据刷新：缓存数据，判断数据大小，数据量大时启用虚模式刷新 */
+        private void UpdateTestSelfStudyGridView()
         {
-            if (IsGridView2Exist(startPoint, endPoint))
-                return;
-            this.Invoke(new Action(() =>
+            //if (IsGridView2Exist(startPoint, endPoint))
+            //    return;
+            //100
+
+            if (this.studyParamQueue.Count > 0)
             {
-                this.radGridView2.BeginEdit();
-                this.radGridView2.Rows.AddNew();
-                var rCount = this.radGridView2.RowCount;
-                this.radGridView2.Rows[rCount - 1].Cells[0].Value = rCount;
-                this.radGridView2.Rows[rCount - 1].Cells[1].Value = startPoint;
-                this.radGridView2.Rows[rCount - 1].Cells[2].Value = endPoint;
-                this.radGridView2.Rows[rCount - 1].Cells[3].Value = testResultVal;
-                this.radGridView2.Rows[rCount - 1].Cells[4].Value = testResult;
-                this.radGridView2.CurrentRow = this.radGridView2.Rows[rCount - 1];
-                if (testResult == "合格")
+                var selfStudyObj = this.studyParamQueue.Dequeue();
+                string startPoint = selfStudyObj.StartPoint;
+                string endPoint = selfStudyObj.EndPoint;
+                string testResultVal = selfStudyObj.TestResultVal;
+                string testResult = selfStudyObj.TestReulst;
+
+                this.Invoke(new Action(() =>
                 {
-                    RadGridViewProperties.SetRadGridViewStyle(this.radGridView2, this.radGridView2.ColumnCount, RadGridViewProperties.GridViewRecordEnum.Qualification);
-                }
-                else if (testResult == "不合格")
-                {
-                    RadGridViewProperties.SetRadGridViewStyle(this.radGridView2, this.radGridView2.ColumnCount, RadGridViewProperties.GridViewRecordEnum.Disqualification);
-                }
-                this.radGridView1.EndEdit();
-            }));
+                    this.radGridView2.BeginEdit();
+                    this.radGridView2.Rows.AddNew();
+                    var rCount = this.radGridView2.RowCount;
+                    this.radGridView2.Rows[rCount - 1].Cells[0].Value = rCount;
+                    this.radGridView2.Rows[rCount - 1].Cells[1].Value = startPoint;
+                    this.radGridView2.Rows[rCount - 1].Cells[2].Value = endPoint;
+                    this.radGridView2.Rows[rCount - 1].Cells[3].Value = testResultVal;
+                    this.radGridView2.Rows[rCount - 1].Cells[4].Value = testResult;
+                    this.radGridView2.CurrentRow = this.radGridView2.Rows[rCount - 1];
+                    if (testResult == "合格")
+                    {
+                        RadGridViewProperties.SetRadGridViewStyle(this.radGridView2, this.radGridView2.ColumnCount, RadGridViewProperties.GridViewRecordEnum.Qualification);
+                    }
+                    else if (testResult == "不合格")
+                    {
+                        RadGridViewProperties.SetRadGridViewStyle(this.radGridView2, this.radGridView2.ColumnCount, RadGridViewProperties.GridViewRecordEnum.Disqualification);
+                    }
+                    this.radGridView2.EndEdit();
+                }));
+                Application.DoEvents();
+            }
         }
+
+        
 
         private bool IsGridView2Exist(string startPoint, string endPoint)
         {
@@ -1795,7 +1843,7 @@ namespace CableTestManager.View
             var selfStudyData = (selfStudyTestFunCode + " " + SplitStringByEmpty(selfStudyString)).Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             var commandHex = ConvertByte.HexStringToByte(selfStudyCommand, selfStudyData, 0);
             SuperEasyClient.SendMessage(DeviceFunCodeEnum.RequestHead, commandHex);
-            MessageBox.Show("已发送自学习指令！", "提示", MessageBoxButtons.OK);
+            //MessageBox.Show("已发送自学习指令！", "提示", MessageBoxButtons.OK);
         }
 
         #region this is conduct test content
