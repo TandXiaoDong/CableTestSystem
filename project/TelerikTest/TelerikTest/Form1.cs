@@ -15,106 +15,93 @@ namespace TelerikTest
 {
     public partial class Form1 : Form
     {
+        List<ListViewItem> listViewItems;
+        private List<ListViewItem> cacheListViewSourceCompleteCh1;
         public Form1()
         {
             InitializeComponent();
         }
-        private DataTable selfStudyData;
-
-
-        List<CarPart> data = new List<CarPart>();
-        private string[] columnNames = new string[]
-        {
-    "Name",
-    "Make",
-    "PartId"
-        };
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            for (int i = 0; i < 1000000; i++)
-            {
-                data.Add(new CarPart()
-                {
-                    Name = "Name " + i,
-                    Make = "Tesla",
-                    PartID = i
-                });
-            }
-            this.radGridView1.VirtualMode = true;
-            this.radGridView1.CellValueNeeded += RadGridView1_CellValueNeeded; ;
-            this.radGridView1.CellValuePushed += RadGridView1_CellValuePushed; ;
-            this.radGridView1.ColumnCount = columnNames.Length;
-            this.radGridView1.RowCount = data.Count;
+            listViewItems = new List<ListViewItem>();
+            cacheListViewSourceCompleteCh1 = new List<ListViewItem>();
+
+            this.listView1.Columns.Add("ID");
+            this.listView1.Columns.Add("Name");
+
+            this.listView1.GridLines = false;
+            this.listView1.FullRowSelect = true;
+            this.listView1.View = View.Details;
+            this.listView1.Scrollable = true;
+            this.listView1.MultiSelect = false;
+            this.listView1.HeaderStyle = ColumnHeaderStyle.Clickable;
+
+            this.listView1.Columns[0].Width = this.listView1.Width / 9 - 10;
+            this.listView1.Columns[1].Width = this.listView1.Width / 9 - 10;
+
+            this.listView1.VirtualMode = true;
+
+            this.listView1.RetrieveVirtualItem += ListView1_RetrieveVirtualItem;
         }
 
-        private void RadGridView1_CellValuePushed(object sender, GridViewCellValueEventArgs e)
+        private void ListView1_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
-            switch (e.ColumnIndex)
+            if (this.listViewItems == null || this.listViewItems.Count == 0)
             {
-                case 0:
-                    data[e.RowIndex].Name = e.Value.ToString();
-                    break;
-                case 1:
-                    data[e.RowIndex].Make = e.Value.ToString();
-                    break;
-                case 2:
-                    data[e.RowIndex].PartID = Convert.ToInt32(e.Value.ToString());
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private void RadGridView1_CellValueNeeded(object sender, GridViewCellValueEventArgs e)
-        {
-            if (e.ColumnIndex < 0)
                 return;
+            }
+            ListViewItem lv = this.listViewItems[e.ItemIndex];
+            e.Item = lv;
+        }
 
-            if (e.RowIndex == RadVirtualGrid.HeaderRowIndex)
+        private int cacheActualCountCompleteCh2;
+        private int cacheCountCh2 = 1;
+        private void CacheListViewUpdateSinalCh2(string id,string name)
+        {
+            this.Invoke(new Action(() =>
             {
-                e.Value = columnNames[e.ColumnIndex];
-            }
-            if (e.RowIndex >= 0 && e.RowIndex < data.Count)
+                ListViewItem listViewItem = new ListViewItem();
+                List<string> list = new List<string>();
+                //listViewItem.Text = (channelDataCh2.RevCount + 1).ToString();
+                listViewItem.Text = id;
+                list.Add(name);
+
+                listViewItem.SubItems.AddRange(list.ToArray());
+
+                this.listViewItems.Add(listViewItem);
+                ReSetCompleteCh2(this.listViewItems);
+                if (cacheCountCh2 == 100)
+                {
+                    //ReSetCompleteCh2(this.listViewItems);
+                    //this.listView1.Items[this.listView1.Items.Count - 1].EnsureVisible();
+                    //cacheCountCh2 = 0;
+                }
+                cacheCountCh2++;
+            }));
+        }
+
+
+        public void ReSetCompleteCh2(IList<ListViewItem> list)
+        {
+            //this.listView1.VirtualMode = true;
+            foreach (var item in list)
             {
-                e.Value = data[e.RowIndex][e.ColumnIndex];
+                //this.cacheListViewSourceCompleteCh1.Add(item);
+                //cacheActualCountCompleteCh2++;
             }
+
+            //this.listViewItems.Clear();
+            this.listView1.VirtualListSize = this.listViewItems.Count;//this.cacheListViewSourceCompleteCh1.Count;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            CarPart carPart = new CarPart();
-            carPart.Make = "make";
-            carPart.Name = "name";
-            carPart.PartID = 999;
-            data.Add(carPart);
-        }
-    }
-
-    public class CarPart
-    {
-        public string Name { get; set; }
-
-        public string Make { get; set; }
-
-        public int PartID { get; set; }
-
-        public string this[int i]
-        {
-            get
+            for (int i = 0;i < 100;i++)
             {
-                switch (i)
-                {
-                    case 0:
-                        return Name;
-                    case 1:
-                        return Make;
-                    case 2:
-                        return PartID.ToString();
-                    default:
-                        return string.Empty;
-                }
+                CacheListViewUpdateSinalCh2(i.ToString(),"name_"+i);
             }
         }
     }
+
 }

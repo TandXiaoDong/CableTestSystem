@@ -143,9 +143,9 @@
             // 
             this.radLabel2.Location = new System.Drawing.Point(270, 47);
             this.radLabel2.Name = "radLabel2";
-            this.radLabel2.Size = new System.Drawing.Size(53, 21);
+            this.radLabel2.Size = new System.Drawing.Size(45, 21);
             this.radLabel2.TabIndex = 1;
-            this.radLabel2.Text = "1-1024";
+            this.radLabel2.Text = "0-384";
             this.radLabel2.ThemeName = "MaterialBlueGrey";
             // 
             // btn_allStudyByPin
