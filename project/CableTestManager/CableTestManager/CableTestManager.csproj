@@ -465,6 +465,7 @@
       <DependentUpon>Helper.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\CableJudgeThreshold.cs" />
+    <Compile Include="Model\CableTestParams.cs" />
     <Compile Include="Model\InterfaceLibaryInfo.cs" />
     <Compile Include="Model\SelfStudyParams.cs" />
     <Compile Include="Program.cs" />
