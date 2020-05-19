@@ -426,6 +426,9 @@
     <Compile Include="ClientSocket\SuperSocketServer\SocketServerControl.cs" />
     <Compile Include="ClientSocket\SuperSocketServer\StartServerOfConfig.cs" />
     <Compile Include="ClientSocket\SuperSocketServer\SuperSocketConfig.cs" />
+    <Compile Include="Common\DoubleBufferListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Common\TablePrimaryKey.cs" />
     <Compile Include="CUserManager\OperatorLog.cs">
       <SubType>Form</SubType>
@@ -849,6 +852,12 @@
     <Compile Include="View\VSelfStydy\frmSefStudy.Designer.cs">
       <DependentUpon>frmSefStudy.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\VSelfStydy\ImportCableLibrary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VSelfStydy\ImportCableLibrary.Designer.cs">
+      <DependentUpon>ImportCableLibrary.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\VSelfStydy\SeftTest.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1133,6 +1142,9 @@
     <EmbeddedResource Include="View\VSelfStydy\frmSefStudy.resx">
       <DependentUpon>frmSefStudy.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\VSelfStydy\ImportCableLibrary.resx">
+      <DependentUpon>ImportCableLibrary.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\VSelfStydy\SeftTest.resx">
       <DependentUpon>SeftTest.cs</DependentUpon>
     </EmbeddedResource>
@@ -1278,6 +1290,8 @@
     <None Include="Resources\password %283%29.png" />
     <None Include="Resources\user %285%29.png" />
     <None Include="Resources\fg.png" />
+    <None Include="Resources\import.png" />
+    <None Include="Resources\import32.png" />
     <Content Include="需求梳理.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

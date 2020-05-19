@@ -208,13 +208,12 @@ namespace CableTestManager.View
         private const string selfStudyTestFunCode = "F1 AA";
         #endregion
 
-        //private DoubleBufferListView listViewSelfStudy;
+        private DoubleBufferListView listViewSelfStudy;
         private double selfStudyThreshold;//自学习设定的标准值
+        private List<ListViewItem> selfStudyListView;
+        private List<ListViewItem> cableTestListView;
         private List<SelfStudyParams> studyParamList;
         private List<CableTestParams> cableTestPramsList;
-        private DataTable dataSourceSelfStudy,dataSourceCableTest;
-        private bool IsFirstSetGridDTStyle;
-        private bool IsFirstSetGridUnDTStyle;
 
         public CMainForm()
         {
@@ -237,12 +236,14 @@ namespace CableTestManager.View
             //this.WindowState = FormWindowState.Maximized;
             //this.radDock1.DocumentTabsVisible = false;
             this.radDock1.RemoveAllDocumentWindows();
+            //this.radDock1.AddDocument(this.documentWindow1);
             InitDatable(false);
 
-            //this.listViewSelfStudy = new DoubleBufferListView();
-            //this.panelView.Controls.Add(this.listViewSelfStudy);
-            //this.listViewSelfStudy.Dock = DockStyle.Fill;
-
+            this.listViewSelfStudy = new DoubleBufferListView();
+            this.panelView.Controls.Add(this.listViewSelfStudy);
+            this.listViewSelfStudy.Dock = DockStyle.Fill;
+            this.selfStudyListView = new List<ListViewItem>();
+            this.cableTestListView = new List<ListViewItem>();
             this.studyParamList = new List<SelfStudyParams>();
             this.cableTestPramsList = new List<CableTestParams>();
             this.projectInfoManager = new TProjectBasicInfoManager();
@@ -250,7 +251,7 @@ namespace CableTestManager.View
             this.historyDataDetailManager = new THistoryDataDetailManager();
             lineStructLibraryDetailManager = new TCableTestLibraryManager();
             refreshDataTimer = new System.Timers.Timer();
-            refreshDataTimer.Interval = 5;
+            refreshDataTimer.Interval = 500;
             refreshDataTimer.AutoReset = true;
 
             projectInfo = new TProjectBasicInfo();
@@ -276,44 +277,73 @@ namespace CableTestManager.View
         {
             if (IsSelfStudy)
             {
-                if (this.radGridView1.Columns.Count > 0)
+                if (this.listViewSelfStudy.Columns.Count > 0)
                     return;
-                this.dataSourceSelfStudy = new DataTable();
-                this.dataSourceSelfStudy.Columns.Add("序号");
-                this.dataSourceSelfStudy.Columns.Add("起点接点");
-                this.dataSourceSelfStudy.Columns.Add("终点接点");
-                this.dataSourceSelfStudy.Columns.Add("测量值(Ω)");
-                this.dataSourceSelfStudy.Columns.Add("测量结果");
-                this.radGridView1.DataSource = this.dataSourceSelfStudy;
-                RadGridViewProperties.SetRadGridViewProperty(this.radGridView1,false,true,0);
+                this.listViewSelfStudy.Columns.Add("序号");
+                this.listViewSelfStudy.Columns.Add("起点接点");
+                this.listViewSelfStudy.Columns.Add("终点接点");
+                this.listViewSelfStudy.Columns.Add("测量值(Ω)");
+                this.listViewSelfStudy.Columns.Add("测量结果");
+
+                this.listViewSelfStudy.GridLines = false;
+                this.listViewSelfStudy.FullRowSelect = true;
+                this.listViewSelfStudy.View = System.Windows.Forms.View.Details;
+                this.listViewSelfStudy.Scrollable = true;
+                this.listViewSelfStudy.MultiSelect = false;
+                this.listViewSelfStudy.HeaderStyle = ColumnHeaderStyle.Clickable;
+
+                SetListViewSize();
+                this.listViewSelfStudy.Font = new Font("宋体", 14f, FontStyle.Regular);
+
+                this.listViewSelfStudy.VirtualMode = true;
             }
             else
             {
-                if (this.radGridView2.Columns.Count > 0)
-                    return;
-                this.dataSourceCableTest = new DataTable();
-                this.dataSourceCableTest.Columns.Add("序号");
-                this.dataSourceCableTest.Columns.Add("起点接口");
-                this.dataSourceCableTest.Columns.Add("起点接点");
-                this.dataSourceCableTest.Columns.Add("终点接口");
-                this.dataSourceCableTest.Columns.Add("终点接点");
-                this.dataSourceCableTest.Columns.Add("导通电阻(Ω)");
-                this.dataSourceCableTest.Columns.Add("导通测试结果");
-                this.dataSourceCableTest.Columns.Add("短路测试(Ω)");
-                this.dataSourceCableTest.Columns.Add("短路测试结果");
-                this.dataSourceCableTest.Columns.Add("绝缘电阻(Ω)");
-                this.dataSourceCableTest.Columns.Add("绝缘测试结果");
-                this.dataSourceCableTest.Columns.Add("耐压电流(Ω)");
-                this.dataSourceCableTest.Columns.Add("耐压测试结果");
-                this.dataSourceCableTest.Columns.Add("testMethod");
-                
-                this.radGridView2.DataSource = this.dataSourceCableTest;
-                this.radGridView2.Columns[11].IsVisible = false;
-                this.radGridView2.Columns[12].IsVisible = false;
-                this.radGridView2.Columns[13].IsVisible = false;
-                RadGridViewProperties.SetRadGridViewProperty(this.radGridView2, false, true, 0);
-                this.radGridView2.Columns[0].BestFit();
+                this.listViewCableTest.Columns.Add("序号");
+                this.listViewCableTest.Columns.Add("起点接口");
+                this.listViewCableTest.Columns.Add("起点接点");
+                this.listViewCableTest.Columns.Add("终点接口");
+                this.listViewCableTest.Columns.Add("终点接点");
+                this.listViewCableTest.Columns.Add("导通电阻(Ω)");
+                this.listViewCableTest.Columns.Add("导通测试结果");
+                this.listViewCableTest.Columns.Add("短路测试(Ω)");
+                this.listViewCableTest.Columns.Add("短路测试结果");
+                this.listViewCableTest.Columns.Add("绝缘电阻(Ω)");
+                this.listViewCableTest.Columns.Add("绝缘测试结果");
+                this.listViewCableTest.Columns.Add("耐压电流(Ω)");
+                this.listViewCableTest.Columns.Add("耐压测试结果");
+                this.listViewCableTest.Columns.Add("testMethod");
+
+                this.listViewCableTest.GridLines = false;
+                this.listViewCableTest.FullRowSelect = true;
+                this.listViewCableTest.View = System.Windows.Forms.View.Details;
+                this.listViewCableTest.Scrollable = true;
+                this.listViewCableTest.BackColor = Color.Azure;
+                this.listViewCableTest.MultiSelect = false;
+                this.listViewCableTest.HeaderStyle = ColumnHeaderStyle.Clickable;
+                this.listViewCableTest.GridLines = true;
+                this.listViewCableTest.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                this.listViewCableTest.Columns[11].Width = 0;
+                this.listViewCableTest.Columns[12].Width = 0;
+                this.listViewCableTest.Columns[13].Width = 0;
+
+                this.listViewCableTest.Font = new Font("宋体", 14f, FontStyle.Regular);
+
+                this.listViewCableTest.VirtualMode = false;
             }
+        }
+
+        private void SetListViewSize()
+        {
+            if (this.listViewSelfStudy == null)
+                return;
+            if (this.listViewSelfStudy.Columns.Count <= 0)
+                return;
+            this.listViewSelfStudy.Columns[0].Width = this.listViewSelfStudy.Width / 5;
+            this.listViewSelfStudy.Columns[1].Width = this.listViewSelfStudy.Width / 5;
+            this.listViewSelfStudy.Columns[2].Width = this.listViewSelfStudy.Width / 5;
+            this.listViewSelfStudy.Columns[3].Width = this.listViewSelfStudy.Width / 5;
+            this.listViewSelfStudy.Columns[4].Width = this.listViewSelfStudy.Width / 5;
         }
 
         private void EventHandles()
@@ -328,8 +358,6 @@ namespace CableTestManager.View
             this.tool_SelfStudy.Click += Tool_SelfStudy_Click;
             this.tool_Probe.Click += Tool_Probe_Click;
             this.tool_testEnvironment.Click += Tool_testEnvironment_Click;
-            this.tool_clearSelfGrid.Click += Tool_clearSelfGrid_Click;
-            this.tool_importCableLib.Click += Tool_importCableLib_Click;
             #endregion
 
             #region menu event
@@ -355,7 +383,6 @@ namespace CableTestManager.View
             this.menu_devSelfCheck.Click += Menu_devSelfCheck_Click;
             this.menu_faultCode.Click += Menu_faultCode_Click;
             this.menu_historyData.Click += Menu_historyData_Click;
-            this.menu_PrintReport.Click += Menu_PrintReport_Click;
             #endregion
 
             this.FormClosed += CMainForm_FormClosed;
@@ -364,61 +391,11 @@ namespace CableTestManager.View
             this.SizeChanged += CMainForm_SizeChanged;
             this.refreshDataTimer.Elapsed += RefreshDataTimer_Elapsed;
 
+            this.listViewSelfStudy.RetrieveVirtualItem += ListViewSelfStudy_RetrieveVirtualItem;
+            this.listViewCableTest.RetrieveVirtualItem += ListViewCableTest_RetrieveVirtualItem;
+
             SuperEasyClient.NoticeConnectEvent += SuperEasyClient_NoticeConnectEvent;
             SuperEasyClient.NoticeMessageEvent += SuperEasyClient_NoticeMessageEvent;
-        }
-
-        private void Tool_importCableLib_Click(object sender, EventArgs e)
-        {
-            if (this.radGridView1.RowCount < 1)
-            {
-                MessageBox.Show("没有可以导入的数据！","提示",MessageBoxButtons.OK);
-                return;
-            }
-            ImportCableLibrary importCableLibrary = new ImportCableLibrary();
-            if (importCableLibrary.ShowDialog() == DialogResult.OK)
-            {
-                int iRow = 0;
-                foreach (var rowInfo in this.radGridView1.Rows)
-                {
-                    if (rowInfo.Cells[4].Value.ToString() == "不导通")
-                        continue;
-                    else if (rowInfo.Cells[4].Value.ToString() == "导通")
-                    {
-                        TCableTestLibrary cableTestLibrary = new TCableTestLibrary();
-                        cableTestLibrary.CableName = importCableLibrary.cableLibName;
-                        cableTestLibrary.MeasureMethod = importCableLibrary.testMethod + "";
-                        int startPoint, endPoint;
-                        if (!int.TryParse(rowInfo.Cells[1].Value.ToString(), out startPoint))
-                            continue;
-                        if(!int.TryParse(rowInfo.Cells[2].Value.ToString(), out endPoint))
-                            continue;
-                        cableTestLibrary.StartContactPoint = startPoint.ToString();
-                        cableTestLibrary.EndContactPoint = endPoint.ToString();
-                        this.lineStructLibraryDetailManager.Insert(cableTestLibrary);
-                        iRow++;
-                    }
-                }
-                if (iRow > 0)
-                {
-                    MessageBox.Show($"导入完成，总共导入{iRow}组接点", "提示", MessageBoxButtons.OK);
-                }
-                else
-                {
-                    MessageBox.Show($"没有可导入的有效接点！", "提示", MessageBoxButtons.OK);
-                }
-            }
-        }
-
-        private void Menu_PrintReport_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void Tool_clearSelfGrid_Click(object sender, EventArgs e)
-        {
-            this.dataSourceSelfStudy.Rows.Clear();
-            this.radGridView1.DataSource = this.dataSourceSelfStudy;
         }
 
         private void RefreshDataTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -426,10 +403,36 @@ namespace CableTestManager.View
             UpdateTestSelfStudyGridView();
             UpdateTestResultByTestPoint();
         }
+
+        private void ListViewCableTest_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
+        {
+            if (this.cableTestListView == null || this.cableTestListView.Count == 0)
+            {
+                return;
+            }
+            ListViewItem lv = this.cableTestListView[e.ItemIndex];
+            e.Item = lv;
+        }
+
+        private void ListViewSelfStudy_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
+        {
+            if (this.selfStudyListView == null || this.selfStudyListView.Count == 0)
+            {
+                return;
+            }
+            ListViewItem lv = this.selfStudyListView[e.ItemIndex];
+            e.Item = lv;
+        }
+
        
+
         private void CMainForm_SizeChanged(object sender, EventArgs e)
         {
-            
+            SetListViewSize();
+            this.listViewCableTest.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            this.listViewCableTest.Columns[11].Width = 0;
+            this.listViewCableTest.Columns[12].Width = 0;
+            this.listViewCableTest.Columns[13].Width = 0;
         }
 
         private void Tool_testEnvironment_Click(object sender, EventArgs e)
@@ -756,10 +759,13 @@ namespace CableTestManager.View
             {
                 if (this.studyParamList.Count <= 0)
                     return;
+                this.listViewCableTest.VirtualMode = true;
                 this.Invoke(new Action(() =>
                 {
+
                     int count = this.studyParamList.Count;
-                    this.radGridView1.BeginEdit();
+                    int i = 0;
+                    this.listViewSelfStudy.BeginUpdate();
                     foreach (var selfParams in this.studyParamList)
                     {
                         var startPoint = selfParams.StartPoint;
@@ -767,105 +773,114 @@ namespace CableTestManager.View
                         var testResultVal = selfParams.TestResultVal;
                         var testResult = selfParams.TestReulst;
                         if (IsGridView2Exist(startPoint, endPoint))
-                            continue;
-                        DataRow dr = this.dataSourceSelfStudy.NewRow();
-                        var rCount = this.radGridView1.RowCount;
-                        dr[0] = rCount + 1;
-                        dr[1] = startPoint;
-                        dr[2] = endPoint;
-                        dr[3] = testResultVal;
-                        dr[4] = testResult;
-                        this.dataSourceSelfStudy.Rows.Add(dr);
-                        SetGridStyleByTestValue(testResult);
+                            ;//continue;
+                        var currentRowIndex = this.listViewSelfStudy.Items.Count + i;
+                        ListViewItem listViewItem = new ListViewItem();
+                        listViewItem.Text = (currentRowIndex + 1).ToString();
+                        listViewItem.SubItems.AddRange(new string[] { startPoint, endPoint, testResultVal, testResult });
+
+                        listViewItem.UseItemStyleForSubItems = false;
+                        if (testResult == "导通")
+                        {
+                            listViewItem.SubItems[4].BackColor = Color.Blue;
+                        }
+                        else if (testResult == "不导通")
+                        {
+                            listViewItem.SubItems[4].BackColor = Color.Red;
+                        }
+                        this.selfStudyListView.Add(listViewItem);
+                        i++;
                     }
-                    this.radGridView1.DataSource = this.dataSourceSelfStudy;
-                    this.radGridView1.CurrentRow = this.radGridView1.Rows[this.radGridView1.RowCount - 1];
+
                     this.studyParamList.RemoveRange(0, count);
-                    this.radGridView1.EndEdit();
+                    if (i > 0)
+                    {
+                        this.listViewSelfStudy.VirtualListSize = this.listViewSelfStudy.Items.Count + i;
+                        this.listViewSelfStudy.Items[this.listViewSelfStudy.Items.Count - 1].EnsureVisible();
+                    }
+                    this.listViewSelfStudy.EndUpdate();
+
                     this.refreshDataTimer.Enabled = false;
                 }));
-            }
-        }
-
-        private void SetGridStyleByTestValue(string testResult)
-        {
-            if (!IsFirstSetGridDTStyle)
-            {
-                if (testResult == "导通")
-                {
-                    RadGridViewProperties.SetRadGridViewStyle(this.radGridView1, 4, RadGridViewProperties.GridViewRecordEnum.Qualification);
-                    this.IsFirstSetGridDTStyle = true;
-                }
-            }
-            if (!IsFirstSetGridUnDTStyle)
-            {
-                if (testResult == "不导通")
-                {
-                    RadGridViewProperties.SetRadGridViewStyle(this.radGridView1, 4, RadGridViewProperties.GridViewRecordEnum.Disqualification);
-                    this.IsFirstSetGridUnDTStyle = true;
-                }
             }
         }
 
         private void UpdateTestResultByTestPoint()
         {
-            lock (this)
+            if (this.cableTestPramsList.Count <= 0)
+                return;
+            this.Invoke(new Action(()=> 
             {
-                if (this.cableTestPramsList.Count <= 0)
-                    return;
-                this.Invoke(new Action(() =>
+                int count = this.cableTestPramsList.Count;
+                int iRow = 0;
+                this.listViewCableTest.BeginUpdate();
+                foreach (var cableTestParams in this.cableTestPramsList)
                 {
-                    int count = this.cableTestPramsList.Count;
-                    int iRow = 0;
-                    this.radGridView2.BeginEdit();
-                    foreach (var cableTestParams in this.cableTestPramsList)
+                    var startPoint = cableTestParams.StartPoint;
+                    var endPoint = cableTestParams.EndPoint;
+                    var testResultVal = cableTestParams.TestResultVal;
+                    var testResult = cableTestParams.TestReulst;
+
+                    for (int i = 0; i < this.listViewCableTest.Items.Count; i++)
                     {
-                        var startPoint = cableTestParams.StartPoint;
-                        var endPoint = cableTestParams.EndPoint;
-                        var testResultVal = cableTestParams.TestResultVal;
-                        var testResult = cableTestParams.TestReulst;
-
-                        foreach (DataRow rowInfo in this.dataSourceCableTest.Rows)
+                        var lv = this.listViewSelfStudy.Items[i];
+                        var sp = lv.SubItems[2].Text.PadLeft(4, '0');
+                        var ep = lv.SubItems[4].Text.PadLeft(4, '0');
+                        if (sp == startPoint && ep == endPoint)
                         {
-                            var sp = rowInfo[2].ToString().PadLeft(4, '0');
-                            var ep = rowInfo[4].ToString().PadLeft(4, '0');
-                            if (sp == startPoint && ep == endPoint)
-                            {
-                                //更新测试记录
-                                rowInfo[cableTestParams.StartIndex] = testResultVal;
-                                rowInfo[cableTestParams.StartIndex + 1] = testResult;
+                            //更新测试记录
+                            lv.SubItems[cableTestParams.StartIndex].Text = testResultVal;
+                            lv.SubItems[cableTestParams.StartIndex + 1].Text = testResult;
 
-                                if (testResult == "导通")
-                                {
-                                    RadGridViewProperties.SetRadGridViewStyle(this.radGridView2, cableTestParams.StartIndex + 1, RadGridViewProperties.GridViewRecordEnum.Qualification);
-                                }
-                                else if (testResult == "不导通")
-                                {
-                                    RadGridViewProperties.SetRadGridViewStyle(this.radGridView2, cableTestParams.StartIndex + 1, RadGridViewProperties.GridViewRecordEnum.Disqualification);
-                                }
-                                iRow++;
+                            lv.UseItemStyleForSubItems = false;
+                            if (testResult == "导通")
+                            {
+                                lv.SubItems[4].BackColor = Color.Blue;
                             }
+                            else if (testResult == "不导通")
+                            {
+                                lv.SubItems[4].BackColor = Color.Red;
+                            }
+                            iRow++;
                         }
                     }
-                    this.radGridView2.DataSource = this.dataSourceCableTest;
-                    this.radGridView2.CurrentRow = this.radGridView2.Rows[this.radGridView2.RowCount - 1];
-                    this.cableTestPramsList.RemoveRange(0, count);
-                    this.radGridView2.EndEdit();
-                    this.refreshDataTimer.Enabled = false;
-                }));
-            }
+                }
+                this.listViewCableTest.VirtualListSize = this.listViewCableTest.Items.Count + iRow;
+                this.listViewCableTest.Items[this.listViewCableTest.Items.Count - 1].EnsureVisible();
+                this.cableTestPramsList.RemoveRange(0, count);
+                this.listViewCableTest.EndUpdate();
+            }));
         }
 
         private bool IsGridView2Exist(string startPoint, string endPoint)
         {
-            if (this.radGridView1.RowCount < 1)
-                return false;
-            foreach (var rowInfo in this.radGridView1.Rows)
+            if (this.listViewSelfStudy.Items.Count < 1)
             {
-                if (rowInfo.Cells[1].Value != null && rowInfo.Cells[2].Value != null)
+                return false;
+            }
+            for (int i = 0;i<this.listViewSelfStudy.Items.Count;i++)
+            {
+                var lv = this.listViewSelfStudy.Items[i];
+                var sp = lv.SubItems[1].Text;
+                var ep = lv.SubItems[2].Text;
+                if (sp == startPoint && ep == endPoint)
+                    return true;
+            }
+            return false;
+        }
+
+        private bool IsGridViewCableTestExist(string startPoint, string endPoint)
+        {
+            if (this.listViewSelfStudy.Items.Count < 1)
+            {
+                return false;
+            }
+            for (int i = 0; i < this.listViewSelfStudy.Items.Count; i++)
+            {
+                var lv = this.listViewSelfStudy.Items[i];
+                if (lv.SubItems[2].Text.PadLeft(4, '0') == startPoint && lv.SubItems[4].Text.PadLeft(4, '0') == endPoint)
                 {
-                    if (rowInfo.Cells[1].Value.ToString() == startPoint && rowInfo.Cells[2].Value.ToString() == endPoint)
-                        return true;
+                    return true;
                 }
             }
             return false;
@@ -959,7 +974,6 @@ namespace CableTestManager.View
 
                             break;
                         case PROJECT_OPEN_TEST:
-                            this.radDock1.RemoveAllDocumentWindows();
                             this.radDock1.AddDocument(this.documentWindow1);
                             this.currentTestProject = projectName;
                             QueryTestInfoByProjectName(projectName);
@@ -1189,10 +1203,10 @@ namespace CableTestManager.View
                     Convert.ToString(studyMaxByPin, 16).PadLeft(4, '0') + FloatConvert.FloatConvertByte(conductThresholdByPin);
                 SendSelfStudyCommand(selftStudyString);
                 this.selfStudyThreshold = sefStudy.conductThresholdByPin;
-                this.radDock1.RemoveAllDocumentWindows();
                 this.radDock1.AddDocument(this.documentWindow2);
                 InitDatable(true);
             }
+            UpdateTestSelfStudyGridView();
         }
 
         private void Tool_ConnectDevice_Click(object sender, EventArgs e)
@@ -1356,7 +1370,7 @@ namespace CableTestManager.View
         {
             System.Threading.Tasks.Task task = new System.Threading.Tasks.Task(() =>
             {
-                if (this.radGridView2.Rows.Count < 1)
+                if (this.listViewCableTest.Items.Count < 1)
                     return;
                 if (!IsExistTestRecore())//没有测试记录
                 return;
@@ -1418,32 +1432,33 @@ namespace CableTestManager.View
             #endregion
 
             #region project test detail info
-            foreach (var lv in this.radGridView2.Rows)
+            for (int i = 0;i < this.listViewCableTest.Items.Count;i++)
             {
+                    var lv = this.listViewCableTest.Items[i];
                     THistoryDataDetail historyDataDetail = new THistoryDataDetail();
                 historyDataDetail.ID = TablePrimaryKey.InsertHistoryDetailPID();
                 historyDataDetail.TestSerialNumber = this.projectTestNumber.ToString();
                 historyDataDetail.ProjectName = this.currentTestProject;
-                if (lv.Cells[1].Value != null)
-                    historyDataDetail.StartInterface = lv.Cells[1].Value.ToString();
-                if (lv.Cells[2].Value != null)
-                    historyDataDetail.StartContactPoint = lv.Cells[2].Value.ToString();
-                if (lv.Cells[3].Value != null)
-                    historyDataDetail.EndInterface = lv.Cells[3].Value.ToString();
-                if (lv.Cells[4].Value != null)
-                    historyDataDetail.EndContactPoint = lv.Cells[4].Value.ToString();
-                if(lv.Cells[5].Value != null)
-                    historyDataDetail.ConductValue = lv.Cells[5].Value.ToString();
-                if(lv.Cells[6].Value != null)
-                    historyDataDetail.ConductTestResult = lv.Cells[6].Value.ToString();
-                if(lv.Cells[7].Value != null)
-                    historyDataDetail.InsulateValue = lv.Cells[7].Value.ToString();
-                if (lv.Cells[8].Value != null)
-                    historyDataDetail.InsulateTestResult = lv.Cells[8].Value.ToString();
-                if (lv.Cells[9].Value != null)
-                    historyDataDetail.VoltageWithStandardValue = lv.Cells[9].Value.ToString();
-                if (lv.Cells[10].Value != null)
-                    historyDataDetail.VoltageWithStandardTestResult = lv.Cells[10].Value.ToString();
+                if (lv.SubItems[1].Text != null)
+                    historyDataDetail.StartInterface = lv.SubItems[1].Text.ToString();
+                if (lv.SubItems[2].Text != null)
+                    historyDataDetail.StartContactPoint = lv.SubItems[2].Text.ToString();
+                if (lv.SubItems[3].Text != null)
+                    historyDataDetail.EndInterface = lv.SubItems[3].Text.ToString();
+                if (lv.SubItems[4].Text != null)
+                    historyDataDetail.EndContactPoint = lv.SubItems[4].Text.ToString();
+                if(lv.SubItems[5].Text != null)
+                    historyDataDetail.ConductValue = lv.SubItems[5].Text.ToString();
+                if(lv.SubItems[6].Text != null)
+                    historyDataDetail.ConductTestResult = lv.SubItems[6].Text.ToString();
+                if(lv.SubItems[7].Text != null)
+                    historyDataDetail.InsulateValue = lv.SubItems[7].Text.ToString();
+                if (lv.SubItems[8].Text != null)
+                    historyDataDetail.InsulateTestResult = lv.SubItems[8].Text.ToString();
+                if (lv.SubItems[9].Text != null)
+                    historyDataDetail.VoltageWithStandardValue = lv.SubItems[9].Text.ToString();
+                if (lv.SubItems[10].Text != null)
+                    historyDataDetail.VoltageWithStandardTestResult = lv.SubItems[10].Text.ToString();
 
                 updateDetailCount += historyDataDetailManager.Insert(historyDataDetail);
             }
@@ -1510,11 +1525,12 @@ namespace CableTestManager.View
         /// <returns></returns>
         private bool IsExistTestRecore()
         {
-            if (this.radGridView2.Rows.Count < 1)
+            if (this.listViewCableTest.Items.Count < 1)
                 return false;
-            foreach (var lv in this.radGridView2.Rows)
+            for (int i = 0;i < this.listViewCableTest.Items.Count;i++)
             {
-                if (lv.Cells[5].Value.ToString() != "" || lv.Cells[7].Value.ToString() != "" || lv.Cells[9].Value.ToString() != "" || lv.Cells[11].Value.ToString() != "")
+                var lv = this.listViewCableTest.Items[i];
+                if (lv.SubItems[5].Text.ToString() != "" || lv.SubItems[7].Text.ToString() != "" || lv.SubItems[9].Text.ToString() != "" || lv.SubItems[11].Text.ToString() != "")
                     return true;
             }
             return false;
@@ -1530,14 +1546,15 @@ namespace CableTestManager.View
 
         private string CalFinalTestResult()
         {
-            if (this.radGridView2.Rows.Count < 1)
+            if (this.listViewCableTest.Items.Count < 1)
                 return "未测试";
-            foreach(var lv in this.radGridView2.Rows)
+            for (int i = 0;i < this.listViewCableTest.Items.Count;i++)
             {
-                var conductResult = lv.Cells[6].Value.ToString();
-                var shortCircuitResult = lv.Cells[6].Value.ToString();
-                var insulateResult = lv.Cells[6].Value.ToString();
-                var voltageResult = lv.Cells[6].Value.ToString();
+                var lv = this.listViewCableTest.Items[i];
+                var conductResult = lv.SubItems[6].Text.ToString();
+                var shortCircuitResult = lv.SubItems[6].Text.ToString();
+                var insulateResult = lv.SubItems[6].Text.ToString();
+                var voltageResult = lv.SubItems[6].Text.ToString();
                 if (conductResult != "合格" || shortCircuitResult != "合格" || insulateResult != "合格" || voltageResult != "合格")
                 {
                     return "不合格";
@@ -1548,8 +1565,9 @@ namespace CableTestManager.View
 
         private void QueryTestInfoByProjectName(string projectName)
         {
+            this.listViewCableTest.VirtualMode = false;
             UpdateCurrentProTestFunStatusInfo(projectName);
-            RadGridViewProperties.ClearGridView(this.radGridView1);
+            //RadGridViewProperties.ClearGridView(this.radGridView1);
             //RadGridViewProperties.SetRadGridViewProperty(this.radGridView1,false,true,13);
             //this.radGridView1.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
             //查询项目信息-线束代号 by projectName
@@ -1558,7 +1576,6 @@ namespace CableTestManager.View
             {
                 var cableName = dt.Rows[0][0].ToString();
                 dt = lineStructLibraryDetailManager.GetDataSetByWhere($"where CableName='{cableName}'").Tables[0];
-                int iRow = 0;
                 if (dt.Rows.Count > 0)
                 {
                     foreach (DataRow dr in dt.Rows)
@@ -1572,41 +1589,36 @@ namespace CableTestManager.View
                         var IsTestInsulate = dr["IsInsulateTest"].ToString();
                         var IsTestPreasureProof = dr["IsVoltageWithStandardTest"].ToString();
                         var measuringMethod = dr["MeasureMethod"].ToString();
-
+                        var val_56 = "";
+                        var val_78 = "";
+                        var val_910 = "";
+                        var val_1112 = "";
                         if (!IsExistGridView(startInterface,startContactPoint,endInterface,endContactPoint))
                         {
-                            DataRow dataRow = this.dataSourceCableTest.NewRow();
-                            dataRow[0] = (iRow + 1).ToString();
+                            //this.radGridView1.Rows.AddNew();
+                            var iRow = this.listViewCableTest.Items.Count;
+                            ListViewItem lv = new ListViewItem();
+                            lv.Text = (iRow + 1).ToString();
                             if (IsTestConduct == "0")
                             {
-                                dataRow[5] = "--";
-                                dataRow[6] = "--";
+                                val_56 = "--";
                             }
                             if (IsTestCircuit == "0")
                             {
-                                dataRow[7] = "--";
-                                dataRow[8] = "--";
+                                val_78 = "--";
                             }
                             if (IsTestInsulate == "0")
                             {
-                                dataRow[9] = "--";
-                                dataRow[10] = "--";
+                                val_910 = "--";
                             }
                             if (IsTestPreasureProof == "0")
                             {
-                                dataRow[11] = "--";
-                                dataRow[12] = "--";
+                                val_1112 = "--";
                             }
-                            dataRow[1] = startInterface;
-                            dataRow[2] = startContactPoint;
-                            dataRow[3] = endInterface;
-                            dataRow[4] = endContactPoint;
-                            dataRow[13] = measuringMethod;
-                            this.dataSourceCableTest.Rows.Add(dataRow);
-                            iRow++;
+                            lv.SubItems.AddRange(new string[] { startInterface, startContactPoint, endInterface, endContactPoint,"",val_56,val_56,val_78,val_78,val_910,val_910,val_1112,val_1112, measuringMethod });
+                            this.listViewCableTest.Items.Add(lv);
                         }
                     }
-                    this.radGridView2.DataSource = this.dataSourceCableTest;
                 }
             }
         }
@@ -1732,11 +1744,12 @@ namespace CableTestManager.View
 
         private bool IsExistGridView(string startInterface,string startContactPoint,string endInterface,string endContactPoint)
         {
-            if (this.radGridView2.Rows.Count < 1)
+            if (this.listViewCableTest.Items.Count < 1)
                 return false;
-            foreach(var lv in this.radGridView2.Rows)
+            for (int i = 0;i < this.listViewCableTest.Items.Count;i++)
             {
-                if (startInterface == lv.Cells[1].Value.ToString() && startContactPoint == lv.Cells[2].Value.ToString() && endInterface == lv.Cells[3].Value.ToString() && endContactPoint == lv.Cells[4].Value.ToString())
+                var lv = this.listViewCableTest.Items[i];
+                if (startInterface == lv.SubItems[1].Text.ToString() && startContactPoint == lv.SubItems[2].Text.ToString() && endInterface == lv.SubItems[3].Text.ToString() && endContactPoint == lv.SubItems[4].Text.ToString())
                 {
                     return true;
                 }
@@ -1888,7 +1901,7 @@ namespace CableTestManager.View
         /// <returns></returns>
         private string GetShortCircuitTestInfo()
         {
-            if (this.radGridView2.Rows.Count < 1)
+            if (this.listViewCableTest.Items.Count < 1)
             {
                 MessageBox.Show("没有可以测试的内容！", "提示", MessageBoxButtons.OK);
                 return "";
@@ -1896,19 +1909,20 @@ namespace CableTestManager.View
             string hexString = "";
             var method = "";
             List<string> startInterPointList = new List<string>();
-            foreach(var lv in this.radGridView2.Rows)
+            for (int i = 0;i < this.listViewCableTest.Items.Count;i++)
             {
-                var startInterface = lv.Cells[1].Value.ToString();
-                var startPoint = lv.Cells[2].Value.ToString();
+                var lv = this.listViewCableTest.Items[i];
+                var startInterface = lv.SubItems[1].Text.ToString();
+                var startPoint = lv.SubItems[2].Text.ToString();
                 if (startInterPointList.Contains(startPoint))
                     continue;
                 startInterPointList.Add(startPoint);
-                var endInterface = lv.Cells[3].Value.ToString();
-                var endPoint = lv.Cells[4].Value.ToString();
-                var conductTestResult = lv.Cells[6].Value;
-                var insulateTestResult = lv.Cells[8].Value;
-                var voltageTestResult = lv.Cells[10].Value;
-                var measuringMethod = lv.Cells[13].Value.ToString();
+                var endInterface = lv.SubItems[3].Text.ToString();
+                var endPoint = lv.SubItems[4].Text.ToString();
+                var conductTestResult = lv.SubItems[6].Text;
+                var insulateTestResult = lv.SubItems[8].Text;
+                var voltageTestResult = lv.SubItems[10].Text;
+                var measuringMethod = lv.SubItems[13].Text.ToString();
                 if (conductTestResult != null)
                 {
                     if (conductTestResult.ToString() == "合格")
@@ -1991,23 +2005,24 @@ namespace CableTestManager.View
 
         private string GetConductionTestInfo()
         {
-            if (this.radGridView2.Rows.Count < 1)
+            if (this.listViewCableTest.Items.Count < 1)
             {
                 MessageBox.Show("没有可以测试的内容！", "提示", MessageBoxButtons.OK);
                 return "";
             }
             string hexString = "";
             var method = "";
-            foreach (var lv in this.radGridView2.Rows)
+            for (int i = 0;i < this.listViewCableTest.Items.Count;i++)
             {
-                var startInterface = lv.Cells[1].Value.ToString();
-                var startPoint = lv.Cells[2].Value.ToString();
-                var endInterface = lv.Cells[3].Value.ToString();
-                var endPoint = lv.Cells[4].Value.ToString();
-                var conductTestResult = lv.Cells[6].Value;
-                var insulateTestResult = lv.Cells[8].Value;
-                var voltageTestResult = lv.Cells[10].Value;
-                var measuringMethod = lv.Cells[13].Value.ToString();
+                var lv = this.listViewCableTest.Items[i];
+                var startInterface = lv.SubItems[1].Text.ToString();
+                var startPoint = lv.SubItems[2].Text.ToString();
+                var endInterface = lv.SubItems[3].Text.ToString();
+                var endPoint = lv.SubItems[4].Text.ToString();
+                var conductTestResult = lv.SubItems[6].Text;
+                var insulateTestResult = lv.SubItems[8].Text;
+                var voltageTestResult = lv.SubItems[10].Text;
+                var measuringMethod = lv.SubItems[13].Text.ToString();
                 if (conductTestResult != null)
                 {
                     if (conductTestResult.ToString() == "合格")
