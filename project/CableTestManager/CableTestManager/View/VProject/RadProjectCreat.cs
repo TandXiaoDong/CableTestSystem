@@ -205,7 +205,7 @@ namespace CableTestManager.View.VProject
 
         private void QueryPlugLineStructInfo()
         {
-            RadGridViewProperties.ClearGridView(this.radGridView1);
+            RadGridViewProperties.ClearGridView(this.radGridView1,null);
             var selectSQL = "";
             if (this.rtbCableCondition.Text.Trim() != "")
                 selectSQL = $"where CableName like '%{this.rtbCableCondition.Text.Trim()}%'";
@@ -240,6 +240,8 @@ namespace CableTestManager.View.VProject
                 if (!resultString.Contains(dr[1].ToString()))
                     resultString += dr[1].ToString() + ",";
             }
+            if (resultString == "")
+                return "";
             return resultString.Substring(0, resultString.Length - 1);
         }
 

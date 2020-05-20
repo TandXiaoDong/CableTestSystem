@@ -75,7 +75,7 @@ namespace CableTestManager.View.VProject
 
         private void QueryHistoryBasicInfo(bool IsLike)
         {
-            RadGridViewProperties.ClearGridView(this.radGridView1);
+            RadGridViewProperties.ClearGridView(this.radGridView1,null);
             var dt = historyDataInfoManager.GetDataSetByWhere($"where TestSerialNumber = '{this.testNumber}'").Tables[0];
             if (dt.Rows.Count < 1)
                 return;

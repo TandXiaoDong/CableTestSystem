@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using Telerik.WinControls;
+using CableTestManager.Model;
 
 namespace CableTestManager.View
 {
@@ -23,9 +24,12 @@ namespace CableTestManager.View
         private bool IsInsulateCompletedTest;
         private bool IsPressureCompletedTest;
 
-        public OneClickTestConfig()
+        private Queue<CableTestProcessParams.CableTestType> cableTestQueue;
+
+        public OneClickTestConfig(Queue<CableTestProcessParams.CableTestType> cableTests)
         {
             InitializeComponent();
+            this.cableTestQueue = cableTests;
         }
 
         private void OneClickTestConfig_Load(object sender, EventArgs e)
@@ -101,6 +105,22 @@ namespace CableTestManager.View
             this.IsCheckCircuitTest = this.cb_circuitTest.Checked;
             this.IsCheckInsulateTest = this.cb_insulateTest.Checked;
             this.IsCheckPressureProofTest = this.cb_pressureProofTest.Checked;
+            if (this.cb_conductTest.Checked)
+            {
+                this.cableTestQueue.Enqueue(CableTestProcessParams.CableTestType.ConductTest);
+            }
+            if (this.cb_circuitTest.Checked)
+            {
+                this.cableTestQueue.Enqueue(CableTestProcessParams.CableTestType.ShortCircuitTest);
+            }
+            if (this.cb_insulateTest.Checked)
+            {
+                this.cableTestQueue.Enqueue(CableTestProcessParams.CableTestType.InsulateTest);
+            }
+            if (this.cb_pressureProofTest.Checked)
+            {
+                this.cableTestQueue.Enqueue(CableTestProcessParams.CableTestType.PressureWithVoltageTest);
+            }
             this.Close();
             this.DialogResult = DialogResult.OK;
         }

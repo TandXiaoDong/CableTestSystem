@@ -108,7 +108,7 @@ namespace CableTestManager.View.VInterface
 
         private void GetPlugLineStruct()
         {
-            RadGridViewProperties.ClearGridView(this.radGridView1);
+            RadGridViewProperties.ClearGridView(this.radGridView1,null);
             var data = lineStructLibraryDetailManager.GetDataSetByFieldsAndWhere("distinct CableName", "").Tables[0];
             if (data.Rows.Count < 1)
                 return;
@@ -135,11 +135,14 @@ namespace CableTestManager.View.VInterface
             var resultString = "";
             foreach (DataRow dr in data.Rows)
             {
+
                 if (!resultString.Contains(dr[0].ToString()))
                     resultString += dr[0].ToString() + ",";
                 if (!resultString.Contains(dr[1].ToString()))
                     resultString += dr[1].ToString() + ",";
             }
+            if (resultString == "")
+                return "";
             return resultString.Substring(0,resultString.Length - 1);
         }
 

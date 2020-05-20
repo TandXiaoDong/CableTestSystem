@@ -66,7 +66,7 @@ namespace CableTestManager.CUserManager
             else
                 queryStr = $"where OperateUser = '{this.tb_queryCondition.Text.Trim()}' and OperateDate >= '{startTime}' and OperateDate <= '{endTime}'";
             var dt = operationRecordManager.GetDataSetByWhere(queryStr).Tables[0];
-            RadGridViewProperties.ClearGridView(this.radGridView1);
+            RadGridViewProperties.ClearGridView(this.radGridView1,null);
             foreach (DataRow dr in dt.Rows)
             {
                 this.radGridView1.Rows.AddNew();

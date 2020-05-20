@@ -96,7 +96,7 @@ namespace CableTestManager.View.VProject
 
         private void QueryHistoryBasicInfo(bool IsLike)
         {
-            RadGridViewProperties.ClearGridView(this.radGridView1);
+            RadGridViewProperties.ClearGridView(this.radGridView1,null);
             var selectSQL = "";
             var fields = "ProjectName,TestCableName,BatchNumber,TestDate,TestOperator,FinalTestResult";
             if (this.tb_queryFilter.Text.Trim() != "")

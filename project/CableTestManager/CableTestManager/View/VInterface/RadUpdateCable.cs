@@ -606,6 +606,7 @@ namespace CableTestManager.View.VInterface
                 lineStructLibraryDetail.IsShortCircuitTest = int.Parse(IsCircuit);
                 lineStructLibraryDetail.IsInsulateTest = int.Parse(IsInsulate);
                 lineStructLibraryDetail.IsVoltageWithStandardTest = int.Parse(IsPreasureProof);
+                lineStructLibraryDetail.UpdateDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
                 if (IsAddNewRow != null)
                 {
