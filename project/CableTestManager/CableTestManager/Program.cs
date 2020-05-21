@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using CableTestManager.View;
 using WindowsFormTelerik.CommonUI;
 using CableTestManager.CUserManager;
+using System.Diagnostics;
 
 namespace CableTestManager
 {
@@ -23,7 +24,8 @@ namespace CableTestManager
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //TestDB();
+            if (!CheckAppRunState())
+                return;
             LocalLogin localLogin = new LocalLogin();
             localLogin.ShowDialog();
             if (localLogin.DialogResult == DialogResult.OK)
@@ -36,6 +38,19 @@ namespace CableTestManager
                 Application.Idle += Application_Idle;
                 Application.Run(applicationContext);
             }
+        }
+
+        private static bool CheckAppRunState()
+        {
+            var processName = Process.GetCurrentProcess().ProcessName;
+            Process[] processClient = Process.GetProcessesByName(processName);
+            if (processClient.Length > 1)
+            {
+                MessageBox.Show($"已经启动了程序：{processName}.exe!","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                Application.Exit();
+                return false;
+            }
+            return true;
         }
 
         private static void Application_Idle(object sender, EventArgs e)

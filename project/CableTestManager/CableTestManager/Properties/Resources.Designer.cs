@@ -73,6 +73,26 @@ namespace CableTestManager.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap add16 {
+            get {
+                object obj = ResourceManager.GetObject("add16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap add32 {
+            get {
+                object obj = ResourceManager.GetObject("add32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap Apply_16x16 {
             get {
                 object obj = ResourceManager.GetObject("Apply_16x16", resourceCulture);
@@ -196,6 +216,16 @@ namespace CableTestManager.Properties {
         internal static System.Drawing.Bitmap delete {
             get {
                 object obj = ResourceManager.GetObject("delete", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap delete16 {
+            get {
+                object obj = ResourceManager.GetObject("delete16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -346,6 +376,16 @@ namespace CableTestManager.Properties {
         internal static System.Drawing.Bitmap logoff__1_ {
             get {
                 object obj = ResourceManager.GetObject("logoff__1_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap modify32 {
+            get {
+                object obj = ResourceManager.GetObject("modify32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -516,6 +556,36 @@ namespace CableTestManager.Properties {
         internal static System.Drawing.Bitmap 万通公司LOG426x90 {
             get {
                 object obj = ResourceManager.GetObject("万通公司LOG426x90", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 查询 {
+            get {
+                object obj = ResourceManager.GetObject("查询", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 箭头left {
+            get {
+                object obj = ResourceManager.GetObject("箭头left", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 箭头right {
+            get {
+                object obj = ResourceManager.GetObject("箭头right", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -50,10 +50,16 @@ namespace CableTestManager.View.VInterface
             lineStructManager = new TCableTestLibraryManager();
             RadGridViewProperties.SetRadGridViewProperty(this.radGridView1,false,true,11);
             this.radGridView1.Columns[10].IsVisible = false;
+
             this.cb_startInterface.EditorControl.Columns.Add("startInterfacePoint");
+            this.cb_startInterface.EditorControl.ShowColumnHeaders = false;
             this.cb_startPin.EditorControl.Columns.Add("startPin");
+            this.cb_startPin.EditorControl.ShowColumnHeaders = false;
             this.cb_endInterface.EditorControl.Columns.Add("endInterfacePoint");
+            this.cb_endInterface.EditorControl.ShowColumnHeaders = false;
             this.cb_endPin.EditorControl.Columns.Add("endPin");
+            this.cb_endPin.EditorControl.ShowColumnHeaders = false;
+
             this.checkCircuit.CheckState = CheckState.Checked;
             this.checkConduction.CheckState = CheckState.Checked;
             this.checkInsulate.CheckState = CheckState.Checked;
@@ -601,12 +607,12 @@ namespace CableTestManager.View.VInterface
                 lineStructLibraryDetail.EndInterface = endInterface;
                 lineStructLibraryDetail.EndContactPoint = endContactPoint;
                 lineStructLibraryDetail.MeasureMethod = QueryMeasuringMethod(startInterface).ToString();
-                lineStructLibraryDetail.IsGroundTest = int.Parse(IsGround);
-                lineStructLibraryDetail.IsConductTest = int.Parse(IsConduction);
-                lineStructLibraryDetail.IsShortCircuitTest = int.Parse(IsCircuit);
-                lineStructLibraryDetail.IsInsulateTest = int.Parse(IsInsulate);
-                lineStructLibraryDetail.IsVoltageWithStandardTest = int.Parse(IsPreasureProof);
-                lineStructLibraryDetail.UpdateDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                //lineStructLibraryDetail.IsGroundTest = int.Parse(IsGround);
+                //lineStructLibraryDetail.IsConductTest = int.Parse(IsConduction);
+                //lineStructLibraryDetail.IsShortCircuitTest = int.Parse(IsCircuit);
+                //lineStructLibraryDetail.IsInsulateTest = int.Parse(IsInsulate);
+                //lineStructLibraryDetail.IsVoltageWithStandardTest = int.Parse(IsPreasureProof);
+                //lineStructLibraryDetail.UpdateDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
                 if (IsAddNewRow != null)
                 {

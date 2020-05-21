@@ -56,7 +56,7 @@
             this.btn_cancelByInterface = new Telerik.WinControls.UI.RadButton();
             this.radLabel6 = new Telerik.WinControls.UI.RadLabel();
             this.radButton4 = new Telerik.WinControls.UI.RadButton();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            this.numericByInterNo = new System.Windows.Forms.NumericUpDown();
             this.btn_studyByInterface = new Telerik.WinControls.UI.RadButton();
             this.tabControl1.SuspendLayout();
             this.tabPage_DevicePin.SuspendLayout();
@@ -80,7 +80,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btn_cancelByInterface)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButton4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericByInterNo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_studyByInterface)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
@@ -95,7 +95,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(660, 484);
+            this.tabControl1.Size = new System.Drawing.Size(660, 418);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage_DevicePin
@@ -106,7 +106,7 @@
             this.tabPage_DevicePin.Location = new System.Drawing.Point(4, 31);
             this.tabPage_DevicePin.Name = "tabPage_DevicePin";
             this.tabPage_DevicePin.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_DevicePin.Size = new System.Drawing.Size(652, 449);
+            this.tabPage_DevicePin.Size = new System.Drawing.Size(652, 383);
             this.tabPage_DevicePin.TabIndex = 0;
             this.tabPage_DevicePin.Text = "根据测试仪针点学习";
             this.tabPage_DevicePin.UseVisualStyleBackColor = true;
@@ -127,17 +127,17 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(644, 441);
+            this.panel1.Size = new System.Drawing.Size(644, 375);
             this.panel1.TabIndex = 1;
             // 
             // btn_cancelByPin
             // 
-            this.btn_cancelByPin.Location = new System.Drawing.Point(461, 370);
+            this.btn_cancelByPin.Location = new System.Drawing.Point(421, 320);
             this.btn_cancelByPin.Name = "btn_cancelByPin";
-            this.btn_cancelByPin.Size = new System.Drawing.Size(135, 36);
+            this.btn_cancelByPin.Size = new System.Drawing.Size(109, 36);
             this.btn_cancelByPin.TabIndex = 3;
             this.btn_cancelByPin.Text = "取消学习";
-            this.btn_cancelByPin.ThemeName = "MaterialBlueGrey";
+            this.btn_cancelByPin.ThemeName = "TelerikMetroTouch";
             // 
             // radLabel2
             // 
@@ -150,28 +150,28 @@
             // 
             // btn_allStudyByPin
             // 
-            this.btn_allStudyByPin.Location = new System.Drawing.Point(281, 370);
+            this.btn_allStudyByPin.Location = new System.Drawing.Point(279, 320);
             this.btn_allStudyByPin.Name = "btn_allStudyByPin";
-            this.btn_allStudyByPin.Size = new System.Drawing.Size(135, 36);
+            this.btn_allStudyByPin.Size = new System.Drawing.Size(110, 36);
             this.btn_allStudyByPin.TabIndex = 2;
             this.btn_allStudyByPin.Text = "学习所有";
-            this.btn_allStudyByPin.ThemeName = "MaterialBlueGrey";
+            this.btn_allStudyByPin.ThemeName = "TelerikMetroTouch";
             // 
             // conductionThresholdByPin
             // 
             this.conductionThresholdByPin.Location = new System.Drawing.Point(270, 212);
             this.conductionThresholdByPin.Name = "conductionThresholdByPin";
-            this.conductionThresholdByPin.Size = new System.Drawing.Size(120, 26);
+            this.conductionThresholdByPin.Size = new System.Drawing.Size(165, 26);
             this.conductionThresholdByPin.TabIndex = 7;
             // 
             // btn_defineStudyByPin
             // 
-            this.btn_defineStudyByPin.Location = new System.Drawing.Point(89, 370);
+            this.btn_defineStudyByPin.Location = new System.Drawing.Point(114, 320);
             this.btn_defineStudyByPin.Name = "btn_defineStudyByPin";
-            this.btn_defineStudyByPin.Size = new System.Drawing.Size(135, 36);
+            this.btn_defineStudyByPin.Size = new System.Drawing.Size(133, 36);
             this.btn_defineStudyByPin.TabIndex = 1;
             this.btn_defineStudyByPin.Text = "指定范围学习";
-            this.btn_defineStudyByPin.ThemeName = "MaterialBlueGrey";
+            this.btn_defineStudyByPin.ThemeName = "TelerikMetroTouch";
             // 
             // radLabel5
             // 
@@ -195,14 +195,14 @@
             // 
             this.num_max.Location = new System.Drawing.Point(270, 154);
             this.num_max.Name = "num_max";
-            this.num_max.Size = new System.Drawing.Size(120, 26);
+            this.num_max.Size = new System.Drawing.Size(165, 26);
             this.num_max.TabIndex = 4;
             // 
             // num_min
             // 
             this.num_min.Location = new System.Drawing.Point(270, 96);
             this.num_min.Name = "num_min";
-            this.num_min.Size = new System.Drawing.Size(120, 26);
+            this.num_min.Size = new System.Drawing.Size(165, 26);
             this.num_min.TabIndex = 3;
             // 
             // radLabel3
@@ -230,7 +230,7 @@
             this.tabPage_cableInterface.Location = new System.Drawing.Point(4, 31);
             this.tabPage_cableInterface.Name = "tabPage_cableInterface";
             this.tabPage_cableInterface.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_cableInterface.Size = new System.Drawing.Size(652, 449);
+            this.tabPage_cableInterface.Size = new System.Drawing.Size(652, 383);
             this.tabPage_cableInterface.TabIndex = 1;
             this.tabPage_cableInterface.Text = "根据线束接口学习";
             this.tabPage_cableInterface.UseVisualStyleBackColor = true;
@@ -250,13 +250,16 @@
             gridViewTextBoxColumn1.EnableExpressionEditor = false;
             gridViewTextBoxColumn1.HeaderText = "序号";
             gridViewTextBoxColumn1.Name = "column1";
+            gridViewTextBoxColumn1.Width = 76;
             gridViewTextBoxColumn2.EnableExpressionEditor = false;
             gridViewTextBoxColumn2.HeaderText = "学习接口";
             gridViewTextBoxColumn2.Name = "column2";
+            gridViewTextBoxColumn2.Width = 124;
             gridViewCheckBoxColumn1.EnableExpressionEditor = false;
             gridViewCheckBoxColumn1.HeaderText = "选择";
             gridViewCheckBoxColumn1.MinWidth = 20;
             gridViewCheckBoxColumn1.Name = "column3";
+            gridViewCheckBoxColumn1.Width = 131;
             this.radGridView1.MasterTemplate.Columns.AddRange(new Telerik.WinControls.UI.GridViewDataColumn[] {
             gridViewTextBoxColumn1,
             gridViewTextBoxColumn2,
@@ -264,7 +267,7 @@
             this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.radGridView1.Name = "radGridView1";
             this.radGridView1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.radGridView1.Size = new System.Drawing.Size(480, 443);
+            this.radGridView1.Size = new System.Drawing.Size(480, 377);
             this.radGridView1.TabIndex = 14;
             this.radGridView1.ThemeName = "TelerikMetroTouch";
             // 
@@ -274,22 +277,22 @@
             this.panel2.Controls.Add(this.btn_cancelByInterface);
             this.panel2.Controls.Add(this.radLabel6);
             this.panel2.Controls.Add(this.radButton4);
-            this.panel2.Controls.Add(this.numericUpDown4);
+            this.panel2.Controls.Add(this.numericByInterNo);
             this.panel2.Controls.Add(this.btn_studyByInterface);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel2.Location = new System.Drawing.Point(483, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(166, 443);
+            this.panel2.Size = new System.Drawing.Size(166, 377);
             this.panel2.TabIndex = 13;
             // 
             // btn_studyAllByInterface
             // 
-            this.btn_studyAllByInterface.Location = new System.Drawing.Point(21, 241);
+            this.btn_studyAllByInterface.Location = new System.Drawing.Point(21, 248);
             this.btn_studyAllByInterface.Name = "btn_studyAllByInterface";
             this.btn_studyAllByInterface.Size = new System.Drawing.Size(135, 36);
             this.btn_studyAllByInterface.TabIndex = 14;
             this.btn_studyAllByInterface.Text = "学习所有";
-            this.btn_studyAllByInterface.ThemeName = "MaterialBlueGrey";
+            this.btn_studyAllByInterface.ThemeName = "TelerikMetroTouch";
             // 
             // btn_cancelByInterface
             // 
@@ -298,7 +301,7 @@
             this.btn_cancelByInterface.Size = new System.Drawing.Size(135, 36);
             this.btn_cancelByInterface.TabIndex = 13;
             this.btn_cancelByInterface.Text = "取消学习";
-            this.btn_cancelByInterface.ThemeName = "MaterialBlueGrey";
+            this.btn_cancelByInterface.ThemeName = "TelerikMetroTouch";
             // 
             // radLabel6
             // 
@@ -318,12 +321,12 @@
             this.radButton4.Text = "取消学习";
             this.radButton4.ThemeName = "MaterialBlueGrey";
             // 
-            // numericUpDown4
+            // numericByInterNo
             // 
-            this.numericUpDown4.Location = new System.Drawing.Point(21, 61);
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(135, 26);
-            this.numericUpDown4.TabIndex = 9;
+            this.numericByInterNo.Location = new System.Drawing.Point(21, 61);
+            this.numericByInterNo.Name = "numericByInterNo";
+            this.numericByInterNo.Size = new System.Drawing.Size(135, 26);
+            this.numericByInterNo.TabIndex = 9;
             // 
             // btn_studyByInterface
             // 
@@ -332,14 +335,14 @@
             this.btn_studyByInterface.Size = new System.Drawing.Size(135, 36);
             this.btn_studyByInterface.TabIndex = 10;
             this.btn_studyByInterface.Text = "开始学习";
-            this.btn_studyByInterface.ThemeName = "MaterialBlueGrey";
+            this.btn_studyByInterface.ThemeName = "TelerikMetroTouch";
             // 
             // frmSefStudy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(660, 484);
+            this.ClientSize = new System.Drawing.Size(660, 418);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmSefStudy";
@@ -374,7 +377,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btn_cancelByInterface)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButton4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericByInterNo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_studyByInterface)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
@@ -399,7 +402,7 @@
         private Telerik.WinControls.UI.RadLabel radLabel2;
         private Telerik.WinControls.UI.RadLabel radLabel5;
         private System.Windows.Forms.NumericUpDown conductionThresholdByPin;
-        private System.Windows.Forms.NumericUpDown numericUpDown4;
+        private System.Windows.Forms.NumericUpDown numericByInterNo;
         private Telerik.WinControls.UI.RadLabel radLabel6;
         private Telerik.WinControls.UI.RadButton radButton4;
         private Telerik.WinControls.UI.RadButton btn_studyByInterface;

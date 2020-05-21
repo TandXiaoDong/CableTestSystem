@@ -106,11 +106,12 @@ namespace CableTestManager.CUserManager
             this.lbx_register.AutoSize = true;
             this.lbx_register.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbx_register.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lbx_register.Location = new System.Drawing.Point(26, 257);
+            this.lbx_register.Location = new System.Drawing.Point(26, 246);
             this.lbx_register.Name = "lbx_register";
             this.lbx_register.Size = new System.Drawing.Size(37, 19);
             this.lbx_register.TabIndex = 24;
             this.lbx_register.Text = "注册";
+            this.lbx_register.Visible = false;
             this.lbx_register.Click += new System.EventHandler(this.Lbx_register_Click);
             // 
             // panel1
@@ -181,7 +182,7 @@ namespace CableTestManager.CUserManager
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(322, 283);
+            this.ClientSize = new System.Drawing.Size(322, 266);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lbx_register);

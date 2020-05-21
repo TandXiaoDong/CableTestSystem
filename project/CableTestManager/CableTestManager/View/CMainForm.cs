@@ -1142,17 +1142,38 @@ namespace CableTestManager.View
             if (sefStudy.ShowDialog() == DialogResult.OK)
             {
                 var selfStudyType = sefStudy.studyTypeEnum;
-                var studyMinByPin = sefStudy.pinMin;
-                var studyMaxByPin = sefStudy.pinMax;
-                var conductThresholdByPin = sefStudy.conductThresholdByPin;
-                var selftStudyString = Convert.ToString(studyMinByPin, 16).PadLeft(4, '0') +
-                    Convert.ToString(studyMaxByPin, 16).PadLeft(4, '0') + FloatConvert.FloatConvertByte(conductThresholdByPin);
-                SendSelfStudyCommand(selftStudyString);
+                if (selfStudyType == frmSefStudy.StudyTypeEnum.AllStudyByPin || selfStudyType == frmSefStudy.StudyTypeEnum.PartStudyByPin)
+                {
+                    var studyMinByPin = sefStudy.pinMin;
+                    var studyMaxByPin = sefStudy.pinMax;
+                    var conductThresholdByPin = sefStudy.conductThresholdByPin;
+
+                    var selftStudyString = DecConvert4ByteHexStr(studyMinByPin) + DecConvert4ByteHexStr(studyMaxByPin) + FloatConvert.FloatConvertByte(conductThresholdByPin);
+                    SendSelfStudyCommand(selftStudyString);
+                }
+                else if (selfStudyType == frmSefStudy.StudyTypeEnum.AllStudyByInterface || selfStudyType == frmSefStudy.StudyTypeEnum.PartStudyByInterface)
+                {
+                    if (sefStudy.selfParamList.Count > 0)
+                    {
+                        foreach (var obj in sefStudy.selfParamList)
+                        {
+                            var selfCommandStr = DecConvert4ByteHexStr(obj.pinMin) + DecConvert4ByteHexStr(obj.pinMax) + FloatConvert.FloatConvertByte(obj.conductThresholdByPin);
+                            SendSelfStudyCommand(selfCommandStr);
+                            Thread.Sleep(500);
+                        }
+                    }
+                }
                 this.selfStudyThreshold = sefStudy.conductThresholdByPin;
+
                 this.radDock1.RemoveAllDocumentWindows();
                 this.radDock1.AddDocument(this.documentWindow2);
                 InitDatable(true);
             }
+        }
+
+        private string DecConvert4ByteHexStr(int dec)
+        {
+            return Convert.ToString(dec, 16).PadLeft(4, '0');
         }
 
         private void Tool_ConnectDevice_Click(object sender, EventArgs e)
@@ -1576,6 +1597,11 @@ namespace CableTestManager.View
                     {
                         this.radGridViewCableTest.Columns[1].IsVisible = false;
                         this.radGridViewCableTest.Columns[3].IsVisible = false;
+                    }
+                    else 
+                    {
+                        this.radGridViewCableTest.Columns[1].IsVisible = true;
+                        this.radGridViewCableTest.Columns[3].IsVisible = true;
                     }
                     this.radGridViewCableTest.DataSource = this.dataSourceCableTest;
                 }

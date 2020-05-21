@@ -430,11 +430,23 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Common\TablePrimaryKey.cs" />
+    <Compile Include="CUserManager\LimmitManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CUserManager\LimmitManager.Designer.cs">
+      <DependentUpon>LimmitManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="CUserManager\OperatorLog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CUserManager\OperatorLog.Designer.cs">
       <DependentUpon>OperatorLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CUserManager\RoleManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CUserManager\RoleManager.Designer.cs">
+      <DependentUpon>RoleManager.cs</DependentUpon>
     </Compile>
     <Compile Include="DeviceUtils\CanCmdEx.cs" />
     <Compile Include="DeviceUtils\GroupTestParaStruct.cs" />
@@ -931,8 +943,14 @@
     <Compile Include="View\WarnHint.Designer.cs">
       <DependentUpon>WarnHint.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CUserManager\LimmitManager.resx">
+      <DependentUpon>LimmitManager.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CUserManager\OperatorLog.resx">
       <DependentUpon>OperatorLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CUserManager\RoleManager.resx">
+      <DependentUpon>RoleManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -1293,6 +1311,13 @@
     <None Include="Resources\fg.png" />
     <None Include="Resources\import.png" />
     <None Include="Resources\import32.png" />
+    <None Include="Resources\箭头right.png" />
+    <None Include="Resources\箭头left.png" />
+    <None Include="Resources\add32.png" />
+    <None Include="Resources\add16.png" />
+    <None Include="Resources\modify32.png" />
+    <None Include="Resources\delete16.png" />
+    <None Include="Resources\查询.png" />
     <Content Include="需求梳理.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

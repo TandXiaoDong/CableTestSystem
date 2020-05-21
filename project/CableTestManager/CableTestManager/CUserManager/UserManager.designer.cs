@@ -28,69 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserManager));
             Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserManager));
+            this.radGridView1 = new Telerik.WinControls.UI.RadGridView();
+            this.office2013LightTheme1 = new Telerik.WinControls.Themes.Office2013LightTheme();
+            this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
+            this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
             this.menu_add = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_del = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_commit = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_refresh = new Telerik.WinControls.UI.RadMenuItem();
-            this.radGridView1 = new Telerik.WinControls.UI.RadGridView();
-            this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
-            this.office2013LightTheme1 = new Telerik.WinControls.Themes.Office2013LightTheme();
-            this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
-            // menu_add
-            // 
-            this.menu_add.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.menu_add.Image = global::CableTestManager.Properties.Resources.bullet_add;
-            this.menu_add.Name = "menu_add";
-            this.menu_add.Text = "新增";
-            this.menu_add.UseCompatibleTextRendering = false;
-            this.menu_add.Click += new System.EventHandler(this.Menu_add_Click);
-            // 
-            // menu_del
-            // 
-            this.menu_del.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.menu_del.Image = ((System.Drawing.Image)(resources.GetObject("menu_del.Image")));
-            this.menu_del.Name = "menu_del";
-            this.menu_del.Shape = null;
-            this.menu_del.Text = "删除";
-            this.menu_del.UseCompatibleTextRendering = false;
-            this.menu_del.Click += new System.EventHandler(this.Menu_del_Click);
-            // 
-            // menu_commit
-            // 
-            this.menu_commit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.menu_commit.Image = global::CableTestManager.Properties.Resources.upload_for_cloud;
-            this.menu_commit.Name = "menu_commit";
-            this.menu_commit.Text = "修改";
-            this.menu_commit.UseCompatibleTextRendering = false;
-            this.menu_commit.Click += new System.EventHandler(this.Menu_commit_Click);
-            // 
-            // menu_refresh
-            // 
-            this.menu_refresh.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.menu_refresh.Image = global::CableTestManager.Properties.Resources.update;
-            this.menu_refresh.Name = "menu_refresh";
-            this.menu_refresh.Text = "查询";
-            this.menu_refresh.UseCompatibleTextRendering = false;
-            this.menu_refresh.Click += new System.EventHandler(this.Menu_refresh_Click);
-            // 
             // radGridView1
             // 
             this.radGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radGridView1.Location = new System.Drawing.Point(0, 40);
+            this.radGridView1.Location = new System.Drawing.Point(0, 31);
             // 
             // 
             // 
             this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.radGridView1.Name = "radGridView1";
-            this.radGridView1.Size = new System.Drawing.Size(617, 445);
+            this.radGridView1.Size = new System.Drawing.Size(617, 454);
             this.radGridView1.TabIndex = 11;
             this.radGridView1.ThemeName = "TelerikMetroTouch";
             // 
@@ -106,9 +69,46 @@
             this.radMenu1.Location = new System.Drawing.Point(0, 0);
             this.radMenu1.Name = "radMenu1";
             this.radMenu1.Padding = new System.Windows.Forms.Padding(2, 2, 0, 0);
-            this.radMenu1.Size = new System.Drawing.Size(617, 40);
+            this.radMenu1.Size = new System.Drawing.Size(617, 31);
             this.radMenu1.TabIndex = 10;
             this.radMenu1.ThemeName = "Windows8";
+            // 
+            // menu_add
+            // 
+            this.menu_add.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.menu_add.Image = global::CableTestManager.Properties.Resources.add16;
+            this.menu_add.Name = "menu_add";
+            this.menu_add.Text = "新增";
+            this.menu_add.UseCompatibleTextRendering = false;
+            this.menu_add.Click += new System.EventHandler(this.Menu_add_Click);
+            // 
+            // menu_del
+            // 
+            this.menu_del.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.menu_del.Image = global::CableTestManager.Properties.Resources.delete16;
+            this.menu_del.Name = "menu_del";
+            this.menu_del.Shape = null;
+            this.menu_del.Text = "删除";
+            this.menu_del.UseCompatibleTextRendering = false;
+            this.menu_del.Click += new System.EventHandler(this.Menu_del_Click);
+            // 
+            // menu_commit
+            // 
+            this.menu_commit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.menu_commit.Image = global::CableTestManager.Properties.Resources.modify32;
+            this.menu_commit.Name = "menu_commit";
+            this.menu_commit.Text = "修改";
+            this.menu_commit.UseCompatibleTextRendering = false;
+            this.menu_commit.Click += new System.EventHandler(this.Menu_commit_Click);
+            // 
+            // menu_refresh
+            // 
+            this.menu_refresh.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.menu_refresh.Image = global::CableTestManager.Properties.Resources.查询;
+            this.menu_refresh.Name = "menu_refresh";
+            this.menu_refresh.Text = "查询";
+            this.menu_refresh.UseCompatibleTextRendering = false;
+            this.menu_refresh.Click += new System.EventHandler(this.Menu_refresh_Click);
             // 
             // UserManager
             // 

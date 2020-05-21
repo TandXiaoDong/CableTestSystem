@@ -168,7 +168,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(929, 241);
+            this.panel1.Size = new System.Drawing.Size(873, 241);
             this.panel1.TabIndex = 4;
             // 
             // groupBox1
@@ -192,7 +192,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox1.Location = new System.Drawing.Point(0, 55);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(929, 186);
+            this.groupBox1.Size = new System.Drawing.Size(873, 186);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "连接关系定义";
@@ -268,7 +268,7 @@
             this.cb_endPin.EditorControl.ShowGroupPanel = false;
             this.cb_endPin.EditorControl.Size = new System.Drawing.Size(240, 150);
             this.cb_endPin.EditorControl.TabIndex = 0;
-            this.cb_endPin.Location = new System.Drawing.Point(387, 133);
+            this.cb_endPin.Location = new System.Drawing.Point(485, 132);
             this.cb_endPin.Name = "cb_endPin";
             this.cb_endPin.Size = new System.Drawing.Size(161, 36);
             this.cb_endPin.TabIndex = 44;
@@ -328,7 +328,7 @@
             this.cb_startPin.EditorControl.ShowGroupPanel = false;
             this.cb_startPin.EditorControl.Size = new System.Drawing.Size(240, 150);
             this.cb_startPin.EditorControl.TabIndex = 0;
-            this.cb_startPin.Location = new System.Drawing.Point(387, 75);
+            this.cb_startPin.Location = new System.Drawing.Point(485, 74);
             this.cb_startPin.Name = "cb_startPin";
             this.cb_startPin.Size = new System.Drawing.Size(161, 36);
             this.cb_startPin.TabIndex = 42;
@@ -346,7 +346,7 @@
             // 
             // radLabel3
             // 
-            this.radLabel3.Location = new System.Drawing.Point(295, 91);
+            this.radLabel3.Location = new System.Drawing.Point(393, 90);
             this.radLabel3.Name = "radLabel3";
             this.radLabel3.Size = new System.Drawing.Size(86, 21);
             this.radLabel3.TabIndex = 24;
@@ -355,52 +355,57 @@
             // 
             // checkGround
             // 
-            this.checkGround.Location = new System.Drawing.Point(572, 95);
+            this.checkGround.Location = new System.Drawing.Point(295, 22);
             this.checkGround.Name = "checkGround";
             this.checkGround.Size = new System.Drawing.Size(89, 19);
             this.checkGround.TabIndex = 27;
             this.checkGround.Text = "接地测试";
             this.checkGround.ThemeName = "MaterialBlueGrey";
+            this.checkGround.Visible = false;
             // 
             // checkInsulate
             // 
-            this.checkInsulate.Location = new System.Drawing.Point(572, 147);
+            this.checkInsulate.Location = new System.Drawing.Point(512, 22);
             this.checkInsulate.Name = "checkInsulate";
             this.checkInsulate.Size = new System.Drawing.Size(89, 19);
             this.checkInsulate.TabIndex = 28;
             this.checkInsulate.Text = "绝缘测试";
             this.checkInsulate.ThemeName = "MaterialBlueGrey";
+            this.checkInsulate.Visible = false;
             // 
             // checkConduction
             // 
-            this.checkConduction.Location = new System.Drawing.Point(677, 95);
+            this.checkConduction.Location = new System.Drawing.Point(406, 22);
             this.checkConduction.Name = "checkConduction";
             this.checkConduction.Size = new System.Drawing.Size(89, 19);
             this.checkConduction.TabIndex = 30;
             this.checkConduction.Text = "导通测试";
             this.checkConduction.ThemeName = "MaterialBlueGrey";
+            this.checkConduction.Visible = false;
             // 
             // checkPressureProof
             // 
-            this.checkPressureProof.Location = new System.Drawing.Point(677, 147);
+            this.checkPressureProof.Location = new System.Drawing.Point(626, 22);
             this.checkPressureProof.Name = "checkPressureProof";
             this.checkPressureProof.Size = new System.Drawing.Size(89, 19);
             this.checkPressureProof.TabIndex = 31;
             this.checkPressureProof.Text = "耐压测试";
             this.checkPressureProof.ThemeName = "MaterialBlueGrey";
+            this.checkPressureProof.Visible = false;
             // 
             // checkCircuit
             // 
-            this.checkCircuit.Location = new System.Drawing.Point(783, 95);
+            this.checkCircuit.Location = new System.Drawing.Point(730, 22);
             this.checkCircuit.Name = "checkCircuit";
             this.checkCircuit.Size = new System.Drawing.Size(89, 19);
             this.checkCircuit.TabIndex = 29;
             this.checkCircuit.Text = "短路测试";
             this.checkCircuit.ThemeName = "MaterialBlueGrey";
+            this.checkCircuit.Visible = false;
             // 
             // radLabel5
             // 
-            this.radLabel5.Location = new System.Drawing.Point(295, 148);
+            this.radLabel5.Location = new System.Drawing.Point(393, 147);
             this.radLabel5.Name = "radLabel5";
             this.radLabel5.Size = new System.Drawing.Size(86, 21);
             this.radLabel5.TabIndex = 26;
@@ -452,7 +457,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 241);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(929, 462);
+            this.panel2.Size = new System.Drawing.Size(873, 462);
             this.panel2.TabIndex = 5;
             // 
             // radGridView1
@@ -473,42 +478,48 @@
             gridViewTextBoxColumn2.EnableExpressionEditor = false;
             gridViewTextBoxColumn2.HeaderText = "起始接口";
             gridViewTextBoxColumn2.Name = "column2";
-            gridViewTextBoxColumn2.Width = 92;
+            gridViewTextBoxColumn2.Width = 129;
             gridViewTextBoxColumn3.EnableExpressionEditor = false;
             gridViewTextBoxColumn3.HeaderText = "起始接点";
             gridViewTextBoxColumn3.Name = "column3";
-            gridViewTextBoxColumn3.Width = 97;
+            gridViewTextBoxColumn3.Width = 135;
             gridViewTextBoxColumn4.EnableExpressionEditor = false;
             gridViewTextBoxColumn4.HeaderText = "最终接口";
             gridViewTextBoxColumn4.Name = "column4";
-            gridViewTextBoxColumn4.Width = 103;
+            gridViewTextBoxColumn4.Width = 135;
             gridViewTextBoxColumn5.EnableExpressionEditor = false;
             gridViewTextBoxColumn5.HeaderText = "最终接点";
             gridViewTextBoxColumn5.Name = "column5";
-            gridViewTextBoxColumn5.Width = 98;
+            gridViewTextBoxColumn5.Width = 153;
             gridViewTextBoxColumn6.EnableExpressionEditor = false;
             gridViewTextBoxColumn6.HeaderText = "接地";
+            gridViewTextBoxColumn6.IsVisible = false;
             gridViewTextBoxColumn6.Name = "column6";
             gridViewTextBoxColumn6.Width = 61;
             gridViewTextBoxColumn7.EnableExpressionEditor = false;
             gridViewTextBoxColumn7.HeaderText = "导通测试";
+            gridViewTextBoxColumn7.IsVisible = false;
             gridViewTextBoxColumn7.Name = "column7";
             gridViewTextBoxColumn7.Width = 80;
             gridViewTextBoxColumn8.EnableExpressionEditor = false;
             gridViewTextBoxColumn8.HeaderText = "短路测试";
+            gridViewTextBoxColumn8.IsVisible = false;
             gridViewTextBoxColumn8.Name = "column8";
             gridViewTextBoxColumn8.Width = 76;
             gridViewTextBoxColumn9.EnableExpressionEditor = false;
             gridViewTextBoxColumn9.HeaderText = "绝缘测试";
+            gridViewTextBoxColumn9.IsVisible = false;
             gridViewTextBoxColumn9.Name = "column9";
             gridViewTextBoxColumn9.Width = 72;
             gridViewTextBoxColumn10.EnableExpressionEditor = false;
             gridViewTextBoxColumn10.HeaderText = "耐压测试";
+            gridViewTextBoxColumn10.IsVisible = false;
             gridViewTextBoxColumn10.Name = "column10";
             gridViewTextBoxColumn10.Width = 73;
             gridViewTextBoxColumn11.EnableExpressionEditor = false;
             gridViewTextBoxColumn11.HeaderText = "IsNewAddRow";
             gridViewTextBoxColumn11.Name = "column11";
+            gridViewTextBoxColumn11.Width = 100;
             this.radGridView1.MasterTemplate.Columns.AddRange(new Telerik.WinControls.UI.GridViewDataColumn[] {
             gridViewTextBoxColumn1,
             gridViewTextBoxColumn2,
@@ -524,7 +535,7 @@
             this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition5;
             this.radGridView1.Name = "radGridView1";
             this.radGridView1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.radGridView1.Size = new System.Drawing.Size(929, 300);
+            this.radGridView1.Size = new System.Drawing.Size(873, 300);
             this.radGridView1.TabIndex = 10;
             this.radGridView1.ThemeName = "TelerikMetroTouch";
             // 
@@ -540,7 +551,7 @@
             this.tool_deleteAll});
             this.radMenu1.Location = new System.Drawing.Point(0, 28);
             this.radMenu1.Name = "radMenu1";
-            this.radMenu1.Size = new System.Drawing.Size(929, 78);
+            this.radMenu1.Size = new System.Drawing.Size(873, 78);
             this.radMenu1.TabIndex = 9;
             this.radMenu1.ThemeName = "MaterialBlueGrey";
             // 
@@ -629,7 +640,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(929, 28);
+            this.toolStrip1.Size = new System.Drawing.Size(873, 28);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -641,7 +652,6 @@
             // 
             // tb_queryCondition
             // 
-            this.tb_queryCondition.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.tb_queryCondition.Name = "tb_queryCondition";
             this.tb_queryCondition.Size = new System.Drawing.Size(130, 28);
             // 
@@ -675,7 +685,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(929, 703);
+            this.ClientSize = new System.Drawing.Size(873, 703);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

@@ -28,7 +28,7 @@ namespace CommonUtil.CUserManager
             tb_repwd.PasswordChar = '*';
             userHelper = new UserHelper();
             this.cb_userType.MultiColumnComboBoxElement.Columns.Add("Type");
-            this.cb_userType.EditorControl.Rows.Add("管理员");
+            //this.cb_userType.EditorControl.Rows.Add("管理员");
             this.cb_userType.EditorControl.Rows.Add("操作员");
             this.cb_userType.EditorControl.ShowColumnHeaders = false;
             this.cb_userType.EditorControl.AutoSizeColumnsMode = Telerik.WinControls.UI.GridViewAutoSizeColumnsMode.Fill;
