@@ -12,11 +12,11 @@ namespace CableTestManager.Business.Implements
     {
 		#region  Ù–‘◊¢»Î
 		
-        private ITOperateRecordService service = new TOperateRecordService();
+        private ITOperateRecordDBService dBService = new TOperateRecordDBService();
 
         public TOperateRecordManager()
         {
-            base.BaseService = this.service;
+            base.BaseDBService = this.dBService;
         }
         
         #endregion

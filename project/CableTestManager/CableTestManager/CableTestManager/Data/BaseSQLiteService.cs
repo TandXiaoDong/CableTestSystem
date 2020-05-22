@@ -1,7 +1,7 @@
 /************************************************************************************
- *      Copyright (C) 2019 FigKey,All Rights Reserved
+ *      Copyright (C) 2020 FigKey,All Rights Reserved
  *      File:
- *				BaseService.cs
+ *				BaseDBService.cs
  *      Description:
  *				 基于泛型数据访问抽象基类
  *      Author:
@@ -9,7 +9,7 @@
  *				1297953037@qq.com
  *				http://www.figkey.com
  *      Finish DateTime:
- *				2020年03月18日
+ *				2020年05月22日
  *      History:
  *      
  ***********************************************************************************/
@@ -26,7 +26,7 @@ namespace CableTestManager.Data
     /// 基于泛型数据访问抽象基类，封装了基本数据访问操作CRUD
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class BaseService<T> : IBaseService<T>
+    public abstract class BaseDBService<T> : IBaseDBService<T>
     {
         #region 私有字段
 
@@ -38,7 +38,7 @@ private string procedureName = "MesnacPaging";   //分页存储过程名
 
 #region 构造方法
 
-public BaseService()
+public BaseDBService()
         {
             //获取实体类T的映射信息
             this.classMap = EntityMapperHandler.GetInstance().GetMapDictionary()[typeof(T).Name];
@@ -96,7 +96,7 @@ protected List<T> GetBySql(CommandType cmdType, string cmdText, SQLiteParameter[
 
 #endregion
 
-#region IBaseService<T> 成员
+#region IBaseDBService<T> 成员
 /// <summary>
 /// 按住键或标识列查找，只有是单字段主键（非组合键）时才按主键查找
 /// </summary>

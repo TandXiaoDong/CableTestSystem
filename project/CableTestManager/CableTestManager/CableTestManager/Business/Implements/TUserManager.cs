@@ -12,11 +12,11 @@ namespace CableTestManager.Business.Implements
     {
 		#region  Ù–‘◊¢»Î
 		
-        private ITUserService service = new TUserService();
+        private ITUserDBService dBService = new TUserDBService();
 
         public TUserManager()
         {
-            base.BaseService = this.service;
+            base.BaseDBService = this.dBService;
         }
         
         #endregion

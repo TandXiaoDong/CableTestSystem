@@ -12,11 +12,11 @@ namespace CableTestManager.Business.Implements
     {
 		#region  Ù–‘◊¢»Î
 		
-        private ITHistoryDataDetailService service = new THistoryDataDetailService();
+        private ITHistoryDataDetailDBService dBService = new THistoryDataDetailDBService();
 
         public THistoryDataDetailManager()
         {
-            base.BaseService = this.service;
+            base.BaseDBService = this.dBService;
         }
         
         #endregion

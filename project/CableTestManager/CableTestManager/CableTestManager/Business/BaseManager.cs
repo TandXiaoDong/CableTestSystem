@@ -1,5 +1,5 @@
 /************************************************************************************
- *      Copyright (C) 2019 FigKey,All Rights Reserved
+ *      Copyright (C) 2020 FigKey,All Rights Reserved
  *      File:
  *				BaseManager.cs
  *      Description:
@@ -9,7 +9,7 @@
  *				1297953037@qq.com
  *				http://www.figkey.com
  *      Finish DateTime:
- *				2020年03月18日
+ *				2020年05月22日
  *      History:
  *      
  ***********************************************************************************/
@@ -24,178 +24,178 @@ namespace CableTestManager.Business
     using CableTestManager.Data;
     public abstract class BaseManager<T> : IBaseManager<T>
     {
-        private IBaseService<T> baseService;
+        private IBaseDBService<T> baseDBService;
 
-        public IBaseService<T> BaseService
+        public IBaseDBService<T> BaseDBService
         {
-            set { baseService = value; }
+            set { baseDBService = value; }
         }
 
         #region 封装数据访问层的常规数据访问方法
 
         public T GetById(object id)
         {
-            return this.baseService.GetById(id);
+            return this.baseDBService.GetById(id);
         }
 
         public List<T> GetListByParam(params KeyValuePair<string, object>[] values)
         {
-            return this.baseService.GetListByParam(values);
+            return this.baseDBService.GetListByParam(values);
         }
 
         public List<T> GetListByParam(Dictionary<string, object> values)
         {
-            return this.baseService.GetListByParam(values);
+            return this.baseDBService.GetListByParam(values);
         }
         
         public List<T> GetListOrderByParam(string order, params KeyValuePair<string, object>[] values)
         {
-            return this.baseService.GetListOrderByParam(order, values);
+            return this.baseDBService.GetListOrderByParam(order, values);
         }
 
         public List<T> GetListOrderByParam(string order, Dictionary<string, object> values)
         {
-            return this.baseService.GetListOrderByParam(order, values);
+            return this.baseDBService.GetListOrderByParam(order, values);
         }
 
         public List<T> GetListByWhere(string where)
         {
-            return this.baseService.GetListByWhere(where);
+            return this.baseDBService.GetListByWhere(where);
         }
 
         public List<T> GetListByWhereAndOrder(string where, string order)
         {
-            return this.baseService.GetListByWhereAndOrder(where, order);
+            return this.baseDBService.GetListByWhereAndOrder(where, order);
         }
 
         public DataSet GetDataSetByWhere(string where)
         {
-            return this.baseService.GetDataSetByWhere(where);
+            return this.baseDBService.GetDataSetByWhere(where);
         }
 
         public DataSet GetDataSetByFieldsAndParams(string returnFields, params KeyValuePair<string, object>[] values)
         {
-            return this.baseService.GetDataSetByFieldsAndParams(returnFields, values);
+            return this.baseDBService.GetDataSetByFieldsAndParams(returnFields, values);
         }
 
         public DataSet GetDataSetByFieldAndParams(string returnFields, Dictionary<string, object> values)
         {
-            return this.baseService.GetDataSetByFieldAndParams(returnFields, values);
+            return this.baseDBService.GetDataSetByFieldAndParams(returnFields, values);
         }
 
         public DataSet GetDataSetByFieldsAndWhere(string returnFields, string where)
         {
-            return this.baseService.GetDataSetByFieldsAndWhere(returnFields, where);
+            return this.baseDBService.GetDataSetByFieldsAndWhere(returnFields, where);
         }
 
         public List<T> GetAllList()
         {
-            return this.baseService.GetAllList();
+            return this.baseDBService.GetAllList();
         }
 
         public List<T> GetAllListOrder(string order)
         {
-            return this.baseService.GetAllListOrder(order);
+            return this.baseDBService.GetAllListOrder(order);
         }
 
         public List<T> GetTopNListOrder(int n, string order)
         {
-            return this.baseService.GetTopNListOrder(n, order);
+            return this.baseDBService.GetTopNListOrder(n, order);
         }
 
         public List<T> GetTopNListWhereOrder(int n, string where, string order)
         {
-            return this.baseService.GetTopNListWhereOrder(n, where, order);
+            return this.baseDBService.GetTopNListWhereOrder(n, where, order);
         }
 
         public DataSet GetAllDataSet()
         {
-            return this.baseService.GetAllDataSet();
+            return this.baseDBService.GetAllDataSet();
         }
 
         public PageResult<T> GetPageData(PageResult<T> pageResult)
         {
-            return this.baseService.GetPageData(pageResult);
+            return this.baseDBService.GetPageData(pageResult);
         }
 
         public DataSet GetPageDataSet(PageResult<T> pageResult)
         {
-            return this.baseService.GetPageDataSet(pageResult);
+            return this.baseDBService.GetPageDataSet(pageResult);
         }
         
         public DataSet GetDataSetByStoreProcedure(string storeProcedureName, params KeyValuePair<string, object>[] values)
         {
-            return this.baseService.GetDataSetByStoreProcedure(storeProcedureName, values);
+            return this.baseDBService.GetDataSetByStoreProcedure(storeProcedureName, values);
         }
 
         public DataSet GetDataSetByStoreProcedure(string storeProcedureName, Dictionary<string, object> values)
         {
-            return this.baseService.GetDataSetByStoreProcedure(storeProcedureName, values);
+            return this.baseDBService.GetDataSetByStoreProcedure(storeProcedureName, values);
         }
 
         public int GetRowCount()
         {
-            return this.baseService.GetRowCount();
+            return this.baseDBService.GetRowCount();
         }
 
         public int GetRowCountByParams(params KeyValuePair<string, object>[] values)
         {
-            return this.baseService.GetRowCountByParams(values);
+            return this.baseDBService.GetRowCountByParams(values);
         }
 
         public int GetRowCountByParams(Dictionary<string, object> values)
         {
-            return this.baseService.GetRowCountByParams(values);
+            return this.baseDBService.GetRowCountByParams(values);
         }
 
         public int GetRowCountByWhere(string where)
         {
-            return this.baseService.GetRowCountByWhere(where);
+            return this.baseDBService.GetRowCountByWhere(where);
         }
 
         public int Insert(T entity)
         {
-            return this.baseService.Insert(entity);
+            return this.baseDBService.Insert(entity);
         }
 
         public int Update(T entity)
         {
-            return this.baseService.Update(entity);
+            return this.baseDBService.Update(entity);
         }
 
         public int UpdateFields(string fields, string where)
         {
-            return this.baseService.UpdateFields(fields, where);
+            return this.baseDBService.UpdateFields(fields, where);
         }
 
         public int UpdateFields(Dictionary<string, object> fields, Dictionary<string, object> where)
         {
-            return this.baseService.UpdateFields(fields, where);
+            return this.baseDBService.UpdateFields(fields, where);
         }
 
         public int Delete(object id)
         {
-            return this.baseService.Delete(id);
+            return this.baseDBService.Delete(id);
         }
 
         public int DeleteByIds(string columnName, string ids)
         {
-            return this.baseService.DeleteByIds(columnName, ids);
+            return this.baseDBService.DeleteByIds(columnName, ids);
         }
 
         public int DeleteByParam(params KeyValuePair<string, object>[] values)
         {
-            return this.baseService.DeleteByParam(values);
+            return this.baseDBService.DeleteByParam(values);
         }
 
         public int DeleteByWhere(string where)
         {
-            return this.baseService.DeleteByWhere(where);
+            return this.baseDBService.DeleteByWhere(where);
         }
 
         public int ClearData()
         {
-            return this.baseService.ClearData();
+            return this.baseDBService.ClearData();
         }
 
         #endregion

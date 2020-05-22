@@ -53,7 +53,7 @@
             // 
             this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.radGridView1.Name = "radGridView1";
-            this.radGridView1.Size = new System.Drawing.Size(617, 454);
+            this.radGridView1.Size = new System.Drawing.Size(617, 349);
             this.radGridView1.TabIndex = 11;
             this.radGridView1.ThemeName = "TelerikMetroTouch";
             // 
@@ -115,7 +115,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(617, 485);
+            this.ClientSize = new System.Drawing.Size(617, 380);
             this.Controls.Add(this.radGridView1);
             this.Controls.Add(this.radMenu1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

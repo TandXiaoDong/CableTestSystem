@@ -1,5 +1,5 @@
 /************************************************************************************
- *      Copyright (C) 2019 FigKey,All Rights Reserved
+ *      Copyright (C) 2020 FigKey,All Rights Reserved
  *      File:
  *				_THistoryDataBasic_old_20200318.cs
  *      Description:
@@ -9,7 +9,7 @@
  *				1297953037@qq.com
  *				http://www.figkey.com
  *      Finish DateTime:
- *				2020年03月18日
+ *				2020年05月22日
  *      History:
  ***********************************************************************************/
 using System;

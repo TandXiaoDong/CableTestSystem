@@ -12,11 +12,11 @@ namespace CableTestManager.Business.Implements
     {
 		#region  Ù–‘◊¢»Î
 		
-        private IInterfaceInfoLibraryService service = new InterfaceInfoLibraryService();
+        private IInterfaceInfoLibraryDBService dBService = new InterfaceInfoLibraryDBService();
 
         public InterfaceInfoLibraryManager()
         {
-            base.BaseService = this.service;
+            base.BaseDBService = this.dBService;
         }
         
         #endregion

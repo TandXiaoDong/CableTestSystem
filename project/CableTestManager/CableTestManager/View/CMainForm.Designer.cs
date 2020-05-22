@@ -775,10 +775,10 @@
             this.documentWindow2.Controls.Add(this.radGridViewSelfStudy);
             this.documentWindow2.Controls.Add(this.toolStrip2);
             this.documentWindow2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.documentWindow2.Location = new System.Drawing.Point(4, 54);
+            this.documentWindow2.Location = new System.Drawing.Point(4, 52);
             this.documentWindow2.Name = "documentWindow2";
             this.documentWindow2.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.documentWindow2.Size = new System.Drawing.Size(1089, 490);
+            this.documentWindow2.Size = new System.Drawing.Size(1089, 492);
             this.documentWindow2.Text = "自学习";
             // 
             // radGridViewSelfStudy
@@ -790,7 +790,7 @@
             // 
             this.radGridViewSelfStudy.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.radGridViewSelfStudy.Name = "radGridViewSelfStudy";
-            this.radGridViewSelfStudy.Size = new System.Drawing.Size(1089, 462);
+            this.radGridViewSelfStudy.Size = new System.Drawing.Size(1089, 464);
             this.radGridViewSelfStudy.TabIndex = 2;
             this.radGridViewSelfStudy.ThemeName = "TelerikMetroTouch";
             // 

@@ -5,6 +5,37 @@
 		<property name="DeviceFaultDate" column="DeviceFaultDate" />
 		<property name="DeviceFaultContent" column="DeviceFaultContent" />
 	</class>
+	<class name="FuncLimit" table="FuncLimit">
+		<property name="ID" column="ID" isPK="true" />
+		<property name="UserRole" column="UserRole" />
+		<property name="InterfaceLib" column="InterfaceLib" />
+		<property name="CableLib" column="CableLib" />
+		<property name="ConnectorLib" column="ConnectorLib" />
+		<property name="SwitchWearLib" column="SwitchWearLib" />
+		<property name="SwitchStandLib" column="SwitchStandLib" />
+		<property name="SelfStudy" column="SelfStudy" />
+		<property name="ConductTest" column="ConductTest" />
+		<property name="ShortCircuitTest" column="ShortCircuitTest" />
+		<property name="InsulateTest" column="InsulateTest" />
+		<property name="PressureWithVoltageTest" column="PressureWithVoltageTest" />
+		<property name="OneKeyTest" column="OneKeyTest" />
+		<property name="ExcuteReport" column="ExcuteReport" />
+		<property name="PrintReport" column="PrintReport" />
+		<property name="SaveTestData" column="SaveTestData" />
+		<property name="NewProject" column="NewProject" />
+		<property name="ProjectManage" column="ProjectManage" />
+		<property name="HistoryTestData" column="HistoryTestData" />
+		<property name="OperatorRecord" column="OperatorRecord" />
+		<property name="Probe" column="Probe" />
+		<property name="StartResistanceCompensation" column="StartResistanceCompensation" />
+		<property name="ResistanceCompensationManage" column="ResistanceCompensationManage" />
+		<property name="ReportConfigPath" column="ReportConfigPath" />
+		<property name="DeviceSelfCheck" column="DeviceSelfCheck" />
+		<property name="DeviceCalibration" column="DeviceCalibration" />
+		<property name="DeviceDebug" column="DeviceDebug" />
+		<property name="DeviceFaultQuery" column="DeviceFaultQuery" />
+		<property name="EnvironmentalParameters" column="EnvironmentalParameters" />
+	</class>
 	<class name="InterfaceInfoLibrary" table="InterfaceInfoLibrary">
 		<property name="ID" column="ID" isPK="true" />
 		<property name="InterfaceNo" column="InterfaceNo" />
@@ -15,6 +46,41 @@
 		<property name="Operator" column="Operator" />
 		<property name="Remark" column="Remark" />
 		<property name="UpdateDate" column="UpdateDate" />
+	</class>
+	<class name="OperatLimit" table="OperatLimit">
+		<property name="ID" column="ID" isPK="true" />
+		<property name="InterfaceLib_query" column="InterfaceLib_query" />
+		<property name="InterfaceLib_add" column="InterfaceLib_add" />
+		<property name="IneterfaceLib_del" column="IneterfaceLib_del" />
+		<property name="InterfaceLib_export" column="InterfaceLib_export" />
+		<property name="CableLib_query" column="CableLib_query" />
+		<property name="CableLib_add" column="CableLib_add" />
+		<property name="CableLib_edit" column="CableLib_edit" />
+		<property name="CableLib_del" column="CableLib_del" />
+		<property name="CableLib_export" column="CableLib_export" />
+		<property name="ConnectorLib_query" column="ConnectorLib_query" />
+		<property name="ConnectorLib_del" column="ConnectorLib_del" />
+		<property name="ConnectorLib_export" column="ConnectorLib_export" />
+		<property name="ConnectorLib_add" column="ConnectorLib_add" />
+		<property name="SwitchWearLib_query" column="SwitchWearLib_query" />
+		<property name="SwitchWearLib_add" column="SwitchWearLib_add" />
+		<property name="SwitchWearLib_edit" column="SwitchWearLib_edit" />
+		<property name="SwitchWearLib_export" column="SwitchWearLib_export" />
+		<property name="SwitchStandLib_query" column="SwitchStandLib_query" />
+		<property name="SwitchStandLib_add" column="SwitchStandLib_add" />
+		<property name="SwitchStandLib_del" column="SwitchStandLib_del" />
+		<property name="SwitchStandLib_export" column="SwitchStandLib_export" />
+		<property name="Project_query" column="Project_query" />
+		<property name="Project_add" column="Project_add" />
+		<property name="Project_del" column="Project_del" />
+		<property name="Project_export" column="Project_export" />
+		<property name="HistoryTestData_query" column="HistoryTestData_query" />
+		<property name="HistoryTestData_add" column="HistoryTestData_add" />
+		<property name="HistoryTestData_edit" column="HistoryTestData_edit" />
+		<property name="HistoryTestData_export" column="HistoryTestData_export" />
+		<property name="OperatorRecord_query" column="OperatorRecord_query" />
+		<property name="OperatorRecord_del" column="OperatorRecord_del" />
+		<property name="OperatorRecord_export" column="OperatorRecord_export" />
 	</class>
 	<class name="TCableTestLibrary" table="TCableTestLibrary">
 		<property name="ID" column="ID" isPK="true" />
@@ -130,6 +196,12 @@
 		<property name="Remark" column="Remark" />
 		<property name="UpdateDate" column="UpdateDate" />
 	</class>
+	<class name="TRole" table="TRole">
+		<property name="ID" column="ID" isPK="true" />
+		<property name="UserRole" column="UserRole" />
+		<property name="Remark" column="Remark" />
+		<property name="UpdateDate" column="UpdateDate" />
+	</class>
 	<class name="TSwitchWorkWearLibrary" table="TSwitchWorkWearLibrary">
 		<property name="ID" column="ID" isPK="true" />
 		<property name="SwitchWorkWearCode" column="SwitchWorkWearCode" />
@@ -149,6 +221,36 @@
 		<property name="ID" column="ID" isPK="true" />
 		<property name="TesterStitchNo" column="TesterStitchNo" />
 		<property name="SwitchStandStitchNo" column="SwitchStandStitchNo" />
+	</class>
+	<class name="_FuncLimit_old_20200522" table="_FuncLimit_old_20200522">
+		<property name="ID" column="ID" isPK="true" />
+		<property name="UserRole" column="UserRole" />
+		<property name="InterfaceLib" column="InterfaceLib" />
+		<property name="CableLib" column="CableLib" />
+		<property name="ConnectorLib" column="ConnectorLib" />
+		<property name="SwitchWearLib" column="SwitchWearLib" />
+		<property name="SelfStudy" column="SelfStudy" />
+		<property name="ConductTest" column="ConductTest" />
+		<property name="ShortCircuitTest" column="ShortCircuitTest" />
+		<property name="InsulateTest" column="InsulateTest" />
+		<property name="PressureWithVoltageTest" column="PressureWithVoltageTest" />
+		<property name="OneKeyTest" column="OneKeyTest" />
+		<property name="ExcuteReport" column="ExcuteReport" />
+		<property name="PrintReport" column="PrintReport" />
+		<property name="SaveTestData" column="SaveTestData" />
+		<property name="NewProject" column="NewProject" />
+		<property name="ProjectManage" column="ProjectManage" />
+		<property name="HistoryTestData" column="HistoryTestData" />
+		<property name="OperatorRecord" column="OperatorRecord" />
+		<property name="Probe" column="Probe" />
+		<property name="StartResistanceCompensation" column="StartResistanceCompensation" />
+		<property name="ResistanceCompensationManage" column="ResistanceCompensationManage" />
+		<property name="ReportConfigPath" column="ReportConfigPath" />
+		<property name="DeviceSelfCheck" column="DeviceSelfCheck" />
+		<property name="DeviceCalibration" column="DeviceCalibration" />
+		<property name="DeviceDebug" column="DeviceDebug" />
+		<property name="DeviceFaultQuery" column="DeviceFaultQuery" />
+		<property name="EnvironmentalParameters" column="EnvironmentalParameters" />
 	</class>
 	<class name="_THistoryDataBasic_old_20200318" table="_THistoryDataBasic_old_20200318">
 		<property name="TestSerialNumber" column="TestSerialNumber" isPK="true" />

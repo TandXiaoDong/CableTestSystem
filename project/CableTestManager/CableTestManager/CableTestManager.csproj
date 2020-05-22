@@ -333,7 +333,9 @@
     <Compile Include="CableTestManager\Business\BaseManager.cs" />
     <Compile Include="CableTestManager\Business\IBaseManager.cs" />
     <Compile Include="CableTestManager\Business\Implements\DeviceFaultRecordManager.cs" />
+    <Compile Include="CableTestManager\Business\Implements\FuncLimitManager.cs" />
     <Compile Include="CableTestManager\Business\Implements\InterfaceInfoLibraryManager.cs" />
+    <Compile Include="CableTestManager\Business\Implements\OperatLimitManager.cs" />
     <Compile Include="CableTestManager\Business\Implements\Sqlite_sequenceManager.cs" />
     <Compile Include="CableTestManager\Business\Implements\TCableTestLibraryManager.cs" />
     <Compile Include="CableTestManager\Business\Implements\TConnectorLibraryDetailManager.cs" />
@@ -343,12 +345,16 @@
     <Compile Include="CableTestManager\Business\Implements\THistoryDataDetailManager.cs" />
     <Compile Include="CableTestManager\Business\Implements\TOperateRecordManager.cs" />
     <Compile Include="CableTestManager\Business\Implements\TProjectBasicInfoManager.cs" />
+    <Compile Include="CableTestManager\Business\Implements\TRoleManager.cs" />
     <Compile Include="CableTestManager\Business\Implements\TSwitchWorkWearLibraryManager.cs" />
     <Compile Include="CableTestManager\Business\Implements\TUserManager.cs" />
+    <Compile Include="CableTestManager\Business\Implements\_FuncLimit_old_20200522Manager.cs" />
     <Compile Include="CableTestManager\Business\Implements\_THistoryDataBasic_old_20200318Manager.cs" />
     <Compile Include="CableTestManager\Business\Implements\_THistoryDataBasic_old_20200318_1Manager.cs" />
     <Compile Include="CableTestManager\Business\Interface\IDeviceFaultRecordManager.cs" />
+    <Compile Include="CableTestManager\Business\Interface\IFuncLimitManager.cs" />
     <Compile Include="CableTestManager\Business\Interface\IInterfaceInfoLibraryManager.cs" />
+    <Compile Include="CableTestManager\Business\Interface\IOperatLimitManager.cs" />
     <Compile Include="CableTestManager\Business\Interface\ISqlite_sequenceManager.cs" />
     <Compile Include="CableTestManager\Business\Interface\ITCableTestLibraryManager.cs" />
     <Compile Include="CableTestManager\Business\Interface\ITConnectorLibraryDetailManager.cs" />
@@ -358,8 +364,10 @@
     <Compile Include="CableTestManager\Business\Interface\ITHistoryDataDetailManager.cs" />
     <Compile Include="CableTestManager\Business\Interface\ITOperateRecordManager.cs" />
     <Compile Include="CableTestManager\Business\Interface\ITProjectBasicInfoManager.cs" />
+    <Compile Include="CableTestManager\Business\Interface\ITRoleManager.cs" />
     <Compile Include="CableTestManager\Business\Interface\ITSwitchWorkWearLibraryManager.cs" />
     <Compile Include="CableTestManager\Business\Interface\ITUserManager.cs" />
+    <Compile Include="CableTestManager\Business\Interface\I_FuncLimit_old_20200522Manager.cs" />
     <Compile Include="CableTestManager\Business\Interface\I_THistoryDataBasic_old_20200318Manager.cs" />
     <Compile Include="CableTestManager\Business\Interface\I_THistoryDataBasic_old_20200318_1Manager.cs" />
     <Compile Include="CableTestManager\Components\PageResult.cs" />
@@ -367,40 +375,50 @@
     <Compile Include="CableTestManager\Components\XmlPropertyMap.cs" />
     <Compile Include="CableTestManager\Data\BaseSQLiteService.cs" />
     <Compile Include="CableTestManager\Data\IBaseService.cs" />
-    <Compile Include="CableTestManager\Data\Implements\DeviceFaultRecordService.cs" />
-    <Compile Include="CableTestManager\Data\Implements\InterfaceInfoLibraryService.cs" />
-    <Compile Include="CableTestManager\Data\Implements\Sqlite_sequenceService.cs" />
-    <Compile Include="CableTestManager\Data\Implements\TCableTestLibraryService.cs" />
-    <Compile Include="CableTestManager\Data\Implements\TConnectorLibraryDetailService.cs" />
-    <Compile Include="CableTestManager\Data\Implements\TConnectorLibraryService.cs" />
-    <Compile Include="CableTestManager\Data\Implements\TesterAndSwitchStandMapRelationService.cs" />
-    <Compile Include="CableTestManager\Data\Implements\THistoryDataBasicService.cs" />
-    <Compile Include="CableTestManager\Data\Implements\THistoryDataDetailService.cs" />
-    <Compile Include="CableTestManager\Data\Implements\TOperateRecordService.cs" />
-    <Compile Include="CableTestManager\Data\Implements\TProjectBasicInfoService.cs" />
-    <Compile Include="CableTestManager\Data\Implements\TSwitchWorkWearLibraryService.cs" />
-    <Compile Include="CableTestManager\Data\Implements\TUserService.cs" />
-    <Compile Include="CableTestManager\Data\Implements\_THistoryDataBasic_old_20200318Service.cs" />
-    <Compile Include="CableTestManager\Data\Implements\_THistoryDataBasic_old_20200318_1Service.cs" />
-    <Compile Include="CableTestManager\Data\Interface\IDeviceFaultRecordService.cs" />
-    <Compile Include="CableTestManager\Data\Interface\IInterfaceInfoLibraryService.cs" />
-    <Compile Include="CableTestManager\Data\Interface\ISqlite_sequenceService.cs" />
-    <Compile Include="CableTestManager\Data\Interface\ITCableTestLibraryService.cs" />
-    <Compile Include="CableTestManager\Data\Interface\ITConnectorLibraryDetailService.cs" />
-    <Compile Include="CableTestManager\Data\Interface\ITConnectorLibraryService.cs" />
-    <Compile Include="CableTestManager\Data\Interface\ITesterAndSwitchStandMapRelationService.cs" />
-    <Compile Include="CableTestManager\Data\Interface\ITHistoryDataBasicService.cs" />
-    <Compile Include="CableTestManager\Data\Interface\ITHistoryDataDetailService.cs" />
-    <Compile Include="CableTestManager\Data\Interface\ITOperateRecordService.cs" />
-    <Compile Include="CableTestManager\Data\Interface\ITProjectBasicInfoService.cs" />
-    <Compile Include="CableTestManager\Data\Interface\ITSwitchWorkWearLibraryService.cs" />
-    <Compile Include="CableTestManager\Data\Interface\ITUserService.cs" />
-    <Compile Include="CableTestManager\Data\Interface\I_THistoryDataBasic_old_20200318Service.cs" />
-    <Compile Include="CableTestManager\Data\Interface\I_THistoryDataBasic_old_20200318_1Service.cs" />
+    <Compile Include="CableTestManager\Data\Implements\DeviceFaultRecordDBService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\FuncLimitDBService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\InterfaceInfoLibraryDBService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\OperatLimitDBService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\Sqlite_sequenceDBService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\TCableTestLibraryDBService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\TConnectorLibraryDBService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\TConnectorLibraryDetailDBService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\TesterAndSwitchStandMapRelationDBService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\THistoryDataBasicDBService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\THistoryDataDetailDBService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\TOperateRecordDBService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\TProjectBasicInfoDBService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\TRoleDBService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\TSwitchWorkWearLibraryDBService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\TUserDBService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\_FuncLimit_old_20200522DBService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\_THistoryDataBasic_old_20200318DBService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\_THistoryDataBasic_old_20200318_1DBService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\IDeviceFaultRecordDBService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\IFuncLimitDBService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\IInterfaceInfoLibraryDBService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\IOperatLimitDBService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\ISqlite_sequenceDBService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\ITCableTestLibraryDBService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\ITConnectorLibraryDBService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\ITConnectorLibraryDetailDBService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\ITesterAndSwitchStandMapRelationDBService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\ITHistoryDataBasicDBService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\ITHistoryDataDetailDBService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\ITOperateRecordDBService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\ITProjectBasicInfoDBService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\ITRoleDBService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\ITSwitchWorkWearLibraryDBService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\ITUserDBService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\I_FuncLimit_old_20200522DBService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\I_THistoryDataBasic_old_20200318DBService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\I_THistoryDataBasic_old_20200318_1DBService.cs" />
     <Compile Include="CableTestManager\Data\SQLiteHelper.cs" />
     <Compile Include="CableTestManager\EntityMapperHandler.cs" />
     <Compile Include="CableTestManager\Entity\DeviceFaultRecord.cs" />
+    <Compile Include="CableTestManager\Entity\FuncLimit.cs" />
     <Compile Include="CableTestManager\Entity\InterfaceInfoLibrary.cs" />
+    <Compile Include="CableTestManager\Entity\OperatLimit.cs" />
     <Compile Include="CableTestManager\Entity\Sqlite_sequence.cs" />
     <Compile Include="CableTestManager\Entity\TCableTestLibrary.cs" />
     <Compile Include="CableTestManager\Entity\TConnectorLibrary.cs" />
@@ -410,8 +428,10 @@
     <Compile Include="CableTestManager\Entity\THistoryDataDetail.cs" />
     <Compile Include="CableTestManager\Entity\TOperateRecord.cs" />
     <Compile Include="CableTestManager\Entity\TProjectBasicInfo.cs" />
+    <Compile Include="CableTestManager\Entity\TRole.cs" />
     <Compile Include="CableTestManager\Entity\TSwitchWorkWearLibrary.cs" />
     <Compile Include="CableTestManager\Entity\TUser.cs" />
+    <Compile Include="CableTestManager\Entity\_FuncLimit_old_20200522.cs" />
     <Compile Include="CableTestManager\Entity\_THistoryDataBasic_old_20200318.cs" />
     <Compile Include="CableTestManager\Entity\_THistoryDataBasic_old_20200318_1.cs" />
     <Compile Include="ClientSocket\AppBase\Commands.cs" />
@@ -430,6 +450,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Common\TablePrimaryKey.cs" />
+    <Compile Include="CUserManager\EditRole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CUserManager\EditRole.Designer.cs">
+      <DependentUpon>EditRole.cs</DependentUpon>
+    </Compile>
     <Compile Include="CUserManager\LimmitManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -943,6 +969,9 @@
     <Compile Include="View\WarnHint.Designer.cs">
       <DependentUpon>WarnHint.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CUserManager\EditRole.resx">
+      <DependentUpon>EditRole.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CUserManager\LimmitManager.resx">
       <DependentUpon>LimmitManager.cs</DependentUpon>
     </EmbeddedResource>
@@ -1299,7 +1328,6 @@
     <None Include="Resources\user %281%29.png" />
     <None Include="Resources\kgpg_key1_kopete %281%29.png" />
     <None Include="Resources\logoff %281%29.png" />
-    <EmbeddedResource Include="CableTestManager\Entity\EntityMapper.xml" />
     <Content Include="cable16x16.ico" />
     <None Include="Resources\password.png" />
     <None Include="Resources\user %283%29.png" />
@@ -1318,6 +1346,8 @@
     <None Include="Resources\modify32.png" />
     <None Include="Resources\delete16.png" />
     <None Include="Resources\查询.png" />
+    <None Include="Resources\密码修改.png" />
+    <EmbeddedResource Include="CableTestManager\Entity\EntityMapper.xml" />
     <Content Include="需求梳理.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

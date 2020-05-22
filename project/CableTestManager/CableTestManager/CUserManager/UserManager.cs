@@ -16,7 +16,7 @@ namespace CommonUtil.CUserManager
         private DataTable dataSource;
         private const string USER_ID = "序号";
         private const string USER_NAME = "用户名";
-        private const string USER_ROLE = "角色";
+        private const string USER_ROLE = "用户类型";
         //private const string USER_STATUS = "状态";
         private const string UPDATE_DATE = "更新日期";
         private UserHelper userHelper;

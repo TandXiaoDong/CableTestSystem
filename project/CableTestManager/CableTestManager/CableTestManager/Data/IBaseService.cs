@@ -1,7 +1,7 @@
 /************************************************************************************
- *      Copyright (C) 2019 FigKey,All Rights Reserved
+ *      Copyright (C) 2020 FigKey,All Rights Reserved
  *      File:
- *				IBaseService.cs
+ *				IBaseDBService.cs
  *      Description:
  *				 数据访问基础接口
  *      Author:
@@ -9,7 +9,7 @@
  *				1297953037@qq.com
  *				http://www.figkey.com
  *      Finish DateTime:
- *				2020年03月18日
+ *				2020年05月22日
  *      History:
  ***********************************************************************************/
 using System;
@@ -20,7 +20,7 @@ using System.Data;
 namespace CableTestManager.Data
 {
     using CableTestManager.Components;
-    public interface IBaseService<T>
+    public interface IBaseDBService<T>
     {
         /// <summary>
         /// 按照主键查找
