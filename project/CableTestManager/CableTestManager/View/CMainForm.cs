@@ -287,6 +287,8 @@ namespace CableTestManager.View
             #endregion
 
             #region menu event
+            this.menu_roleManager.Click += Menu_roleManager_Click;
+            this.menu_authorManager.Click += Menu_authorManager_Click;
             this.menu_connectServer.Click += Menu_connectServer_Click;
             this.menu_disConnect.Click += Menu_disConnect_Click;
             this.menu_SaveData.Click += Menu_SaveData_Click;
@@ -320,6 +322,18 @@ namespace CableTestManager.View
 
             SuperEasyClient.NoticeConnectEvent += SuperEasyClient_NoticeConnectEvent;
             SuperEasyClient.NoticeMessageEvent += SuperEasyClient_NoticeMessageEvent;
+        }
+
+        private void Menu_roleManager_Click(object sender, EventArgs e)
+        {
+            RoleManager roleManager = new RoleManager();
+            roleManager.ShowDialog();
+        }
+
+        private void Menu_authorManager_Click(object sender, EventArgs e)
+        {
+            LimmitManager limmitManager = new LimmitManager();
+            limmitManager.ShowDialog();
         }
 
         private void Tool_importCableLib_Click(object sender, EventArgs e)

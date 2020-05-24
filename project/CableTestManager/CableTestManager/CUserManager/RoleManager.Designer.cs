@@ -82,7 +82,7 @@
             this.menu_commit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.menu_commit.Image = global::CableTestManager.Properties.Resources.modify32;
             this.menu_commit.Name = "menu_commit";
-            this.menu_commit.Text = "修改";
+            this.menu_commit.Text = "编辑";
             this.menu_commit.UseCompatibleTextRendering = false;
             // 
             // menu_refresh
@@ -138,6 +138,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RoleManager";
             this.Text = "角色管理";
+            this.Load += new System.EventHandler(this.RoleManager_Load);
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).EndInit();

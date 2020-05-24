@@ -107,8 +107,12 @@
             this.Controls.Add(this.tb_roleName);
             this.Controls.Add(this.radLabel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "EditRole";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "角色";
+            this.Load += new System.EventHandler(this.EditRole_Load);
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_roleName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_remark)).EndInit();

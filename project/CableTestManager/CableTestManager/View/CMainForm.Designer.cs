@@ -74,12 +74,20 @@
             this.radMenuItem33 = new Telerik.WinControls.UI.RadMenuItem();
             this.radMenuItem34 = new Telerik.WinControls.UI.RadMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.tool_InterfaceLibrary = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tool_HarnessLibrary = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tool_NewProject = new System.Windows.Forms.ToolStripButton();
+            this.tool_OpenProject = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tool_HistoryData = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.tool_ConnectDevice = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.tool_SelfStudy = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.tool_Probe = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.panel1 = new System.Windows.Forms.Panel();
             this.radMenu2 = new Telerik.WinControls.UI.RadMenu();
@@ -111,6 +119,8 @@
             this.documentWindow2 = new Telerik.WinControls.UI.Docking.DocumentWindow();
             this.radGridViewSelfStudy = new Telerik.WinControls.UI.RadGridView();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.tool_clearSelfGrid = new System.Windows.Forms.ToolStripButton();
+            this.tool_importCableLib = new System.Windows.Forms.ToolStripButton();
             this.documentWindow1 = new Telerik.WinControls.UI.Docking.DocumentWindow();
             this.radGridViewCableTest = new Telerik.WinControls.UI.RadGridView();
             this.panelStatus = new Telerik.WinControls.UI.RadPanel();
@@ -131,16 +141,7 @@
             this.telerikMetroTouchTheme1 = new Telerik.WinControls.Themes.TelerikMetroTouchTheme();
             this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
             this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
-            this.tool_clearSelfGrid = new System.Windows.Forms.ToolStripButton();
-            this.tool_importCableLib = new System.Windows.Forms.ToolStripButton();
-            this.tool_InterfaceLibrary = new System.Windows.Forms.ToolStripButton();
-            this.tool_HarnessLibrary = new System.Windows.Forms.ToolStripButton();
-            this.tool_NewProject = new System.Windows.Forms.ToolStripButton();
-            this.tool_OpenProject = new System.Windows.Forms.ToolStripButton();
-            this.tool_HistoryData = new System.Windows.Forms.ToolStripButton();
-            this.tool_ConnectDevice = new System.Windows.Forms.ToolStripButton();
-            this.tool_SelfStudy = new System.Windows.Forms.ToolStripButton();
-            this.tool_Probe = new System.Windows.Forms.ToolStripButton();
+            this.menu_roleManager = new Telerik.WinControls.UI.RadMenuItem();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu2)).BeginInit();
@@ -212,6 +213,7 @@
             this.radMenuItem8.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.menu_modifyPassword,
             this.menu_userManager,
+            this.menu_roleManager,
             this.menu_authorManager});
             this.radMenuItem8.Name = "radMenuItem8";
             this.radMenuItem8.Text = "用户管理(U)";
@@ -450,35 +452,116 @@
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
+            // tool_InterfaceLibrary
+            // 
+            this.tool_InterfaceLibrary.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tool_InterfaceLibrary.Image = global::CableTestManager.Properties.Resources.IntefaceLibrary;
+            this.tool_InterfaceLibrary.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tool_InterfaceLibrary.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_InterfaceLibrary.Name = "tool_InterfaceLibrary";
+            this.tool_InterfaceLibrary.Size = new System.Drawing.Size(58, 71);
+            this.tool_InterfaceLibrary.Text = "接口库";
+            this.tool_InterfaceLibrary.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 74);
+            // 
+            // tool_HarnessLibrary
+            // 
+            this.tool_HarnessLibrary.Image = global::CableTestManager.Properties.Resources.cable__2_;
+            this.tool_HarnessLibrary.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tool_HarnessLibrary.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_HarnessLibrary.Name = "tool_HarnessLibrary";
+            this.tool_HarnessLibrary.Size = new System.Drawing.Size(52, 71);
+            this.tool_HarnessLibrary.Text = "线束库";
+            this.tool_HarnessLibrary.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 74);
             // 
+            // tool_NewProject
+            // 
+            this.tool_NewProject.Image = global::CableTestManager.Properties.Resources.folder_new__2_;
+            this.tool_NewProject.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tool_NewProject.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_NewProject.Name = "tool_NewProject";
+            this.tool_NewProject.Size = new System.Drawing.Size(60, 71);
+            this.tool_NewProject.Text = "新建项目";
+            this.tool_NewProject.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // tool_OpenProject
+            // 
+            this.tool_OpenProject.Image = global::CableTestManager.Properties.Resources.folder_open__2_;
+            this.tool_OpenProject.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tool_OpenProject.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_OpenProject.Name = "tool_OpenProject";
+            this.tool_OpenProject.Size = new System.Drawing.Size(60, 71);
+            this.tool_OpenProject.Text = "项目管理";
+            this.tool_OpenProject.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 74);
+            // 
+            // tool_HistoryData
+            // 
+            this.tool_HistoryData.Image = global::CableTestManager.Properties.Resources.database_active__2_;
+            this.tool_HistoryData.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tool_HistoryData.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_HistoryData.Name = "tool_HistoryData";
+            this.tool_HistoryData.Size = new System.Drawing.Size(60, 71);
+            this.tool_HistoryData.Text = "历史数据";
+            this.tool_HistoryData.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 74);
             // 
+            // tool_ConnectDevice
+            // 
+            this.tool_ConnectDevice.Image = global::CableTestManager.Properties.Resources.server_link;
+            this.tool_ConnectDevice.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tool_ConnectDevice.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_ConnectDevice.Name = "tool_ConnectDevice";
+            this.tool_ConnectDevice.Size = new System.Drawing.Size(60, 71);
+            this.tool_ConnectDevice.Text = "连接设备";
+            this.tool_ConnectDevice.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 74);
             // 
+            // tool_SelfStudy
+            // 
+            this.tool_SelfStudy.Image = global::CableTestManager.Properties.Resources.selfStudy;
+            this.tool_SelfStudy.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tool_SelfStudy.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_SelfStudy.Name = "tool_SelfStudy";
+            this.tool_SelfStudy.Size = new System.Drawing.Size(48, 71);
+            this.tool_SelfStudy.Text = "自学习";
+            this.tool_SelfStudy.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             this.toolStripSeparator6.Size = new System.Drawing.Size(6, 74);
+            // 
+            // tool_Probe
+            // 
+            this.tool_Probe.Image = global::CableTestManager.Properties.Resources.probe;
+            this.tool_Probe.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tool_Probe.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_Probe.Name = "tool_Probe";
+            this.tool_Probe.Size = new System.Drawing.Size(52, 71);
+            this.tool_Probe.Text = "探针";
+            this.tool_Probe.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // toolStripSeparator7
             // 
@@ -806,6 +889,24 @@
             this.toolStrip2.TabIndex = 1;
             this.toolStrip2.Text = "toolStrip2";
             // 
+            // tool_clearSelfGrid
+            // 
+            this.tool_clearSelfGrid.Image = global::CableTestManager.Properties.Resources.ClearGrid;
+            this.tool_clearSelfGrid.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_clearSelfGrid.Name = "tool_clearSelfGrid";
+            this.tool_clearSelfGrid.Size = new System.Drawing.Size(62, 25);
+            this.tool_clearSelfGrid.Text = "清空";
+            // 
+            // tool_importCableLib
+            // 
+            this.tool_importCableLib.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tool_importCableLib.Image = global::CableTestManager.Properties.Resources.import;
+            this.tool_importCableLib.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tool_importCableLib.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_importCableLib.Name = "tool_importCableLib";
+            this.tool_importCableLib.Size = new System.Drawing.Size(126, 25);
+            this.tool_importCableLib.Text = "导入到线束库";
+            // 
             // documentWindow1
             // 
             this.documentWindow1.Controls.Add(this.radGridViewCableTest);
@@ -968,104 +1069,10 @@
             this.radMenu1.TabIndex = 0;
             this.radMenu1.ThemeName = "MaterialBlueGrey";
             // 
-            // tool_clearSelfGrid
+            // menu_roleManager
             // 
-            this.tool_clearSelfGrid.Image = global::CableTestManager.Properties.Resources.ClearGrid;
-            this.tool_clearSelfGrid.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_clearSelfGrid.Name = "tool_clearSelfGrid";
-            this.tool_clearSelfGrid.Size = new System.Drawing.Size(62, 25);
-            this.tool_clearSelfGrid.Text = "清空";
-            // 
-            // tool_importCableLib
-            // 
-            this.tool_importCableLib.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tool_importCableLib.Image = global::CableTestManager.Properties.Resources.import;
-            this.tool_importCableLib.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tool_importCableLib.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_importCableLib.Name = "tool_importCableLib";
-            this.tool_importCableLib.Size = new System.Drawing.Size(126, 25);
-            this.tool_importCableLib.Text = "导入到线束库";
-            // 
-            // tool_InterfaceLibrary
-            // 
-            this.tool_InterfaceLibrary.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tool_InterfaceLibrary.Image = global::CableTestManager.Properties.Resources.IntefaceLibrary;
-            this.tool_InterfaceLibrary.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tool_InterfaceLibrary.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_InterfaceLibrary.Name = "tool_InterfaceLibrary";
-            this.tool_InterfaceLibrary.Size = new System.Drawing.Size(58, 71);
-            this.tool_InterfaceLibrary.Text = "接口库";
-            this.tool_InterfaceLibrary.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            // 
-            // tool_HarnessLibrary
-            // 
-            this.tool_HarnessLibrary.Image = global::CableTestManager.Properties.Resources.cable__2_;
-            this.tool_HarnessLibrary.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tool_HarnessLibrary.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_HarnessLibrary.Name = "tool_HarnessLibrary";
-            this.tool_HarnessLibrary.Size = new System.Drawing.Size(52, 71);
-            this.tool_HarnessLibrary.Text = "线束库";
-            this.tool_HarnessLibrary.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            // 
-            // tool_NewProject
-            // 
-            this.tool_NewProject.Image = global::CableTestManager.Properties.Resources.folder_new__2_;
-            this.tool_NewProject.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tool_NewProject.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_NewProject.Name = "tool_NewProject";
-            this.tool_NewProject.Size = new System.Drawing.Size(60, 71);
-            this.tool_NewProject.Text = "新建项目";
-            this.tool_NewProject.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            // 
-            // tool_OpenProject
-            // 
-            this.tool_OpenProject.Image = global::CableTestManager.Properties.Resources.folder_open__2_;
-            this.tool_OpenProject.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tool_OpenProject.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_OpenProject.Name = "tool_OpenProject";
-            this.tool_OpenProject.Size = new System.Drawing.Size(60, 71);
-            this.tool_OpenProject.Text = "项目管理";
-            this.tool_OpenProject.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            // 
-            // tool_HistoryData
-            // 
-            this.tool_HistoryData.Image = global::CableTestManager.Properties.Resources.database_active__2_;
-            this.tool_HistoryData.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tool_HistoryData.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_HistoryData.Name = "tool_HistoryData";
-            this.tool_HistoryData.Size = new System.Drawing.Size(60, 71);
-            this.tool_HistoryData.Text = "历史数据";
-            this.tool_HistoryData.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            // 
-            // tool_ConnectDevice
-            // 
-            this.tool_ConnectDevice.Image = global::CableTestManager.Properties.Resources.server_link;
-            this.tool_ConnectDevice.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tool_ConnectDevice.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_ConnectDevice.Name = "tool_ConnectDevice";
-            this.tool_ConnectDevice.Size = new System.Drawing.Size(60, 71);
-            this.tool_ConnectDevice.Text = "连接设备";
-            this.tool_ConnectDevice.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            // 
-            // tool_SelfStudy
-            // 
-            this.tool_SelfStudy.Image = global::CableTestManager.Properties.Resources.selfStudy;
-            this.tool_SelfStudy.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tool_SelfStudy.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_SelfStudy.Name = "tool_SelfStudy";
-            this.tool_SelfStudy.Size = new System.Drawing.Size(48, 71);
-            this.tool_SelfStudy.Text = "自学习";
-            this.tool_SelfStudy.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            // 
-            // tool_Probe
-            // 
-            this.tool_Probe.Image = global::CableTestManager.Properties.Resources.probe;
-            this.tool_Probe.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tool_Probe.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_Probe.Name = "tool_Probe";
-            this.tool_Probe.Size = new System.Drawing.Size(52, 71);
-            this.tool_Probe.Text = "探针";
-            this.tool_Probe.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.menu_roleManager.Name = "menu_roleManager";
+            this.menu_roleManager.Text = "角色管理";
             // 
             // CMainForm
             // 
@@ -1236,5 +1243,6 @@
         private System.Windows.Forms.ToolStripButton tool_importCableLib;
         private Telerik.WinControls.UI.RadMenu radMenu1;
         private Telerik.WinControls.UI.RadMenuItem menu_operateLog;
+        private Telerik.WinControls.UI.RadMenuItem menu_roleManager;
     }
 }
