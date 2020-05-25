@@ -128,5 +128,41 @@ namespace CableTestManager.Common
                 return id + 1;
             return id;
         }
+
+        public static long InsertRolePID()
+        {
+            long id = -1;
+            TRoleManager objManager = new TRoleManager();
+            var dt = objManager.GetDataSetByWhere("order by ID DESC limit 1").Tables[0];
+            if (dt.Rows.Count < 1)
+                return 0;
+            if (long.TryParse(dt.Rows[0]["ID"].ToString(), out id))
+                return id + 1;
+            return id;
+        }
+
+        public static long InsertFuncLimitPID()
+        {
+            long id = -1;
+            FuncLimitManager objManager = new FuncLimitManager();
+            var dt = objManager.GetDataSetByWhere("order by ID DESC limit 1").Tables[0];
+            if (dt.Rows.Count < 1)
+                return 0;
+            if (long.TryParse(dt.Rows[0]["ID"].ToString(), out id))
+                return id + 1;
+            return id;
+        }
+
+        public static long InsertOperateLimitPID()
+        {
+            long id = -1;
+            OperatLimitManager objManager = new OperatLimitManager();
+            var dt = objManager.GetDataSetByWhere("order by ID DESC limit 1").Tables[0];
+            if (dt.Rows.Count < 1)
+                return 0;
+            if (long.TryParse(dt.Rows[0]["ID"].ToString(), out id))
+                return id + 1;
+            return id;
+        }
     }
 }

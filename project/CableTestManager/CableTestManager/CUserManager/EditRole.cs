@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CableTestManager.Business.Implements;
 
 namespace CableTestManager.CUserManager
 {
@@ -15,10 +16,18 @@ namespace CableTestManager.CUserManager
         public string roleName;
         public string roleRemark;
 
-        public EditRole(string textTile)
+        public EditRole(string textTile,string roleName,string remark)
         {
             InitializeComponent();
             this.Text = textTile;
+            if (roleName != "")
+            {
+                this.tb_roleName.Text = roleName;
+            }
+            if (remark != "")
+            {
+                this.tb_remark.Text = remark;
+            }
         }
 
         private void EditRole_Load(object sender, EventArgs e)
@@ -34,6 +43,11 @@ namespace CableTestManager.CUserManager
                 MessageBox.Show("角色名称不能为空!","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 return;
             }
+            if (IsExistRole(this.tb_roleName.Text.Trim()))
+            {
+                MessageBox.Show("该名称已存在，请重新编辑！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                return;
+            }
             this.roleName = this.tb_roleName.Text.Trim();
             this.roleRemark = this.tb_remark.Text.Trim();
             this.Close();
@@ -43,6 +57,15 @@ namespace CableTestManager.CUserManager
         private void Btn_cancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private bool IsExistRole(string role)
+        {
+            TRoleManager roleManager = new TRoleManager();
+            var count = roleManager.GetRowCountByWhere($"where UserRole='{role}'");
+            if (count > 0)
+                return true;
+            return false;
         }
     }
 }

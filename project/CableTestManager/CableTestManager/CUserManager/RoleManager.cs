@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CableTestManager.Business.Implements;
+using CableTestManager.Entity;
+using CableTestManager.Common;
 using WindowsFormTelerik.ControlCommon;
 
 namespace CableTestManager.CUserManager
@@ -15,6 +17,8 @@ namespace CableTestManager.CUserManager
     public partial class RoleManager : Form
     {
         private TRoleManager roleManager;
+        private TRole roleEntity;
+
         public RoleManager()
         {
             InitializeComponent();
@@ -23,7 +27,9 @@ namespace CableTestManager.CUserManager
         private void RoleManager_Load(object sender, EventArgs e)
         {
             this.roleManager = new TRoleManager();
-            RadGridViewProperties.SetRadGridViewProperty(this.radGridView1,false,true,0);
+            this.roleEntity = new TRole();
+
+            RadGridViewProperties.SetRadGridViewProperty(this.radGridView1, false, true, 0);
             QueryRoleInfo();
 
             this.menu_add.Click += Menu_add_Click;
@@ -39,23 +45,82 @@ namespace CableTestManager.CUserManager
 
         private void Menu_del_Click(object sender, EventArgs e)
         {
-            
+            var curIndex = this.radGridView1.CurrentRow.Index;
+            if (curIndex < 0)
+            {
+                MessageBox.Show("未选择要删除的角色！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            var roleName = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
+            if (roleName == "管理员")
+            {
+                return;//系统管理员不可删除
+            }
+            var res = this.roleManager.DeleteByWhere($"where UserRole='{roleName}'");
+            if (res > 0)
+            {
+                MessageBox.Show($"已删除角色{roleName}！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            QueryRoleInfo();
         }
 
         private void Menu_commit_Click(object sender, EventArgs e)
         {
-            
+            var curIndex = this.radGridView1.CurrentRow.Index;
+            if (curIndex < 0)
+            {
+                MessageBox.Show("未选择要删除的角色！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            var roleName = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
+            if (roleName == "管理员")
+            {
+                return;//系统管理员不可编辑修改
+            }
+            var remark = this.radGridView1.CurrentRow.Cells[2].Value;
+            var remarkStr = "";
+            if (remark != null)
+                remarkStr = remark.ToString();
+            var id = GetRoleID(roleName);
+            EditRole editRole = new EditRole("编辑角色", roleName, remarkStr);
+            if (editRole.ShowDialog() == DialogResult.OK)
+            {
+                var date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                this.roleManager.UpdateFields($"UserRole='{editRole.roleName}',Remark='{editRole.roleRemark}',UpdateDate='{date}'", $"where ID='{id}'");
+                QueryRoleInfo();
+            }
         }
 
         private void Menu_add_Click(object sender, EventArgs e)
         {
-            
+            EditRole editRole = new EditRole("新增角色", "", "");
+            int rCount = this.roleManager.GetRowCount();
+            if (editRole.ShowDialog() == DialogResult.OK)
+            {
+                this.roleEntity.ID = TablePrimaryKey.InsertRolePID();
+                this.roleEntity.UserRole = editRole.roleName;
+                this.roleEntity.Remark = editRole.roleRemark;
+                this.roleEntity.UpdateDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                var cCount = roleManager.Insert(this.roleEntity);
+                if (cCount - rCount > 0)
+                {
+                    QueryRoleInfo();
+                }
+            }
         }
 
         private void QueryRoleInfo()
         {
-            var data = this.roleManager.GetDataSetByFieldsAndWhere("distinct ID 序号, UserRole 角色名称 ,Remark 备注","").Tables[0];
+            var data = this.roleManager.GetDataSetByFieldsAndWhere("distinct ID 序号, UserRole 角色名称 ,Remark 备注", "").Tables[0];
             this.radGridView1.DataSource = data;
+        }
+
+        private int GetRoleID(string roleName)
+        {
+            var data = this.roleManager.GetDataSetByFieldsAndWhere("ID", $"where UserRole='{roleName}'").Tables[0];
+            int id;
+            int.TryParse(data.Rows[0][0].ToString(), out id);
+            return id;
         }
     }
 }

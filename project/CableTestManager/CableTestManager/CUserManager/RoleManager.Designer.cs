@@ -136,7 +136,10 @@
             this.Controls.Add(this.radGridView1);
             this.Controls.Add(this.radMenu1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "RoleManager";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "角色管理";
             this.Load += new System.EventHandler(this.RoleManager_Load);
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).EndInit();

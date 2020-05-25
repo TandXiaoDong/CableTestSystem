@@ -9,7 +9,7 @@
  *				1297953037@qq.com
  *				http://www.figkey.com
  *      Finish DateTime:
- *				2020年05月22日
+ *				2020年05月25日
  *      History:
  ***********************************************************************************/
 using System;
@@ -27,9 +27,11 @@ namespace CableTestManager.Entity
         #region 私有字段
 
         private long _iD = 0;
+        private string _userRole = String.Empty;
         private string _interfaceLib_query = String.Empty;
         private string _interfaceLib_add = String.Empty;
-        private string _ineterfaceLib_del = String.Empty;
+        private string _interfaceLib_edit = String.Empty;
+        private string _interfaceLib_del = String.Empty;
         private string _interfaceLib_export = String.Empty;
         private string _cableLib_query = String.Empty;
         private string _cableLib_add = String.Empty;
@@ -38,23 +40,28 @@ namespace CableTestManager.Entity
         private string _cableLib_export = String.Empty;
         private string _connectorLib_query = String.Empty;
         private string _connectorLib_del = String.Empty;
+        private string _connectorLib_edit = String.Empty;
         private string _connectorLib_export = String.Empty;
         private string _connectorLib_add = String.Empty;
         private string _switchWearLib_query = String.Empty;
         private string _switchWearLib_add = String.Empty;
         private string _switchWearLib_edit = String.Empty;
+        private string _switchWearLib_del = String.Empty;
         private string _switchWearLib_export = String.Empty;
         private string _switchStandLib_query = String.Empty;
         private string _switchStandLib_add = String.Empty;
+        private string _switchStandLib_edit = String.Empty;
         private string _switchStandLib_del = String.Empty;
         private string _switchStandLib_export = String.Empty;
         private string _project_query = String.Empty;
         private string _project_add = String.Empty;
+        private string _project_edit = String.Empty;
         private string _project_del = String.Empty;
         private string _project_export = String.Empty;
         private string _historyTestData_query = String.Empty;
         private string _historyTestData_add = String.Empty;
         private string _historyTestData_edit = String.Empty;
+        private string _historyTestData_del = String.Empty;
         private string _historyTestData_export = String.Empty;
         private string _operatorRecord_query = String.Empty;
         private string _operatorRecord_del = String.Empty;
@@ -73,6 +80,13 @@ namespace CableTestManager.Entity
         }
 
 
+        public string UserRole
+        {
+            set { this._userRole = value; }
+            get { return this._userRole; }
+        }
+
+
         public string InterfaceLib_query
         {
             set { this._interfaceLib_query = value; }
@@ -87,10 +101,17 @@ namespace CableTestManager.Entity
         }
 
 
-        public string IneterfaceLib_del
+        public string InterfaceLib_edit
         {
-            set { this._ineterfaceLib_del = value; }
-            get { return this._ineterfaceLib_del; }
+            set { this._interfaceLib_edit = value; }
+            get { return this._interfaceLib_edit; }
+        }
+
+
+        public string InterfaceLib_del
+        {
+            set { this._interfaceLib_del = value; }
+            get { return this._interfaceLib_del; }
         }
 
 
@@ -150,6 +171,13 @@ namespace CableTestManager.Entity
         }
 
 
+        public string ConnectorLib_edit
+        {
+            set { this._connectorLib_edit = value; }
+            get { return this._connectorLib_edit; }
+        }
+
+
         public string ConnectorLib_export
         {
             set { this._connectorLib_export = value; }
@@ -185,6 +213,13 @@ namespace CableTestManager.Entity
         }
 
 
+        public string SwitchWearLib_del
+        {
+            set { this._switchWearLib_del = value; }
+            get { return this._switchWearLib_del; }
+        }
+
+
         public string SwitchWearLib_export
         {
             set { this._switchWearLib_export = value; }
@@ -203,6 +238,13 @@ namespace CableTestManager.Entity
         {
             set { this._switchStandLib_add = value; }
             get { return this._switchStandLib_add; }
+        }
+
+
+        public string SwitchStandLib_edit
+        {
+            set { this._switchStandLib_edit = value; }
+            get { return this._switchStandLib_edit; }
         }
 
 
@@ -231,6 +273,13 @@ namespace CableTestManager.Entity
         {
             set { this._project_add = value; }
             get { return this._project_add; }
+        }
+
+
+        public string Project_edit
+        {
+            set { this._project_edit = value; }
+            get { return this._project_edit; }
         }
 
 
@@ -266,6 +315,13 @@ namespace CableTestManager.Entity
         {
             set { this._historyTestData_edit = value; }
             get { return this._historyTestData_edit; }
+        }
+
+
+        public string HistoryTestData_del
+        {
+            set { this._historyTestData_del = value; }
+            get { return this._historyTestData_del; }
         }
 
 
