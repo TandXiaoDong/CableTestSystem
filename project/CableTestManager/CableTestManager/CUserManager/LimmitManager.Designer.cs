@@ -98,12 +98,12 @@
             this.checkListFuncLimit = new Telerik.WinControls.UI.RadCheckedListBox();
             this.checkListOperatLimit = new Telerik.WinControls.UI.RadCheckedListBox();
             this.radGroupBox1 = new Telerik.WinControls.UI.RadGroupBox();
+            this.checkAllFunc = new Telerik.WinControls.UI.RadCheckBox();
             this.radGroupBox2 = new Telerik.WinControls.UI.RadGroupBox();
+            this.checkAllOperat = new Telerik.WinControls.UI.RadCheckBox();
             this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
             this.btn_ok = new Telerik.WinControls.UI.RadButton();
             this.btn_cancel = new Telerik.WinControls.UI.RadButton();
-            this.radCheckBox1 = new Telerik.WinControls.UI.RadCheckBox();
-            this.radCheckBox2 = new Telerik.WinControls.UI.RadCheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cob_roleList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cob_roleList.EditorControl)).BeginInit();
@@ -112,12 +112,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.checkListOperatLimit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).BeginInit();
             this.radGroupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.checkAllFunc)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox2)).BeginInit();
             this.radGroupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.checkAllOperat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_ok)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_cancel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radCheckBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radCheckBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // radLabel1
@@ -306,7 +306,7 @@
             // radGroupBox1
             // 
             this.radGroupBox1.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
-            this.radGroupBox1.Controls.Add(this.radCheckBox1);
+            this.radGroupBox1.Controls.Add(this.checkAllFunc);
             this.radGroupBox1.Controls.Add(this.checkListFuncLimit);
             this.radGroupBox1.HeaderText = "功能模块";
             this.radGroupBox1.Location = new System.Drawing.Point(12, 84);
@@ -316,10 +316,19 @@
             this.radGroupBox1.Text = "功能模块";
             this.radGroupBox1.ThemeName = "Office2013Light";
             // 
+            // checkAllFunc
+            // 
+            this.checkAllFunc.Location = new System.Drawing.Point(5, 28);
+            this.checkAllFunc.Name = "checkAllFunc";
+            this.checkAllFunc.Size = new System.Drawing.Size(74, 32);
+            this.checkAllFunc.TabIndex = 22;
+            this.checkAllFunc.Text = "全选";
+            this.checkAllFunc.ThemeName = "TelerikMetroTouch";
+            // 
             // radGroupBox2
             // 
             this.radGroupBox2.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
-            this.radGroupBox2.Controls.Add(this.radCheckBox2);
+            this.radGroupBox2.Controls.Add(this.checkAllOperat);
             this.radGroupBox2.Controls.Add(this.checkListOperatLimit);
             this.radGroupBox2.HeaderText = "操作权限";
             this.radGroupBox2.Location = new System.Drawing.Point(309, 84);
@@ -328,6 +337,15 @@
             this.radGroupBox2.TabIndex = 24;
             this.radGroupBox2.Text = "操作权限";
             this.radGroupBox2.ThemeName = "Office2013Light";
+            // 
+            // checkAllOperat
+            // 
+            this.checkAllOperat.Location = new System.Drawing.Point(14, 28);
+            this.checkAllOperat.Name = "checkAllOperat";
+            this.checkAllOperat.Size = new System.Drawing.Size(74, 32);
+            this.checkAllOperat.TabIndex = 23;
+            this.checkAllOperat.Text = "全选";
+            this.checkAllOperat.ThemeName = "TelerikMetroTouch";
             // 
             // btn_ok
             // 
@@ -346,24 +364,6 @@
             this.btn_cancel.TabIndex = 26;
             this.btn_cancel.Text = "取消";
             this.btn_cancel.ThemeName = "TelerikMetroTouch";
-            // 
-            // radCheckBox1
-            // 
-            this.radCheckBox1.Location = new System.Drawing.Point(5, 28);
-            this.radCheckBox1.Name = "radCheckBox1";
-            this.radCheckBox1.Size = new System.Drawing.Size(74, 32);
-            this.radCheckBox1.TabIndex = 22;
-            this.radCheckBox1.Text = "全选";
-            this.radCheckBox1.ThemeName = "TelerikMetroTouch";
-            // 
-            // radCheckBox2
-            // 
-            this.radCheckBox2.Location = new System.Drawing.Point(14, 28);
-            this.radCheckBox2.Name = "radCheckBox2";
-            this.radCheckBox2.Size = new System.Drawing.Size(74, 32);
-            this.radCheckBox2.TabIndex = 23;
-            this.radCheckBox2.Text = "全选";
-            this.radCheckBox2.ThemeName = "TelerikMetroTouch";
             // 
             // LimmitManager
             // 
@@ -392,13 +392,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).EndInit();
             this.radGroupBox1.ResumeLayout(false);
             this.radGroupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.checkAllFunc)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox2)).EndInit();
             this.radGroupBox2.ResumeLayout(false);
             this.radGroupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.checkAllOperat)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_ok)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_cancel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radCheckBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radCheckBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -417,7 +417,7 @@
         private Telerik.WinControls.Themes.MaterialBlueGreyTheme materialBlueGreyTheme1;
         private Telerik.WinControls.UI.RadButton btn_ok;
         private Telerik.WinControls.UI.RadButton btn_cancel;
-        private Telerik.WinControls.UI.RadCheckBox radCheckBox1;
-        private Telerik.WinControls.UI.RadCheckBox radCheckBox2;
+        private Telerik.WinControls.UI.RadCheckBox checkAllFunc;
+        private Telerik.WinControls.UI.RadCheckBox checkAllOperat;
     }
 }

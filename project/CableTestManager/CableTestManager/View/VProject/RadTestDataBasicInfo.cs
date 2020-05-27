@@ -9,6 +9,7 @@ using Telerik.WinControls;
 using WindowsFormTelerik.ControlCommon;
 using WindowsFormTelerik.GridViewExportData;
 using CableTestManager.Business.Implements;
+using CableTestManager.CUserManager;
 
 namespace CableTestManager.View.VProject
 {
@@ -30,6 +31,7 @@ namespace CableTestManager.View.VProject
 
             RadGridViewProperties.SetRadGridViewProperty(this.radGridView1, false,true,7);
             QueryHistoryBasicInfo(true);
+            InitFuncState();
 
             this.menu_close.Click += Menu_close_Click;
             this.menu_detail.Click += Menu_detail_Click;
@@ -37,6 +39,31 @@ namespace CableTestManager.View.VProject
             this.menu_likeQuery.Click += Menu_likeQuery_Click;
             this.menu_export.Click += Menu_export_Click;
             this.menu_deleteData.Click += Menu_deleteData_Click;
+        }
+
+        private void InitFuncState()
+        {
+            OperatLimitManager operatLimitManager = new OperatLimitManager();
+            var data = operatLimitManager.GetDataSetByWhere($"where UserRole='{LocalLogin.currentUserType}'").Tables[0];
+            if (data.Rows.Count > 0)
+            {
+                foreach (DataRow dr in data.Rows)
+                {
+                    this.menu_deleteData.Visibility = ConvertDec2EleVisState(dr["Project_del"].ToString());
+                    this.menu_eqlQuery.Visibility = ConvertDec2EleVisState(dr["HistoryTestData_query"].ToString());
+                    this.menu_likeQuery.Visibility = ConvertDec2EleVisState(dr["HistoryTestData_query"].ToString());
+                    this.menu_detail.Visibility = ConvertDec2EleVisState(dr["HistoryTestData_query"].ToString());
+                    this.menu_export.Visibility = ConvertDec2EleVisState(dr["HistoryTestData_export"].ToString());
+                }
+            }
+        }
+
+        private ElementVisibility ConvertDec2EleVisState(string val)
+        {
+            if (val == "1")
+                return ElementVisibility.Visible;
+            else
+                return ElementVisibility.Hidden;
         }
 
         private void Menu_deleteData_Click(object sender, EventArgs e)

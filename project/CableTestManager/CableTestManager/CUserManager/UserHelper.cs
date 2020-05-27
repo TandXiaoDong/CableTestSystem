@@ -125,7 +125,7 @@ namespace CommonUtil.CUserManager
         /// <param name="username"></param>
         /// <param name="pwd"></param>
         /// <returns></returns>
-        public RegisterResult Register(string username, string pwd, int userType)
+        public RegisterResult Register(string username, string pwd, string userType)
         {
             try
             {
@@ -144,7 +144,7 @@ namespace CommonUtil.CUserManager
                     user.UserID = QueryPrimaryID();
                     user.UserName = username;
                     user.UserPassword = pwd;
-                    user.UserRole = userType.ToString();
+                    user.UserRole = userType;
                     int executeResult = userManager.Insert(user);
                     if (executeResult < 1)
                     {

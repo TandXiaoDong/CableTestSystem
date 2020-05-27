@@ -9,6 +9,7 @@ using Telerik.WinControls;
 using System.Text.RegularExpressions;
 using CommonUtils.CalculateAndString;
 using CableTestManager.CUserManager;
+using CableTestManager.Business.Implements;
 
 namespace CommonUtil.CUserManager
 {
@@ -27,14 +28,29 @@ namespace CommonUtil.CUserManager
             tb_pwd.PasswordChar = '*';
             tb_repwd.PasswordChar = '*';
             userHelper = new UserHelper();
-            this.cb_userType.MultiColumnComboBoxElement.Columns.Add("Type");
-            //this.cb_userType.EditorControl.Rows.Add("管理员");
-            this.cb_userType.EditorControl.Rows.Add("操作员");
-            this.cb_userType.EditorControl.ShowColumnHeaders = false;
-            this.cb_userType.EditorControl.AutoSizeColumnsMode = Telerik.WinControls.UI.GridViewAutoSizeColumnsMode.Fill;
+            AddUserRole();
 
             this.btn_cancel.Click += Btn_cancel_Click;
             this.btn_register.Click += Btn_register_Click;
+        }
+
+        private void AddUserRole()
+        {
+            TRoleManager roleManager = new TRoleManager();
+            this.cb_userType.MultiColumnComboBoxElement.Columns.Add("NAME");
+            var data = roleManager.GetDataSetByFieldsAndWhere("distinct UserRole", "where UserRole != '管理员'").Tables[0];
+            if (data.Rows.Count <= 0)
+                return;
+            foreach (DataRow dr in data.Rows)
+            {
+                this.cb_userType.EditorControl.Rows.Add(dr[0].ToString());
+            }
+            this.cb_userType.EditorControl.ShowColumnHeaders = false;
+            this.cb_userType.EditorControl.AutoSizeColumnsMode = Telerik.WinControls.UI.GridViewAutoSizeColumnsMode.Fill;
+            if (this.cb_userType.EditorControl.Rows.Count > 0)
+            {
+                this.cb_userType.SelectedIndex = 0;
+            }
         }
 
         private void Btn_register_Click(object sender, EventArgs e)
@@ -52,7 +68,7 @@ namespace CommonUtil.CUserManager
             var username = this.tb_username.Text.Trim();
             var userpwd = this.tb_pwd.Text.Trim();
             var userRpwd = this.tb_repwd.Text.Trim();
-            var userType = this.cb_userType.SelectedIndex + 1;
+            var userType = this.cb_userType.Text.Trim();
 
             if (string.IsNullOrEmpty(userType.ToString()))
             {

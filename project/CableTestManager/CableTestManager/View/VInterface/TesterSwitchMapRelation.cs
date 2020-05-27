@@ -11,6 +11,7 @@ using CableTestManager.Business;
 using CableTestManager.Business.Implements;
 using CableTestManager.Entity;
 using WindowsFormTelerik.GridViewExportData;
+using CableTestManager.CUserManager;
 
 namespace CableTestManager.View.VInterface
 {
@@ -25,6 +26,7 @@ namespace CableTestManager.View.VInterface
             RadGridViewProperties.SetRadGridViewProperty(this.radGridView1,false,true,3);
             switchWorkWearMapRelationManager = new TesterAndSwitchStandMapRelationManager();
             QueryRelationInfo();
+            InitFuncState();
 
             this.tool_query.Click += Tool_query_Click;
             this.tool_edit.Click += Tool_edit_Click;
@@ -32,6 +34,31 @@ namespace CableTestManager.View.VInterface
             this.tool_export.Click += Tool_export_Click;
             this.btn_apply.Click += Btn_apply_Click;
             this.btn_cancel.Click += Btn_cancel_Click;
+        }
+
+        private void InitFuncState()
+        {
+            OperatLimitManager operatLimitManager = new OperatLimitManager();
+            var data = operatLimitManager.GetDataSetByWhere($"where UserRole='{LocalLogin.currentUserType}'").Tables[0];
+            if (data.Rows.Count > 0)
+            {
+                foreach (DataRow dr in data.Rows)
+                {
+                    this.tool_query.Visible = ConvertDec2State(dr["SwitchStandLib_query"].ToString());
+                    this.tool_add.Visible = ConvertDec2State(dr["SwitchStandLib_add"].ToString());
+                    this.tool_delete.Visible = ConvertDec2State(dr["SwitchStandLib_del"].ToString());
+                    this.tool_edit.Visible = ConvertDec2State(dr["SwitchStandLib_edit"].ToString());
+                    this.tool_export.Visible = ConvertDec2State(dr["SwitchStandLib_export"].ToString());
+                }
+            }
+        }
+
+        private bool ConvertDec2State(string val)
+        {
+            if (val == "1")
+                return true;
+            else
+                return false;
         }
 
         private void Btn_cancel_Click(object sender, EventArgs e)

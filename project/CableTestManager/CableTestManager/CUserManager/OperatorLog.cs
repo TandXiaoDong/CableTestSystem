@@ -25,12 +25,38 @@ namespace CableTestManager.CUserManager
             this.datePickerEndTime.Text = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             RadGridViewProperties.SetRadGridViewProperty(this.radGridView1,false,false,4);
             operationRecordManager = new TOperateRecordManager();
+            InitFuncState();
 
             this.tool_query.Click += Tool_query_Click;
             this.tool_likeQuery.Click += Tool_likeQuery_Click;
             this.tool_export.Click += Tool_export_Click;
             this.tool_deleteSignalData.Click += Tool_deleteSignalData_Click;
             this.tool_deleteAllData.Click += Tool_deleteAllData_Click;
+        }
+
+        private void InitFuncState()
+        {
+            OperatLimitManager operatLimitManager = new OperatLimitManager();
+            var data = operatLimitManager.GetDataSetByWhere($"where UserRole='{LocalLogin.currentUserType}'").Tables[0];
+            if (data.Rows.Count > 0)
+            {
+                foreach (DataRow dr in data.Rows)
+                {
+                    this.tool_query.Visible = ConvertDec2State(dr["OperatorRecord_query"].ToString());
+                    this.tool_likeQuery.Visible = ConvertDec2State(dr["OperatorRecord_query"].ToString());
+                    this.tool_deleteSignalData.Visible = ConvertDec2State(dr["OperatorRecord_del"].ToString());
+                    this.tool_deleteAllData.Visible = ConvertDec2State(dr["OperatorRecord_del"].ToString());
+                    this.tool_export.Visible = ConvertDec2State(dr["OperatorRecord_export"].ToString());
+                }
+            }
+        }
+
+        private bool ConvertDec2State(string val)
+        {
+            if (val == "1")
+                return true;
+            else
+                return false;
         }
 
         private void Tool_deleteSignalData_Click(object sender, EventArgs e)

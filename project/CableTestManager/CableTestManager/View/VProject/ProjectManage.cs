@@ -10,6 +10,7 @@ using CableTestManager.Business;
 using CableTestManager.Business.Implements;
 using WindowsFormTelerik.ControlCommon;
 using CableTestManager.Model;
+using CableTestManager.CUserManager;
 
 namespace CableTestManager.View.VProject
 {
@@ -42,6 +43,7 @@ namespace CableTestManager.View.VProject
             RadGridViewProperties.SetRadGridViewProperty(this.radGridView1,false,true,6);
             this.radGridView1.ReadOnly = true;
             QueryProjectInfo();
+            InitFuncState();
 
             this.tb_queryFilter.TextChanged += Tb_queryFilter_TextChanged;
             this.radGridView1.CellDoubleClick += RadGridView1_CellDoubleClick;
@@ -50,6 +52,33 @@ namespace CableTestManager.View.VProject
             this.btn_copyProject.Click += Btn_copyProject_Click;
             this.btn_editProject.Click += Btn_editProject_Click;
             this.btn_deleteProject.Click += Btn_deleteProject_Click;
+        }
+
+        private void InitFuncState()
+        {
+            OperatLimitManager operatLimitManager = new OperatLimitManager();
+            var data = operatLimitManager.GetDataSetByWhere($"where UserRole='{LocalLogin.currentUserType}'").Tables[0];
+            if (data.Rows.Count > 0)
+            {
+                foreach (DataRow dr in data.Rows)
+                {
+                    this.btn_deleteProject.Visibility = ConvertDec2EleVisState(dr["Project_del"].ToString());
+                    this.btn_editProject.Visibility = ConvertDec2EleVisState(dr["project_edit"].ToString());
+
+                    //(dr["Project_query"].ToString());
+                    //(dr["Project_add"].ToString());
+                    //(dr["Project_del"].ToString());
+                    //(dr["project_edit"].ToString());
+                }
+            }
+        }
+
+        private ElementVisibility ConvertDec2EleVisState(string val)
+        {
+            if (val == "1")
+                return ElementVisibility.Visible;
+            else
+                return ElementVisibility.Hidden;
         }
 
         private void RadGridView1_CellDoubleClick(object sender, Telerik.WinControls.UI.GridViewCellEventArgs e)

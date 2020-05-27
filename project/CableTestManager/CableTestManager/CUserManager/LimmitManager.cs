@@ -104,6 +104,30 @@ namespace CableTestManager.CUserManager
 
             this.btn_cancel.Click += Btn_cancel_Click;
             this.btn_ok.Click += Btn_ok_Click;
+            this.checkAllFunc.CheckStateChanged += CheckAllFunc_CheckStateChanged;
+            this.checkAllOperat.CheckStateChanged += CheckAllOperat_CheckStateChanged;
+        }
+
+        private void CheckAllOperat_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (this.checkAllOperat.Checked)
+            {
+                foreach (var item in this.checkListOperatLimit.Items)
+                {
+                    item.CheckState = Telerik.WinControls.Enumerations.ToggleState.On;
+                }
+            }
+        }
+
+        private void CheckAllFunc_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (this.checkAllFunc.Checked)
+            {
+                foreach (var item in this.checkListFuncLimit.Items)
+                {
+                    item.CheckState = Telerik.WinControls.Enumerations.ToggleState.On;
+                }
+            }
         }
 
         private void Btn_ok_Click(object sender, EventArgs e)

@@ -40,6 +40,7 @@
             this.radMenuItem8 = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_modifyPassword = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_userManager = new Telerik.WinControls.UI.RadMenuItem();
+            this.menu_roleManager = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_authorManager = new Telerik.WinControls.UI.RadMenuItem();
             this.radMenuItem2 = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_connectorLibrary = new Telerik.WinControls.UI.RadMenuItem();
@@ -61,8 +62,8 @@
             this.radMenuItem6 = new Telerik.WinControls.UI.RadMenuItem();
             this.radMenuItem25 = new Telerik.WinControls.UI.RadMenuItem();
             this.radMenuItem26 = new Telerik.WinControls.UI.RadMenuItem();
-            this.radMenuItem27 = new Telerik.WinControls.UI.RadMenuItem();
-            this.radMenuItem28 = new Telerik.WinControls.UI.RadMenuItem();
+            this.menu_StartResistanceCompensation = new Telerik.WinControls.UI.RadMenuItem();
+            this.menu_ResistanceCompensationManage = new Telerik.WinControls.UI.RadMenuItem();
             this.radMenuItem31 = new Telerik.WinControls.UI.RadMenuItem();
             this.tool_testEnvironment = new Telerik.WinControls.UI.RadMenuItem();
             this.tool_defaultTestParams = new Telerik.WinControls.UI.RadMenuItem();
@@ -141,7 +142,6 @@
             this.telerikMetroTouchTheme1 = new Telerik.WinControls.Themes.TelerikMetroTouchTheme();
             this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
             this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
-            this.menu_roleManager = new Telerik.WinControls.UI.RadMenuItem();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu2)).BeginInit();
@@ -227,6 +227,11 @@
             // 
             this.menu_userManager.Name = "menu_userManager";
             this.menu_userManager.Text = "用户管理";
+            // 
+            // menu_roleManager
+            // 
+            this.menu_roleManager.Name = "menu_roleManager";
+            this.menu_roleManager.Text = "角色管理";
             // 
             // menu_authorManager
             // 
@@ -342,8 +347,8 @@
             this.radMenuItem6.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.radMenuItem25,
             this.radMenuItem26,
-            this.radMenuItem27,
-            this.radMenuItem28,
+            this.menu_StartResistanceCompensation,
+            this.menu_ResistanceCompensationManage,
             this.radMenuItem31,
             this.radMenuItem32,
             this.menu_connectCfg});
@@ -360,15 +365,15 @@
             this.radMenuItem26.Name = "radMenuItem26";
             this.radMenuItem26.Text = "启用辅助供电";
             // 
-            // radMenuItem27
+            // menu_StartResistanceCompensation
             // 
-            this.radMenuItem27.Name = "radMenuItem27";
-            this.radMenuItem27.Text = "启用电阻补偿";
+            this.menu_StartResistanceCompensation.Name = "menu_StartResistanceCompensation";
+            this.menu_StartResistanceCompensation.Text = "启用电阻补偿";
             // 
-            // radMenuItem28
+            // menu_ResistanceCompensationManage
             // 
-            this.radMenuItem28.Name = "radMenuItem28";
-            this.radMenuItem28.Text = "补偿电阻管理";
+            this.menu_ResistanceCompensationManage.Name = "menu_ResistanceCompensationManage";
+            this.menu_ResistanceCompensationManage.Text = "补偿电阻管理";
             // 
             // radMenuItem31
             // 
@@ -1069,11 +1074,6 @@
             this.radMenu1.TabIndex = 0;
             this.radMenu1.ThemeName = "MaterialBlueGrey";
             // 
-            // menu_roleManager
-            // 
-            this.menu_roleManager.Name = "menu_roleManager";
-            this.menu_roleManager.Text = "角色管理";
-            // 
             // CMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1180,8 +1180,8 @@
         private Telerik.WinControls.UI.RadMenuItem menu_disConnect;
         private Telerik.WinControls.UI.RadMenuItem radMenuItem25;
         private Telerik.WinControls.UI.RadMenuItem radMenuItem26;
-        private Telerik.WinControls.UI.RadMenuItem radMenuItem27;
-        private Telerik.WinControls.UI.RadMenuItem radMenuItem28;
+        private Telerik.WinControls.UI.RadMenuItem menu_StartResistanceCompensation;
+        private Telerik.WinControls.UI.RadMenuItem menu_ResistanceCompensationManage;
         private Telerik.WinControls.UI.RadMenuItem menu_faultCode;
         private Telerik.WinControls.UI.RadMenuItem radMenuItem30;
         private Telerik.WinControls.UI.RadMenuItem radMenuItem31;

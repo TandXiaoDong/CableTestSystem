@@ -30,6 +30,12 @@ using CableTestManager.Common;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Diagnostics;
+using iTextSharp;
+using iTextSharp.text;
+using iTextSharp.xmp;
+using iTextSharp.awt;
+using iTextSharp.testutils;
+using CommonUtils.PDF;
 
 namespace CableTestManager.View
 {
@@ -174,7 +180,63 @@ namespace CableTestManager.View
 
         private void CMainForm_Load(object sender, EventArgs e)
         {
-            
+            InitUserAccess();
+        }
+
+        private void InitUserAccess()
+        {
+            FuncLimitManager funLimitManager = new FuncLimitManager();
+            if (LocalLogin.currentUserType != "管理员")
+            {
+                var data = funLimitManager.GetDataSetByWhere($"where UserRole='{LocalLogin.currentUserType}'").Tables[0];
+                if (data.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in data.Rows)
+                    {
+                        this.tool_HarnessLibrary.Visible = ConvertDec2State(dr["CableLib"].ToString());
+                        this.menu_shortCircuitTest.Visibility = ConvertDec2EleVisState(dr["ShortCircuitTest"].ToString());
+                        this.menu_ConductionTest.Visibility = ConvertDec2EleVisState(dr["ConductTest"].ToString());
+                        this.menu_connectorLibrary.Visibility = ConvertDec2EleVisState(dr["ConnectorLib"].ToString());
+                        this.menu_devCalibration.Visibility = ConvertDec2EleVisState(dr["DeviceCalibration"].ToString());
+                        this.menu_devDebugAssitant.Visibility = ConvertDec2EleVisState(dr["DeviceDebug"].ToString());
+                        this.menu_devSelfCheck.Visibility = ConvertDec2EleVisState(dr["DeviceSelfCheck"].ToString());
+                        this.tool_testEnvironment.Visibility = ConvertDec2EleVisState(dr["EnvironmentalParameters"].ToString());
+                        this.menu_ExportReport.Visibility = ConvertDec2EleVisState(dr["ExcuteReport"].ToString());
+                        this.menu_faultCode.Visibility = ConvertDec2EleVisState(dr["DeviceFaultQuery"].ToString());
+                        this.menu_InsulationTest.Visibility = ConvertDec2EleVisState(dr["InsulateTest"].ToString());
+                        this.tool_InterfaceLibrary.Visible = ConvertDec2State(dr["InterfaceLib"].ToString());
+                        this.tool_NewProject.Visible = ConvertDec2State(dr["NewProject"].ToString());
+                        this.menu_OneKeyTest.Visibility = ConvertDec2EleVisState(dr["OneKeyTest"].ToString());
+                        this.menu_operateLog.Visibility = ConvertDec2EleVisState(dr["OperatorRecord"].ToString());
+                        this.menu_PrintReport.Visibility = ConvertDec2EleVisState(dr["PrintReport"].ToString());
+                        this.tool_Probe.Visible = ConvertDec2State(dr["Probe"].ToString());
+                        this.tool_OpenProject.Visible = ConvertDec2State(dr["ProjectManage"].ToString());
+                        this.tool_reportSavePath.Visibility = ConvertDec2EleVisState(dr["ReportConfigPath"].ToString());
+                        this.menu_ResistanceCompensationManage.Visibility = ConvertDec2EleVisState(dr["ResistanceCompensationManage"].ToString());
+                        this.menu_SaveData.Visibility = ConvertDec2EleVisState(dr["SaveTestData"].ToString());
+                        this.tool_SelfStudy.Visible = ConvertDec2State(dr["SelfStudy"].ToString());
+                        this.menu_StartResistanceCompensation.Visibility = ConvertDec2EleVisState(dr["StartResistanceCompensation"].ToString());
+                        this.menu_switchStandMapLib.Visibility = ConvertDec2EleVisState(dr["SwitchStandLib"].ToString());
+                        this.menu_switchWorkWearLib.Visibility = ConvertDec2EleVisState(dr["SwitchWearLib"].ToString());
+                    }
+                }
+            }
+        }
+
+        private bool ConvertDec2State(string val)
+        {
+            if (val == "1")
+                return true;
+            else
+                return false;
+        }
+
+        private ElementVisibility ConvertDec2EleVisState(string val)
+        {
+            if (val == "1")
+                return ElementVisibility.Visible;
+            else
+                return ElementVisibility.Hidden;
         }
 
         public void Init()
@@ -220,7 +282,7 @@ namespace CableTestManager.View
             configPath = AppDomain.CurrentDomain.BaseDirectory + "config\\";
             if (!Directory.Exists(configPath))
                 Directory.CreateDirectory(configPath);
-            this.lbx_curLoginUser.Text = LocalLogin.CurrentUserName;
+            this.lbx_curLoginUser.Text = LocalLogin.currentUserName;
             InitDefaultConfig();
             UpdateTreeView();
             EventHandles();
@@ -312,6 +374,7 @@ namespace CableTestManager.View
             this.menu_faultCode.Click += Menu_faultCode_Click;
             this.menu_historyData.Click += Menu_historyData_Click;
             this.menu_PrintReport.Click += Menu_PrintReport_Click;
+            this.menu_ExportReport.Click += Menu_ExportReport_Click;
             #endregion
 
             this.FormClosed += CMainForm_FormClosed;
@@ -322,6 +385,16 @@ namespace CableTestManager.View
 
             SuperEasyClient.NoticeConnectEvent += SuperEasyClient_NoticeConnectEvent;
             SuperEasyClient.NoticeMessageEvent += SuperEasyClient_NoticeMessageEvent;
+        }
+
+        private void Menu_ExportReport_Click(object sender, EventArgs e)
+        {
+            var path = AppDomain.CurrentDomain.BaseDirectory + "pdfFile\\";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            ExportPDF(path+this.projectTestNumber+".pdf",GetReportContent());
         }
 
         private void Menu_roleManager_Click(object sender, EventArgs e)
@@ -1111,10 +1184,10 @@ namespace CableTestManager.View
         private void Menu_modifyPassword_Click(object sender, EventArgs e)
         {
             TUserManager userManager = new TUserManager();
-            var dt = userManager.GetDataSetByFieldsAndWhere("UserID", $"where UserName='{LocalLogin.CurrentUserName}'").Tables[0];
+            var dt = userManager.GetDataSetByFieldsAndWhere("UserID", $"where UserName='{LocalLogin.currentUserName}'").Tables[0];
             if (dt.Rows.Count < 1)
                 return;
-            ModifyPwd modifyPwd = new ModifyPwd(dt.Rows[0][0].ToString(),LocalLogin.CurrentUserName);
+            ModifyPwd modifyPwd = new ModifyPwd(dt.Rows[0][0].ToString(),LocalLogin.currentUserName);
             modifyPwd.ShowDialog();
         }
 
@@ -1370,7 +1443,7 @@ namespace CableTestManager.View
             historyDataInfo.TestCableName = projectInfoData.Rows[0]["TestCableName"].ToString();
             historyDataInfo.TestDate = this.startTestDate;
             //可新增结束日期
-            historyDataInfo.TestOperator = LocalLogin.CurrentUserName;
+            historyDataInfo.TestOperator = LocalLogin.currentUserName;
             historyDataInfo.EnvironmentTemperature = this.environmentTemperature.ToString();
             historyDataInfo.EnvironmentAmbientHumidity = this.environmentAmbientHumidity.ToString();
             historyDataInfo.DeviceTypeNo = this.deviceTypeNo;
@@ -2137,5 +2210,35 @@ namespace CableTestManager.View
             }
         }
         #endregion
+
+        private void ExportPDF(string pdfFilePath,StringBuilder sb)
+        {
+            using (Stream fs = new FileStream(pdfFilePath, FileMode.Create))
+            {
+                PDFOperation pdf = new PDFOperation();
+                pdf.Open(fs);
+                pdf.SetBaseFont(@"C:\Windows\Fonts\SIMHEI.TTF");
+                pdf.AddParagraph(sb.ToString(), 15, 1, 20, 0, 0);
+                pdf.Close();
+            }
+            if (MessageBox.Show("是否打开报表？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+            {
+                if (File.Exists(pdfFilePath))
+                {
+                    System.Diagnostics.Process.Start(pdfFilePath);
+                }
+            }
+        }
+
+        private StringBuilder GetReportContent()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("测试报告");
+            sb.AppendLine("测试结果       "+this.CalFinalTestResult());
+            //sb.AppendLine($"线束名称：    环境湿度：{this.environmentAmbientHumidity}");
+            //sb.AppendLine($"环境温度：{this.environmentTemperature}    测试人员：{LocalLogin.currentUserName}");
+            //sb.AppendLine($"测试起始日期：{this.startTestDate}    测试结束日期：{this.endTestDate}");
+            return sb;
+        }
     }
 }

@@ -113,6 +113,12 @@ namespace CableTestManager.CUserManager
         {
             var data = this.roleManager.GetDataSetByFieldsAndWhere("distinct ID 序号, UserRole 角色名称 ,Remark 备注", "").Tables[0];
             this.radGridView1.DataSource = data;
+            int i = 0;
+            foreach (var rowInfo in this.radGridView1.Rows)
+            {
+                rowInfo.Cells[0].Value = i + 1;
+                i++;
+            }
         }
 
         private int GetRoleID(string roleName)

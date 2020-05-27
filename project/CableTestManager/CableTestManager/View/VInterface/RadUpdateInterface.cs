@@ -406,7 +406,7 @@ namespace CableTestManager.View.VAdd
                     plugLibraryDetail.MeasureMethod = "4";
                 plugLibraryDetail.SwitchStandStitchNo = stitchNo;
                 plugLibraryDetail.Remark = remark;
-                plugLibraryDetail.Operator = LocalLogin.CurrentUserName;
+                plugLibraryDetail.Operator = LocalLogin.currentUserName;
                 plugLibraryDetail.ConnectorName = connectorName;
                 #endregion
 
@@ -571,7 +571,7 @@ namespace CableTestManager.View.VAdd
                 else if (infoObj.MeasureMethod == FOUR_WIRE_METHOD)
                     plugLibraryDetail.MeasureMethod = "4";
                 plugLibraryDetail.Remark = infoObj.Remark;
-                plugLibraryDetail.Operator = LocalLogin.CurrentUserName;
+                plugLibraryDetail.Operator = LocalLogin.currentUserName;
                 plugLibraryDetail.UpdateDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 if (IsCanInsertOrUpdate(true, infoObj.InterfacePrimaryID, infoObj.InterfaceNO, infoObj.InterfacePointName, infoObj.SwitchStandStitchNo) == InterfaceExTipEnum.InterfacePoint_ExistAndStitchNo_Exist)
                     continue;

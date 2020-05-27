@@ -31,8 +31,8 @@ namespace CableTestManager.CUserManager
         private const string INI_CONFIG_REMBER = "remberpwd";
         private string configPath;
         private bool isFormMoving = false;
-        public static int CurrentUserType;
-        public static string CurrentUserName;
+        public static string currentUserType;
+        public static string currentUserName;
         public static LoginResult loginResult;
         public static bool IsCloseFormState;
         private UserHelper userHelper;
@@ -80,7 +80,7 @@ namespace CableTestManager.CUserManager
             timer.Start();
         }
 
-        public enum UserType
+        public enum UserType1
         {
             /// <summary>
             /// 管理员
@@ -116,6 +116,9 @@ namespace CableTestManager.CUserManager
             {
                 this.tbx_pwd.Text = "请输入用户密码";
                 this.tbx_pwd.ForeColor = Color.LightGray;
+            }
+            else
+            {
                 this.tbx_pwd.PasswordChar = '*';
             }
         }
@@ -133,6 +136,7 @@ namespace CableTestManager.CUserManager
 
         private void Tbx_username_Click(object sender, EventArgs e)
         {
+            this.tbx_username.PasswordChar = new char();
             if (this.tbx_username.Text.Trim() == "请输入用户名")
             {
                 this.tbx_username.Text = "";
@@ -258,7 +262,7 @@ namespace CableTestManager.CUserManager
             else
             {
                 //添加默认用户
-                userHelper.Register("admin", "admin", (int)UserHelper.UserRole.Admin);
+                userHelper.Register("admin", "admin", "管理员");
             }
             tbx_username.Text = "";
             configPath = AppDomain.CurrentDomain.BaseDirectory+INI_CONFIG_NAME;
@@ -329,7 +333,7 @@ namespace CableTestManager.CUserManager
             if (this.DialogResult == DialogResult.OK)
             {
                 //登录成功
-                CurrentUserName = tbx_username.Text;
+                currentUserName = tbx_username.Text;
                 this.Close();
             }
         }
@@ -339,7 +343,7 @@ namespace CableTestManager.CUserManager
             var dt = userHelper.GetUserInfo(tbx_username.Text).Tables[0];
             if (dt.Rows.Count < 1)
                 return;
-            CurrentUserType = int.Parse(dt.Rows[0][0].ToString()); 
+            currentUserType = dt.Rows[0][0].ToString(); 
         }
 
         private void Lbx_ToFindPwd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
