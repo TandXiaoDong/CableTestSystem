@@ -12,6 +12,7 @@ using CableTestManager.Entity;
 using WindowsFormTelerik.ControlCommon;
 using WindowsFormTelerik.GridViewExportData;
 using CableTestManager.CUserManager;
+using CableTestManager.Common;
 
 namespace CableTestManager.View.VInterface
 {
@@ -97,6 +98,7 @@ namespace CableTestManager.View.VInterface
             if (delRow > 0)
             {
                 delRow = connectorLibraryDetailManager.DeleteByWhere($"ConnectorName = '{connectorType}'");
+                UserOperateRecord.UpdateOperateRecord($"删除连接器库{connectorType}");
                 MessageBox.Show("删除成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -111,6 +113,7 @@ namespace CableTestManager.View.VInterface
             if (addConnector.ShowDialog() == DialogResult.OK)
             {
                 QueryConnectorInfo();
+                UserOperateRecord.UpdateOperateRecord($"添加连接器库");
             }
         }
 

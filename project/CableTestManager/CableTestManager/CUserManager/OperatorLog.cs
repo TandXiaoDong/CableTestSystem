@@ -99,7 +99,7 @@ namespace CableTestManager.CUserManager
                 var rowCount = this.radGridView1.RowCount;
                 this.radGridView1.Rows[rowCount - 1].Cells[0].Value = rowCount;
                 this.radGridView1.Rows[rowCount - 1].Cells[1].Value = dr["OperateUser"].ToString();
-                this.radGridView1.Rows[rowCount - 1].Cells[2].Value = dr["OperationContent"].ToString();
+                this.radGridView1.Rows[rowCount - 1].Cells[2].Value = dr["OperateContent"].ToString();
                 this.radGridView1.Rows[rowCount - 1].Cells[3].Value = dr["OperateDate"].ToString();
             }
         }

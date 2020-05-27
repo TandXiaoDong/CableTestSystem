@@ -11,6 +11,7 @@ using CableTestManager.Business.Implements;
 using WindowsFormTelerik.ControlCommon;
 using CableTestManager.Model;
 using CableTestManager.CUserManager;
+using CableTestManager.Common;
 
 namespace CableTestManager.View.VProject
 {
@@ -78,7 +79,7 @@ namespace CableTestManager.View.VProject
             if (val == "1")
                 return ElementVisibility.Visible;
             else
-                return ElementVisibility.Hidden;
+                return ElementVisibility.Collapsed;
         }
 
         private void RadGridView1_CellDoubleClick(object sender, Telerik.WinControls.UI.GridViewCellEventArgs e)
@@ -103,6 +104,7 @@ namespace CableTestManager.View.VProject
             var delRow = projectInfoManager.DeleteByWhere($"where ProjectName = '{selectProject}'");
             if (delRow > 0)
             {
+                UserOperateRecord.UpdateOperateRecord($"删除项目{selectProject}");
                 MessageBox.Show($"已删除项目{selectProject}！","提示",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
             QueryProjectInfo();

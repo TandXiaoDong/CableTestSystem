@@ -14,6 +14,7 @@ using WindowsFormTelerik.ControlCommon;
 using CableTestManager.View.VAdd;
 using WindowsFormTelerik.GridViewExportData;
 using CableTestManager.CUserManager;
+using CableTestManager.Common;
 
 namespace CableTestManager.View.VInterface
 {
@@ -95,6 +96,7 @@ namespace CableTestManager.View.VInterface
             {
                 plugLibraryDetailManager.DeleteByWhere($"where InterfaceNo='{plugNo}'");
                 QueryDB();
+                UserOperateRecord.UpdateOperateRecord($"删除接口{plugNo}");
             }
         }
 
@@ -104,6 +106,7 @@ namespace CableTestManager.View.VInterface
             if (radUpdateInterface.ShowDialog() == DialogResult.OK)
             {
                 QueryDB();
+                UserOperateRecord.UpdateOperateRecord($"添加接口");
             }
         }
 

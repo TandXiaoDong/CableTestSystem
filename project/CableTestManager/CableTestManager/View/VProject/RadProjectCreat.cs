@@ -12,6 +12,7 @@ using CableTestManager.Business.Implements;
 using CableTestManager.Entity;
 using WindowsFormTelerik.ControlCommon;
 using CableTestManager.Model;
+using CableTestManager.Common;
 
 namespace CableTestManager.View.VProject
 {
@@ -317,6 +318,7 @@ namespace CableTestManager.View.VProject
             {
                 iRow = projectInfoManager.Insert(projectInfo);
                 iRow = iRow - originCount;
+                UserOperateRecord.UpdateOperateRecord($"创建项目{projectInfo.ProjectName}");
             }
             else
             {
@@ -325,6 +327,7 @@ namespace CableTestManager.View.VProject
                 iRow = projectInfoManager.Update(projectInfo);
                 if (iRow > 0)
                 {
+                    UserOperateRecord.UpdateOperateRecord($"修改项目信息-项目{projectInfo.ProjectName}");
                     MessageBox.Show("更新成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else

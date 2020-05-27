@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using Telerik.WinControls;
+using CableTestManager.Common;
 
 namespace CommonUtil.CUserManager
 {
@@ -97,6 +98,7 @@ namespace CommonUtil.CUserManager
             var res = userHelper.ModifyUserPassword(username, confirmPwd);
             if (res == 1)
             {
+                UserOperateRecord.UpdateOperateRecord($"修改密码");
                 MessageBox.Show("修改成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.Close();
             }

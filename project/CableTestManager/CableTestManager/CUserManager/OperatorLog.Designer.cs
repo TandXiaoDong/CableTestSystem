@@ -165,23 +165,23 @@
             // 
             // tool_query
             // 
-            this.tool_query.Image = global::CableTestManager.Properties.Resources.Search_16x16;
+            this.tool_query.Image = global::CableTestManager.Properties.Resources.查询;
             this.tool_query.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_query.Name = "tool_query";
-            this.tool_query.Size = new System.Drawing.Size(62, 25);
-            this.tool_query.Text = "查询";
+            this.tool_query.Size = new System.Drawing.Size(94, 25);
+            this.tool_query.Text = "精确查询";
             // 
             // tool_likeQuery
             // 
-            this.tool_likeQuery.Image = global::CableTestManager.Properties.Resources.Search_16x16;
+            this.tool_likeQuery.Image = global::CableTestManager.Properties.Resources.查询;
             this.tool_likeQuery.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_likeQuery.Name = "tool_likeQuery";
-            this.tool_likeQuery.Size = new System.Drawing.Size(94, 25);
-            this.tool_likeQuery.Text = "模糊查询";
+            this.tool_likeQuery.Size = new System.Drawing.Size(62, 25);
+            this.tool_likeQuery.Text = "查询";
             // 
             // tool_deleteSignalData
             // 
-            this.tool_deleteSignalData.Image = global::CableTestManager.Properties.Resources.DeleteDataSource_16x16;
+            this.tool_deleteSignalData.Image = global::CableTestManager.Properties.Resources.delete16;
             this.tool_deleteSignalData.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_deleteSignalData.Name = "tool_deleteSignalData";
             this.tool_deleteSignalData.Size = new System.Drawing.Size(142, 25);
@@ -189,7 +189,7 @@
             // 
             // tool_deleteAllData
             // 
-            this.tool_deleteAllData.Image = global::CableTestManager.Properties.Resources.DeleteDataSource_16x16;
+            this.tool_deleteAllData.Image = global::CableTestManager.Properties.Resources.delete16;
             this.tool_deleteAllData.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_deleteAllData.Name = "tool_deleteAllData";
             this.tool_deleteAllData.Size = new System.Drawing.Size(126, 25);

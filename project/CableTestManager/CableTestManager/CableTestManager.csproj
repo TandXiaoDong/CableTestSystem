@@ -506,6 +506,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Common\TablePrimaryKey.cs" />
+    <Compile Include="Common\UserOperateRecord.cs" />
     <Compile Include="CUserManager\EditRole.cs">
       <SubType>Form</SubType>
     </Compile>
