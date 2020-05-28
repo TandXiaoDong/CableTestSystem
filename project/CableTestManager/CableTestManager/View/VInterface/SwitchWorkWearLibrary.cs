@@ -12,6 +12,7 @@ using CableTestManager.Entity;
 using WindowsFormTelerik.ControlCommon;
 using WindowsFormTelerik.GridViewExportData;
 using CableTestManager.CUserManager;
+using CableTestManager.Common;
 
 namespace CableTestManager.View.VInterface
 {
@@ -106,6 +107,7 @@ namespace CableTestManager.View.VInterface
             var dRow = switchWorkWearLibraryManager.DeleteByWhere($"where SwitchWorkWearCode='{currentWorkWearCode}'");
             if (dRow > 0)
             {
+                UserOperateRecord.UpdateOperateRecord($"删除转接工装{currentWorkWearCode}");
                 MessageBox.Show($"已成功删除工装代号{currentWorkWearCode}！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -133,6 +135,7 @@ namespace CableTestManager.View.VInterface
                 switchWorkWearLibrary.SwitchrType = addSwitchWorkWear.switchType;
                 switchWorkWearLibrary.Remark = addSwitchWorkWear.remark;
                 switchWorkWearLibraryManager.Insert(switchWorkWearLibrary);
+                UserOperateRecord.UpdateOperateRecord($"新增转接工装{switchWorkWearLibrary.SwitchWorkWearCode}");
             }
         }
 

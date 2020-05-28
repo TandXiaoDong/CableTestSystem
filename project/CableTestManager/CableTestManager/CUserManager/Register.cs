@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using CommonUtils.CalculateAndString;
 using CableTestManager.CUserManager;
 using CableTestManager.Business.Implements;
+using CableTestManager.Common;
 
 namespace CommonUtil.CUserManager
 {
@@ -116,6 +117,7 @@ namespace CommonUtil.CUserManager
             if (registerResult == UserHelper.RegisterResult.Successful)
             {
                 //注册成功
+                UserOperateRecord.UpdateOperateRecord($"新增用户-{username}");
                 MessageBox.Show("注册成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
                 this.DialogResult = DialogResult.OK;

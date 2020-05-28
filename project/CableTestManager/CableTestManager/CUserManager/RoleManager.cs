@@ -56,10 +56,15 @@ namespace CableTestManager.CUserManager
             {
                 return;//系统管理员不可删除
             }
+            if (MessageBox.Show("确定要删除该角色吗？", "提示", MessageBoxButtons.YesNo,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2) != DialogResult.Yes)
+            {
+                return;
+            }
             var res = this.roleManager.DeleteByWhere($"where UserRole='{roleName}'");
             if (res > 0)
             {
-                MessageBox.Show($"已删除角色{roleName}！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                UserOperateRecord.UpdateOperateRecord($"删除角色-{roleName}");
+                MessageBox.Show($"已删除角色'{roleName}'！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             QueryRoleInfo();
         }
@@ -87,6 +92,7 @@ namespace CableTestManager.CUserManager
             {
                 var date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 this.roleManager.UpdateFields($"UserRole='{editRole.roleName}',Remark='{editRole.roleRemark}',UpdateDate='{date}'", $"where ID='{id}'");
+                UserOperateRecord.UpdateOperateRecord($"修改角色-{editRole.roleName}");
                 QueryRoleInfo();
             }
         }
@@ -104,6 +110,7 @@ namespace CableTestManager.CUserManager
                 var cCount = roleManager.Insert(this.roleEntity);
                 if (cCount - rCount > 0)
                 {
+                    UserOperateRecord.UpdateOperateRecord($"新增角色-{roleEntity.UserRole}");
                     QueryRoleInfo();
                 }
             }

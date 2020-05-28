@@ -188,6 +188,10 @@ namespace CableTestManager.View
             FuncLimitManager funLimitManager = new FuncLimitManager();
             if (LocalLogin.currentUserType != "管理员")
             {
+                //limit default user manage
+                this.menu_userManager.Visibility = ElementVisibility.Collapsed;
+                this.menu_roleManager.Visibility = ElementVisibility.Collapsed;
+                this.menu_authorManager.Visibility = ElementVisibility.Collapsed;
                 var data = funLimitManager.GetDataSetByWhere($"where UserRole='{LocalLogin.currentUserType}'").Tables[0];
                 if (data.Rows.Count > 0)
                 {
@@ -218,6 +222,8 @@ namespace CableTestManager.View
                         this.menu_StartResistanceCompensation.Visibility = ConvertDec2EleVisState(dr["StartResistanceCompensation"].ToString());
                         this.menu_switchStandMapLib.Visibility = ConvertDec2EleVisState(dr["SwitchStandLib"].ToString());
                         this.menu_switchWorkWearLib.Visibility = ConvertDec2EleVisState(dr["SwitchWearLib"].ToString());
+                        this.tool_HistoryData.Visible = ConvertDec2State(dr["HistoryTestData"].ToString());
+                        this.menu_historyData.Visibility = ConvertDec2EleVisState(dr["HistoryTestData"].ToString()); 
                     }
                 }
             }
@@ -236,7 +242,7 @@ namespace CableTestManager.View
             if (val == "1")
                 return ElementVisibility.Visible;
             else
-                return ElementVisibility.Hidden;
+                return ElementVisibility.Collapsed;
         }
 
         public void Init()

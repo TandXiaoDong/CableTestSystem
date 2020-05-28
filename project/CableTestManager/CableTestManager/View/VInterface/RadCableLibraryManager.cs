@@ -10,6 +10,7 @@ using Telerik.WinControls.UI;
 using CableTestManager.Business.Implements;
 using WindowsFormTelerik.ControlCommon;
 using CableTestManager.Entity;
+using CableTestManager.Common;
 
 namespace CableTestManager.View.VInterface
 {

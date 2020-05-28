@@ -14,6 +14,7 @@ using CableTestManager.Entity;
 using WindowsFormTelerik.ControlCommon;
 using WindowsFormTelerik.GridViewExportData;
 using CableTestManager.CUserManager;
+using CableTestManager.Common;
 
 namespace CableTestManager.View.VInterface
 {
@@ -120,6 +121,7 @@ namespace CableTestManager.View.VInterface
             if (delRow > 0)
             {
                 MessageBox.Show("删除成功！","提示",MessageBoxButtons.OK);
+                UserOperateRecord.UpdateOperateRecord($"删除线束库{LineStructName}");
                 GetPlugLineStruct();
             }
         }
@@ -129,7 +131,7 @@ namespace CableTestManager.View.VInterface
             RadUpdateCable radUpdateCable = new RadUpdateCable("添加接口库","",false);
             if (radUpdateCable.ShowDialog() == DialogResult.OK)
             {
-                
+                UserOperateRecord.UpdateOperateRecord($"添加线束库");
             }
         }
 

@@ -10,6 +10,7 @@ using WindowsFormTelerik.ControlCommon;
 using WindowsFormTelerik.GridViewExportData;
 using CableTestManager.Business.Implements;
 using CableTestManager.CUserManager;
+using CableTestManager.Common;
 
 namespace CableTestManager.View.VProject
 {
@@ -63,7 +64,7 @@ namespace CableTestManager.View.VProject
             if (val == "1")
                 return ElementVisibility.Visible;
             else
-                return ElementVisibility.Hidden;
+                return ElementVisibility.Collapsed;
         }
 
         private void Menu_deleteData_Click(object sender, EventArgs e)
@@ -79,6 +80,7 @@ namespace CableTestManager.View.VProject
             delRow += historyDataDetailManager.DeleteByWhere($"where ProjectName = '{currentProject}'");
             if (delRow > 0)
             {
+                UserOperateRecord.UpdateOperateRecord($"删除历史数据-删除项目{currentProject}");
                 MessageBox.Show("删除数据完成！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
         }

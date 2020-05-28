@@ -17,6 +17,7 @@ using Telerik.WinControls.UI;
 using CommonUtil.CUserManager;
 using WindowsFormTelerik.CommonUI;
 using CableTestManager.View;
+using CableTestManager.Common;
 
 namespace CableTestManager.CUserManager
 {
@@ -334,6 +335,7 @@ namespace CableTestManager.CUserManager
             {
                 //登录成功
                 currentUserName = tbx_username.Text;
+                UserOperateRecord.UpdateOperateRecord($"登录系统");
                 this.Close();
             }
         }

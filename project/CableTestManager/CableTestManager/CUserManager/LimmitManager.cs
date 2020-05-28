@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using CableTestManager.Business.Implements;
 using CableTestManager.Entity;
 using CableTestManager.Common;
+using Telerik.WinControls.UI;
 
 namespace CableTestManager.CUserManager
 {
@@ -140,7 +141,9 @@ namespace CableTestManager.CUserManager
             }
             //update diclist
             FuncLimit funcLimit = new FuncLimit();
+            funcLimit.UserRole = curRole;
             OperatLimit operatLimit = new OperatLimit();
+            operatLimit.UserRole = curRole;
             foreach (var item in this.checkListFuncLimit.Items)
             {
                 switch (item.Text)
@@ -219,6 +222,9 @@ namespace CableTestManager.CUserManager
                         break;
                     case FUN_SWITCH_WEAR_LIB_MANAGE_NAME:
                         funcLimit.SwitchWearLib = ConvertState2Dec(item.CheckState);
+                        break;
+                    case FUN_TEST_DATA:
+                        funcLimit.HistoryTestData = ConvertState2Dec(item.CheckState);
                         break;
                 }
             }
@@ -364,6 +370,7 @@ namespace CableTestManager.CUserManager
 
         private void Init()
         {
+            InitCheckItems();
             this.cob_roleList.MultiColumnComboBoxElement.Columns.Add("NAME");
             var data = roleManager.GetDataSetByFieldsAndWhere("distinct UserRole", "where UserRole != '管理员'").Tables[0];
             if (data.Rows.Count <= 0)
@@ -380,6 +387,72 @@ namespace CableTestManager.CUserManager
             }
             //init limit
             InitCheckLimitByRole(this.cob_roleList.Text.Trim());
+        }
+
+        private void InitCheckItems()
+        {
+            this.checkListFuncLimit.Items.Add(FUN_CABLE_LIB_MANAGE_NAME);
+            this.checkListFuncLimit.Items.Add(FUN_CIRCUIT_TEST_NAME);
+            this.checkListFuncLimit.Items.Add(FUN_CONDUCT_TEST_NAME);
+            this.checkListFuncLimit.Items.Add(FUN_CONNECTOR_LIB_MANAGE_NAME);
+            this.checkListFuncLimit.Items.Add(FUN_DEVICE_CALIBRATE);
+            this.checkListFuncLimit.Items.Add(FUN_DEVICE_DEBUG);
+            this.checkListFuncLimit.Items.Add(FUN_DEVICE_SELF_CHECK);
+            this.checkListFuncLimit.Items.Add(FUN_ENVIRONMENT_PARAMS_SET);
+            this.checkListFuncLimit.Items.Add(FUN_EXCUTE_REPORT_NAME);
+            this.checkListFuncLimit.Items.Add(FUN_FAULT_QUERY);
+            this.checkListFuncLimit.Items.Add(FUN_INSULATE_TEST_NAME);
+            this.checkListFuncLimit.Items.Add(FUN_INTERFACE_LIB_MANAGE_NAME);
+            this.checkListFuncLimit.Items.Add(FUN_NEW_PROJECT);
+            this.checkListFuncLimit.Items.Add(FUN_ONE_KEY_TEST_NAME);
+            this.checkListFuncLimit.Items.Add(FUN_OPERAT_RECORD); 
+            this.checkListFuncLimit.Items.Add(FUN_PRINT_REPORT);
+            this.checkListFuncLimit.Items.Add(FUN_PROBE);
+            this.checkListFuncLimit.Items.Add(FUN_PROJECT_MANAGE);
+            this.checkListFuncLimit.Items.Add(FUN_REPORT_PATH_SET);
+            this.checkListFuncLimit.Items.Add(FUN_RESISTAN_COMPENSAT_MANAGE);
+            this.checkListFuncLimit.Items.Add(FUN_SAVE_DATA);
+            this.checkListFuncLimit.Items.Add(FUN_SELF_STUDY_NAME);
+            this.checkListFuncLimit.Items.Add(FUN_START_RESISTAN_COMPENSAT);
+            this.checkListFuncLimit.Items.Add(FUN_SWITCH_STAND_LIB_MANAGE_NAME);
+            this.checkListFuncLimit.Items.Add(FUN_SWITCH_WEAR_LIB_MANAGE_NAME);
+            this.checkListFuncLimit.Items.Add(FUN_TEST_DATA);
+
+            this.checkListOperatLimit.Items.Add(OPERATE_ADD_CABLE_LIB);
+            this.checkListOperatLimit.Items.Add(OPERATE_ADD_CONNECTOR);
+            this.checkListOperatLimit.Items.Add(OPERATE_ADD_INTER_INFO);
+            this.checkListOperatLimit.Items.Add(OPERATE_ADD_PROJECT);
+            this.checkListOperatLimit.Items.Add(OPERATE_ADD_SWITCH_STAND);
+            this.checkListOperatLimit.Items.Add(OPERATE_ADD_SWITCH_WEAR);
+            this.checkListOperatLimit.Items.Add(OPERATE_DEL_CABLE_LIB);
+            this.checkListOperatLimit.Items.Add(OPERATE_DEL_CONNECTOR);
+            this.checkListOperatLimit.Items.Add(OPERATE_DEL_INTER_INFO);
+            this.checkListOperatLimit.Items.Add(OPERATE_DEL_OPERATE_RECORD);
+            this.checkListOperatLimit.Items.Add(OPERATE_DEL_PROJECT);
+            this.checkListOperatLimit.Items.Add(OPERATE_DEL_SWITCH_STAND);
+            this.checkListOperatLimit.Items.Add(OPERATE_DEL_SWITCH_WEAR);
+            this.checkListOperatLimit.Items.Add(OPERATE_DEL_TEST_DATA);
+            this.checkListOperatLimit.Items.Add(OPERATE_EDIT_CABLE_LIB);
+            this.checkListOperatLimit.Items.Add(OPERATE_EDIT_CONNECTOR);
+            this.checkListOperatLimit.Items.Add(OPERATE_EDIT_INTER_INFO);
+            this.checkListOperatLimit.Items.Add(OPERATE_EDIT_PROJECT);
+            this.checkListOperatLimit.Items.Add(OPERATE_EDIT_SWITCH_STAND);
+            this.checkListOperatLimit.Items.Add(OPERATE_EDIT_SWITCH_WEAR);
+            this.checkListOperatLimit.Items.Add(OPERATE_EXPORT_CABLE_LIB);
+            this.checkListOperatLimit.Items.Add(OPERATE_EXPORT_CONNECTOR);
+            this.checkListOperatLimit.Items.Add(OPERATE_EXPORT_INTER_INFO);
+            this.checkListOperatLimit.Items.Add(OPERATE_EXPORT_OPERATE_RECORD);
+            this.checkListOperatLimit.Items.Add(OPERATE_EXPORT_SWITCH_STAND);
+            this.checkListOperatLimit.Items.Add(OPERATE_EXPORT_SWITCH_WEAR);
+            this.checkListOperatLimit.Items.Add(OPERATE_EXPORT_TEST_DATA);
+            this.checkListOperatLimit.Items.Add(OPERATE_QUERY_CABLE_LIB);
+            this.checkListOperatLimit.Items.Add(OPERATE_QUERY_CONNECTOR_LIB);
+            this.checkListOperatLimit.Items.Add(OPERATE_QUERY_INTER_INFO);
+            this.checkListOperatLimit.Items.Add(OPERATE_QUERY_OPERATE_RECORD);
+            this.checkListOperatLimit.Items.Add(OPERATE_QUERY_PROJECT);
+            this.checkListOperatLimit.Items.Add(OPERATE_QUERY_SWITCH_STAND);
+            this.checkListOperatLimit.Items.Add(OPERATE_QUERY_SWITCH_WEAR);
+            this.checkListOperatLimit.Items.Add(OPERATE_QUERY_TEST_DATA);
         }
 
         private void InitCheckLimitByRole(string role)
@@ -469,6 +542,9 @@ namespace CableTestManager.CUserManager
                                 break;
                             case FUN_SWITCH_WEAR_LIB_MANAGE_NAME:
                                 item.CheckState = ConvertDec2State(dr["SwitchWearLib"].ToString());
+                                break;
+                            case FUN_TEST_DATA:
+                                item.CheckState = ConvertDec2State(dr["HistoryTestData"].ToString());
                                 break;
                         }
                     }
