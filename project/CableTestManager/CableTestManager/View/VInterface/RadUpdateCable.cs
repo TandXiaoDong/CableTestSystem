@@ -31,7 +31,6 @@ namespace CableTestManager.View.VInterface
         public RadUpdateCable(string title,string lineCableName,bool IsEdit)
         {
             InitializeComponent();
-            this.StartPosition = FormStartPosition.CenterParent;
             this.Text = title;
             this.IsEditView = IsEdit;
             this.lineCableName = lineCableName;

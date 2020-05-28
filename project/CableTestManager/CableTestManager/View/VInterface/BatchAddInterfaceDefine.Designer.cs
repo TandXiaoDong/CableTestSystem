@@ -125,32 +125,35 @@
             // 
             // radLabel3
             // 
-            this.radLabel3.Location = new System.Drawing.Point(12, 148);
+            this.radLabel3.Location = new System.Drawing.Point(12, 124);
             this.radLabel3.Name = "radLabel3";
             this.radLabel3.Size = new System.Drawing.Size(86, 21);
             this.radLabel3.TabIndex = 4;
             this.radLabel3.Text = "测量方法：";
             this.radLabel3.ThemeName = "MaterialBlueGrey";
+            this.radLabel3.Visible = false;
             // 
             // rbt_4lineMethod
             // 
-            this.rbt_4lineMethod.Location = new System.Drawing.Point(247, 148);
+            this.rbt_4lineMethod.Location = new System.Drawing.Point(183, 127);
             this.rbt_4lineMethod.Name = "rbt_4lineMethod";
             this.rbt_4lineMethod.Size = new System.Drawing.Size(56, 18);
             this.rbt_4lineMethod.TabIndex = 22;
             this.rbt_4lineMethod.Text = "四线法";
+            this.rbt_4lineMethod.Visible = false;
             // 
             // rbt_2lineMethod
             // 
-            this.rbt_2lineMethod.Location = new System.Drawing.Point(104, 148);
+            this.rbt_2lineMethod.Location = new System.Drawing.Point(104, 127);
             this.rbt_2lineMethod.Name = "rbt_2lineMethod";
             this.rbt_2lineMethod.Size = new System.Drawing.Size(56, 18);
             this.rbt_2lineMethod.TabIndex = 21;
             this.rbt_2lineMethod.Text = "二线法";
+            this.rbt_2lineMethod.Visible = false;
             // 
             // radLabel4
             // 
-            this.radLabel4.Location = new System.Drawing.Point(12, 203);
+            this.radLabel4.Location = new System.Drawing.Point(12, 165);
             this.radLabel4.Name = "radLabel4";
             this.radLabel4.Size = new System.Drawing.Size(86, 21);
             this.radLabel4.TabIndex = 23;
@@ -180,7 +183,7 @@
             this.cb_switchStandPointNo.EditorControl.ShowGroupPanel = false;
             this.cb_switchStandPointNo.EditorControl.Size = new System.Drawing.Size(240, 150);
             this.cb_switchStandPointNo.EditorControl.TabIndex = 0;
-            this.cb_switchStandPointNo.Location = new System.Drawing.Point(104, 188);
+            this.cb_switchStandPointNo.Location = new System.Drawing.Point(104, 150);
             this.cb_switchStandPointNo.Name = "cb_switchStandPointNo";
             this.cb_switchStandPointNo.Size = new System.Drawing.Size(253, 36);
             this.cb_switchStandPointNo.TabIndex = 28;
@@ -189,7 +192,7 @@
             // 
             // radLabel5
             // 
-            this.radLabel5.Location = new System.Drawing.Point(13, 262);
+            this.radLabel5.Location = new System.Drawing.Point(13, 227);
             this.radLabel5.Name = "radLabel5";
             this.radLabel5.Size = new System.Drawing.Size(86, 21);
             this.radLabel5.TabIndex = 29;
@@ -198,7 +201,7 @@
             // 
             // tb_PinNum
             // 
-            this.tb_PinNum.Location = new System.Drawing.Point(104, 247);
+            this.tb_PinNum.Location = new System.Drawing.Point(104, 212);
             this.tb_PinNum.Name = "tb_PinNum";
             this.tb_PinNum.Size = new System.Drawing.Size(253, 36);
             this.tb_PinNum.TabIndex = 30;
@@ -206,7 +209,7 @@
             // 
             // btn_cancel
             // 
-            this.btn_cancel.Location = new System.Drawing.Point(248, 326);
+            this.btn_cancel.Location = new System.Drawing.Point(248, 291);
             this.btn_cancel.Name = "btn_cancel";
             this.btn_cancel.Size = new System.Drawing.Size(109, 36);
             this.btn_cancel.TabIndex = 32;
@@ -215,7 +218,7 @@
             // 
             // btn_apply
             // 
-            this.btn_apply.Location = new System.Drawing.Point(104, 326);
+            this.btn_apply.Location = new System.Drawing.Point(104, 291);
             this.btn_apply.Name = "btn_apply";
             this.btn_apply.Size = new System.Drawing.Size(114, 36);
             this.btn_apply.TabIndex = 31;
@@ -225,18 +228,18 @@
             // lbx_tip
             // 
             this.lbx_tip.AutoSize = true;
-            this.lbx_tip.Location = new System.Drawing.Point(101, 286);
+            this.lbx_tip.Location = new System.Drawing.Point(101, 251);
             this.lbx_tip.Name = "lbx_tip";
             this.lbx_tip.Size = new System.Drawing.Size(153, 15);
             this.lbx_tip.TabIndex = 33;
-            this.lbx_tip.Text = "请输入0-384之间的正整数";
+            this.lbx_tip.Text = "请输入1-384之间的正整数";
             // 
             // BatchAddInterfaceDefine
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(400, 374);
+            this.ClientSize = new System.Drawing.Size(400, 346);
             this.Controls.Add(this.lbx_tip);
             this.Controls.Add(this.btn_cancel);
             this.Controls.Add(this.btn_apply);

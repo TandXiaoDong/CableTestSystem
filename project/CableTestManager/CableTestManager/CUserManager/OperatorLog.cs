@@ -21,7 +21,7 @@ namespace CableTestManager.CUserManager
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterParent;
 
-            this.dateTimePickerStartTime.Text = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            this.dateTimePickerStartTime.Text = System.DateTime.Now.ToString("yyyy-MM-dd");
             this.datePickerEndTime.Text = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             RadGridViewProperties.SetRadGridViewProperty(this.radGridView1,false,false,4);
             operationRecordManager = new TOperateRecordManager();

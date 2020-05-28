@@ -128,7 +128,7 @@ namespace CableTestManager.View.VInterface
 
         private void Tool_add_Click(object sender, EventArgs e)
         {
-            RadUpdateCable radUpdateCable = new RadUpdateCable("添加接口库","",false);
+            RadUpdateCable radUpdateCable = new RadUpdateCable("添加线束库库","",false);
             if (radUpdateCable.ShowDialog() == DialogResult.OK)
             {
                 UserOperateRecord.UpdateOperateRecord($"添加线束库");

@@ -82,7 +82,7 @@
             this.radGroupBox1.Size = new System.Drawing.Size(1089, 81);
             this.radGroupBox1.TabIndex = 1;
             this.radGroupBox1.Text = "查询条件";
-            this.radGroupBox1.ThemeName = "Breeze";
+            this.radGroupBox1.ThemeName = "Office2013Light";
             // 
             // datePickerEndTime
             // 

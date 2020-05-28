@@ -137,7 +137,7 @@
             this.radLabel1.Name = "radLabel1";
             this.radLabel1.Size = new System.Drawing.Size(86, 21);
             this.radLabel1.TabIndex = 0;
-            this.radLabel1.Text = "线束代号：";
+            this.radLabel1.Text = "线束名称：";
             this.radLabel1.ThemeName = "MaterialBlueGrey";
             // 
             // rtbCableName
@@ -694,6 +694,7 @@
             // 
             // 
             this.RootElement.ApplyShapeToControl = true;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "添加线束库";
             this.ThemeName = "Office2013Light";
             this.Load += new System.EventHandler(this.RadUpdateCable_Load);

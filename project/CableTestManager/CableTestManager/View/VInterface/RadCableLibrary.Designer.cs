@@ -77,7 +77,7 @@
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
             this.toolStripLabel1.Size = new System.Drawing.Size(248, 25);
-            this.toolStripLabel1.Text = "接口代号/接点数量/连接器型号：";
+            this.toolStripLabel1.Text = "接口名称/接点数量/连接器型号：";
             // 
             // toolStripTextBox1
             // 
@@ -140,7 +140,7 @@
             gridViewTextBoxColumn1.HeaderText = "序号";
             gridViewTextBoxColumn1.Name = "column1";
             gridViewTextBoxColumn2.EnableExpressionEditor = false;
-            gridViewTextBoxColumn2.HeaderText = "线束代号";
+            gridViewTextBoxColumn2.HeaderText = "线束名称";
             gridViewTextBoxColumn2.Name = "column2";
             gridViewTextBoxColumn2.Width = 93;
             gridViewTextBoxColumn3.EnableExpressionEditor = false;

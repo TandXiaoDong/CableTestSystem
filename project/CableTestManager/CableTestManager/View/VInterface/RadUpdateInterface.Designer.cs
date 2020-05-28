@@ -39,16 +39,13 @@
             Telerik.WinControls.Data.SortDescriptor sortDescriptor1 = new Telerik.WinControls.Data.SortDescriptor();
             Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RadUpdateInterface));
-            this.windows8Theme1 = new Telerik.WinControls.Themes.Windows8Theme();
             this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
             this.office2013LightTheme1 = new Telerik.WinControls.Themes.Office2013LightTheme();
-            this.btnSubmit = new Telerik.WinControls.UI.RadButton();
             this.telerikMetroTouchTheme1 = new Telerik.WinControls.Themes.TelerikMetroTouchTheme();
             this.tb_remark = new Telerik.WinControls.UI.RadTextBox();
             this.radLabel2 = new Telerik.WinControls.UI.RadLabel();
             this.tb_interfacelNo = new Telerik.WinControls.UI.RadTextBox();
             this.radLabel4 = new Telerik.WinControls.UI.RadLabel();
-            this.breezeTheme1 = new Telerik.WinControls.Themes.BreezeTheme();
             this.panel1 = new System.Windows.Forms.Panel();
             this.menu_deleteSelect = new Telerik.WinControls.UI.RadMenuButtonItem();
             this.menu_deleteAll = new Telerik.WinControls.UI.RadMenuButtonItem();
@@ -59,7 +56,9 @@
             this.menu_signalAddInterfacePoint = new Telerik.WinControls.UI.RadMenuButtonItem();
             this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
             this.btnClose = new Telerik.WinControls.UI.RadButton();
-            ((System.ComponentModel.ISupportInitialize)(this.btnSubmit)).BeginInit();
+            this.materialTealTheme1 = new Telerik.WinControls.Themes.MaterialTealTheme();
+            this.btnSubmit = new Telerik.WinControls.UI.RadButton();
+            this.materialTheme1 = new Telerik.WinControls.Themes.MaterialTheme();
             ((System.ComponentModel.ISupportInitialize)(this.tb_remark)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_interfacelNo)).BeginInit();
@@ -69,17 +68,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSubmit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btnSubmit
-            // 
-            this.btnSubmit.Location = new System.Drawing.Point(529, 549);
-            this.btnSubmit.Name = "btnSubmit";
-            this.btnSubmit.Size = new System.Drawing.Size(120, 36);
-            this.btnSubmit.TabIndex = 11;
-            this.btnSubmit.Text = "确定";
-            this.btnSubmit.ThemeName = "MaterialBlueGrey";
             // 
             // tb_remark
             // 
@@ -224,6 +215,7 @@
             this.menu_importFromConnectorType.ButtonElement.ShowBorder = false;
             this.menu_importFromConnectorType.Name = "menu_importFromConnectorType";
             this.menu_importFromConnectorType.Text = "根据连接器型号导入";
+            this.menu_importFromConnectorType.Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
             // 
             // menu_importFromFile
             // 
@@ -233,6 +225,7 @@
             this.menu_importFromFile.ButtonElement.ShowBorder = false;
             this.menu_importFromFile.Name = "menu_importFromFile";
             this.menu_importFromFile.Text = "从文件导入";
+            this.menu_importFromFile.Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
             // 
             // menu_signalAddInterfacePoint
             // 
@@ -268,17 +261,26 @@
             this.btnClose.Text = "取消";
             this.btnClose.ThemeName = "MaterialBlueGrey";
             // 
+            // btnSubmit
+            // 
+            this.btnSubmit.Location = new System.Drawing.Point(535, 549);
+            this.btnSubmit.Name = "btnSubmit";
+            this.btnSubmit.Size = new System.Drawing.Size(120, 36);
+            this.btnSubmit.TabIndex = 21;
+            this.btnSubmit.Text = "确定";
+            this.btnSubmit.ThemeName = "MaterialBlueGrey";
+            // 
             // RadUpdateInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1005, 597);
+            this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.radGridView1);
             this.Controls.Add(this.radMenu1);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.btnSubmit);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RadUpdateInterface";
             // 
@@ -287,7 +289,6 @@
             this.RootElement.ApplyShapeToControl = true;
             this.Text = "编辑接口库";
             this.ThemeName = "Office2013Light";
-            ((System.ComponentModel.ISupportInitialize)(this.btnSubmit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_remark)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_interfacelNo)).EndInit();
@@ -298,6 +299,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSubmit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -305,16 +307,13 @@
         }
 
         #endregion
-        private Telerik.WinControls.Themes.Windows8Theme windows8Theme1;
         private Telerik.WinControls.Themes.MaterialBlueGreyTheme materialBlueGreyTheme1;
         private Telerik.WinControls.Themes.Office2013LightTheme office2013LightTheme1;
-        private Telerik.WinControls.UI.RadButton btnSubmit;
         private Telerik.WinControls.Themes.TelerikMetroTouchTheme telerikMetroTouchTheme1;
         private Telerik.WinControls.UI.RadTextBox tb_remark;
         private Telerik.WinControls.UI.RadLabel radLabel2;
         private Telerik.WinControls.UI.RadTextBox tb_interfacelNo;
         private Telerik.WinControls.UI.RadLabel radLabel4;
-        private Telerik.WinControls.Themes.BreezeTheme breezeTheme1;
         private System.Windows.Forms.Panel panel1;
         private Telerik.WinControls.UI.RadMenuButtonItem menu_deleteSelect;
         private Telerik.WinControls.UI.RadMenuButtonItem menu_deleteAll;
@@ -325,5 +324,8 @@
         private Telerik.WinControls.UI.RadMenuButtonItem menu_signalAddInterfacePoint;
         private Telerik.WinControls.UI.RadMenu radMenu1;
         private Telerik.WinControls.UI.RadButton btnClose;
+        private Telerik.WinControls.Themes.MaterialTealTheme materialTealTheme1;
+        private Telerik.WinControls.UI.RadButton btnSubmit;
+        private Telerik.WinControls.Themes.MaterialTheme materialTheme1;
     }
 }
