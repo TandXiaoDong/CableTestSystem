@@ -616,7 +616,7 @@ namespace CableTestManager.View
             var power = (int)packageInfo.Data[11];
             byte[] buffer = new byte[4];
             Array.Copy(packageInfo.Data, 12, buffer, 0, 4);
-            var resistance = Convert.ToInt32(BitConverter.ToString(buffer).Replace("-", ""), 16) / 65536.0;
+            var resistance = Convert.ToUInt64(BitConverter.ToString(buffer).Replace("-", ""), 16) / 65536.0;
             double factor = 0;
             if (baseNum == "00")
             {
