@@ -113,7 +113,7 @@ namespace CableTestManager.View.VInterface
                 return;
             }
             var LineStructName = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
-            if (MessageBox.Show($"确认要删除线束代号{LineStructName}?", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
+            if (MessageBox.Show($"确认要删除线束代号{LineStructName}?", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2) != DialogResult.OK)
             {
                 return;
             }

@@ -163,10 +163,11 @@
             gridViewTextBoxColumn3.Width = 129;
             gridViewComboBoxColumn1.EnableExpressionEditor = false;
             gridViewComboBoxColumn1.HeaderText = "测量方法";
+            gridViewComboBoxColumn1.IsVisible = false;
             gridViewComboBoxColumn1.Name = "columnMethod";
             gridViewComboBoxColumn1.Width = 106;
             gridViewComboBoxColumn2.EnableExpressionEditor = false;
-            gridViewComboBoxColumn2.HeaderText = "转接台针脚号";
+            gridViewComboBoxColumn2.HeaderText = "设备针脚号";
             gridViewComboBoxColumn2.Name = "columnStitch";
             gridViewComboBoxColumn2.Width = 105;
             gridViewTextBoxColumn4.EnableExpressionEditor = false;

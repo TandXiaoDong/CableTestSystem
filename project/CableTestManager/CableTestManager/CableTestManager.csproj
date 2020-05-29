@@ -505,6 +505,7 @@
     <Compile Include="Common\DoubleBufferListView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Common\InterfaceLibCom.cs" />
     <Compile Include="Common\TablePrimaryKey.cs" />
     <Compile Include="Common\UserOperateRecord.cs" />
     <Compile Include="CUserManager\EditRole.cs">

@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using Telerik.WinControls.UI;
 using Telerik.WinControls;
+using CableTestManager.Common;
 
 namespace CableTestManager.View.VInterface
 {
@@ -19,8 +20,8 @@ namespace CableTestManager.View.VInterface
         public int totalNum;
         private const string NUMBER_RAISE = "1,2,3...数字递增";
         private int maxPin = 384;
-        private DataTable _2linePindata;
-        private DataTable _4linePindata;
+        private List<int> _2devPointList;
+        private List<string> _4devPointList;
 
         public enum NameRuleEnum
         {
@@ -44,6 +45,12 @@ namespace CableTestManager.View.VInterface
             this.cb_switchStandPointNo.SelectedIndexChanged += Cb_switchStandPointNo_SelectedIndexChanged;
             this.btn_apply.Click += Btn_apply_Click;
             this.btn_cancel.Click += Btn_cancel_Click;
+            this.FormClosed += BatchAddInterfaceDefine_FormClosed;
+        }
+
+        private void BatchAddInterfaceDefine_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            InterfaceLibCom.data = null;
         }
 
         private void Btn_cancel_Click(object sender, EventArgs e)
@@ -114,12 +121,12 @@ namespace CableTestManager.View.VInterface
             if (this.rbt_2lineMethod.IsChecked)
             {
                 if (pinNum > maxPin)
-                    this.totalNum = maxPin;
+                    this.totalNum = this._2devPointList.Count;
             }
             else if (this.rbt_4lineMethod.IsChecked)
             {
                 if (pinNum > maxPin / 2)
-                    this.totalNum = maxPin / 2;
+                    this.totalNum = this._4devPointList.Count;
             }
             this.Close();
             this.DialogResult = DialogResult.OK;
@@ -127,10 +134,23 @@ namespace CableTestManager.View.VInterface
 
         private void Init()
         {
-            _2linePindata = new DataTable();
-            _2linePindata.Columns.Add("ID");
-            _4linePindata = new DataTable();
-            _4linePindata.Columns.Add("ID");
+            this._2devPointList = new List<int>();
+            this._4devPointList = new List<string>();
+            for (int i = 1; i <= maxPin; i++)
+            {
+                if (!InterfaceLibCom.IsExistDevicePoint(i.ToString()))
+                {
+                    this._2devPointList.Add(i);
+                }
+            }
+            for (int i = 1; i <= maxPin; i += 2)
+            {
+                var curPoint = i + "," + (i + 1);
+                if (!InterfaceLibCom.IsExistDevicePoint(curPoint))
+                {
+                    this._4devPointList.Add(curPoint);
+                }
+            }
             this.rbt_2lineMethod.CheckState = CheckState.Checked;
 
             this.cb_switchStandPointNo.Columns.Add("ID");
@@ -150,13 +170,13 @@ namespace CableTestManager.View.VInterface
                 return;
             if (this.rbt_2lineMethod.IsChecked)
             {
-                var c2lineValue = _2linePindata.Rows[index][0].ToString();
-                this.cb_switchStandPointNo.Text = c2lineValue;
+                //var c2lineValue = _2linePindata.Rows[index][0].ToString();
+                //this.cb_switchStandPointNo.Text = c2lineValue;
             }
             else if (this.rbt_4lineMethod.IsChecked)
             {
-                var c4lineValue = _4linePindata.Rows[index][0].ToString();
-                this.cb_switchStandPointNo.Text = c4lineValue;
+                //var c4lineValue = _4linePindata.Rows[index][0].ToString();
+                //this.cb_switchStandPointNo.Text = c4lineValue;
             }
         }
 
@@ -173,68 +193,34 @@ namespace CableTestManager.View.VInterface
             CheckChangeEvent();
         }
 
-        private void CheckChangeEvent1()
-        {
-            this.cb_switchStandPointNo.EditorControl.BeginEdit();
-            if (this.rbt_2lineMethod.CheckState == CheckState.Checked)
-            {
-                for (int i = 1; i <= maxPin; i++)
-                {
-                    DataRow dr = _2linePindata.NewRow();
-                    dr["ID"] = i.ToString();
-                    _2linePindata.Rows.Add(dr);
-                }
-                this.cb_switchStandPointNo.DataSource = _2linePindata;
-            }
-            else if (this.rbt_4lineMethod.CheckState == CheckState.Checked)
-            {
-                for (int i = 1; i <= maxPin; i += 2)
-                {
-                    DataRow dr = _4linePindata.NewRow();
-                    dr["ID"] = i + "," + (i + 1);
-                    _4linePindata.Rows.Add(dr);
-                }
-                this.cb_switchStandPointNo.DataSource = _4linePindata;
-            }
-            this.cb_switchStandPointNo.EditorControl.ShowColumnHeaders = false;
-            this.cb_switchStandPointNo.EditorControl.EndEdit();
-            this.cb_switchStandPointNo.SelectedIndex = 0;
-            this.cb_switchStandPointNo.AutoSizeDropDownToBestFit = true;
-        }
-
         private void CheckChangeEvent()
         {
             this.BeginInvoke(new Action(() =>
             {
-                this.cb_switchStandPointNo.EditorControl.Rows.Clear();
-                this.cb_switchStandPointNo.EditorControl.BeginEdit();
-                if (this.rbt_2lineMethod.CheckState == CheckState.Checked)
+                lock (this)
                 {
-                    for (int i = 1; i <= maxPin; i++)
+                    this.cb_switchStandPointNo.EditorControl.Rows.Clear();
+                    this.cb_switchStandPointNo.EditorControl.BeginEdit();
+                    if (this.rbt_2lineMethod.CheckState == CheckState.Checked)
                     {
-                        //DataRow dr = _2linePindata.NewRow();
-                        //dr["ID"] = i.ToString();
-                        //_2linePindata.Rows.Add(dr);
-                        this.cb_switchStandPointNo.EditorControl.Rows.Add(i);
+                        for (int i = 0; i < this._2devPointList.Count; i++)
+                        {
+                            this.cb_switchStandPointNo.EditorControl.Rows.Add(this._2devPointList[i]);
+                        }
                     }
-                    //this.cb_switchStandPointNo.DataSource = _2linePindata;
-                }
-                else if (this.rbt_4lineMethod.CheckState == CheckState.Checked)
-                {
-                    for (int i = 1; i <= maxPin; i += 2)
+                    else if (this.rbt_4lineMethod.CheckState == CheckState.Checked)
                     {
-                        //DataRow dr = _4linePindata.NewRow();
-                        //dr["ID"] = i + "," + (i + 1);
-                        //_4linePindata.Rows.Add(dr);
-                        this.cb_switchStandPointNo.EditorControl.Rows.Add(i + "," + (i + 1));
+                        for (int i = 0; i < this._4devPointList.Count; i += 2)
+                        {
+                            this.cb_switchStandPointNo.EditorControl.Rows.Add(this._4devPointList[i]);
+                        }
                     }
-                    //this.cb_switchStandPointNo.DataSource = _4linePindata;
+                    this.cb_switchStandPointNo.EditorControl.EndEdit();
+                    this.cb_switchStandPointNo.SelectedIndex = 0;
+                    this.cb_switchStandPointNo.EditorControl.ShowColumnHeaders = false;
+                    this.cb_switchStandPointNo.EditorControl.ClearSelection();
+                    this.cb_switchStandPointNo.EditorControl.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;
                 }
-                this.cb_switchStandPointNo.EditorControl.EndEdit();
-                this.cb_switchStandPointNo.SelectedIndex = 0;
-                this.cb_switchStandPointNo.EditorControl.ShowColumnHeaders = false;
-                this.cb_switchStandPointNo.EditorControl.ClearSelection();
-                this.cb_switchStandPointNo.EditorControl.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;
             }));
         }
     }
