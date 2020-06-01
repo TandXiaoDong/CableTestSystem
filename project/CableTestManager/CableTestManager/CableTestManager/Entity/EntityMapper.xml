@@ -94,8 +94,10 @@
 		<property name="CableName" column="CableName" />
 		<property name="StartInterface" column="StartInterface" />
 		<property name="StartContactPoint" column="StartContactPoint" />
+		<property name="StartDevPoint" column="StartDevPoint" />
 		<property name="EndInterface" column="EndInterface" />
 		<property name="EndContactPoint" column="EndContactPoint" />
+		<property name="EndDevPoint" column="EndDevPoint" />
 		<property name="MeasureMethod" column="MeasureMethod" />
 		<property name="IsGroundTest" column="IsGroundTest" />
 		<property name="IsInsulateTest" column="IsInsulateTest" />
@@ -591,6 +593,22 @@
 		<property name="OperatorRecord_query" column="OperatorRecord_query" />
 		<property name="OperatorRecord_del" column="OperatorRecord_del" />
 		<property name="OperatorRecord_export" column="OperatorRecord_export" />
+	</class>
+	<class name="_TCableTestLibrary_old_20200601" table="_TCableTestLibrary_old_20200601">
+		<property name="ID" column="ID" isPK="true" />
+		<property name="CableName" column="CableName" />
+		<property name="StartInterface" column="StartInterface" />
+		<property name="StartContactPoint" column="StartContactPoint" />
+		<property name="EndInterface" column="EndInterface" />
+		<property name="EndContactPoint" column="EndContactPoint" />
+		<property name="MeasureMethod" column="MeasureMethod" />
+		<property name="IsGroundTest" column="IsGroundTest" />
+		<property name="IsInsulateTest" column="IsInsulateTest" />
+		<property name="IsConductTest" column="IsConductTest" />
+		<property name="IsVoltageWithStandardTest" column="IsVoltageWithStandardTest" />
+		<property name="IsShortCircuitTest" column="IsShortCircuitTest" />
+		<property name="Remark" column="Remark" />
+		<property name="UpdateDate" column="UpdateDate" />
 	</class>
 	<class name="_THistoryDataBasic_old_20200318" table="_THistoryDataBasic_old_20200318">
 		<property name="TestSerialNumber" column="TestSerialNumber" isPK="true" />

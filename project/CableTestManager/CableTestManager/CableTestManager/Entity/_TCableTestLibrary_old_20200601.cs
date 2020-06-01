@@ -1,7 +1,7 @@
 /************************************************************************************
  *      Copyright (C) 2020 FigKey,All Rights Reserved
  *      File:
- *				TCableTestLibrary.cs
+ *				_TCableTestLibrary_old_20200601.cs
  *      Description:
  *		
  *      Author:
@@ -19,10 +19,10 @@ using System.Text;
 namespace CableTestManager.Entity
 {
     /// <summary>
-    /// 实体类TCableTestLibrary
+    /// 实体类_TCableTestLibrary_old_20200601
     /// </summary>
     [Serializable]
-    public class TCableTestLibrary
+    public class _TCableTestLibrary_old_20200601
     {
         #region 私有字段
 
@@ -30,10 +30,8 @@ namespace CableTestManager.Entity
         private string _cableName = String.Empty;
         private string _startInterface = String.Empty;
         private string _startContactPoint = String.Empty;
-        private string _startDevPoint = String.Empty;
         private string _endInterface = String.Empty;
         private string _endContactPoint = String.Empty;
-        private string _endDevPoint = String.Empty;
         private string _measureMethod = String.Empty;
         private long _isGroundTest = 0;
         private long _isInsulateTest = 0;
@@ -77,13 +75,6 @@ namespace CableTestManager.Entity
         }
 
 
-        public string StartDevPoint
-        {
-            set { this._startDevPoint = value; }
-            get { return this._startDevPoint; }
-        }
-
-
         public string EndInterface
         {
             set { this._endInterface = value; }
@@ -95,13 +86,6 @@ namespace CableTestManager.Entity
         {
             set { this._endContactPoint = value; }
             get { return this._endContactPoint; }
-        }
-
-
-        public string EndDevPoint
-        {
-            set { this._endDevPoint = value; }
-            get { return this._endDevPoint; }
         }
 
 

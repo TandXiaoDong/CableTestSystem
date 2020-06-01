@@ -586,6 +586,7 @@
             this.tool_batchImport.Name = "tool_batchImport";
             this.tool_batchImport.Text = "批量导入连接关系";
             this.tool_batchImport.UseCompatibleTextRendering = false;
+            this.tool_batchImport.Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
             // 
             // radMenuSeparatorItem1
             // 
@@ -601,6 +602,7 @@
             this.tool_batchModify.ButtonElement.ShowBorder = false;
             this.tool_batchModify.Name = "tool_batchModify";
             this.tool_batchModify.Text = "批量修改连接关系";
+            this.tool_batchModify.Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
             // 
             // tool_delete
             // 

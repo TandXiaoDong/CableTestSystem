@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CableTestManager.Model
 {
-    class SelfStudyParams
+    public class SelfStudyParams
     {
         public string StartPoint { get; set; }
 

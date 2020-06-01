@@ -53,6 +53,12 @@ namespace CableTestManager.View.VProject
             this.btn_copyProject.Click += Btn_copyProject_Click;
             this.btn_editProject.Click += Btn_editProject_Click;
             this.btn_deleteProject.Click += Btn_deleteProject_Click;
+            this.FormClosed += ProjectManage_FormClosed;
+        }
+
+        private void ProjectManage_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            
         }
 
         private void InitFuncState()
@@ -108,7 +114,7 @@ namespace CableTestManager.View.VProject
                 MessageBox.Show($"已删除项目{selectProject}！","提示",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
             QueryProjectInfo();
-            this.DialogResult = DialogResult.OK;
+            //this.DialogResult = DialogResult.OK;
             operateType = OperateType.DeleteProject;
         }
 
@@ -152,6 +158,7 @@ namespace CableTestManager.View.VProject
         private void Btn_cancel_Click(object sender, EventArgs e)
         {
             this.Close();
+            this.DialogResult = DialogResult.OK;
         }
 
         private void QueryProjectInfo()

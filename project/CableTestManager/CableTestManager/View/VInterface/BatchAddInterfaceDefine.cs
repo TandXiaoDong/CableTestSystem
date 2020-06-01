@@ -82,6 +82,11 @@ namespace CableTestManager.View.VInterface
                     MessageBox.Show("请输入大于0小于385之间的正整数！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
+                if (InterfaceLibCom.IsExistDevicePoint(pointNo.ToString()))
+                {
+                    MessageBox.Show("设备起始阵脚已存在！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                    return;
+                }
                 this.startPin = pointNo.ToString();
             }
             else if (this.rbt_4lineMethod.IsChecked)
@@ -101,6 +106,11 @@ namespace CableTestManager.View.VInterface
                 if (_4lineArray[1] == "")
                 {
                     MessageBox.Show("针脚号格式错误！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (InterfaceLibCom.IsExistDevicePoint(switchStandPointNo))
+                {
+                    MessageBox.Show("设备起始阵脚已存在！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 this.startPin = switchStandPointNo;

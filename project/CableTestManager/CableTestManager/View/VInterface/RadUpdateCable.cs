@@ -14,6 +14,7 @@ using CableTestManager.Entity;
 using WindowsFormTelerik.GridViewExportData;
 using Telerik.WinControls.UI;
 using Telerik.WinControls;
+using CableTestManager.Model;
 
 namespace CableTestManager.View.VInterface
 {
@@ -27,6 +28,8 @@ namespace CableTestManager.View.VInterface
         private bool IsShortCircuitCompletedTest;
         private bool IsInsulateCompletedTest;
         private bool IsPressureCompletedTest;
+        private List<CableLibParams> cableLibList = new List<CableLibParams>();
+        private InterfaceInfoLibraryManager plugLibraryDetailManager = new InterfaceInfoLibraryManager();
 
         public RadUpdateCable(string title,string lineCableName,bool IsEdit)
         {
@@ -242,6 +245,11 @@ namespace CableTestManager.View.VInterface
                 foreach (var library in plugLibraryList)
                 {
                     this.cb_startInterface.EditorControl.Rows.Add(library.InterfaceNo);
+                    InitCableParams(library.InterfaceNo);
+                }
+                if (this.cb_startInterface.EditorControl.RowCount > 0)
+                {
+                    this.cb_startInterface.SelectedIndex = 0;
                 }
                 foreach (var library in plugLibraryList)
                 {
@@ -264,6 +272,32 @@ namespace CableTestManager.View.VInterface
             }
         }
 
+        private void InitCableParams(string plugno)
+        {
+            int methodIndex = 2;
+            if (this.rdb2Method.IsChecked)
+                methodIndex = 2;
+            else if (this.rdb4Method.IsChecked)
+                methodIndex = 4;
+            var resultList = ContactPointReSort(plugno, methodIndex);
+            if (resultList.Count == 0)
+                return;
+            int i = 0;
+            foreach (var point in resultList)
+            {
+                CableLibParams cableLibParams = new CableLibParams();
+                cableLibParams.InterfaceName = plugno;
+                cableLibParams.InterContactPoint = (i + 1).ToString();
+                cableLibParams.DevInterPoint = point.ToString();
+                var cableList = this.cableLibList.Find(obj => obj.InterfaceName == plugno && obj.InterContactPoint == point.ToString()); ;
+                if (cableList == null)
+                {
+                    this.cableLibList.Add(cableLibParams);
+                }
+                i++;
+            }
+        }
+
         private bool IsCableNoExist(string cableName)
         {
             var count = lineStructManager.GetRowCountByWhere($"where CableName = '{cableName}'");
@@ -275,24 +309,23 @@ namespace CableTestManager.View.VInterface
         private void BindContactDataByInterface(string plugno, RadMultiColumnComboBox cbPin)
         {
             //此处省略排序规则：字符串混合排序
-            this.BeginInvoke(new Action(() =>
+            this.Invoke(new Action(() =>
             {
-            InterfaceInfoLibraryManager plugLibraryDetailManager = new InterfaceInfoLibraryManager();
             var methodIndex = 2;
             if (this.rdb2Method.IsChecked)
                 methodIndex = 2;
             else if (this.rdb4Method.IsChecked)
                 methodIndex = 4;
                 cbPin.EditorControl.Rows.Clear();
-            var selectSQL = $"where InterfaceNo='{plugno}' and MeasureMethod = '{methodIndex}'";
-            var dt = plugLibraryDetailManager.GetDataSetByFieldsAndWhere("SwitchStandStitchNo", selectSQL).Tables[0];
-            if (dt.Rows.Count < 1)
-                return;
-            var resultList = ContactPointReSort(dt,methodIndex);
+                var resultList = ContactPointReSort(plugno, methodIndex);
+                if (resultList.Count == 0)
+                    return;
                 this.cb_startPin.EditorControl.BeginEdit();
+                int iStart = 0;
                 foreach (var point in resultList)
                 {
-                    cbPin.EditorControl.Rows.Add(point);
+                    cbPin.EditorControl.Rows.Add(iStart + 1);
+                    iStart++;
                 }
                 cbPin.EditorControl.EndEdit();
                 cbPin.SelectedIndex = 0;
@@ -302,14 +335,19 @@ namespace CableTestManager.View.VInterface
             }));
         }
 
-        private List<int> ContactPointReSort(DataTable dt,int method)
+        private List<int> ContactPointReSort(string plugno,int methodIndex)
         {
             List<int> list = new List<int>();
+            var selectSQL = $"where InterfaceNo='{plugno}' and MeasureMethod = '{methodIndex}'";
+            var dt = plugLibraryDetailManager.GetDataSetByFieldsAndWhere("SwitchStandStitchNo", selectSQL).Tables[0];
+            if (dt.Rows.Count < 1)
+                return list;
+
             foreach (DataRow dr in dt.Rows)
             {
                 int value = 0;
                 var v = dr[0].ToString();
-                if (method == 2)
+                if (methodIndex == 2)
                 {
                     if (int.TryParse(v, out value))
                     {
@@ -317,7 +355,7 @@ namespace CableTestManager.View.VInterface
                             list.Add(value);
                     }
                 }
-                else if (method == 4)
+                else if (methodIndex == 4)
                 {
                     if (v.Contains(","))
                     {
@@ -603,8 +641,18 @@ namespace CableTestManager.View.VInterface
                 lineStructLibraryDetail.Remark = this.rtb_remark.Text;
                 lineStructLibraryDetail.StartInterface = startInterface;
                 lineStructLibraryDetail.StartContactPoint = startContactPoint;
+                var cStartObj = this.cableLibList.Find(obj => obj.InterfaceName == startInterface && obj.InterContactPoint == startContactPoint);
+                if (cStartObj != null)
+                {
+                    lineStructLibraryDetail.StartDevPoint = cStartObj.DevInterPoint;
+                }
                 lineStructLibraryDetail.EndInterface = endInterface;
                 lineStructLibraryDetail.EndContactPoint = endContactPoint;
+                var cEndObj = this.cableLibList.Find(obj => obj.InterfaceName == endInterface && obj.InterContactPoint == endContactPoint);
+                if (cEndObj != null)
+                {
+                    lineStructLibraryDetail.EndDevPoint = cEndObj.DevInterPoint;
+                }
                 lineStructLibraryDetail.MeasureMethod = QueryMeasuringMethod(startInterface).ToString();
                 //lineStructLibraryDetail.IsGroundTest = int.Parse(IsGround);
                 //lineStructLibraryDetail.IsConductTest = int.Parse(IsConduction);
@@ -680,12 +728,14 @@ namespace CableTestManager.View.VInterface
                     }
                     interfacePointList.Sort();
 
+                    int iStart = 1;
                     foreach (var pointString in interfacePointList)
                     {
-                        if (!IsExistCombox(this.cb_startPin, pointString.ToString()))
-                            this.cb_startPin.EditorControl.Rows.Add(pointString);
-                        if (!IsExistCombox(this.cb_endPin, pointString.ToString()))
-                            this.cb_endPin.EditorControl.Rows.Add(pointString);
+                        if (!IsExistCombox(this.cb_startPin, iStart.ToString()))
+                            this.cb_startPin.EditorControl.Rows.Add(iStart);
+                        if (!IsExistCombox(this.cb_endPin, iStart.ToString()))
+                            this.cb_endPin.EditorControl.Rows.Add(iStart);
+                        iStart++;
                     }
                     this.cb_startPin.EditorControl.ShowColumnHeaders = false;
                     this.cb_startPin.EditorControl.AllowAutoSizeColumns = true;
@@ -698,6 +748,7 @@ namespace CableTestManager.View.VInterface
                             this.cb_startInterface.EditorControl.Rows.Add(interString);
                         if (!IsExistEndInterfaceCombox(interString))
                             this.cb_endInterface.EditorControl.Rows.Add(interString);
+                        InitCableParams(interString);
                     }
                     this.cb_startInterface.EditorControl.ShowColumnHeaders = false;
                     this.cb_startInterface.EditorControl.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;

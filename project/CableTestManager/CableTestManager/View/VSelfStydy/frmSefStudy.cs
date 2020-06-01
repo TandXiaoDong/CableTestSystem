@@ -9,6 +9,7 @@ using Telerik.WinControls;
 using CableTestManager.Business.Implements;
 using CableTestManager.Business;
 using WindowsFormTelerik.ControlCommon;
+using CableTestManager.Common;
 
 namespace CableTestManager.View.VSelfStydy
 {
@@ -20,7 +21,8 @@ namespace CableTestManager.View.VSelfStydy
         public List<frmSefStudy> selfParamList;
         public StudyTypeEnum studyTypeEnum;
         private InterfaceInfoLibraryManager InterfaceInfoLibrary;
-        
+        private TCableTestLibraryManager cableTestLibraryManager = new TCableTestLibraryManager();
+        public List<SelfStudyTestParams> studyTestParamsList = new List<SelfStudyTestParams>();
 
         public enum StudyTypeEnum
         {
@@ -53,10 +55,6 @@ namespace CableTestManager.View.VSelfStydy
             this.conductionThresholdByPin.Minimum = 0;
             this.conductionThresholdByPin.Increment = 10;
 
-            this.numericByInterNo.Minimum = 0;
-            this.numericByInterNo.Maximum = 1200;
-            this.numericByInterNo.Increment = 10;
-
             this.selfParamList = new List<frmSefStudy>();
             RadGridViewProperties.SetRadGridViewProperty(this.radGridView1,false,false,0);
             this.radGridView1.Columns[0].ReadOnly = true;
@@ -65,11 +63,68 @@ namespace CableTestManager.View.VSelfStydy
             QueryInterfaceLibrary();
 
             this.btn_defineStudyByPin.Click += Btn_defineStudyByPin_Click;
-            this.btn_allStudyByPin.Click += Btn_allStudyByPin_Click;
             this.btn_cancelByPin.Click += Btn_cancelByPin_Click;
-            this.btn_cancelByInterface.Click += Btn_cancelByInterface_Click;
-            this.btn_studyAllByInterface.Click += Btn_studyAllByInterface_Click;
-            this.btn_studyByInterface.Click += Btn_studyByInterface_Click;
+            this.radGridView1.CellClick += RadGridView1_CellClick;
+            this.radGridView1.CellValueChanged += RadGridView1_CellValueChanged;
+        }
+
+        private void RadGridView1_CellValueChanged(object sender, Telerik.WinControls.UI.GridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex != 2)
+                return;
+            var currentCell = this.radGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+            if (currentCell == "True" || currentCell == "1")
+            {
+                var data = this.cableTestLibraryManager.GetAllDataSet().Tables[0];
+                if (data.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in data.Rows)
+                    {
+                        AddSelfStudyTestParams(dr["StartInterface"].ToString(), dr["StartContactPoint"].ToString(), dr["StartDevPoint"].ToString());
+                        AddSelfStudyTestParams(dr["EndInterface"].ToString(), dr["EndContactPoint"].ToString(), dr["EndDevPoint"].ToString());
+                    }
+                    this.num_max.Value = this.studyTestParamsList[this.studyTestParamsList.Count - 1].StudyPoint;
+                    this.num_min.Value = this.studyTestParamsList[0].StudyPoint;
+                }
+            }
+        }
+
+        private void RadGridView1_CellClick(object sender, Telerik.WinControls.UI.GridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 2)
+            {
+                var currentCell = this.radGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+                if (currentCell == "1" || currentCell == "True")
+                {
+                    this.radGridView1.Rows[e.RowIndex].Cells[2].Value = false;
+                }
+                else if (currentCell == "0" || currentCell == "False")
+                {
+                    this.radGridView1.Rows[e.RowIndex].Cells[2].Value = true;
+                }
+            }
+        }
+
+        private void RadGridView1_CellDoubleClick(object sender, Telerik.WinControls.UI.GridViewCellEventArgs e)
+        {
+           
+        }
+
+        private void AddSelfStudyTestParams(string interfaceName, string contactPoint, string devPoint)
+        {
+            SelfStudyTestParams selfStudyTest = new SelfStudyTestParams();
+            int cpoint;
+            int dpoint;
+            int.TryParse(contactPoint, out cpoint);
+            int.TryParse(contactPoint, out dpoint);
+            selfStudyTest.StudyInterface = interfaceName;
+            selfStudyTest.StudyPoint = cpoint;
+            selfStudyTest.DevicePoint = dpoint;
+            var testObj = this.studyTestParamsList.Find(obj => obj.StudyInterface == interfaceName && obj.StudyPoint == cpoint);
+            if (testObj == null)
+            {
+                this.studyTestParamsList.Add(selfStudyTest);
+            }
         }
 
         private void Btn_studyByInterface_Click(object sender, EventArgs e)
@@ -154,8 +209,9 @@ namespace CableTestManager.View.VSelfStydy
                     continue;
                 this.radGridView1.Rows.AddNew();
                 var iRow = this.radGridView1.RowCount;
-                this.radGridView1.Rows[iRow - 1].Cells[0].Value = iRow + 1;
+                this.radGridView1.Rows[iRow - 1].Cells[0].Value = iRow;
                 this.radGridView1.Rows[iRow - 1].Cells[1].Value = rowInfo[0].ToString();
+                this.radGridView1.Rows[iRow - 1].Cells[2].Value = false;
             }
         }
 
@@ -230,7 +286,7 @@ namespace CableTestManager.View.VSelfStydy
             int i = startVal;
             frmSefStudy frmSef = new frmSefStudy();
             frmSef.pinMin = startVal;
-            this.conductThresholdByPin = (float)this.numericByInterNo.Value;
+            this.conductThresholdByPin = (float)this.conductionThresholdByPin.Value;
             frmSef.conductThresholdByPin = this.conductThresholdByPin;
             for (int j = startIndex;j < list.Count;j++)
             {

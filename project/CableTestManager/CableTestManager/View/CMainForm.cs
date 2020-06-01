@@ -174,7 +174,7 @@ namespace CableTestManager.View
         private CableTestProcessParams cableTestProcessSig;//单项测试对象
         private Queue<CableTestProcessParams.CableTestType> cableTestProcessQueue;
         private List<string> testItemStyleList = new List<string>();
-
+        private List<CableLibParams> cableLibParamList = new List<CableLibParams>();
 
         public CMainForm()
         {
@@ -640,8 +640,8 @@ namespace CableTestManager.View
             else
                 conductResult = "不合格";
             CableTestParams cableTestParams = new CableTestParams();
-            cableTestParams.StartPoint = startInterPoint;
-            cableTestParams.EndPoint = endInterPoint;
+            cableTestParams.StartPoint = Convert.ToInt32(startInterPoint, 16).ToString();
+            cableTestParams.EndPoint = Convert.ToInt32(endInterPoint, 16).ToString();
             cableTestParams.TestResultVal = calResult.ToString("f2");
             cableTestParams.TestReulst = conductResult;
             cableTestParams.StartIndex = startIndex;
@@ -913,9 +913,9 @@ namespace CableTestManager.View
 
                         foreach (DataRow rowInfo in this.dataSourceCableTest.Rows)
                         {
-                            var sp = rowInfo[2].ToString().PadLeft(4, '0');
-                            var ep = rowInfo[4].ToString().PadLeft(4, '0');
-                            if (sp == startPoint && ep == endPoint)
+                            var startDevPoint = GetDevPointPinByContactPoint(rowInfo[1].ToString(),rowInfo[2].ToString());
+                            var endDevPoint = GetDevPointPinByContactPoint(rowInfo[3].ToString(), rowInfo[4].ToString());
+                            if (startDevPoint == startPoint && endDevPoint == endPoint)
                             {
                                 //更新测试记录
                                 rowInfo[cableTestParams.StartIndex] = testResultVal;
@@ -944,7 +944,7 @@ namespace CableTestManager.View
                         }
                     }
                     this.radGridViewCableTest.DataSource = this.dataSourceCableTest;
-                    this.radGridViewCableTest.CurrentRow = this.radGridViewCableTest.Rows[this.radGridViewCableTest.RowCount - 1];
+                    this.radGridViewCableTest.CurrentRow = this.radGridViewCableTest.Rows[iRow - 1];//更新到实际行数
                     this.cableTestPramsList.RemoveRange(0, count);
                     this.radGridViewCableTest.EndEdit();
                     this.refreshDataTimer.Enabled = false;
@@ -1157,6 +1157,8 @@ namespace CableTestManager.View
         {
             this.startTestDate = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             this.cableTestProcessSig.CableTestTypeEnum = CableTestProcessParams.CableTestType.PressureWithVoltageTest;
+            this.cableTestProcessQueue.Enqueue(CableTestProcessParams.CableTestType.PressureWithVoltageTest);
+            this.UpdateCurrentGridView();
             this.UpdateCurrentTestNumber();
             StartVoltageWithStandardTest();
         }
@@ -1165,6 +1167,8 @@ namespace CableTestManager.View
         {
             this.startTestDate = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             this.cableTestProcessSig.CableTestTypeEnum = CableTestProcessParams.CableTestType.InsulateTest;
+            this.cableTestProcessQueue.Enqueue(CableTestProcessParams.CableTestType.InsulateTest);
+            this.UpdateCurrentGridView();
             this.UpdateCurrentTestNumber();
             StartInsulateTest();
         }
@@ -1173,6 +1177,8 @@ namespace CableTestManager.View
         {
             this.startTestDate = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             this.cableTestProcessSig.CableTestTypeEnum = CableTestProcessParams.CableTestType.ShortCircuitTest;
+            this.cableTestProcessQueue.Enqueue(CableTestProcessParams.CableTestType.ShortCircuitTest);
+            this.UpdateCurrentGridView();
             this.UpdateCurrentTestNumber();
             StartCircuitTest();
         }
@@ -1181,6 +1187,8 @@ namespace CableTestManager.View
         {
             this.startTestDate = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             this.cableTestProcessSig.CableTestTypeEnum = CableTestProcessParams.CableTestType.ConductTest;
+            this.cableTestProcessQueue.Enqueue(CableTestProcessParams.CableTestType.ConductTest);
+            this.UpdateCurrentGridView();
             this.UpdateCurrentTestNumber();
             StartConductTest();
         }
@@ -1365,6 +1373,14 @@ namespace CableTestManager.View
                     QueryTestInfoByProjectName(projectManager.openProjectName);
                 }
             }
+            else
+            {
+                if (projectManager.operateType == ProjectManage.OperateType.DeleteProject)
+                {
+                    UpdateTreeView();
+                    QueryTestInfoByProjectName(projectManager.openProjectName);
+                }
+            }
         }
 
         private void Tool_NewProject_Click(object sender, EventArgs e)
@@ -1474,10 +1490,10 @@ namespace CableTestManager.View
         private void UpdateTreeView()
         {
             //select project
+            this.radTreeView1.Nodes.Clear();
             var projectInfoData = projectInfoManager.GetDataSetByFieldsAndWhere("distinct ProjectName", "").Tables[0];
             if (projectInfoData.Rows.Count < 1)
                 return;
-            this.radTreeView1.Nodes.Clear();
             foreach (DataRow dr in projectInfoData.Rows)
             {
                 var projectName = dr["ProjectName"].ToString();
@@ -1714,13 +1730,17 @@ namespace CableTestManager.View
                     {
                         var startInterface = dr["StartInterface"].ToString();
                         var startContactPoint = dr["StartContactPoint"].ToString();
+                        var startDevPoint = dr["StartDevPoint"].ToString();
                         var endInterface = dr["EndInterface"].ToString();
                         var endContactPoint = dr["EndContactPoint"].ToString();
+                        var endDevPoint = dr["EndDevPoint"].ToString();
                         var IsTestConduct = dr["IsConductTest"].ToString();
                         var IsTestCircuit = dr["IsShortCircuitTest"].ToString();
                         var IsTestInsulate = dr["IsInsulateTest"].ToString();
                         var IsTestPreasureProof = dr["IsVoltageWithStandardTest"].ToString();
                         var measuringMethod = dr["MeasureMethod"].ToString();
+                        InitCableParams(startInterface, startContactPoint, startDevPoint);
+                        InitCableParams(endInterface, endContactPoint, endDevPoint);
 
                         if (!IsExistGridView(startInterface,startContactPoint,endInterface,endContactPoint))
                         {
@@ -1771,6 +1791,19 @@ namespace CableTestManager.View
                     }
                     this.radGridViewCableTest.DataSource = this.dataSourceCableTest;
                 }
+            }
+        }
+
+        private void InitCableParams(string interName, string interPoint, string devPoint)
+        {
+            CableLibParams libParams = new CableLibParams();
+            libParams.InterfaceName = interName;
+            libParams.InterContactPoint = interPoint;
+            libParams.DevInterPoint = devPoint;
+            var cabParamsObj = this.cableLibParamList.Find(obj => obj.InterfaceName == interName && obj.InterContactPoint == interPoint);
+            if (cabParamsObj == null)
+            {
+                this.cableLibParamList.Add(libParams);
             }
         }
 
@@ -2046,11 +2079,13 @@ namespace CableTestManager.View
             {
                 var startInterface = lv.Cells[1].Value.ToString();
                 var startPoint = lv.Cells[2].Value.ToString();
+                var startDevPoint = GetDevPointPinByContactPoint(startInterface, startPoint);
                 if (startInterPointList.Contains(startPoint))
                     continue;
                 startInterPointList.Add(startPoint);
                 var endInterface = lv.Cells[3].Value.ToString();
                 var endPoint = lv.Cells[4].Value.ToString();
+                var endDevPoint = GetDevPointPinByContactPoint(endInterface, endPoint);
                 var conductTestResult = lv.Cells[6].Value;
                 var insulateTestResult = lv.Cells[8].Value;
                 var voltageTestResult = lv.Cells[10].Value;
@@ -2061,8 +2096,8 @@ namespace CableTestManager.View
                         continue;
                 }
                 int startpoint, endpoint;
-                int.TryParse(startPoint, out startpoint);
-                int.TryParse(endPoint, out endpoint);
+                int.TryParse(startDevPoint, out startpoint);
+                int.TryParse(endDevPoint, out endpoint);
                 method = measuringMethod;
                 hexString += Convert.ToString(startpoint, 16).PadLeft(4, '0') + Convert.ToString(endpoint, 16).PadLeft(4, '0');
             }
@@ -2112,8 +2147,10 @@ namespace CableTestManager.View
             {
                 var startInterface = lv.Cells[1].Value.ToString();
                 var startPoint = lv.Cells[2].Value.ToString();
+                var startDevPoint = GetDevPointPinByContactPoint(startInterface, startPoint);
                 var endInterface = lv.Cells[3].Value.ToString();
                 var endPoint = lv.Cells[4].Value.ToString();
+                var endDevPoint = GetDevPointPinByContactPoint(endInterface, endPoint);
                 var conductTestResult = lv.Cells[6].Value;
                 var insulateTestResult = lv.Cells[8].Value;
                 var voltageTestResult = lv.Cells[10].Value;
@@ -2124,14 +2161,24 @@ namespace CableTestManager.View
                         continue;
                 }
                 int startpoint, endpoint;
-                int.TryParse(startPoint, out startpoint);
-                int.TryParse(endPoint, out endpoint);
+                int.TryParse(startDevPoint, out startpoint);
+                int.TryParse(endDevPoint, out endpoint);
                 method = measuringMethod;
                 hexString += Convert.ToString(startpoint, 16).PadLeft(4, '0') + Convert.ToString(endpoint, 16).PadLeft(4, '0');
             }
             hexString = Convert.ToString(method).PadLeft(2, '0') + hexString;
 
             return hexString;
+        }
+
+        private string GetDevPointPinByContactPoint(string interfaceName,string point)
+        {
+            var cableParamsObj = this.cableLibParamList.Find(obj => obj.InterfaceName == interfaceName && obj.InterContactPoint == point);
+            if (cableParamsObj != null)
+            {
+                return cableParamsObj.DevInterPoint;
+            }
+            return "";
         }
 
         #endregion

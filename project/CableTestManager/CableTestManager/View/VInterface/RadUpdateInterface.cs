@@ -16,6 +16,7 @@ using CableTestManager.CUserManager;
 using CableTestManager.View.VInterface;
 using CommonUtils.FileHelper;
 using CableTestManager.Model;
+using CableTestManager.Common;
 
 namespace CableTestManager.View.VAdd
 {

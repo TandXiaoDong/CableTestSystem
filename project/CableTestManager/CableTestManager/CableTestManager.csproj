@@ -364,6 +364,7 @@
     <Compile Include="CableTestManager\Business\Implements\_OperatLimit_old_20200525_5Manager.cs" />
     <Compile Include="CableTestManager\Business\Implements\_OperatLimit_old_20200525_6Manager.cs" />
     <Compile Include="CableTestManager\Business\Implements\_OperatLimit_old_20200525_7Manager.cs" />
+    <Compile Include="CableTestManager\Business\Implements\_TCableTestLibrary_old_20200601Manager.cs" />
     <Compile Include="CableTestManager\Business\Implements\_THistoryDataBasic_old_20200318Manager.cs" />
     <Compile Include="CableTestManager\Business\Implements\_THistoryDataBasic_old_20200318_1Manager.cs" />
     <Compile Include="CableTestManager\Business\Implements\_TRole_old_20200525Manager.cs" />
@@ -393,6 +394,7 @@
     <Compile Include="CableTestManager\Business\Interface\I_OperatLimit_old_20200525_5Manager.cs" />
     <Compile Include="CableTestManager\Business\Interface\I_OperatLimit_old_20200525_6Manager.cs" />
     <Compile Include="CableTestManager\Business\Interface\I_OperatLimit_old_20200525_7Manager.cs" />
+    <Compile Include="CableTestManager\Business\Interface\I_TCableTestLibrary_old_20200601Manager.cs" />
     <Compile Include="CableTestManager\Business\Interface\I_THistoryDataBasic_old_20200318Manager.cs" />
     <Compile Include="CableTestManager\Business\Interface\I_THistoryDataBasic_old_20200318_1Manager.cs" />
     <Compile Include="CableTestManager\Business\Interface\I_TRole_old_20200525Manager.cs" />
@@ -427,6 +429,7 @@
     <Compile Include="CableTestManager\Data\Implements\_OperatLimit_old_20200525_5DBService.cs" />
     <Compile Include="CableTestManager\Data\Implements\_OperatLimit_old_20200525_6DBService.cs" />
     <Compile Include="CableTestManager\Data\Implements\_OperatLimit_old_20200525_7DBService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\_TCableTestLibrary_old_20200601DBService.cs" />
     <Compile Include="CableTestManager\Data\Implements\_THistoryDataBasic_old_20200318DBService.cs" />
     <Compile Include="CableTestManager\Data\Implements\_THistoryDataBasic_old_20200318_1DBService.cs" />
     <Compile Include="CableTestManager\Data\Implements\_TRole_old_20200525DBService.cs" />
@@ -456,6 +459,7 @@
     <Compile Include="CableTestManager\Data\Interface\I_OperatLimit_old_20200525_5DBService.cs" />
     <Compile Include="CableTestManager\Data\Interface\I_OperatLimit_old_20200525_6DBService.cs" />
     <Compile Include="CableTestManager\Data\Interface\I_OperatLimit_old_20200525_7DBService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\I_TCableTestLibrary_old_20200601DBService.cs" />
     <Compile Include="CableTestManager\Data\Interface\I_THistoryDataBasic_old_20200318DBService.cs" />
     <Compile Include="CableTestManager\Data\Interface\I_THistoryDataBasic_old_20200318_1DBService.cs" />
     <Compile Include="CableTestManager\Data\Interface\I_TRole_old_20200525DBService.cs" />
@@ -487,6 +491,7 @@
     <Compile Include="CableTestManager\Entity\_OperatLimit_old_20200525_5.cs" />
     <Compile Include="CableTestManager\Entity\_OperatLimit_old_20200525_6.cs" />
     <Compile Include="CableTestManager\Entity\_OperatLimit_old_20200525_7.cs" />
+    <Compile Include="CableTestManager\Entity\_TCableTestLibrary_old_20200601.cs" />
     <Compile Include="CableTestManager\Entity\_THistoryDataBasic_old_20200318.cs" />
     <Compile Include="CableTestManager\Entity\_THistoryDataBasic_old_20200318_1.cs" />
     <Compile Include="CableTestManager\Entity\_TRole_old_20200525.cs" />
@@ -506,6 +511,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Common\InterfaceLibCom.cs" />
+    <Compile Include="Common\SelfStudyTestParams.cs" />
     <Compile Include="Common\TablePrimaryKey.cs" />
     <Compile Include="Common\UserOperateRecord.cs" />
     <Compile Include="CUserManager\EditRole.cs">
@@ -564,6 +570,7 @@
       <DependentUpon>Helper.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\CableJudgeThreshold.cs" />
+    <Compile Include="Model\CableLibParams.cs" />
     <Compile Include="Model\CableTestParams.cs" />
     <Compile Include="Model\CableTestProcessParams.cs" />
     <Compile Include="Model\InterfaceLibaryInfo.cs" />
@@ -1407,6 +1414,7 @@
     <None Include="Resources\查询.png" />
     <None Include="Resources\密码修改.png" />
     <EmbeddedResource Include="CableTestManager\Entity\EntityMapper.xml" />
+    <Content Include="完善与优化.txt" />
     <Content Include="需求梳理.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
