@@ -126,19 +126,28 @@
             this.radStatusStrip1 = new Telerik.WinControls.UI.RadStatusStrip();
             this.radLabelElement7 = new Telerik.WinControls.UI.RadLabelElement();
             this.radLabelElement8 = new Telerik.WinControls.UI.RadLabelElement();
-            this.radLabelElement9 = new Telerik.WinControls.UI.RadLabelElement();
+            this.lbx_conRelationCount = new Telerik.WinControls.UI.RadLabelElement();
             this.radLabelElement10 = new Telerik.WinControls.UI.RadLabelElement();
-            this.radLabelElement11 = new Telerik.WinControls.UI.RadLabelElement();
+            this.lbx_conductExCount = new Telerik.WinControls.UI.RadLabelElement();
             this.radLabelElement12 = new Telerik.WinControls.UI.RadLabelElement();
-            this.radLabelElement13 = new Telerik.WinControls.UI.RadLabelElement();
+            this.lbx_shortCircuitExCount = new Telerik.WinControls.UI.RadLabelElement();
             this.radLabelElement14 = new Telerik.WinControls.UI.RadLabelElement();
-            this.radLabelElement15 = new Telerik.WinControls.UI.RadLabelElement();
+            this.lbx_insulateExCount = new Telerik.WinControls.UI.RadLabelElement();
             this.radLabelElement16 = new Telerik.WinControls.UI.RadLabelElement();
-            this.radLabelElement17 = new Telerik.WinControls.UI.RadLabelElement();
+            this.lbx_voltageExCount = new Telerik.WinControls.UI.RadLabelElement();
             this.office2013LightTheme1 = new Telerik.WinControls.Themes.Office2013LightTheme();
             this.telerikMetroTouchTheme1 = new Telerik.WinControls.Themes.TelerikMetroTouchTheme();
             this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
             this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
+            this.radImageButtonElement1 = new Telerik.WinControls.UI.RadImageButtonElement();
+            this.radLabelElement2 = new Telerik.WinControls.UI.RadLabelElement();
+            this.radImageButtonElement2 = new Telerik.WinControls.UI.RadImageButtonElement();
+            this.radImageButtonElement3 = new Telerik.WinControls.UI.RadImageButtonElement();
+            this.radImageButtonElement4 = new Telerik.WinControls.UI.RadImageButtonElement();
+            this.radLabelElement4 = new Telerik.WinControls.UI.RadLabelElement();
+            this.radLabelElement6 = new Telerik.WinControls.UI.RadLabelElement();
+            this.radLabelElement20 = new Telerik.WinControls.UI.RadLabelElement();
+            this.radLabelElement21 = new Telerik.WinControls.UI.RadLabelElement();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu2)).BeginInit();
@@ -164,8 +173,8 @@
             this.panelStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lbx_testStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radStatusStrip1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // radMenuItem1
@@ -621,6 +630,7 @@
             this.menu_VoltageWithStandTest.ButtonElement.ShowBorder = false;
             this.menu_VoltageWithStandTest.Name = "menu_VoltageWithStandTest";
             this.menu_VoltageWithStandTest.Text = "耐压测试";
+            this.menu_VoltageWithStandTest.Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
             // 
             // menu_OneKeyTest
             // 
@@ -949,15 +959,24 @@
             this.radStatusStrip1.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.radLabelElement7,
             this.radLabelElement8,
-            this.radLabelElement9,
+            this.lbx_conRelationCount,
+            this.radLabelElement2,
+            this.radImageButtonElement1,
             this.radLabelElement10,
-            this.radLabelElement11,
+            this.lbx_conductExCount,
+            this.radLabelElement4,
+            this.radImageButtonElement2,
             this.radLabelElement12,
-            this.radLabelElement13,
+            this.lbx_shortCircuitExCount,
+            this.radLabelElement6,
+            this.radImageButtonElement3,
             this.radLabelElement14,
-            this.radLabelElement15,
+            this.lbx_insulateExCount,
+            this.radLabelElement20,
+            this.radImageButtonElement4,
             this.radLabelElement16,
-            this.radLabelElement17});
+            this.lbx_voltageExCount,
+            this.radLabelElement21});
             this.radStatusStrip1.Location = new System.Drawing.Point(0, 465);
             this.radStatusStrip1.Name = "radStatusStrip1";
             this.radStatusStrip1.Size = new System.Drawing.Size(1089, 25);
@@ -978,12 +997,12 @@
             this.radLabelElement8.Text = "连接关系总数：";
             this.radLabelElement8.TextWrap = true;
             // 
-            // radLabelElement9
+            // lbx_conRelationCount
             // 
-            this.radLabelElement9.Name = "radLabelElement9";
-            this.radStatusStrip1.SetSpring(this.radLabelElement9, false);
-            this.radLabelElement9.Text = "0条;";
-            this.radLabelElement9.TextWrap = true;
+            this.lbx_conRelationCount.Name = "lbx_conRelationCount";
+            this.radStatusStrip1.SetSpring(this.lbx_conRelationCount, false);
+            this.lbx_conRelationCount.Text = "0";
+            this.lbx_conRelationCount.TextWrap = true;
             // 
             // radLabelElement10
             // 
@@ -992,12 +1011,12 @@
             this.radLabelElement10.Text = "导通测试异常数：";
             this.radLabelElement10.TextWrap = true;
             // 
-            // radLabelElement11
+            // lbx_conductExCount
             // 
-            this.radLabelElement11.Name = "radLabelElement11";
-            this.radStatusStrip1.SetSpring(this.radLabelElement11, false);
-            this.radLabelElement11.Text = "0条;";
-            this.radLabelElement11.TextWrap = true;
+            this.lbx_conductExCount.Name = "lbx_conductExCount";
+            this.radStatusStrip1.SetSpring(this.lbx_conductExCount, false);
+            this.lbx_conductExCount.Text = "0";
+            this.lbx_conductExCount.TextWrap = true;
             // 
             // radLabelElement12
             // 
@@ -1006,12 +1025,12 @@
             this.radLabelElement12.Text = "短路测试异常数：";
             this.radLabelElement12.TextWrap = true;
             // 
-            // radLabelElement13
+            // lbx_shortCircuitExCount
             // 
-            this.radLabelElement13.Name = "radLabelElement13";
-            this.radStatusStrip1.SetSpring(this.radLabelElement13, false);
-            this.radLabelElement13.Text = "0条;";
-            this.radLabelElement13.TextWrap = true;
+            this.lbx_shortCircuitExCount.Name = "lbx_shortCircuitExCount";
+            this.radStatusStrip1.SetSpring(this.lbx_shortCircuitExCount, false);
+            this.lbx_shortCircuitExCount.Text = "0";
+            this.lbx_shortCircuitExCount.TextWrap = true;
             // 
             // radLabelElement14
             // 
@@ -1020,12 +1039,12 @@
             this.radLabelElement14.Text = "绝缘异常数：";
             this.radLabelElement14.TextWrap = true;
             // 
-            // radLabelElement15
+            // lbx_insulateExCount
             // 
-            this.radLabelElement15.Name = "radLabelElement15";
-            this.radStatusStrip1.SetSpring(this.radLabelElement15, false);
-            this.radLabelElement15.Text = "0条;";
-            this.radLabelElement15.TextWrap = true;
+            this.lbx_insulateExCount.Name = "lbx_insulateExCount";
+            this.radStatusStrip1.SetSpring(this.lbx_insulateExCount, false);
+            this.lbx_insulateExCount.Text = "0";
+            this.lbx_insulateExCount.TextWrap = true;
             // 
             // radLabelElement16
             // 
@@ -1034,18 +1053,12 @@
             this.radLabelElement16.Text = "耐压异常数：";
             this.radLabelElement16.TextWrap = true;
             // 
-            // radLabelElement17
+            // lbx_voltageExCount
             // 
-            this.radLabelElement17.Name = "radLabelElement17";
-            this.radStatusStrip1.SetSpring(this.radLabelElement17, false);
-            this.radLabelElement17.Text = "0条;";
-            this.radLabelElement17.TextWrap = true;
-            // 
-            // CMainForm
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1333, 722);
+            this.lbx_voltageExCount.Name = "lbx_voltageExCount";
+            this.radStatusStrip1.SetSpring(this.lbx_voltageExCount, false);
+            this.lbx_voltageExCount.Text = "0";
+            this.lbx_voltageExCount.TextWrap = true;
             // 
             // radMenu1
             // 
@@ -1064,6 +1077,75 @@
             this.radMenu1.Size = new System.Drawing.Size(1333, 38);
             this.radMenu1.TabIndex = 0;
             this.radMenu1.ThemeName = "MaterialBlueGrey";
+            // 
+            // radImageButtonElement1
+            // 
+            this.radImageButtonElement1.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.radImageButtonElement1.Name = "radImageButtonElement1";
+            this.radStatusStrip1.SetSpring(this.radImageButtonElement1, false);
+            this.radImageButtonElement1.Text = "";
+            // 
+            // radLabelElement2
+            // 
+            this.radLabelElement2.Name = "radLabelElement2";
+            this.radStatusStrip1.SetSpring(this.radLabelElement2, false);
+            this.radLabelElement2.Text = "条";
+            this.radLabelElement2.TextWrap = true;
+            // 
+            // radImageButtonElement2
+            // 
+            this.radImageButtonElement2.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.radImageButtonElement2.Name = "radImageButtonElement2";
+            this.radStatusStrip1.SetSpring(this.radImageButtonElement2, false);
+            this.radImageButtonElement2.Text = "radImageButtonElement2";
+            // 
+            // radImageButtonElement3
+            // 
+            this.radImageButtonElement3.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.radImageButtonElement3.Name = "radImageButtonElement3";
+            this.radStatusStrip1.SetSpring(this.radImageButtonElement3, false);
+            this.radImageButtonElement3.Text = "radImageButtonElement3";
+            // 
+            // radImageButtonElement4
+            // 
+            this.radImageButtonElement4.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.radImageButtonElement4.Name = "radImageButtonElement4";
+            this.radStatusStrip1.SetSpring(this.radImageButtonElement4, false);
+            this.radImageButtonElement4.Text = "radImageButtonElement4";
+            // 
+            // radLabelElement4
+            // 
+            this.radLabelElement4.Name = "radLabelElement4";
+            this.radStatusStrip1.SetSpring(this.radLabelElement4, false);
+            this.radLabelElement4.Text = "条";
+            this.radLabelElement4.TextWrap = true;
+            // 
+            // radLabelElement6
+            // 
+            this.radLabelElement6.Name = "radLabelElement6";
+            this.radStatusStrip1.SetSpring(this.radLabelElement6, false);
+            this.radLabelElement6.Text = "条";
+            this.radLabelElement6.TextWrap = true;
+            // 
+            // radLabelElement20
+            // 
+            this.radLabelElement20.Name = "radLabelElement20";
+            this.radStatusStrip1.SetSpring(this.radLabelElement20, false);
+            this.radLabelElement20.Text = "条";
+            this.radLabelElement20.TextWrap = true;
+            // 
+            // radLabelElement21
+            // 
+            this.radLabelElement21.Name = "radLabelElement21";
+            this.radStatusStrip1.SetSpring(this.radLabelElement21, false);
+            this.radLabelElement21.Text = "条";
+            this.radLabelElement21.TextWrap = true;
+            // 
+            // CMainForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1333, 722);
             this.Controls.Add(this.radDock1);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.panel1);
@@ -1189,15 +1271,15 @@
         private Telerik.WinControls.UI.RadLabel lbx_testStatus;
         private Telerik.WinControls.UI.RadLabelElement radLabelElement7;
         private Telerik.WinControls.UI.RadLabelElement radLabelElement8;
-        private Telerik.WinControls.UI.RadLabelElement radLabelElement9;
+        private Telerik.WinControls.UI.RadLabelElement lbx_conRelationCount;
         private Telerik.WinControls.UI.RadLabelElement radLabelElement10;
-        private Telerik.WinControls.UI.RadLabelElement radLabelElement11;
+        private Telerik.WinControls.UI.RadLabelElement lbx_conductExCount;
         private Telerik.WinControls.UI.RadLabelElement radLabelElement12;
-        private Telerik.WinControls.UI.RadLabelElement radLabelElement13;
+        private Telerik.WinControls.UI.RadLabelElement lbx_shortCircuitExCount;
         private Telerik.WinControls.UI.RadLabelElement radLabelElement14;
-        private Telerik.WinControls.UI.RadLabelElement radLabelElement15;
+        private Telerik.WinControls.UI.RadLabelElement lbx_insulateExCount;
         private Telerik.WinControls.UI.RadLabelElement radLabelElement16;
-        private Telerik.WinControls.UI.RadLabelElement radLabelElement17;
+        private Telerik.WinControls.UI.RadLabelElement lbx_voltageExCount;
         private Telerik.WinControls.UI.RadMenuItem menu_userManager;
         private Telerik.WinControls.UI.RadMenuItem menu_connectCfg;
         private Telerik.WinControls.UI.RadLabelElement radLabelElement18;
@@ -1226,5 +1308,14 @@
         private Telerik.WinControls.UI.RadMenuItem menu_operateLog;
         private Telerik.WinControls.UI.RadMenuItem menu_roleManager;
         private Telerik.WinControls.UI.RadMenu radMenu1;
+        private Telerik.WinControls.UI.RadLabelElement radLabelElement2;
+        private Telerik.WinControls.UI.RadImageButtonElement radImageButtonElement1;
+        private Telerik.WinControls.UI.RadLabelElement radLabelElement4;
+        private Telerik.WinControls.UI.RadImageButtonElement radImageButtonElement2;
+        private Telerik.WinControls.UI.RadLabelElement radLabelElement6;
+        private Telerik.WinControls.UI.RadImageButtonElement radImageButtonElement3;
+        private Telerik.WinControls.UI.RadLabelElement radLabelElement20;
+        private Telerik.WinControls.UI.RadImageButtonElement radImageButtonElement4;
+        private Telerik.WinControls.UI.RadLabelElement radLabelElement21;
     }
 }

@@ -1,7 +1,7 @@
 /************************************************************************************
  *      Copyright (C) 2020 FigKey,All Rights Reserved
  *      File:
- *				TConnectorLibrary.cs
+ *				_InterfaceInfoLibrary_old_20200602.cs
  *      Description:
  *		
  *      Author:
@@ -19,16 +19,20 @@ using System.Text;
 namespace CableTestManager.Entity
 {
     /// <summary>
-    /// 实体类TConnectorLibrary
+    /// 实体类_InterfaceInfoLibrary_old_20200602
     /// </summary>
     [Serializable]
-    public class TConnectorLibrary
+    public class _InterfaceInfoLibrary_old_20200602
     {
         #region 私有字段
 
         private long _iD = 0;
+        private string _interfaceNo = String.Empty;
+        private string _contactPointName = String.Empty;
+        private string _switchStandStitchNo = String.Empty;
+        private string _measureMethod = String.Empty;
         private string _connectorName = String.Empty;
-        private string _converterType = String.Empty;
+        private string _operator = String.Empty;
         private string _remark = String.Empty;
         private string _updateDate = String.Empty;
 
@@ -45,6 +49,34 @@ namespace CableTestManager.Entity
         }
 
 
+        public string InterfaceNo
+        {
+            set { this._interfaceNo = value; }
+            get { return this._interfaceNo; }
+        }
+
+
+        public string ContactPointName
+        {
+            set { this._contactPointName = value; }
+            get { return this._contactPointName; }
+        }
+
+
+        public string SwitchStandStitchNo
+        {
+            set { this._switchStandStitchNo = value; }
+            get { return this._switchStandStitchNo; }
+        }
+
+
+        public string MeasureMethod
+        {
+            set { this._measureMethod = value; }
+            get { return this._measureMethod; }
+        }
+
+
         public string ConnectorName
         {
             set { this._connectorName = value; }
@@ -52,10 +84,10 @@ namespace CableTestManager.Entity
         }
 
 
-        public string ConverterType
+        public string Operator
         {
-            set { this._converterType = value; }
-            get { return this._converterType; }
+            set { this._operator = value; }
+            get { return this._operator; }
         }
 
 

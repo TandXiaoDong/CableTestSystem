@@ -47,6 +47,7 @@
             this.btn_defineStudyByPin = new Telerik.WinControls.UI.RadButton();
             this.btn_cancelByPin = new Telerik.WinControls.UI.RadButton();
             this.radGroupBox1 = new Telerik.WinControls.UI.RadGroupBox();
+            this.telerikMetroTouchTheme1 = new Telerik.WinControls.Themes.TelerikMetroTouchTheme();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.conductionThresholdByPin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel5)).BeginInit();
@@ -259,5 +260,6 @@
         private Telerik.WinControls.UI.RadButton btn_defineStudyByPin;
         private Telerik.WinControls.UI.RadButton btn_cancelByPin;
         private Telerik.WinControls.UI.RadGroupBox radGroupBox1;
+        private Telerik.WinControls.Themes.TelerikMetroTouchTheme telerikMetroTouchTheme1;
     }
 }

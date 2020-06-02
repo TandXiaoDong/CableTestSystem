@@ -20,8 +20,8 @@ namespace CableTestManager.View.VInterface
         public int totalNum;
         private const string NUMBER_RAISE = "1,2,3...数字递增";
         private int maxPin = 384;
-        private List<int> _2devPointList;
-        private List<string> _4devPointList;
+        public List<int> _2devPointList;
+        public List<string> _4devPointList;
 
         public enum NameRuleEnum
         {

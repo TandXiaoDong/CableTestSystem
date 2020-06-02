@@ -41,6 +41,7 @@
 		<property name="InterfaceNo" column="InterfaceNo" />
 		<property name="ContactPointName" column="ContactPointName" />
 		<property name="SwitchStandStitchNo" column="SwitchStandStitchNo" />
+		<property name="ContactPoint" column="ContactPoint" />
 		<property name="MeasureMethod" column="MeasureMethod" />
 		<property name="ConnectorName" column="ConnectorName" />
 		<property name="Operator" column="Operator" />
@@ -291,6 +292,17 @@
 		<property name="DeviceDebug" column="DeviceDebug" />
 		<property name="DeviceFaultQuery" column="DeviceFaultQuery" />
 		<property name="EnvironmentalParameters" column="EnvironmentalParameters" />
+	</class>
+	<class name="_InterfaceInfoLibrary_old_20200602" table="_InterfaceInfoLibrary_old_20200602">
+		<property name="ID" column="ID" isPK="true" />
+		<property name="InterfaceNo" column="InterfaceNo" />
+		<property name="ContactPointName" column="ContactPointName" />
+		<property name="SwitchStandStitchNo" column="SwitchStandStitchNo" />
+		<property name="MeasureMethod" column="MeasureMethod" />
+		<property name="ConnectorName" column="ConnectorName" />
+		<property name="Operator" column="Operator" />
+		<property name="Remark" column="Remark" />
+		<property name="UpdateDate" column="UpdateDate" />
 	</class>
 	<class name="_OperatLimit_old_20200525" table="_OperatLimit_old_20200525">
 		<property name="ID" column="ID" isPK="true" />

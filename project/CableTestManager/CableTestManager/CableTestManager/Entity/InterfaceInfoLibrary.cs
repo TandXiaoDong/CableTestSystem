@@ -9,7 +9,7 @@
  *				1297953037@qq.com
  *				http://www.figkey.com
  *      Finish DateTime:
- *				2020年06月01日
+ *				2020年06月02日
  *      History:
  ***********************************************************************************/
 using System;
@@ -30,6 +30,7 @@ namespace CableTestManager.Entity
         private string _interfaceNo = String.Empty;
         private string _contactPointName = String.Empty;
         private string _switchStandStitchNo = String.Empty;
+        private string _contactPoint = String.Empty;
         private string _measureMethod = String.Empty;
         private string _connectorName = String.Empty;
         private string _operator = String.Empty;
@@ -67,6 +68,13 @@ namespace CableTestManager.Entity
         {
             set { this._switchStandStitchNo = value; }
             get { return this._switchStandStitchNo; }
+        }
+
+
+        public string ContactPoint
+        {
+            set { this._contactPoint = value; }
+            get { return this._contactPoint; }
         }
 
 

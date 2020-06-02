@@ -226,12 +226,12 @@ namespace CableTestManager.View.VAdd
                         if (testMethod == "二线法")
                         {
                             interfacePointName = startInterfacePointIndex.ToString();
-                            switchStandPointNo = startPinIndex.ToString();
+                            switchStandPointNo = batchAddInterfaceDefine._2devPointList[i].ToString();//startPinIndex.ToString();
                         }
                         else if (testMethod == "四线法")
                         {
                             interfacePointName = i.ToString();
-                            switchStandPointNo = stitchNo + "," + (stitchNo + 1).ToString();
+                            switchStandPointNo = batchAddInterfaceDefine._4devPointList[i].ToString();//stitchNo + "," + (stitchNo + 1).ToString();
                             stitchNo += 2;
                         }
                     }
@@ -387,6 +387,7 @@ namespace CableTestManager.View.VAdd
                     int beforeInsertCount = plugLibraryDetailManager.GetRowCount();
                     int excuteCount = 0;
                     //submit data
+                    int iRow = 1;
                     foreach (var rowInfo in this.radGridView1.Rows)
                     {
                         var plugNo = rowInfo.Cells[1].Value.ToString();
@@ -414,6 +415,7 @@ namespace CableTestManager.View.VAdd
                         plugLibraryDetail.Remark = remark;
                         plugLibraryDetail.Operator = LocalLogin.currentUserName;
                         plugLibraryDetail.ConnectorName = connectorName;
+                        plugLibraryDetail.ContactPoint = iRow.ToString();
                         #endregion
 
                         //新增数据
@@ -422,6 +424,7 @@ namespace CableTestManager.View.VAdd
                             if (IsCanInsertOrUpdate(false, -1, plugNo, pinName, stitchNo) == InterfaceExTipEnum.InterfacePoint_NotExistAndStitch_NoExist)
                             {
                                 plugLibraryDetailManager.Insert(plugLibraryDetail);
+                                iRow++;
                             }
                         }
                     }
@@ -443,6 +446,17 @@ namespace CableTestManager.View.VAdd
                     this.DialogResult = DialogResult.OK;
                 }
             });
+        }
+
+        private List<InterfaceLibCom> GetDevPointOrderID(string devPoint)//排序
+        {
+            int dPoint;
+            foreach (var rowInfo in this.radGridView1.Rows)
+            {
+                int.TryParse(rowInfo.Cells[3].Value.ToString(), out dPoint);
+
+            }
+            return new List<InterfaceLibCom>();
         }
 
         private bool CheckValid()

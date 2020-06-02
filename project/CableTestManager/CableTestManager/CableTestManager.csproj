@@ -356,6 +356,7 @@
     <Compile Include="CableTestManager\Business\Implements\TUserManager.cs" />
     <Compile Include="CableTestManager\Business\Implements\_FuncLimit_old_20200522Manager.cs" />
     <Compile Include="CableTestManager\Business\Implements\_FuncLimit_old_20200525Manager.cs" />
+    <Compile Include="CableTestManager\Business\Implements\_InterfaceInfoLibrary_old_20200602Manager.cs" />
     <Compile Include="CableTestManager\Business\Implements\_OperatLimit_old_20200525Manager.cs" />
     <Compile Include="CableTestManager\Business\Implements\_OperatLimit_old_20200525_1Manager.cs" />
     <Compile Include="CableTestManager\Business\Implements\_OperatLimit_old_20200525_2Manager.cs" />
@@ -386,6 +387,7 @@
     <Compile Include="CableTestManager\Business\Interface\ITUserManager.cs" />
     <Compile Include="CableTestManager\Business\Interface\I_FuncLimit_old_20200522Manager.cs" />
     <Compile Include="CableTestManager\Business\Interface\I_FuncLimit_old_20200525Manager.cs" />
+    <Compile Include="CableTestManager\Business\Interface\I_InterfaceInfoLibrary_old_20200602Manager.cs" />
     <Compile Include="CableTestManager\Business\Interface\I_OperatLimit_old_20200525Manager.cs" />
     <Compile Include="CableTestManager\Business\Interface\I_OperatLimit_old_20200525_1Manager.cs" />
     <Compile Include="CableTestManager\Business\Interface\I_OperatLimit_old_20200525_2Manager.cs" />
@@ -421,6 +423,7 @@
     <Compile Include="CableTestManager\Data\Implements\TUserDBService.cs" />
     <Compile Include="CableTestManager\Data\Implements\_FuncLimit_old_20200522DBService.cs" />
     <Compile Include="CableTestManager\Data\Implements\_FuncLimit_old_20200525DBService.cs" />
+    <Compile Include="CableTestManager\Data\Implements\_InterfaceInfoLibrary_old_20200602DBService.cs" />
     <Compile Include="CableTestManager\Data\Implements\_OperatLimit_old_20200525DBService.cs" />
     <Compile Include="CableTestManager\Data\Implements\_OperatLimit_old_20200525_1DBService.cs" />
     <Compile Include="CableTestManager\Data\Implements\_OperatLimit_old_20200525_2DBService.cs" />
@@ -451,6 +454,7 @@
     <Compile Include="CableTestManager\Data\Interface\ITUserDBService.cs" />
     <Compile Include="CableTestManager\Data\Interface\I_FuncLimit_old_20200522DBService.cs" />
     <Compile Include="CableTestManager\Data\Interface\I_FuncLimit_old_20200525DBService.cs" />
+    <Compile Include="CableTestManager\Data\Interface\I_InterfaceInfoLibrary_old_20200602DBService.cs" />
     <Compile Include="CableTestManager\Data\Interface\I_OperatLimit_old_20200525DBService.cs" />
     <Compile Include="CableTestManager\Data\Interface\I_OperatLimit_old_20200525_1DBService.cs" />
     <Compile Include="CableTestManager\Data\Interface\I_OperatLimit_old_20200525_2DBService.cs" />
@@ -483,6 +487,7 @@
     <Compile Include="CableTestManager\Entity\TUser.cs" />
     <Compile Include="CableTestManager\Entity\_FuncLimit_old_20200522.cs" />
     <Compile Include="CableTestManager\Entity\_FuncLimit_old_20200525.cs" />
+    <Compile Include="CableTestManager\Entity\_InterfaceInfoLibrary_old_20200602.cs" />
     <Compile Include="CableTestManager\Entity\_OperatLimit_old_20200525.cs" />
     <Compile Include="CableTestManager\Entity\_OperatLimit_old_20200525_1.cs" />
     <Compile Include="CableTestManager\Entity\_OperatLimit_old_20200525_2.cs" />
