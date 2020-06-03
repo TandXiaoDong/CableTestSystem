@@ -25,6 +25,7 @@ namespace CableTestManager.View.VInterface
         {
             InitializeComponent();
             Init();
+            QueryInterfaceInfo();
             EventHandlers();
         }
 
@@ -95,7 +96,7 @@ namespace CableTestManager.View.VInterface
             if (MessageBox.Show($"确认要删除接口{plugNo}？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 plugLibraryDetailManager.DeleteByWhere($"where InterfaceNo='{plugNo}'");
-                QueryDB();
+                QueryInterfaceInfo();
                 UserOperateRecord.UpdateOperateRecord($"删除接口{plugNo}");
             }
         }
@@ -105,17 +106,17 @@ namespace CableTestManager.View.VInterface
             RadUpdateInterface radUpdateInterface = new RadUpdateInterface("添加接口库","",false);
             if (radUpdateInterface.ShowDialog() == DialogResult.OK)
             {
-                QueryDB();
+                QueryInterfaceInfo();
                 UserOperateRecord.UpdateOperateRecord($"添加接口");
             }
         }
 
         private void Tool_query_Click(object sender, EventArgs e)
         {
-            QueryDB();
+            QueryInterfaceInfo();
         }
 
-        private void QueryDB()
+        private void QueryInterfaceInfo()
         {
             int i = 0;
             ClearGridView();

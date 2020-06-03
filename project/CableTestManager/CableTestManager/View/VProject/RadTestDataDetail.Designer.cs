@@ -47,12 +47,6 @@
             this.fluentTheme1 = new Telerik.WinControls.Themes.FluentTheme();
             this.office2013LightTheme1 = new Telerik.WinControls.Themes.Office2013LightTheme();
             this.telerikMetroTouchTheme1 = new Telerik.WinControls.Themes.TelerikMetroTouchTheme();
-            this.menu_circuitTest = new Telerik.WinControls.UI.RadMenuButtonItem();
-            this.menu_insulateByGroundTest = new Telerik.WinControls.UI.RadMenuButtonItem();
-            this.menu_toReport = new Telerik.WinControls.UI.RadMenuButtonItem();
-            this.menu_printReport = new Telerik.WinControls.UI.RadMenuButtonItem();
-            this.menu_exportExcel = new Telerik.WinControls.UI.RadMenuButtonItem();
-            this.menu_close = new Telerik.WinControls.UI.RadMenuButtonItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lbx_EnvironmentTemperature = new System.Windows.Forms.Label();
             this.lbx_testDevType = new System.Windows.Forms.Label();
@@ -98,7 +92,11 @@
             this.lbx_pressureProofThreshold = new System.Windows.Forms.Label();
             this.lbx_insulateThreshold = new System.Windows.Forms.Label();
             this.radGridView1 = new Telerik.WinControls.UI.RadGridView();
+            this.menu_toReport = new Telerik.WinControls.UI.RadMenuItem();
             this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
+            this.menu_printReport = new Telerik.WinControls.UI.RadMenuItem();
+            this.menu_exportExcel = new Telerik.WinControls.UI.RadMenuItem();
+            this.menu_close = new Telerik.WinControls.UI.RadMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).BeginInit();
@@ -106,60 +104,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
-            // 
-            // menu_circuitTest
-            // 
-            // 
-            // 
-            // 
-            this.menu_circuitTest.ButtonElement.ShowBorder = false;
-            this.menu_circuitTest.Name = "menu_circuitTest";
-            this.menu_circuitTest.Text = "短路测试数据";
-            // 
-            // menu_insulateByGroundTest
-            // 
-            // 
-            // 
-            // 
-            this.menu_insulateByGroundTest.ButtonElement.ShowBorder = false;
-            this.menu_insulateByGroundTest.Name = "menu_insulateByGroundTest";
-            this.menu_insulateByGroundTest.Text = "对地绝缘测试数据";
-            // 
-            // menu_toReport
-            // 
-            // 
-            // 
-            // 
-            this.menu_toReport.ButtonElement.ShowBorder = false;
-            this.menu_toReport.Name = "menu_toReport";
-            this.menu_toReport.Text = "生成报表";
-            // 
-            // menu_printReport
-            // 
-            // 
-            // 
-            // 
-            this.menu_printReport.ButtonElement.ShowBorder = false;
-            this.menu_printReport.Name = "menu_printReport";
-            this.menu_printReport.Text = "打印报表";
-            // 
-            // menu_exportExcel
-            // 
-            // 
-            // 
-            // 
-            this.menu_exportExcel.ButtonElement.ShowBorder = false;
-            this.menu_exportExcel.Name = "menu_exportExcel";
-            this.menu_exportExcel.Text = "导出到EXCEL";
-            // 
-            // menu_close
-            // 
-            // 
-            // 
-            // 
-            this.menu_close.ButtonElement.ShowBorder = false;
-            this.menu_close.Name = "menu_close";
-            this.menu_close.Text = "退出";
             // 
             // groupBox1
             // 
@@ -186,7 +130,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox1.Location = new System.Drawing.Point(0, 45);
+            this.groupBox1.Location = new System.Drawing.Point(0, 37);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
@@ -423,7 +367,7 @@
             this.groupBox3.Controls.Add(this.lbx_insulateThreshold);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox3.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox3.Location = new System.Drawing.Point(0, 157);
+            this.groupBox3.Location = new System.Drawing.Point(0, 149);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
@@ -674,7 +618,7 @@
             this.radGridView1.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.radGridView1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.radGridView1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.radGridView1.Location = new System.Drawing.Point(0, 267);
+            this.radGridView1.Location = new System.Drawing.Point(0, 259);
             // 
             // 
             // 
@@ -746,24 +690,47 @@
             this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.radGridView1.Name = "radGridView1";
             this.radGridView1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.radGridView1.Size = new System.Drawing.Size(1065, 368);
+            this.radGridView1.Size = new System.Drawing.Size(1065, 376);
             this.radGridView1.TabIndex = 36;
             this.radGridView1.ThemeName = "TelerikMetroTouch";
             // 
+            // menu_toReport
+            // 
+            this.menu_toReport.Image = global::CableTestManager.Properties.Resources.报表模板;
+            this.menu_toReport.Name = "menu_toReport";
+            this.menu_toReport.Text = "生成报表";
+            // 
             // radMenu1
             // 
+            this.radMenu1.BackColor = System.Drawing.SystemColors.Control;
             this.radMenu1.Items.AddRange(new Telerik.WinControls.RadItem[] {
-            this.menu_circuitTest,
-            this.menu_insulateByGroundTest,
             this.menu_toReport,
             this.menu_printReport,
             this.menu_exportExcel,
             this.menu_close});
             this.radMenu1.Location = new System.Drawing.Point(0, 0);
             this.radMenu1.Name = "radMenu1";
-            this.radMenu1.Size = new System.Drawing.Size(1065, 45);
+            this.radMenu1.Size = new System.Drawing.Size(1065, 37);
             this.radMenu1.TabIndex = 33;
             this.radMenu1.ThemeName = "MaterialBlueGrey";
+            // 
+            // menu_printReport
+            // 
+            this.menu_printReport.Image = global::CableTestManager.Properties.Resources.打印;
+            this.menu_printReport.Name = "menu_printReport";
+            this.menu_printReport.Text = "打印报表";
+            // 
+            // menu_exportExcel
+            // 
+            this.menu_exportExcel.Image = global::CableTestManager.Properties.Resources.导出;
+            this.menu_exportExcel.Name = "menu_exportExcel";
+            this.menu_exportExcel.Text = "导出到EXCEL";
+            // 
+            // menu_close
+            // 
+            this.menu_close.Image = global::CableTestManager.Properties.Resources.退出;
+            this.menu_close.Name = "menu_close";
+            this.menu_close.Text = "退出";
             // 
             // RadTestDataDetail
             // 
@@ -804,13 +771,6 @@
         private Telerik.WinControls.Themes.FluentTheme fluentTheme1;
         private Telerik.WinControls.Themes.Office2013LightTheme office2013LightTheme1;
         private Telerik.WinControls.Themes.TelerikMetroTouchTheme telerikMetroTouchTheme1;
-        private Telerik.WinControls.UI.RadMenuButtonItem menu_circuitTest;
-        private Telerik.WinControls.UI.RadMenuButtonItem menu_insulateByGroundTest;
-        private Telerik.WinControls.UI.RadMenuButtonItem menu_toReport;
-        private Telerik.WinControls.UI.RadMenuButtonItem menu_printReport;
-        private Telerik.WinControls.UI.RadMenuButtonItem menu_exportExcel;
-        private Telerik.WinControls.UI.RadMenu radMenu1;
-        private Telerik.WinControls.UI.RadMenuButtonItem menu_close;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label lbx_EnvironmentTemperature;
         private System.Windows.Forms.Label lbx_testDevType;
@@ -856,5 +816,10 @@
         private Telerik.WinControls.UI.RadGridView radGridView1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lbx_shortCircuitThreshold;
+        private Telerik.WinControls.UI.RadMenuItem menu_toReport;
+        private Telerik.WinControls.UI.RadMenuItem menu_printReport;
+        private Telerik.WinControls.UI.RadMenuItem menu_exportExcel;
+        private Telerik.WinControls.UI.RadMenuItem menu_close;
+        private Telerik.WinControls.UI.RadMenu radMenu1;
     }
 }

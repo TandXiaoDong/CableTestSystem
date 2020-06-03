@@ -50,7 +50,6 @@ namespace CableTestManager.View.VProject
             this.radGridView1.CellDoubleClick += RadGridView1_CellDoubleClick;
             this.btn_cancel.Click += Btn_cancel_Click;
             this.btn_openProject.Click += Btn_openProject_Click;
-            this.btn_copyProject.Click += Btn_copyProject_Click;
             this.btn_editProject.Click += Btn_editProject_Click;
             this.btn_deleteProject.Click += Btn_deleteProject_Click;
             this.FormClosed += ProjectManage_FormClosed;
@@ -134,11 +133,6 @@ namespace CableTestManager.View.VProject
             var selectProject = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
             RadProjectCreat radProjectCreat = new RadProjectCreat("编辑项目", selectProject, judgeThreshold, true);
             radProjectCreat.ShowDialog();
-        }
-
-        private void Btn_copyProject_Click(object sender, EventArgs e)
-        {
-            
         }
 
         private void Btn_openProject_Click(object sender, EventArgs e)

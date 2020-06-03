@@ -45,11 +45,10 @@
             Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn11 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
             Telerik.WinControls.UI.TableViewDefinition tableViewDefinition5 = new Telerik.WinControls.UI.TableViewDefinition();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RadUpdateCable));
-            this.windows8Theme1 = new Telerik.WinControls.Themes.Windows8Theme();
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.rtbCableName = new Telerik.WinControls.UI.RadTextBox();
-            this.btnCableConfig = new Telerik.WinControls.UI.RadButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnCableConfig = new Telerik.WinControls.UI.RadButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radLabel2 = new Telerik.WinControls.UI.RadLabel();
             this.radLabel4 = new Telerik.WinControls.UI.RadLabel();
@@ -72,28 +71,19 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.radGridView1 = new Telerik.WinControls.UI.RadGridView();
             this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
-            this.tool_addSignal = new Telerik.WinControls.UI.RadMenuButtonItem();
-            this.tool_batchAdd = new Telerik.WinControls.UI.RadMenuButtonItem();
-            this.tool_batchImport = new Telerik.WinControls.UI.RadMenuButtonItem();
-            this.radMenuSeparatorItem1 = new Telerik.WinControls.UI.RadMenuSeparatorItem();
-            this.tool_batchModify = new Telerik.WinControls.UI.RadMenuButtonItem();
-            this.tool_delete = new Telerik.WinControls.UI.RadMenuButtonItem();
-            this.tool_deleteAll = new Telerik.WinControls.UI.RadMenuButtonItem();
+            this.tool_addSignal = new Telerik.WinControls.UI.RadMenuItem();
+            this.tool_batchAdd = new Telerik.WinControls.UI.RadMenuItem();
+            this.tool_delete = new Telerik.WinControls.UI.RadMenuItem();
+            this.tool_deleteAll = new Telerik.WinControls.UI.RadMenuItem();
             this.btnClose = new Telerik.WinControls.UI.RadButton();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.tb_queryCondition = new System.Windows.Forms.ToolStripTextBox();
-            this.tool_query = new System.Windows.Forms.ToolStripButton();
-            this.tool_export = new System.Windows.Forms.ToolStripButton();
             this.btnSubmit = new Telerik.WinControls.UI.RadButton();
             this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
-            this.fluentTheme1 = new Telerik.WinControls.Themes.FluentTheme();
             this.office2013LightTheme1 = new Telerik.WinControls.Themes.Office2013LightTheme();
             this.telerikMetroTouchTheme1 = new Telerik.WinControls.Themes.TelerikMetroTouchTheme();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rtbCableName)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnCableConfig)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCableConfig)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).BeginInit();
@@ -126,7 +116,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
-            this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnSubmit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
@@ -148,28 +137,28 @@
             this.rtbCableName.TabIndex = 1;
             this.rtbCableName.ThemeName = "MaterialBlueGrey";
             // 
-            // btnCableConfig
-            // 
-            this.btnCableConfig.Location = new System.Drawing.Point(351, 13);
-            this.btnCableConfig.Name = "btnCableConfig";
-            this.btnCableConfig.Size = new System.Drawing.Size(157, 36);
-            this.btnCableConfig.TabIndex = 2;
-            this.btnCableConfig.Text = "线束接口管理";
-            this.btnCableConfig.ThemeName = "MaterialBlueGrey";
-            // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnCableConfig);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.rtb_remark);
             this.panel1.Controls.Add(this.radLabel6);
             this.panel1.Controls.Add(this.radLabel1);
             this.panel1.Controls.Add(this.rtbCableName);
-            this.panel1.Controls.Add(this.btnCableConfig);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(873, 241);
             this.panel1.TabIndex = 4;
+            // 
+            // btnCableConfig
+            // 
+            this.btnCableConfig.Location = new System.Drawing.Point(355, 10);
+            this.btnCableConfig.Name = "btnCableConfig";
+            this.btnCableConfig.Size = new System.Drawing.Size(157, 36);
+            this.btnCableConfig.TabIndex = 7;
+            this.btnCableConfig.Text = "线束接口管理";
+            this.btnCableConfig.ThemeName = "MaterialBlueGrey";
             // 
             // groupBox1
             // 
@@ -452,7 +441,6 @@
             this.panel2.Controls.Add(this.radGridView1);
             this.panel2.Controls.Add(this.radMenu1);
             this.panel2.Controls.Add(this.btnClose);
-            this.panel2.Controls.Add(this.toolStrip1);
             this.panel2.Controls.Add(this.btnSubmit);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 241);
@@ -468,7 +456,7 @@
             this.radGridView1.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.radGridView1.ForeColor = System.Drawing.Color.Black;
             this.radGridView1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.radGridView1.Location = new System.Drawing.Point(0, 106);
+            this.radGridView1.Location = new System.Drawing.Point(0, 39);
             // 
             // 
             // 
@@ -535,147 +523,62 @@
             this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition5;
             this.radGridView1.Name = "radGridView1";
             this.radGridView1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.radGridView1.Size = new System.Drawing.Size(873, 300);
+            this.radGridView1.Size = new System.Drawing.Size(873, 355);
             this.radGridView1.TabIndex = 10;
             this.radGridView1.ThemeName = "TelerikMetroTouch";
             // 
             // radMenu1
             // 
+            this.radMenu1.BackColor = System.Drawing.SystemColors.Control;
             this.radMenu1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radMenu1.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.tool_addSignal,
             this.tool_batchAdd,
-            this.tool_batchImport,
-            this.tool_batchModify,
             this.tool_delete,
             this.tool_deleteAll});
-            this.radMenu1.Location = new System.Drawing.Point(0, 28);
+            this.radMenu1.Location = new System.Drawing.Point(0, 0);
             this.radMenu1.Name = "radMenu1";
-            this.radMenu1.Size = new System.Drawing.Size(873, 78);
+            this.radMenu1.Padding = new System.Windows.Forms.Padding(2, 2, 0, 0);
+            this.radMenu1.Size = new System.Drawing.Size(873, 39);
             this.radMenu1.TabIndex = 9;
             this.radMenu1.ThemeName = "MaterialBlueGrey";
             // 
             // tool_addSignal
             // 
-            // 
-            // 
-            // 
-            this.tool_addSignal.ButtonElement.ShowBorder = false;
+            this.tool_addSignal.Image = global::CableTestManager.Properties.Resources.添加16;
             this.tool_addSignal.Name = "tool_addSignal";
             this.tool_addSignal.Text = "添加单个连接关系";
-            this.tool_addSignal.UseCompatibleTextRendering = false;
             // 
             // tool_batchAdd
             // 
-            // 
-            // 
-            // 
-            this.tool_batchAdd.ButtonElement.ShowBorder = false;
+            this.tool_batchAdd.Image = global::CableTestManager.Properties.Resources.批量16;
             this.tool_batchAdd.Name = "tool_batchAdd";
             this.tool_batchAdd.Text = "批量添加连接关系";
-            this.tool_batchAdd.UseCompatibleTextRendering = false;
-            // 
-            // tool_batchImport
-            // 
-            // 
-            // 
-            // 
-            this.tool_batchImport.ButtonElement.ShowBorder = false;
-            this.tool_batchImport.Items.AddRange(new Telerik.WinControls.RadItem[] {
-            this.radMenuSeparatorItem1});
-            this.tool_batchImport.Name = "tool_batchImport";
-            this.tool_batchImport.Text = "批量导入连接关系";
-            this.tool_batchImport.UseCompatibleTextRendering = false;
-            this.tool_batchImport.Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
-            // 
-            // radMenuSeparatorItem1
-            // 
-            this.radMenuSeparatorItem1.Name = "radMenuSeparatorItem1";
-            this.radMenuSeparatorItem1.Text = "radMenuSeparatorItem1";
-            this.radMenuSeparatorItem1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // tool_batchModify
-            // 
-            // 
-            // 
-            // 
-            this.tool_batchModify.ButtonElement.ShowBorder = false;
-            this.tool_batchModify.Name = "tool_batchModify";
-            this.tool_batchModify.Text = "批量修改连接关系";
-            this.tool_batchModify.Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
             // 
             // tool_delete
             // 
-            // 
-            // 
-            // 
-            this.tool_delete.ButtonElement.ShowBorder = false;
+            this.tool_delete.Image = global::CableTestManager.Properties.Resources.delete16;
             this.tool_delete.Name = "tool_delete";
             this.tool_delete.Text = "删除连接";
             // 
             // tool_deleteAll
             // 
-            // 
-            // 
-            // 
-            this.tool_deleteAll.ButtonElement.ShowBorder = false;
+            this.tool_deleteAll.Image = global::CableTestManager.Properties.Resources.删除16_sig;
             this.tool_deleteAll.Name = "tool_deleteAll";
             this.tool_deleteAll.Text = "删除所有连接";
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(730, 414);
+            this.btnClose.Location = new System.Drawing.Point(643, 414);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(120, 36);
             this.btnClose.TabIndex = 7;
             this.btnClose.Text = "取消";
             this.btnClose.ThemeName = "MaterialBlueGrey";
             // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel1,
-            this.tb_queryCondition,
-            this.tool_query,
-            this.tool_export});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(873, 28);
-            this.toolStrip1.TabIndex = 2;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(90, 25);
-            this.toolStripLabel1.Text = "接口名称：";
-            // 
-            // tb_queryCondition
-            // 
-            this.tb_queryCondition.Name = "tb_queryCondition";
-            this.tb_queryCondition.Size = new System.Drawing.Size(130, 28);
-            // 
-            // tool_query
-            // 
-            this.tool_query.Image = global::CableTestManager.Properties.Resources.Search_16x16;
-            this.tool_query.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_query.Name = "tool_query";
-            this.tool_query.Size = new System.Drawing.Size(62, 25);
-            this.tool_query.Text = "查询";
-            // 
-            // tool_export
-            // 
-            this.tool_export.Image = global::CableTestManager.Properties.Resources.Export_16x16;
-            this.tool_export.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_export.Name = "tool_export";
-            this.tool_export.Size = new System.Drawing.Size(62, 25);
-            this.tool_export.Text = "导出";
-            // 
             // btnSubmit
             // 
-            this.btnSubmit.Location = new System.Drawing.Point(572, 414);
+            this.btnSubmit.Location = new System.Drawing.Point(485, 414);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(110, 36);
             this.btnSubmit.TabIndex = 6;
@@ -702,9 +605,9 @@
             this.Load += new System.EventHandler(this.RadUpdateCable_Load);
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rtbCableName)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnCableConfig)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCableConfig)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).EndInit();
@@ -739,8 +642,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnSubmit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
@@ -748,33 +649,16 @@
         }
 
         #endregion
-
-        private Telerik.WinControls.Themes.Windows8Theme windows8Theme1;
         private Telerik.WinControls.UI.RadLabel radLabel1;
         private Telerik.WinControls.UI.RadTextBox rtbCableName;
-        private Telerik.WinControls.UI.RadButton btnCableConfig;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton tool_query;
-        private System.Windows.Forms.ToolStripButton tool_export;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.ToolStripTextBox tb_queryCondition;
         private Telerik.WinControls.UI.RadButton btnClose;
         private Telerik.WinControls.UI.RadButton btnSubmit;
-        private Telerik.WinControls.UI.RadMenu radMenu1;
-        private Telerik.WinControls.UI.RadMenuButtonItem tool_addSignal;
-        private Telerik.WinControls.UI.RadMenuButtonItem tool_batchAdd;
-        private Telerik.WinControls.UI.RadMenuButtonItem tool_batchImport;
-        private Telerik.WinControls.UI.RadMenuSeparatorItem radMenuSeparatorItem1;
         private Telerik.WinControls.UI.RadGridView radGridView1;
-        private Telerik.WinControls.UI.RadMenuButtonItem tool_batchModify;
-        private Telerik.WinControls.UI.RadMenuButtonItem tool_delete;
-        private Telerik.WinControls.UI.RadMenuButtonItem tool_deleteAll;
         private Telerik.WinControls.UI.RadLabel radLabel6;
         private Telerik.WinControls.UI.RadTextBox rtb_remark;
         private Telerik.WinControls.Themes.MaterialBlueGreyTheme materialBlueGreyTheme1;
-        private Telerik.WinControls.Themes.FluentTheme fluentTheme1;
         private System.Windows.Forms.GroupBox groupBox1;
         private Telerik.WinControls.UI.RadLabel radLabel2;
         private Telerik.WinControls.UI.RadLabel radLabel3;
@@ -794,5 +678,11 @@
         private Telerik.WinControls.UI.RadMultiColumnComboBox cb_endInterface;
         private Telerik.WinControls.UI.RadMultiColumnComboBox cb_startPin;
         private Telerik.WinControls.UI.RadMultiColumnComboBox cb_startInterface;
+        private Telerik.WinControls.UI.RadMenuItem tool_addSignal;
+        private Telerik.WinControls.UI.RadMenuItem tool_batchAdd;
+        private Telerik.WinControls.UI.RadMenuItem tool_delete;
+        private Telerik.WinControls.UI.RadMenuItem tool_deleteAll;
+        private Telerik.WinControls.UI.RadMenu radMenu1;
+        private Telerik.WinControls.UI.RadButton btnCableConfig;
     }
 }

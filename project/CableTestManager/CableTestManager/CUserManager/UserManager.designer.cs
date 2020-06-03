@@ -76,7 +76,7 @@
             // menu_add
             // 
             this.menu_add.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.menu_add.Image = global::CableTestManager.Properties.Resources.add16;
+            this.menu_add.Image = global::CableTestManager.Properties.Resources.添加16;
             this.menu_add.Name = "menu_add";
             this.menu_add.Text = "新增";
             this.menu_add.UseCompatibleTextRendering = false;

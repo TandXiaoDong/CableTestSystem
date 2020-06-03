@@ -55,6 +55,7 @@ namespace CableTestManager.View
         private string serviceURL = "";
         private int servicePort;
         private string currentTestProject;
+        private string reportDirectory;
         
         //当前测试项目的测试项的异常数
         private int conductTestExceptCount;
@@ -160,6 +161,9 @@ namespace CableTestManager.View
         private const string voltageWithStandardFunCode = "F5 AA";
         private const string selfStudyTestFunCode = "F1 AA";
         #endregion
+
+        private const string REPORT_SECTION_PATH = "REPORT";
+        private const string REPORT__KEY_FILE_DIR = "reportDir";
 
         //private DoubleBufferListView listViewSelfStudy;
         private string curLineCableName;
@@ -356,6 +360,7 @@ namespace CableTestManager.View
             this.tool_testEnvironment.Click += Tool_testEnvironment_Click;
             this.tool_clearSelfGrid.Click += Tool_clearSelfGrid_Click;
             this.tool_importCableLib.Click += Tool_importCableLib_Click;
+            this.tool_reportSavePath.Click += Tool_reportSavePath_Click;
             #endregion
 
             #region menu event
@@ -401,9 +406,19 @@ namespace CableTestManager.View
             SuperEasyClient.NoticeMessageEvent += SuperEasyClient_NoticeMessageEvent;
         }
 
+        private void Tool_reportSavePath_Click(object sender, EventArgs e)
+        {
+            SetDefaultSavePath setDefaultSavePath = new SetDefaultSavePath(this.reportDirectory);
+            if (setDefaultSavePath.ShowDialog() == DialogResult.OK)
+            {
+                this.reportDirectory = setDefaultSavePath.reportDir;
+            }
+        }
+
         private void Menu_switchUser_Click(object sender, EventArgs e)
         {
             this.Close();
+            Thread.Sleep(100);
             System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory + "CableTestManager.exe");
         }
 
@@ -424,12 +439,11 @@ namespace CableTestManager.View
 
         private void Menu_ExportReport_Click(object sender, EventArgs e)
         {
-            var path = AppDomain.CurrentDomain.BaseDirectory + "pdfFile\\";
-            if (!Directory.Exists(path))
+            if (!Directory.Exists(this.reportDirectory))
             {
-                Directory.CreateDirectory(path);
+                Directory.CreateDirectory(this.reportDirectory);
             }
-            ExportPDF(path+this.projectTestNumber+".pdf");
+            ExportPDF(this.reportDirectory + this.projectTestNumber+".pdf");
         }
 
         private void Menu_roleManager_Click(object sender, EventArgs e)
@@ -1897,6 +1911,10 @@ namespace CableTestManager.View
             configPath += DEVICE_CONFIG_FILE_NAME;
             if (!File.Exists(configPath))
             {
+                var defaultDir = "C:\\cableTestReport\\";
+                this.reportDirectory = defaultDir;
+                INIFile.SetValue(REPORT_SECTION_PATH, REPORT__KEY_FILE_DIR, defaultDir, configPath);
+
                 INIFile.SetValue(CONFIG_SECTION_TEST_NAME, PROJECT_TEST_NUMBER_LEN_KEY, this.projectTestNumberLen.ToString(), configPath);
                 INIFile.SetValue(CONFIG_SECTION_NAME, CONDUCTION_THRESHOLD_KEY, CONDUCTION_THRESHOLD, configPath);
                 INIFile.SetValue(CONFIG_SECTION_NAME, IS_CONDUCTION_JUDGE_THAN_THRESHOLD_KEY, IS_CONDUCTION_JUDGE_THAN_THRESHOLD, configPath);
@@ -1911,6 +1929,7 @@ namespace CableTestManager.View
             }
             else
             {
+                this.reportDirectory = INIFile.GetValue(REPORT_SECTION_PATH, REPORT__KEY_FILE_DIR, configPath).ToString();
                 this.serviceURL = INIFile.GetValue(DEVICE_CONFIG_SECTION, DEVICE_CONFIG_SERVER_URL_KEY, configPath).ToString();
                 var port = INIFile.GetValue(DEVICE_CONFIG_SECTION, DEVICE_CONFIG_SERVER_PORT_KEY, configPath).ToString();
                 int.TryParse(port, out this.servicePort);
@@ -1971,6 +1990,8 @@ namespace CableTestManager.View
 
         private void SaveDeviceConfig()
         {
+            INIFile.SetValue(REPORT_SECTION_PATH, REPORT__KEY_FILE_DIR, this.reportDirectory, configPath);
+
             INIFile.SetValue(CONFIG_SECTION_TEST_NAME, PROJECT_TEST_NUMBER_LEN_KEY, this.projectTestNumberLen.ToString(), configPath);
             INIFile.SetValue(DEVICE_CONFIG_SECTION, DEVICE_CONFIG_SERVER_URL_KEY, this.serviceURL, configPath);
             INIFile.SetValue(DEVICE_CONFIG_SECTION, DEVICE_CONFIG_SERVER_PORT_KEY, this.servicePort.ToString(), configPath);
@@ -2428,11 +2449,11 @@ namespace CableTestManager.View
                 pdf.AddParagraph("绝缘测试阈值：{}     绝缘保持时间：{}", 15);
                 pdf.AddParagraph("绝缘电压：{}", 15);
                 pdf.AddLine(195);
-                pdf.AddParagraph($"异常明细\r\n", 20);
-                pdf.AddLine(222);
-                pdf.AddParagraph("",15);
-                pdf.AddParagraph(GetCableTestExceptTable(), 15);
-
+                pdf.AddParagraph($"异常明细\r\n\n", 20);
+                pdf.AddParagraph("线束测试异常明细",GetCableTestExceptTable(), 15);
+                //pdf.AddParagraph("\r\n", 15);
+                pdf.AddParagraph("测试数据\r\n\r", 20);
+                pdf.AddParagraph("线束测试合格明细",GetCableTestPassTable(), 15);
                 pdf.Close();
             }
             if (MessageBox.Show("是否打开报表？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)

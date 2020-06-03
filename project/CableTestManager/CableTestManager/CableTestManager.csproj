@@ -649,6 +649,12 @@
     <Compile Include="View\FrmEnvironmentParams.Designer.cs">
       <DependentUpon>FrmEnvironmentParams.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Helper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Helper.designer.cs">
+      <DependentUpon>Helper.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\OneClickTestConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1101,6 +1107,9 @@
     <EmbeddedResource Include="View\FrmEnvironmentParams.resx">
       <DependentUpon>FrmEnvironmentParams.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\Helper.resx">
+      <DependentUpon>Helper.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\OneClickTestConfig.resx">
       <DependentUpon>OneClickTestConfig.cs</DependentUpon>
     </EmbeddedResource>
@@ -1419,6 +1428,25 @@
     <None Include="Resources\查询.png" />
     <None Include="Resources\密码修改.png" />
     <EmbeddedResource Include="CableTestManager\Entity\EntityMapper.xml" />
+    <None Include="Resources\左双箭头48.png" />
+    <None Include="Resources\单箭头右48.png" />
+    <None Include="Resources\单箭头左48.png" />
+    <None Include="Resources\右双箭头48.png" />
+    <None Include="Resources\添加16.png" />
+    <None Include="Resources\批量创建16.png" />
+    <None Include="Resources\批量16.png" />
+    <None Include="Resources\删除sig16.png" />
+    <None Include="Resources\删除16_sig.png" />
+    <None Include="Resources\项目管理.png" />
+    <None Include="Resources\项目信息16.png" />
+    <None Include="Resources\项目管理 32.png" />
+    <None Include="Resources\打开工程.png" />
+    <None Include="Resources\编辑.png" />
+    <None Include="Resources\退出.png" />
+    <None Include="Resources\导出.png" />
+    <None Include="Resources\查询detail.png" />
+    <None Include="Resources\打印.png" />
+    <None Include="Resources\报表模板.png" />
     <Content Include="完善与优化.txt" />
     <Content Include="需求梳理.txt" />
   </ItemGroup>

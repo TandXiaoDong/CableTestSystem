@@ -25,7 +25,6 @@ namespace CableTestManager.View.VProject
         public string projectName;
         private bool IsSetFixParams;
         private CableJudgeThreshold judgeThreshold;
-        private bool IsOpenCustomSetTestParamUI = true;
         private bool IsEditView;
         
         public RadProjectCreat(string title,string projectName, CableJudgeThreshold cableJudgeThreshold,bool IsEdit)
@@ -48,30 +47,17 @@ namespace CableTestManager.View.VProject
             projectInfoManager = new TProjectBasicInfoManager();
             lineStructLibraryDetailManager = new TCableTestLibraryManager();
             RadGridViewProperties.SetRadGridViewProperty(this.radGridView1,false,true,5);
-            this.checkIsGroup.CheckState = CheckState.Unchecked;
-            this.btn_groupParams.Visible = false;
             QueryPlugLineStructInfo();
             UpdateProjectInfo();
         }
 
         private void EventHandlers()
         {
-            this.btn_groupParams.Click += Btn_groupParams_Click;
             this.radGridView1.CellClick += RadGridView1_CellClick;
             this.btnApply.Click += BtnApply_Click;
             this.btnClose.Click += BtnClose_Click;
             this.rtbCableCondition.TextChanged += RtbCableCondition_TextChanged;
-            this.rbt_customTestParams.CheckStateChanged += Rbt_customTestParams_CheckStateChanged;
-            this.rbt_defaultTestParams.CheckStateChanged += Rbt_defaultTestParams_CheckStateChanged;
-            this.checkIsGroup.CheckStateChanged += CheckIsGroup_CheckStateChanged;
-        }
-
-        private void CheckIsGroup_CheckStateChanged(object sender, EventArgs e)
-        {
-            if (this.checkIsGroup.Checked)
-                this.btn_groupParams.Visible = true;
-            else
-                this.btn_groupParams.Visible = false;
+            this.btn_setTestParams.Click += Btn_setTestParams_Click;
         }
 
         private void RtbCableCondition_TextChanged(object sender, EventArgs e)
@@ -91,30 +77,9 @@ namespace CableTestManager.View.VProject
             groupTestStandardParams.ShowDialog(); 
         }
 
-        private void Rbt_defaultTestParams_CheckStateChanged(object sender, EventArgs e)
+        private void Btn_setTestParams_Click(object sender, EventArgs e)
         {
-            if (this.rbt_defaultTestParams.Checked)
-            {
-                if (this.rbt_customTestParams.Checked)
-                {
-                    this.rbt_customTestParams.CheckState = CheckState.Unchecked;
-                }
-            }
-        }
-
-        private void Rbt_customTestParams_CheckStateChanged(object sender, EventArgs e)
-        {
-            if (this.rbt_customTestParams.Checked)
-            {
-                if (this.rbt_defaultTestParams.Checked)
-                {
-                    this.rbt_defaultTestParams.CheckState = CheckState.Unchecked;
-                }
-                if (this.IsOpenCustomSetTestParamUI)
-                {
-                    OpenFixParamsConfig();
-                }
-            }
+            OpenFixParamsConfig();
         }
 
         private void OpenFixParamsConfig()
@@ -159,34 +124,10 @@ namespace CableTestManager.View.VProject
                 return;
             foreach (DataRow dr in dt.Rows)
             {
-                this.rtbBatchNo.Text = dr["BatchNumber"].ToString();
                 this.rtbProjectRemark.Text = dr["Remark"].ToString();
                 var isUseDefaultParams = dr["IsUseSelfDefineParams"].ToString();
-                if (isUseDefaultParams == "0")
-                    this.rbt_defaultTestParams.CheckState = CheckState.Checked;
-                else if (isUseDefaultParams == "1")
-                {
-                    this.rbt_customTestParams.CheckState = CheckState.Checked;
-                    this.IsOpenCustomSetTestParamUI = false;
-                }
                 var IsCommon = dr["IsCommonProject"].ToString();
-                if (IsCommon == "0")
-                    this.checkIsCommonPro.Checked = false;
-                else if (IsCommon == "1")
-                {
-                    this.checkIsCommonPro.Checked = true;
-                }
                 var IsGroup = dr["IsGroupTestProject"].ToString();
-                if (IsGroup == "0")
-                {
-                    this.checkIsGroup.Checked = false;
-                    this.btn_groupParams.Visible = false;
-                }
-                else if (IsGroup == "1")
-                {
-                    this.checkIsGroup.Checked = true;
-                    this.btn_groupParams.Visible = true;
-                }
                 this.rtbCurrentTestCable.Text = dr["TestCableName"].ToString();
                 this.rtbCableCondition.Text = this.rtbCurrentTestCable.Text;
                 projectInfo.ConductTestThreshold = double.Parse(dr["ConductTestThreshold"].ToString());
@@ -266,11 +207,6 @@ namespace CableTestManager.View.VProject
                 MessageBox.Show("工程名称不能为空！","提示",MessageBoxButtons.OK);
                 return;
             }
-            if (this.rtbBatchNo.Text.Trim() == "")
-            {
-                MessageBox.Show("批次号不能为空！", "提示", MessageBoxButtons.OK);
-                return;
-            }
             if (this.rtbCurrentTestCable.Text.Trim() == "")
             {
                 MessageBox.Show("请选择被测线束！", "提示", MessageBoxButtons.OK);
@@ -280,37 +216,13 @@ namespace CableTestManager.View.VProject
             projectInfo.ID = CableTestManager.Common.TablePrimaryKey.InsertProjectBInfoPID();
             projectInfo.ProjectName = this.rtbProjectName.Text.Trim();
             this.projectName = projectInfo.ProjectName;
-            projectInfo.BatchNumber = this.rtbBatchNo.Text.Trim();
             projectInfo.Remark = this.rtbProjectRemark.Text.Trim();
             projectInfo.TestCableName = this.rtbCurrentTestCable.Text;
-            if (this.checkIsCommonPro.Checked)
-                projectInfo.IsCommonProject = 1;
-            else
-                projectInfo.IsCommonProject = 0;
-            if (this.checkIsGroup.Checked)
-                projectInfo.IsGroupTestProject = 1;
-            else
-                projectInfo.IsGroupTestProject = 0;
-
-            if (this.rbt_defaultTestParams.IsChecked)
+            if (projectInfo.ConductTestThreshold == 0 || projectInfo.ShortCircuitTestThreshold == 0 || projectInfo.InsulateTestThreshold == 0)
             {
-                projectInfo.IsUseSelfDefineParams = 0;
-                projectInfo.ConductTestThreshold = 2;
-                projectInfo.ConductTestVoltage = 12;
-                projectInfo.ConductTestCurrentElect = 2;
-
-                projectInfo.InsulateTestThreshold = 20;
-                projectInfo.InsulateTestHoldTime = 1;
-                projectInfo.InsulateTestVoltage = 100;
-                projectInfo.InsulateTestRaiseTime = 2;
-                projectInfo.InsulateHigthOrLowElect = 1;
-
-                projectInfo.VoltageWithStandardThreshold = 2;
-                projectInfo.VoltageWithStandardHoldTime = 1;
-                projectInfo.VoltageWithStandardVoltage = 100;
+                MessageBox.Show("请设置本次试验的参数！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                return;
             }
-            else
-                projectInfo.IsUseSelfDefineParams = 1;
 
             var iRow = 0;
             var originCount = projectInfoManager.GetRowCount();

@@ -44,6 +44,54 @@ namespace CableTestManager.View.VInterface
             this.btnDeleteSignal.Click += BtnDeleteSignal_Click;
             this.btnSubmit.Click += BtnSubmit_Click;
             this.btnClose.Click += BtnClose_Click;
+            this.btnAddSignal.MouseMove += BtnAddSignal_MouseMove;
+            this.btnAddSignal.MouseLeave += BtnAddSignal_MouseLeave;
+            this.btnAddall.MouseMove += BtnAddall_MouseMove;
+            this.btnAddall.MouseLeave += BtnAddall_MouseLeave;
+            this.btnDeleteSignal.MouseMove += BtnDeleteSignal_MouseMove;
+            this.btnDeleteSignal.MouseLeave += BtnDeleteSignal_MouseLeave;
+            this.btnDeleteAll.MouseMove += BtnDeleteAll_MouseMove;
+            this.btnDeleteAll.MouseLeave += BtnDeleteAll_MouseLeave;
+        }
+
+        private void BtnDeleteAll_MouseLeave(object sender, EventArgs e)
+        {
+            this.btnDeleteAll.BackColor = Color.Transparent;
+        }
+
+        private void BtnDeleteAll_MouseMove(object sender, MouseEventArgs e)
+        {
+            this.btnDeleteAll.BackColor = Color.Gray;
+        }
+
+        private void BtnDeleteSignal_MouseLeave(object sender, EventArgs e)
+        {
+            this.btnDeleteSignal.BackColor = Color.Transparent;
+        }
+
+        private void BtnDeleteSignal_MouseMove(object sender, MouseEventArgs e)
+        {
+            this.btnDeleteSignal.BackColor = Color.Gray;
+        }
+
+        private void BtnAddall_MouseLeave(object sender, EventArgs e)
+        {
+            this.btnAddall.BackColor = Color.Transparent;
+        }
+
+        private void BtnAddall_MouseMove(object sender, MouseEventArgs e)
+        {
+            this.btnAddall.BackColor = Color.Gray;
+        }
+
+        private void BtnAddSignal_MouseLeave(object sender, EventArgs e)
+        {
+            this.btnAddSignal.BackColor = Color.Transparent;
+        }
+
+        private void BtnAddSignal_MouseMove(object sender, MouseEventArgs e)
+        {
+            this.btnAddSignal.BackColor = Color.Gray;
         }
 
         private void BtnClose_Click(object sender, EventArgs e)

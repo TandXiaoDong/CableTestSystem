@@ -40,33 +40,33 @@
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.lbx_cableName = new Telerik.WinControls.UI.RadLabel();
             this.radGridViewCable = new Telerik.WinControls.UI.RadGridView();
-            this.btnAddSignal = new Telerik.WinControls.UI.RadButton();
-            this.btnDeleteSignal = new Telerik.WinControls.UI.RadButton();
-            this.btnDeleteAll = new Telerik.WinControls.UI.RadButton();
-            this.btnSubmit = new Telerik.WinControls.UI.RadButton();
-            this.btnClose = new Telerik.WinControls.UI.RadButton();
             this.radGridViewInter = new Telerik.WinControls.UI.RadGridView();
             this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
             this.office2013LightTheme1 = new Telerik.WinControls.Themes.Office2013LightTheme();
-            this.btnAddall = new Telerik.WinControls.UI.RadButton();
             this.windows8Theme1 = new Telerik.WinControls.Themes.Windows8Theme();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.telerikMetroTouchTheme1 = new Telerik.WinControls.Themes.TelerikMetroTouchTheme();
+            this.btnAddSignal = new System.Windows.Forms.PictureBox();
+            this.btnAddall = new System.Windows.Forms.PictureBox();
+            this.btnDeleteSignal = new System.Windows.Forms.PictureBox();
+            this.btnDeleteAll = new System.Windows.Forms.PictureBox();
+            this.btnClose = new Telerik.WinControls.UI.RadButton();
+            this.btnSubmit = new Telerik.WinControls.UI.RadButton();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lbx_cableName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewCable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewCable.MasterTemplate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnAddSignal)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnDeleteSignal)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnDeleteAll)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnSubmit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewInter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewInter.MasterTemplate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnAddall)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAddSignal)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAddall)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnDeleteSignal)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnDeleteAll)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSubmit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -122,57 +122,6 @@
             this.radGridViewCable.TabIndex = 2;
             this.radGridViewCable.ThemeName = "TelerikMetroTouch";
             // 
-            // btnAddSignal
-            // 
-            this.btnAddSignal.Image = global::CableTestManager.Properties.Resources.back;
-            this.btnAddSignal.Location = new System.Drawing.Point(358, 120);
-            this.btnAddSignal.Name = "btnAddSignal";
-            this.btnAddSignal.Size = new System.Drawing.Size(105, 36);
-            this.btnAddSignal.TabIndex = 4;
-            this.btnAddSignal.Text = "添加选择接口";
-            this.btnAddSignal.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnAddSignal.ThemeName = "Windows8";
-            // 
-            // btnDeleteSignal
-            // 
-            this.btnDeleteSignal.Image = global::CableTestManager.Properties.Resources.forward__2_;
-            this.btnDeleteSignal.Location = new System.Drawing.Point(358, 332);
-            this.btnDeleteSignal.Name = "btnDeleteSignal";
-            this.btnDeleteSignal.Size = new System.Drawing.Size(105, 30);
-            this.btnDeleteSignal.TabIndex = 6;
-            this.btnDeleteSignal.Text = "移除选择接口";
-            this.btnDeleteSignal.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnDeleteSignal.ThemeName = "Windows8";
-            // 
-            // btnDeleteAll
-            // 
-            this.btnDeleteAll.Image = global::CableTestManager.Properties.Resources.forward__2_;
-            this.btnDeleteAll.Location = new System.Drawing.Point(358, 392);
-            this.btnDeleteAll.Name = "btnDeleteAll";
-            this.btnDeleteAll.Size = new System.Drawing.Size(105, 30);
-            this.btnDeleteAll.TabIndex = 7;
-            this.btnDeleteAll.Text = "移除所有接口";
-            this.btnDeleteAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnDeleteAll.ThemeName = "Windows8";
-            // 
-            // btnSubmit
-            // 
-            this.btnSubmit.Location = new System.Drawing.Point(472, 570);
-            this.btnSubmit.Name = "btnSubmit";
-            this.btnSubmit.Size = new System.Drawing.Size(120, 36);
-            this.btnSubmit.TabIndex = 11;
-            this.btnSubmit.Text = "确定";
-            this.btnSubmit.ThemeName = "MaterialBlueGrey";
-            // 
-            // btnClose
-            // 
-            this.btnClose.Location = new System.Drawing.Point(670, 570);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(120, 36);
-            this.btnClose.TabIndex = 12;
-            this.btnClose.Text = "取消";
-            this.btnClose.ThemeName = "MaterialBlueGrey";
-            // 
             // radGridViewInter
             // 
             this.radGridViewInter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(239)))));
@@ -208,17 +157,6 @@
             this.radGridViewInter.TabIndex = 13;
             this.radGridViewInter.ThemeName = "TelerikMetroTouch";
             // 
-            // btnAddall
-            // 
-            this.btnAddall.Image = global::CableTestManager.Properties.Resources.back;
-            this.btnAddall.Location = new System.Drawing.Point(358, 181);
-            this.btnAddall.Name = "btnAddall";
-            this.btnAddall.Size = new System.Drawing.Size(105, 36);
-            this.btnAddall.TabIndex = 14;
-            this.btnAddall.Text = "添加所有接口";
-            this.btnAddall.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnAddall.ThemeName = "Windows8";
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.radGridViewCable);
@@ -232,27 +170,86 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.radGridViewInter);
-            this.groupBox2.Location = new System.Drawing.Point(469, 67);
+            this.groupBox2.Location = new System.Drawing.Point(412, 67);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(329, 459);
             this.groupBox2.TabIndex = 16;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "接口列表";
             // 
+            // btnAddSignal
+            // 
+            this.btnAddSignal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnAddSignal.Image = global::CableTestManager.Properties.Resources.单箭头左48;
+            this.btnAddSignal.Location = new System.Drawing.Point(358, 170);
+            this.btnAddSignal.Name = "btnAddSignal";
+            this.btnAddSignal.Size = new System.Drawing.Size(33, 27);
+            this.btnAddSignal.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnAddSignal.TabIndex = 0;
+            this.btnAddSignal.TabStop = false;
+            // 
+            // btnAddall
+            // 
+            this.btnAddall.Image = global::CableTestManager.Properties.Resources.左双箭头48;
+            this.btnAddall.Location = new System.Drawing.Point(358, 224);
+            this.btnAddall.Name = "btnAddall";
+            this.btnAddall.Size = new System.Drawing.Size(33, 23);
+            this.btnAddall.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnAddall.TabIndex = 17;
+            this.btnAddall.TabStop = false;
+            // 
+            // btnDeleteSignal
+            // 
+            this.btnDeleteSignal.Image = global::CableTestManager.Properties.Resources.单箭头右48;
+            this.btnDeleteSignal.Location = new System.Drawing.Point(358, 321);
+            this.btnDeleteSignal.Name = "btnDeleteSignal";
+            this.btnDeleteSignal.Size = new System.Drawing.Size(33, 23);
+            this.btnDeleteSignal.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnDeleteSignal.TabIndex = 18;
+            this.btnDeleteSignal.TabStop = false;
+            // 
+            // btnDeleteAll
+            // 
+            this.btnDeleteAll.Image = global::CableTestManager.Properties.Resources.右双箭头48;
+            this.btnDeleteAll.Location = new System.Drawing.Point(358, 366);
+            this.btnDeleteAll.Name = "btnDeleteAll";
+            this.btnDeleteAll.Size = new System.Drawing.Size(33, 22);
+            this.btnDeleteAll.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnDeleteAll.TabIndex = 19;
+            this.btnDeleteAll.TabStop = false;
+            // 
+            // btnClose
+            // 
+            this.btnClose.Location = new System.Drawing.Point(415, 548);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(120, 36);
+            this.btnClose.TabIndex = 21;
+            this.btnClose.Text = "取消";
+            this.btnClose.ThemeName = "MaterialBlueGrey";
+            // 
+            // btnSubmit
+            // 
+            this.btnSubmit.Location = new System.Drawing.Point(229, 548);
+            this.btnSubmit.Name = "btnSubmit";
+            this.btnSubmit.Size = new System.Drawing.Size(120, 36);
+            this.btnSubmit.TabIndex = 20;
+            this.btnSubmit.Text = "确定";
+            this.btnSubmit.ThemeName = "MaterialBlueGrey";
+            // 
             // RadCableLibraryManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(802, 618);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btnAddall);
+            this.ClientSize = new System.Drawing.Size(765, 596);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.btnDeleteAll);
             this.Controls.Add(this.btnDeleteSignal);
+            this.Controls.Add(this.btnAddall);
             this.Controls.Add(this.btnAddSignal);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lbx_cableName);
             this.Controls.Add(this.radLabel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -267,16 +264,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.lbx_cableName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewCable.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewCable)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnAddSignal)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnDeleteSignal)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnDeleteAll)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnSubmit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewInter.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewInter)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnAddall)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnAddSignal)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAddall)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnDeleteSignal)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnDeleteAll)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSubmit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -287,18 +284,18 @@
         private Telerik.WinControls.UI.RadLabel radLabel1;
         private Telerik.WinControls.UI.RadLabel lbx_cableName;
         private Telerik.WinControls.UI.RadGridView radGridViewCable;
-        private Telerik.WinControls.UI.RadButton btnAddSignal;
-        private Telerik.WinControls.UI.RadButton btnDeleteSignal;
-        private Telerik.WinControls.UI.RadButton btnDeleteAll;
-        private Telerik.WinControls.UI.RadButton btnSubmit;
-        private Telerik.WinControls.UI.RadButton btnClose;
         private Telerik.WinControls.UI.RadGridView radGridViewInter;
         private Telerik.WinControls.Themes.MaterialBlueGreyTheme materialBlueGreyTheme1;
         private Telerik.WinControls.Themes.Office2013LightTheme office2013LightTheme1;
-        private Telerik.WinControls.UI.RadButton btnAddall;
         private Telerik.WinControls.Themes.Windows8Theme windows8Theme1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private Telerik.WinControls.Themes.TelerikMetroTouchTheme telerikMetroTouchTheme1;
+        private System.Windows.Forms.PictureBox btnAddSignal;
+        private System.Windows.Forms.PictureBox btnAddall;
+        private System.Windows.Forms.PictureBox btnDeleteSignal;
+        private System.Windows.Forms.PictureBox btnDeleteAll;
+        private Telerik.WinControls.UI.RadButton btnClose;
+        private Telerik.WinControls.UI.RadButton btnSubmit;
     }
 }

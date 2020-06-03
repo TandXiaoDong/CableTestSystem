@@ -84,7 +84,7 @@
             // 
             // tool_query
             // 
-            this.tool_query.Image = global::CableTestManager.Properties.Resources.Search_16x16;
+            this.tool_query.Image = global::CableTestManager.Properties.Resources.查询;
             this.tool_query.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_query.Name = "tool_query";
             this.tool_query.Size = new System.Drawing.Size(57, 24);
@@ -92,7 +92,7 @@
             // 
             // tool_add
             // 
-            this.tool_add.Image = global::CableTestManager.Properties.Resources.add;
+            this.tool_add.Image = global::CableTestManager.Properties.Resources.添加16;
             this.tool_add.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_add.Name = "tool_add";
             this.tool_add.Size = new System.Drawing.Size(57, 24);
@@ -108,7 +108,7 @@
             // 
             // tool_delete
             // 
-            this.tool_delete.Image = global::CableTestManager.Properties.Resources.delete;
+            this.tool_delete.Image = global::CableTestManager.Properties.Resources.delete16;
             this.tool_delete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_delete.Name = "tool_delete";
             this.tool_delete.Size = new System.Drawing.Size(57, 24);

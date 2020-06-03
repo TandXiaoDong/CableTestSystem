@@ -56,15 +56,16 @@
             // 
             // numericUpDown1
             // 
+            this.numericUpDown1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericUpDown1.Location = new System.Drawing.Point(107, 45);
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(155, 21);
+            this.numericUpDown1.Size = new System.Drawing.Size(155, 29);
             this.numericUpDown1.TabIndex = 1;
             // 
             // lbxLimit
             // 
             this.lbxLimit.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbxLimit.Location = new System.Drawing.Point(268, 45);
+            this.lbxLimit.Location = new System.Drawing.Point(268, 49);
             this.lbxLimit.Name = "lbxLimit";
             this.lbxLimit.Size = new System.Drawing.Size(65, 21);
             this.lbxLimit.TabIndex = 2;
@@ -72,34 +73,36 @@
             // 
             // btnApply
             // 
+            this.btnApply.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btnApply.Location = new System.Drawing.Point(107, 95);
             this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new System.Drawing.Size(76, 31);
+            this.btnApply.Size = new System.Drawing.Size(65, 22);
             this.btnApply.TabIndex = 3;
             this.btnApply.Text = "确定";
-            this.btnApply.ThemeName = "MaterialBlueGrey";
+            this.btnApply.ThemeName = "ControlDefault";
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(205, 95);
+            this.btnCancel.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnCancel.Location = new System.Drawing.Point(204, 94);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(71, 31);
+            this.btnCancel.Size = new System.Drawing.Size(58, 23);
             this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "取消";
-            this.btnCancel.ThemeName = "MaterialBlueGrey";
             // 
             // BatchAddCableSet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(348, 138);
+            this.ClientSize = new System.Drawing.Size(310, 138);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnApply);
             this.Controls.Add(this.lbxLimit);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.radLabel1);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "BatchAddCableSet";
             // 

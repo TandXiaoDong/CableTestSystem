@@ -42,21 +42,20 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tb_queryFilter = new Telerik.WinControls.UI.RadTextBox();
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
-            this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
-            this.btn_openProject = new Telerik.WinControls.UI.RadMenuButtonItem();
-            this.btn_editProject = new Telerik.WinControls.UI.RadMenuButtonItem();
-            this.btn_copyProject = new Telerik.WinControls.UI.RadMenuButtonItem();
-            this.btn_deleteProject = new Telerik.WinControls.UI.RadMenuButtonItem();
-            this.btn_cancel = new Telerik.WinControls.UI.RadMenuButtonItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radGridView1 = new Telerik.WinControls.UI.RadGridView();
+            this.btn_cancel = new Telerik.WinControls.UI.RadMenuItem();
+            this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
+            this.btn_openProject = new Telerik.WinControls.UI.RadMenuItem();
+            this.btn_editProject = new Telerik.WinControls.UI.RadMenuItem();
+            this.btn_deleteProject = new Telerik.WinControls.UI.RadMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_queryFilter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,10 +64,10 @@
             this.panel1.Controls.Add(this.tb_queryFilter);
             this.panel1.Controls.Add(this.radLabel1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(0, 37);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(761, 63);
-            this.panel1.TabIndex = 0;
+            this.panel1.Size = new System.Drawing.Size(761, 69);
+            this.panel1.TabIndex = 8;
             // 
             // tb_queryFilter
             // 
@@ -87,76 +86,14 @@
             this.radLabel1.Text = "查询条件：";
             this.radLabel1.ThemeName = "MaterialBlueGrey";
             // 
-            // radMenu1
-            // 
-            this.radMenu1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.radMenu1.Items.AddRange(new Telerik.WinControls.RadItem[] {
-            this.btn_openProject,
-            this.btn_editProject,
-            this.btn_copyProject,
-            this.btn_deleteProject,
-            this.btn_cancel});
-            this.radMenu1.Location = new System.Drawing.Point(0, 454);
-            this.radMenu1.Name = "radMenu1";
-            this.radMenu1.Size = new System.Drawing.Size(761, 45);
-            this.radMenu1.TabIndex = 3;
-            this.radMenu1.ThemeName = "MaterialBlueGrey";
-            // 
-            // btn_openProject
-            // 
-            // 
-            // 
-            // 
-            this.btn_openProject.ButtonElement.ShowBorder = false;
-            this.btn_openProject.Name = "btn_openProject";
-            this.btn_openProject.Text = "打开项目";
-            this.btn_openProject.UseCompatibleTextRendering = false;
-            // 
-            // btn_editProject
-            // 
-            // 
-            // 
-            // 
-            this.btn_editProject.ButtonElement.ShowBorder = false;
-            this.btn_editProject.Name = "btn_editProject";
-            this.btn_editProject.Text = "编辑项目";
-            // 
-            // btn_copyProject
-            // 
-            // 
-            // 
-            // 
-            this.btn_copyProject.ButtonElement.ShowBorder = false;
-            this.btn_copyProject.Name = "btn_copyProject";
-            this.btn_copyProject.Text = "复制项目";
-            // 
-            // btn_deleteProject
-            // 
-            // 
-            // 
-            // 
-            this.btn_deleteProject.ButtonElement.ShowBorder = false;
-            this.btn_deleteProject.Name = "btn_deleteProject";
-            this.btn_deleteProject.Text = "删除项目";
-            // 
-            // btn_cancel
-            // 
-            // 
-            // 
-            // 
-            this.btn_cancel.ButtonElement.ShowBorder = false;
-            this.btn_cancel.Name = "btn_cancel";
-            this.btn_cancel.StretchHorizontally = true;
-            this.btn_cancel.Text = "   取消   ";
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.radGridView1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(0, 63);
+            this.groupBox1.Location = new System.Drawing.Point(0, 106);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(761, 391);
-            this.groupBox1.TabIndex = 4;
+            this.groupBox1.Size = new System.Drawing.Size(761, 393);
+            this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "项目列表（双击可打开项目）";
             // 
@@ -185,10 +122,12 @@
             gridViewTextBoxColumn3.Width = 77;
             gridViewTextBoxColumn4.EnableExpressionEditor = false;
             gridViewTextBoxColumn4.HeaderText = "批次号";
+            gridViewTextBoxColumn4.IsVisible = false;
             gridViewTextBoxColumn4.Name = "column4";
             gridViewTextBoxColumn4.Width = 76;
             gridViewTextBoxColumn5.EnableExpressionEditor = false;
             gridViewTextBoxColumn5.HeaderText = "常用项目";
+            gridViewTextBoxColumn5.IsVisible = false;
             gridViewTextBoxColumn5.Name = "column5";
             gridViewTextBoxColumn5.Width = 82;
             gridViewTextBoxColumn6.EnableExpressionEditor = false;
@@ -205,9 +144,49 @@
             this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.radGridView1.Name = "radGridView1";
             this.radGridView1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.radGridView1.Size = new System.Drawing.Size(755, 369);
+            this.radGridView1.Size = new System.Drawing.Size(755, 371);
             this.radGridView1.TabIndex = 0;
             this.radGridView1.ThemeName = "TelerikMetroTouch";
+            // 
+            // btn_cancel
+            // 
+            this.btn_cancel.Image = global::CableTestManager.Properties.Resources.退出;
+            this.btn_cancel.Name = "btn_cancel";
+            this.btn_cancel.Text = "退出";
+            // 
+            // radMenu1
+            // 
+            this.radMenu1.BackColor = System.Drawing.SystemColors.Control;
+            this.radMenu1.Items.AddRange(new Telerik.WinControls.RadItem[] {
+            this.btn_openProject,
+            this.btn_editProject,
+            this.btn_deleteProject,
+            this.btn_cancel});
+            this.radMenu1.Location = new System.Drawing.Point(0, 0);
+            this.radMenu1.Name = "radMenu1";
+            this.radMenu1.Size = new System.Drawing.Size(761, 37);
+            this.radMenu1.TabIndex = 7;
+            this.radMenu1.ThemeName = "MaterialBlueGrey";
+            // 
+            // btn_openProject
+            // 
+            this.btn_openProject.FlipText = false;
+            this.btn_openProject.Image = global::CableTestManager.Properties.Resources.打开工程;
+            this.btn_openProject.ImageAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_openProject.Name = "btn_openProject";
+            this.btn_openProject.Text = "打开项目";
+            // 
+            // btn_editProject
+            // 
+            this.btn_editProject.Image = global::CableTestManager.Properties.Resources.编辑;
+            this.btn_editProject.Name = "btn_editProject";
+            this.btn_editProject.Text = "编辑项目";
+            // 
+            // btn_deleteProject
+            // 
+            this.btn_deleteProject.Image = global::CableTestManager.Properties.Resources.delete16;
+            this.btn_deleteProject.Name = "btn_deleteProject";
+            this.btn_deleteProject.Text = "删除项目";
             // 
             // ProjectManage
             // 
@@ -216,8 +195,8 @@
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(761, 499);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.radMenu1);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.radMenu1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ProjectManage";
             // 
@@ -231,10 +210,10 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_queryFilter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -249,13 +228,12 @@
         private System.Windows.Forms.Panel panel1;
         private Telerik.WinControls.UI.RadTextBox tb_queryFilter;
         private Telerik.WinControls.UI.RadLabel radLabel1;
-        private Telerik.WinControls.UI.RadMenu radMenu1;
-        private Telerik.WinControls.UI.RadMenuButtonItem btn_openProject;
-        private Telerik.WinControls.UI.RadMenuButtonItem btn_editProject;
-        private Telerik.WinControls.UI.RadMenuButtonItem btn_copyProject;
-        private Telerik.WinControls.UI.RadMenuButtonItem btn_deleteProject;
-        private Telerik.WinControls.UI.RadMenuButtonItem btn_cancel;
         private System.Windows.Forms.GroupBox groupBox1;
         private Telerik.WinControls.UI.RadGridView radGridView1;
+        private Telerik.WinControls.UI.RadMenuItem btn_openProject;
+        private Telerik.WinControls.UI.RadMenuItem btn_editProject;
+        private Telerik.WinControls.UI.RadMenuItem btn_deleteProject;
+        private Telerik.WinControls.UI.RadMenuItem btn_cancel;
+        private Telerik.WinControls.UI.RadMenu radMenu1;
     }
 }

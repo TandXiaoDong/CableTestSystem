@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 using CableTestManager.Entity;
 using WindowsFormTelerik.GridViewExportData;
 using Telerik.WinControls.UI;
-using Telerik.WinControls;
 using CableTestManager.Model;
 
 namespace CableTestManager.View.VInterface
@@ -83,11 +82,9 @@ namespace CableTestManager.View.VInterface
 
             this.tool_addSignal.Click += Tool_addSignal_Click;
             this.tool_batchAdd.Click += Tool_batchAdd_Click;
-            this.tool_batchImport.Click += Tool_batchImport_Click;
-            this.tool_batchModify.Click += Tool_batchModify_Click;
             this.tool_delete.Click += Tool_delete_Click;
             this.tool_deleteAll.Click += Tool_deleteAll_Click;
-            this.tool_export.Click += Tool_export_Click;
+            //this.tool_export.Click += Tool_export_Click;
             this.rdb2Method.CheckStateChanged += Rdb2Method_CheckStateChanged;
             this.rdb4Method.CheckStateChanged += Rdb4Method_CheckStateChanged;
             this.checkCircuit.CheckStateChanged += CheckCircuit_CheckStateChanged;
@@ -190,15 +187,6 @@ namespace CableTestManager.View.VInterface
             this.radGridView1.Rows[cIndex].Delete();
         }
 
-        private void Tool_batchModify_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Tool_batchImport_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void Tool_batchAdd_Click(object sender, EventArgs e)
         {

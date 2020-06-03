@@ -37,6 +37,10 @@
             Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn7 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
             Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RadTestDataBasicInfo));
+            this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
+            this.fluentTheme1 = new Telerik.WinControls.Themes.FluentTheme();
+            this.office2013LightTheme1 = new Telerik.WinControls.Themes.Office2013LightTheme();
+            this.telerikMetroTouchTheme1 = new Telerik.WinControls.Themes.TelerikMetroTouchTheme();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dateTimePicker_end = new Telerik.WinControls.UI.RadDateTimePicker();
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
@@ -44,26 +48,21 @@
             this.tb_queryFilter = new Telerik.WinControls.UI.RadTextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
-            this.fluentTheme1 = new Telerik.WinControls.Themes.FluentTheme();
-            this.office2013LightTheme1 = new Telerik.WinControls.Themes.Office2013LightTheme();
-            this.telerikMetroTouchTheme1 = new Telerik.WinControls.Themes.TelerikMetroTouchTheme();
-            this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
-            this.menu_likeQuery = new Telerik.WinControls.UI.RadMenuButtonItem();
-            this.menu_eqlQuery = new Telerik.WinControls.UI.RadMenuButtonItem();
-            this.menu_detail = new Telerik.WinControls.UI.RadMenuButtonItem();
-            this.menu_deleteData = new Telerik.WinControls.UI.RadMenuButtonItem();
-            this.menu_export = new Telerik.WinControls.UI.RadMenuButtonItem();
-            this.menu_close = new Telerik.WinControls.UI.RadMenuButtonItem();
+            this.menu_detail = new Telerik.WinControls.UI.RadMenuItem();
             this.radGridView1 = new Telerik.WinControls.UI.RadGridView();
+            this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
+            this.menu_likeQuery = new Telerik.WinControls.UI.RadMenuItem();
+            this.menu_deleteData = new Telerik.WinControls.UI.RadMenuItem();
+            this.menu_export = new Telerik.WinControls.UI.RadMenuItem();
+            this.menu_close = new Telerik.WinControls.UI.RadMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dateTimePicker_end)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateTimePicker_start)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_queryFilter)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,12 +76,12 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Location = new System.Drawing.Point(0, 37);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(999, 116);
-            this.groupBox1.TabIndex = 17;
+            this.groupBox1.TabIndex = 32;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "查询条件";
             // 
@@ -155,74 +154,11 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "项目名称/被测线束/批次号:";
             // 
-            // radMenu1
-            // 
-            this.radMenu1.Items.AddRange(new Telerik.WinControls.RadItem[] {
-            this.menu_likeQuery,
-            this.menu_eqlQuery,
-            this.menu_detail,
-            this.menu_deleteData,
-            this.menu_export,
-            this.menu_close});
-            this.radMenu1.Location = new System.Drawing.Point(0, 116);
-            this.radMenu1.Name = "radMenu1";
-            this.radMenu1.Size = new System.Drawing.Size(999, 45);
-            this.radMenu1.TabIndex = 29;
-            this.radMenu1.ThemeName = "MaterialBlueGrey";
-            // 
-            // menu_likeQuery
-            // 
-            // 
-            // 
-            // 
-            this.menu_likeQuery.ButtonElement.ShowBorder = false;
-            this.menu_likeQuery.Name = "menu_likeQuery";
-            this.menu_likeQuery.Text = "模糊查询";
-            // 
-            // menu_eqlQuery
-            // 
-            // 
-            // 
-            // 
-            this.menu_eqlQuery.ButtonElement.ShowBorder = false;
-            this.menu_eqlQuery.Name = "menu_eqlQuery";
-            this.menu_eqlQuery.Text = "精确查询";
-            // 
             // menu_detail
             // 
-            // 
-            // 
-            // 
-            this.menu_detail.ButtonElement.ShowBorder = false;
+            this.menu_detail.Image = global::CableTestManager.Properties.Resources.查询detail;
             this.menu_detail.Name = "menu_detail";
             this.menu_detail.Text = "查看明细";
-            // 
-            // menu_deleteData
-            // 
-            // 
-            // 
-            // 
-            this.menu_deleteData.ButtonElement.ShowBorder = false;
-            this.menu_deleteData.Name = "menu_deleteData";
-            this.menu_deleteData.Text = "删除数据";
-            // 
-            // menu_export
-            // 
-            // 
-            // 
-            // 
-            this.menu_export.ButtonElement.ShowBorder = false;
-            this.menu_export.Name = "menu_export";
-            this.menu_export.Text = "导出";
-            // 
-            // menu_close
-            // 
-            // 
-            // 
-            // 
-            this.menu_close.ButtonElement.ShowBorder = false;
-            this.menu_close.Name = "menu_close";
-            this.menu_close.Text = "退出";
             // 
             // radGridView1
             // 
@@ -232,7 +168,7 @@
             this.radGridView1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radGridView1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.radGridView1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.radGridView1.Location = new System.Drawing.Point(0, 161);
+            this.radGridView1.Location = new System.Drawing.Point(0, 153);
             // 
             // 
             // 
@@ -274,9 +210,48 @@
             this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.radGridView1.Name = "radGridView1";
             this.radGridView1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.radGridView1.Size = new System.Drawing.Size(999, 450);
-            this.radGridView1.TabIndex = 30;
+            this.radGridView1.Size = new System.Drawing.Size(999, 458);
+            this.radGridView1.TabIndex = 33;
             this.radGridView1.ThemeName = "TelerikMetroTouch";
+            // 
+            // radMenu1
+            // 
+            this.radMenu1.BackColor = System.Drawing.SystemColors.Control;
+            this.radMenu1.Items.AddRange(new Telerik.WinControls.RadItem[] {
+            this.menu_likeQuery,
+            this.menu_detail,
+            this.menu_deleteData,
+            this.menu_export,
+            this.menu_close});
+            this.radMenu1.Location = new System.Drawing.Point(0, 0);
+            this.radMenu1.Name = "radMenu1";
+            this.radMenu1.Size = new System.Drawing.Size(999, 37);
+            this.radMenu1.TabIndex = 31;
+            this.radMenu1.ThemeName = "MaterialBlueGrey";
+            // 
+            // menu_likeQuery
+            // 
+            this.menu_likeQuery.Image = global::CableTestManager.Properties.Resources.查询;
+            this.menu_likeQuery.Name = "menu_likeQuery";
+            this.menu_likeQuery.Text = "查询记录";
+            // 
+            // menu_deleteData
+            // 
+            this.menu_deleteData.Image = global::CableTestManager.Properties.Resources.delete16;
+            this.menu_deleteData.Name = "menu_deleteData";
+            this.menu_deleteData.Text = "删除数据";
+            // 
+            // menu_export
+            // 
+            this.menu_export.Image = global::CableTestManager.Properties.Resources.导出;
+            this.menu_export.Name = "menu_export";
+            this.menu_export.Text = "导出数据";
+            // 
+            // menu_close
+            // 
+            this.menu_close.Image = global::CableTestManager.Properties.Resources.退出;
+            this.menu_close.Name = "menu_close";
+            this.menu_close.Text = "退出";
             // 
             // RadTestDataBasicInfo
             // 
@@ -285,8 +260,8 @@
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(999, 611);
             this.Controls.Add(this.radGridView1);
-            this.Controls.Add(this.radMenu1);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.radMenu1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -305,9 +280,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateTimePicker_start)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_queryFilter)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -315,24 +290,23 @@
         }
 
         #endregion
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label2;
         private Telerik.WinControls.Themes.MaterialBlueGreyTheme materialBlueGreyTheme1;
         private Telerik.WinControls.Themes.FluentTheme fluentTheme1;
         private Telerik.WinControls.Themes.Office2013LightTheme office2013LightTheme1;
+        private Telerik.WinControls.Themes.TelerikMetroTouchTheme telerikMetroTouchTheme1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private Telerik.WinControls.UI.RadDateTimePicker dateTimePicker_end;
         private Telerik.WinControls.UI.RadLabel radLabel1;
         private Telerik.WinControls.UI.RadDateTimePicker dateTimePicker_start;
         private Telerik.WinControls.UI.RadTextBox tb_queryFilter;
-        private Telerik.WinControls.UI.RadDateTimePicker dateTimePicker_end;
-        private Telerik.WinControls.Themes.TelerikMetroTouchTheme telerikMetroTouchTheme1;
-        private Telerik.WinControls.UI.RadMenu radMenu1;
-        private Telerik.WinControls.UI.RadMenuButtonItem menu_likeQuery;
-        private Telerik.WinControls.UI.RadMenuButtonItem menu_eqlQuery;
-        private Telerik.WinControls.UI.RadMenuButtonItem menu_detail;
-        private Telerik.WinControls.UI.RadMenuButtonItem menu_export;
-        private Telerik.WinControls.UI.RadMenuButtonItem menu_close;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label2;
+        private Telerik.WinControls.UI.RadMenuItem menu_likeQuery;
+        private Telerik.WinControls.UI.RadMenuItem menu_detail;
+        private Telerik.WinControls.UI.RadMenuItem menu_deleteData;
+        private Telerik.WinControls.UI.RadMenuItem menu_export;
+        private Telerik.WinControls.UI.RadMenuItem menu_close;
         private Telerik.WinControls.UI.RadGridView radGridView1;
-        private Telerik.WinControls.UI.RadMenuButtonItem menu_deleteData;
+        private Telerik.WinControls.UI.RadMenu radMenu1;
     }
 }

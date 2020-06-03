@@ -81,16 +81,20 @@ namespace CableTestManager.View.VAdd
         {
             this.menu_signalAddInterfacePoint.Click += Menu_signalAddInterfacePoint_Click;
             this.menu_batchAddInterfacePoint.Click += Menu_batchAddInterfacePoint_Click;
-            this.menu_importFromConnectorType.Click += Menu_importFromConnectorType_Click;
-            this.menu_importFromFile.Click += Menu_importFromFile_Click;
             this.menu_deleteAll.Click += Menu_deleteAll_Click;
             this.menu_deleteSelect.Click += Menu_deleteSelect_Click;
+            this.btn_close.Click += Btn_close_Click;
 
             this.btnSubmit.Click += BtnSubmit_Click;
             this.btnClose.Click += BtnClose_Click;
             this.radGridView1.CellValueChanged += RadGridView1_CellValueChanged;
             this.radGridView1.CellBeginEdit += RadGridView1_CellBeginEdit;
             this.radGridView1.CellEndEdit += RadGridView1_CellEndEdit;
+        }
+
+        private void Btn_close_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void RadGridView1_CellEndEdit(object sender, GridViewCellEventArgs e)

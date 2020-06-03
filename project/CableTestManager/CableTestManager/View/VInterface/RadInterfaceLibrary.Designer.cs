@@ -87,7 +87,7 @@
             // 
             // tool_query
             // 
-            this.tool_query.Image = global::CableTestManager.Properties.Resources.Search_16x16;
+            this.tool_query.Image = global::CableTestManager.Properties.Resources.查询;
             this.tool_query.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_query.Name = "tool_query";
             this.tool_query.Size = new System.Drawing.Size(62, 25);
@@ -95,7 +95,7 @@
             // 
             // tool_add
             // 
-            this.tool_add.Image = global::CableTestManager.Properties.Resources.add;
+            this.tool_add.Image = global::CableTestManager.Properties.Resources.添加16;
             this.tool_add.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_add.Name = "tool_add";
             this.tool_add.Size = new System.Drawing.Size(62, 25);
@@ -111,7 +111,7 @@
             // 
             // tool_delete
             // 
-            this.tool_delete.Image = global::CableTestManager.Properties.Resources.delete;
+            this.tool_delete.Image = global::CableTestManager.Properties.Resources.delete16;
             this.tool_delete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_delete.Name = "tool_delete";
             this.tool_delete.Size = new System.Drawing.Size(62, 25);
@@ -130,7 +130,7 @@
             this.radGridView1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(219)))), ((int)(((byte)(255)))));
             this.radGridView1.Cursor = System.Windows.Forms.Cursors.Default;
             this.radGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radGridView1.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radGridView1.Font = new System.Drawing.Font("Segoe UI", 10.5F);
             this.radGridView1.ForeColor = System.Drawing.Color.Black;
             this.radGridView1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.radGridView1.Location = new System.Drawing.Point(0, 28);
@@ -154,6 +154,7 @@
             gridViewTextBoxColumn4.Width = 88;
             gridViewTextBoxColumn5.EnableExpressionEditor = false;
             gridViewTextBoxColumn5.HeaderText = "连接器型号";
+            gridViewTextBoxColumn5.IsVisible = false;
             gridViewTextBoxColumn5.Name = "column5";
             gridViewTextBoxColumn5.Width = 93;
             gridViewTextBoxColumn6.EnableExpressionEditor = false;

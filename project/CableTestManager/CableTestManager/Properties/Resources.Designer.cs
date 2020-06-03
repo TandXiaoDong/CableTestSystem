@@ -63,26 +63,6 @@ namespace CableTestManager.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap add {
-            get {
-                object obj = ResourceManager.GetObject("add", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap add16 {
-            get {
-                object obj = ResourceManager.GetObject("add16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
         internal static System.Drawing.Bitmap add32 {
             get {
                 object obj = ResourceManager.GetObject("add32", resourceCulture);
@@ -103,59 +83,9 @@ namespace CableTestManager.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap arrow_down {
-            get {
-                object obj = ResourceManager.GetObject("arrow_down", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap arrow_up {
-            get {
-                object obj = ResourceManager.GetObject("arrow_up", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap back {
-            get {
-                object obj = ResourceManager.GetObject("back", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
         internal static System.Drawing.Bitmap box_open {
             get {
                 object obj = ResourceManager.GetObject("box_open", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap bullet_add {
-            get {
-                object obj = ResourceManager.GetObject("bullet_add", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap bullet_down {
-            get {
-                object obj = ResourceManager.GetObject("bullet_down", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -206,16 +136,6 @@ namespace CableTestManager.Properties {
         internal static System.Drawing.Bitmap database_active__2_ {
             get {
                 object obj = ResourceManager.GetObject("database_active__2_", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap delete {
-            get {
-                object obj = ResourceManager.GetObject("delete", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -306,16 +226,6 @@ namespace CableTestManager.Properties {
         internal static System.Drawing.Bitmap folder_open__2_ {
             get {
                 object obj = ResourceManager.GetObject("folder_open__2_", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap forward__2_ {
-            get {
-                object obj = ResourceManager.GetObject("forward__2_", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -443,16 +353,6 @@ namespace CableTestManager.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Search_16x16 {
-            get {
-                object obj = ResourceManager.GetObject("Search_16x16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
         internal static System.Drawing.Bitmap selfStudy {
             get {
                 object obj = ResourceManager.GetObject("selfStudy", resourceCulture);
@@ -563,6 +463,46 @@ namespace CableTestManager.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap 删除16_sig {
+            get {
+                object obj = ResourceManager.GetObject("删除16_sig", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 单箭头右48 {
+            get {
+                object obj = ResourceManager.GetObject("单箭头右48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 单箭头左48 {
+            get {
+                object obj = ResourceManager.GetObject("单箭头左48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 右双箭头48 {
+            get {
+                object obj = ResourceManager.GetObject("右双箭头48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap 密码修改 {
             get {
                 object obj = ResourceManager.GetObject("密码修改", resourceCulture);
@@ -573,9 +513,89 @@ namespace CableTestManager.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap 导出 {
+            get {
+                object obj = ResourceManager.GetObject("导出", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 左双箭头48 {
+            get {
+                object obj = ResourceManager.GetObject("左双箭头48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 打印 {
+            get {
+                object obj = ResourceManager.GetObject("打印", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 打开工程 {
+            get {
+                object obj = ResourceManager.GetObject("打开工程", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 批量16 {
+            get {
+                object obj = ResourceManager.GetObject("批量16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 报表模板 {
+            get {
+                object obj = ResourceManager.GetObject("报表模板", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap 查询 {
             get {
                 object obj = ResourceManager.GetObject("查询", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 查询detail {
+            get {
+                object obj = ResourceManager.GetObject("查询detail", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 添加16 {
+            get {
+                object obj = ResourceManager.GetObject("添加16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -596,6 +616,26 @@ namespace CableTestManager.Properties {
         internal static System.Drawing.Bitmap 箭头right {
             get {
                 object obj = ResourceManager.GetObject("箭头right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 编辑 {
+            get {
+                object obj = ResourceManager.GetObject("编辑", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 退出 {
+            get {
+                object obj = ResourceManager.GetObject("退出", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

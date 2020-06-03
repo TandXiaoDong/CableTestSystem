@@ -25,6 +25,7 @@ namespace CableTestManager.View.VInterface
         {
             InitializeComponent();
             Init();
+            QueryCableLibInfo();
             EventHandlers();
         }
 
@@ -78,7 +79,7 @@ namespace CableTestManager.View.VInterface
 
         private void Tool_query_Click(object sender, EventArgs e)
         {
-            GetPlugLineStruct();
+            QueryCableLibInfo();
         }
 
         private void Tool_export_Click(object sender, EventArgs e)
@@ -122,7 +123,7 @@ namespace CableTestManager.View.VInterface
             {
                 MessageBox.Show("删除成功！","提示",MessageBoxButtons.OK);
                 UserOperateRecord.UpdateOperateRecord($"删除线束库{LineStructName}");
-                GetPlugLineStruct();
+                QueryCableLibInfo();
             }
         }
 
@@ -135,7 +136,7 @@ namespace CableTestManager.View.VInterface
             }
         }
 
-        private void GetPlugLineStruct()
+        private void QueryCableLibInfo()
         {
             RadGridViewProperties.ClearGridView(this.radGridView1,null);
             var data = lineStructLibraryDetailManager.GetDataSetByFieldsAndWhere("distinct CableName", "").Tables[0];

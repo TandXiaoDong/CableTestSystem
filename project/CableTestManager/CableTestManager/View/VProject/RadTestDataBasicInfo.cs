@@ -36,7 +36,6 @@ namespace CableTestManager.View.VProject
 
             this.menu_close.Click += Menu_close_Click;
             this.menu_detail.Click += Menu_detail_Click;
-            this.menu_eqlQuery.Click += Menu_eqlQuery_Click;
             this.menu_likeQuery.Click += Menu_likeQuery_Click;
             this.menu_export.Click += Menu_export_Click;
             this.menu_deleteData.Click += Menu_deleteData_Click;
@@ -51,7 +50,7 @@ namespace CableTestManager.View.VProject
                 foreach (DataRow dr in data.Rows)
                 {
                     this.menu_deleteData.Visibility = ConvertDec2EleVisState(dr["Project_del"].ToString());
-                    this.menu_eqlQuery.Visibility = ConvertDec2EleVisState(dr["HistoryTestData_query"].ToString());
+                    //this.menu_eqlQuery.Visibility = ConvertDec2EleVisState(dr["HistoryTestData_query"].ToString());
                     this.menu_likeQuery.Visibility = ConvertDec2EleVisState(dr["HistoryTestData_query"].ToString());
                     this.menu_detail.Visibility = ConvertDec2EleVisState(dr["HistoryTestData_query"].ToString());
                     this.menu_export.Visibility = ConvertDec2EleVisState(dr["HistoryTestData_export"].ToString());

@@ -35,10 +35,8 @@ namespace CableTestManager.View.VProject
             RadGridViewProperties.SetRadGridViewProperty(this.radGridView1,false,true,13);
             QueryHistoryBasicInfo(false);
 
-            this.menu_circuitTest.Click += Menu_circuitTest_Click;
             this.menu_close.Click += Menu_close_Click;
             this.menu_exportExcel.Click += Menu_exportExcel_Click;
-            this.menu_insulateByGroundTest.Click += Menu_insulateByGroundTest_Click;
             this.menu_printReport.Click += Menu_printReport_Click;
             this.menu_toReport.Click += Menu_toReport_Click;
         }
