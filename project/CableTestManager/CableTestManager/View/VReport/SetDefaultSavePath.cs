@@ -17,6 +17,7 @@ namespace CableTestManager.View
         public SetDefaultSavePath(string fReportDir)
         {
             InitializeComponent();
+            this.reportDir = fReportDir;
             this.textBox_savePath.Text = fReportDir;
         }
 

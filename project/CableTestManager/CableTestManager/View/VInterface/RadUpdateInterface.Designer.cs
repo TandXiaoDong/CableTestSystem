@@ -51,13 +51,13 @@
             this.menu_batchAddInterfacePoint = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_deleteSelect = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_deleteAll = new Telerik.WinControls.UI.RadMenuItem();
+            this.btn_close = new Telerik.WinControls.UI.RadMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.radLabel4 = new Telerik.WinControls.UI.RadLabel();
             this.tb_remark = new Telerik.WinControls.UI.RadTextBox();
             this.tb_interfacelNo = new Telerik.WinControls.UI.RadTextBox();
             this.radLabel2 = new Telerik.WinControls.UI.RadLabel();
             this.radGridView1 = new Telerik.WinControls.UI.RadGridView();
-            this.btn_close = new Telerik.WinControls.UI.RadMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSubmit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
@@ -73,6 +73,7 @@
             // 
             // btnClose
             // 
+            this.btnClose.BackColor = System.Drawing.Color.GhostWhite;
             this.btnClose.Location = new System.Drawing.Point(738, 549);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(120, 36);
@@ -82,6 +83,7 @@
             // 
             // btnSubmit
             // 
+            this.btnSubmit.BackColor = System.Drawing.Color.GhostWhite;
             this.btnSubmit.Location = new System.Drawing.Point(535, 549);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(120, 36);
@@ -132,6 +134,12 @@
             this.menu_deleteAll.Name = "menu_deleteAll";
             this.menu_deleteAll.Text = "删除所有接点";
             this.menu_deleteAll.UseCompatibleTextRendering = false;
+            // 
+            // btn_close
+            // 
+            this.btn_close.Image = global::CableTestManager.Properties.Resources.退出;
+            this.btn_close.Name = "btn_close";
+            this.btn_close.Text = "退出";
             // 
             // panel1
             // 
@@ -239,12 +247,6 @@
             this.radGridView1.Size = new System.Drawing.Size(1005, 426);
             this.radGridView1.TabIndex = 25;
             this.radGridView1.ThemeName = "TelerikMetroTouch";
-            // 
-            // btn_close
-            // 
-            this.btn_close.Image = global::CableTestManager.Properties.Resources.退出;
-            this.btn_close.Name = "btn_close";
-            this.btn_close.Text = "退出";
             // 
             // RadUpdateInterface
             // 

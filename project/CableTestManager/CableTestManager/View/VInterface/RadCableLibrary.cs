@@ -15,6 +15,7 @@ using WindowsFormTelerik.ControlCommon;
 using WindowsFormTelerik.GridViewExportData;
 using CableTestManager.CUserManager;
 using CableTestManager.Common;
+using WindowsFormTelerik.CommonUI;
 
 namespace CableTestManager.View.VInterface
 {
@@ -94,8 +95,8 @@ namespace CableTestManager.View.VInterface
 
         private void EditCableLibrary()
         {
-            var cIndex = this.radGridView1.CurrentRow.Index;
-            if (cIndex < 0)
+            var b = RadGridViewProperties.IsSelectRow(this.radGridView1);
+            if (!b)
                 return;
             var lineCableName = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
             RadUpdateCable radUpdateCable = new RadUpdateCable("编辑线束库", lineCableName,true);
@@ -107,8 +108,8 @@ namespace CableTestManager.View.VInterface
 
         private void Tool_delete_Click(object sender, EventArgs e)
         {
-            int rIndex = this.radGridView1.CurrentRow.Index;
-            if (rIndex < 0)
+            var b = RadGridViewProperties.IsSelectRow(this.radGridView1);
+            if (!b)
             {
                 MessageBox.Show("请选择要删除的线束代号！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;

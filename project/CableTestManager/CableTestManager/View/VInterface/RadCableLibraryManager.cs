@@ -241,19 +241,22 @@ namespace CableTestManager.View.VInterface
             foreach (var plugLibrary in interLibraryDetailList) 
             {
                 //查询针脚
-                var plugLibraryList = plugLibraryDetailManager.GetListByWhere($"where InterfaceNo='{plugLibrary.InterfaceNo}'");
-                foreach (var plugLibrary1 in plugLibraryList)
+                var data = plugLibraryDetailManager.GetDataSetByWhere($"where InterfaceNo='{plugLibrary.InterfaceNo}'").Tables[0];
+                if (data.Rows.Count > 0)
                 {
-                    var stitchValue = plugLibrary1.SwitchStandStitchNo;
-                    foreach (var plugLibrary2 in interLibraryDetailList)
+                    foreach (DataRow dr in data.Rows)
                     {
-                        if (plugLibrary2.InterfaceNo == plugLibrary.InterfaceNo)
-                            continue;
-                        var resultList = plugLibraryDetailManager.GetListByWhere($"where InterfaceNo='{plugLibrary2.InterfaceNo}' and SwitchStandStitchNo='{stitchValue}'");
-                        if (resultList.Count > 0)
+                        var stitchValue = dr["SwitchStandStitchNo"].ToString();
+                        foreach (var plugLibrary2 in interLibraryDetailList)
                         {
-                            MessageBox.Show($"接口{plugLibrary.InterfaceNo}与接口{plugLibrary2.InterfaceNo}存在相同的测试仪针脚{stitchValue}","Warning",MessageBoxButtons.OK,MessageBoxIcon.Warning);
-                            return true;
+                            if (plugLibrary2.InterfaceNo == plugLibrary.InterfaceNo)
+                                continue;
+                            var resultList = plugLibraryDetailManager.GetListByWhere($"where InterfaceNo='{plugLibrary2.InterfaceNo}' and SwitchStandStitchNo='{stitchValue}'");
+                            if (resultList.Count > 0)
+                            {
+                                MessageBox.Show($"接口{plugLibrary.InterfaceNo}与接口{plugLibrary2.InterfaceNo}存在相同的测试仪针脚{stitchValue}", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return true;
+                            }
                         }
                     }
                 }

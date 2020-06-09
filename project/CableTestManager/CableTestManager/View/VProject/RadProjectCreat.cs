@@ -133,6 +133,7 @@ namespace CableTestManager.View.VProject
                 projectInfo.ConductTestThreshold = double.Parse(dr["ConductTestThreshold"].ToString());
                 projectInfo.ConductTestVoltage = double.Parse(dr["ConductTestVoltage"].ToString());
                 projectInfo.ConductTestCurrentElect = double.Parse(dr["ConductTestCurrentElect"].ToString());
+                projectInfo.ShortCircuitTestThreshold = double.Parse(dr["ShortCircuitTestThreshold"].ToString());
                 projectInfo.InsulateTestThreshold = double.Parse(dr["InsulateTestThreshold"].ToString());
                 projectInfo.InsulateTestVoltage = double.Parse(dr["InsulateTestVoltage"].ToString());
                 projectInfo.InsulateTestRaiseTime = double.Parse(dr["InsulateTestRaiseTime"].ToString());

@@ -1447,6 +1447,7 @@
     <None Include="Resources\查询detail.png" />
     <None Include="Resources\打印.png" />
     <None Include="Resources\报表模板.png" />
+    <Content Include="完善.txt" />
     <Content Include="完善与优化.txt" />
     <Content Include="需求梳理.txt" />
   </ItemGroup>

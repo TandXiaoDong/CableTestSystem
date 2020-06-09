@@ -15,6 +15,7 @@ using CableTestManager.View.VAdd;
 using WindowsFormTelerik.GridViewExportData;
 using CableTestManager.CUserManager;
 using CableTestManager.Common;
+using WindowsFormTelerik.CommonUI;
 
 namespace CableTestManager.View.VInterface
 {
@@ -89,8 +90,7 @@ namespace CableTestManager.View.VInterface
 
         private void Tool_delete_Click(object sender, EventArgs e)
         {
-            var plugNoIndex = this.radGridView1.CurrentRow.Index;
-            if (plugNoIndex < 0)
+            if(!RadGridViewProperties.IsSelectRow(this.radGridView1))
                 return;
             var plugNo = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
             if (MessageBox.Show($"确认要删除接口{plugNo}？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2) == DialogResult.Yes)
@@ -160,6 +160,8 @@ namespace CableTestManager.View.VInterface
 
         private void EditInterfaceLibrary()
         {
+            if (!RadGridViewProperties.IsSelectRow(this.radGridView1))
+                return;
             var plugNo = this.radGridView1.CurrentRow.Cells[1].Value;
             if (plugNo != null)
                 plugNo = plugNo.ToString();

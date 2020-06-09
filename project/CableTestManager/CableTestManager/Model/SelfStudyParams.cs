@@ -6,11 +6,25 @@ using System.Threading.Tasks;
 
 namespace CableTestManager.Model
 {
-    public class SelfStudyParams
+    public class SelfStudyParams//行参数
     {
-        public string StartPoint { get; set; }
+        public string StartInterfaceName { get; set; }
 
-        public string EndPoint { get; set; }
+        public string EndInterfaceName { get; set; }
+
+        /// <summary>
+        /// 设备端开始接点(唯一)
+        /// </summary>
+        public string DevStartPoint { get; set; }
+
+        public string StartPointOrder { get; set; }
+
+        /// <summary>
+        /// 设备端终点接点（唯一）
+        /// </summary>
+        public string DevEndPoint { get; set; }
+
+        public string EndPointOrder { get; set; }
 
         public string TestResultVal { get; set; }
 

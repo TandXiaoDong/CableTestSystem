@@ -153,6 +153,7 @@
             // 
             // btnCableConfig
             // 
+            this.btnCableConfig.BackColor = System.Drawing.Color.GhostWhite;
             this.btnCableConfig.Location = new System.Drawing.Point(355, 10);
             this.btnCableConfig.Name = "btnCableConfig";
             this.btnCableConfig.Size = new System.Drawing.Size(157, 36);
@@ -569,6 +570,7 @@
             // 
             // btnClose
             // 
+            this.btnClose.BackColor = System.Drawing.Color.GhostWhite;
             this.btnClose.Location = new System.Drawing.Point(643, 414);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(120, 36);
@@ -578,6 +580,7 @@
             // 
             // btnSubmit
             // 
+            this.btnSubmit.BackColor = System.Drawing.Color.GhostWhite;
             this.btnSubmit.Location = new System.Drawing.Point(485, 414);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(110, 36);

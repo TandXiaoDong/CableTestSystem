@@ -16,22 +16,29 @@ namespace CableTestManager.View.VSelfStydy
 {
     public partial class frmSefStudy : Telerik.WinControls.UI.RadForm
     {
-        public int pinMin;
-        public int pinMax;
+        public int pinMin = 1;
+        public int pinMax = 1;
+        public string curInterfaceName;
+        public string hexMeasureMethod = "02";
         public float conductThresholdByPin;
         public List<frmSefStudy> selfParamList;
         public StudyTypeEnum studyTypeEnum;
         private InterfaceInfoLibraryManager InterfaceInfoLibrary;
         //private TCableTestLibraryManager cableTestLibraryManager = new TCableTestLibraryManager();
         public List<SelfStudyTestParams> studyTestParamsList = new List<SelfStudyTestParams>();
-        public string curInterfaceName;
+        private List<int> selectInterPointList = new List<int>();
 
         public enum StudyTypeEnum
         {
-            PartStudyByPin,
-            AllStudyByPin,
+            /// <summary>
+            /// 范围学习
+            /// </summary>
+            PartStudyByLimit,
+
+            /// <summary>
+            /// 按接口学习
+            /// </summary>
             PartStudyByInterface,
-            AllStudyByInterface,
             CancelStudy
         }
 
@@ -66,8 +73,30 @@ namespace CableTestManager.View.VSelfStydy
 
             this.btn_defineStudyByPin.Click += Btn_defineStudyByPin_Click;
             this.btn_cancelByPin.Click += Btn_cancelByPin_Click;
-
+            this.btn_fstart.Click += Btn_fstart_Click;
+            this.btn_fcancel.Click += Btn_fcancel_Click;
             this.radGridView1.ValueChanged += RadGridView1_ValueChanged;
+            this.radGridView1.CellValueChanged += RadGridView1_CellValueChanged;
+        }
+
+        private void RadGridView1_CellValueChanged(object sender, GridViewCellEventArgs e)
+        {
+            Commit();
+        }
+
+        private void Btn_fcancel_Click(object sender, EventArgs e)
+        {
+            this.Close();   
+        }
+
+        private void Btn_fstart_Click(object sender, EventArgs e)
+        {
+            this.studyTypeEnum = StudyTypeEnum.PartStudyByLimit;
+            this.pinMin = (int)this.num_fmin.Value;
+            this.pinMax = (int)this.num_fmax.Value;
+            this.conductThresholdByPin = (float)this.num_fthreshold.Value;
+            this.Close();
+            this.DialogResult = DialogResult.OK;
         }
 
         private void RadGridView1_ValueChanged(object sender, EventArgs e)
@@ -77,37 +106,49 @@ namespace CableTestManager.View.VSelfStydy
                 var rowIndex = this.radGridView1.CurrentCell.RowIndex;
                 var columnIndex = this.radGridView1.CurrentCell.ColumnIndex;
                 var value = this.radGridView1.ActiveEditor.Value;
-                this.curInterfaceName = this.radGridView1.Rows[rowIndex].Cells[1].Value.ToString();
+                var interName = this.radGridView1.Rows[rowIndex].Cells[1].Value.ToString();
+                
+                //value.ToString() == "On"
                 if (columnIndex == 2)
                 {
                     if (value.ToString() == "On")
                     {
-                        SetCheckFalse(rowIndex);
-                        var data = this.InterfaceInfoLibrary.GetDataSetByFieldsAndWhere("ContactPoint", $"where InterfaceNo='{this.curInterfaceName}'").Tables[0];
-                        if (data.Rows.Count > 0)
-                        {
-                            List<int> list = new List<int>(); 
-                            foreach (DataRow dr in data.Rows)
-                            {
-                                //AddSelfStudyTestParams();
-                                int point;
-                                if (int.TryParse(dr[0].ToString(), out point))
-                                {
-                                    list.Add(point);
-                                }
-                            }
-                            list.Sort();
-                            this.num_max.Value = list[list.Count - 1];
-                            this.num_min.Value = list[0];
-                        }
+                        CalPointLimit(interName);
                     }
                     else
                     {
-                        this.num_max.Value = 1;
-                        this.num_min.Value = 1;
-                        this.curInterfaceName = "";
+                        this.pinMax = 1;
+                        this.pinMin = 1;
                     }
                 }
+            } 
+        }
+
+        private void CalPointLimit(string interName)
+        {
+            //SetCheckFalse(rowIndex);
+            this.selectInterPointList.Clear();
+            var data = this.InterfaceInfoLibrary.GetDataSetByFieldsAndWhere("SwitchStandStitchNo", $"where InterfaceNo='{interName}'").Tables[0];
+            if (data.Rows.Count > 0)
+            {
+                foreach (DataRow dr in data.Rows)
+                {
+                    //AddSelfStudyTestParams();
+                    int point;
+                    if (int.TryParse(dr[0].ToString(), out point))
+                    {
+                        selectInterPointList.Add(point);
+                    }
+                }
+                selectInterPointList.Sort();
+                var curMax = selectInterPointList[selectInterPointList.Count - 1];
+                var curMin = selectInterPointList[0];
+                if (this.pinMin > curMin)
+                    this.pinMin = curMin;
+                if (this.pinMax < curMax)
+                    this.pinMax = curMax;
+                this.num_min.Value = this.pinMin;
+                this.num_max.Value = this.pinMax;
             }
         }
 
@@ -152,14 +193,6 @@ namespace CableTestManager.View.VSelfStydy
             this.studyTypeEnum = StudyTypeEnum.PartStudyByInterface;
         }
 
-        private void Btn_studyAllByInterface_Click(object sender, EventArgs e)
-        {
-            QueryContinuousGroupPoint(QueryInterPointByInterNo(true));
-            this.Close();
-            this.DialogResult = DialogResult.OK;
-            this.studyTypeEnum = StudyTypeEnum.AllStudyByInterface;
-        }
-
         private void QueryContinuousGroupPoint(List<int> pointList)
         {
             this.selfParamList.Clear();
@@ -180,26 +213,30 @@ namespace CableTestManager.View.VSelfStydy
             this.DialogResult = DialogResult.Cancel;
         }
 
-        private void Btn_allStudyByPin_Click(object sender, EventArgs e)
+        private void Btn_defineStudyByPin_Click(object sender, EventArgs e)
         {
-            this.pinMax = 384;
-            this.pinMin = 1;
-            this.conductThresholdByPin = (float)this.conductionThresholdByPin.Value;
-            this.Close();
-            this.DialogResult = DialogResult.OK;
-            this.studyTypeEnum = StudyTypeEnum.AllStudyByPin;
+            this.studyTypeEnum = StudyTypeEnum.PartStudyByInterface;
+            CommitStudyByInterface();
         }
 
-        private void Btn_defineStudyByPin_Click(object sender, EventArgs e)
+        private void Commit()
+        {
+            foreach (var rowInfo in this.radGridView1.Rows)
+            {
+                var val = rowInfo.Cells[2].Value.ToString();
+            }
+        }
+
+        private void CommitStudyByInterface()
         {
             if (this.num_max.Value == 0)
             {
-                MessageBox.Show("学习范围无效！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                MessageBox.Show("学习范围无效！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (this.num_min.Value > this.num_max.Value)
             {
-                MessageBox.Show("指定范围无效！","提示",MessageBoxButtons.OK);
+                MessageBox.Show("指定范围无效！", "提示", MessageBoxButtons.OK);
                 return;
             }
             if (this.curInterfaceName == "")
@@ -212,7 +249,6 @@ namespace CableTestManager.View.VSelfStydy
             this.conductThresholdByPin = (float)this.conductionThresholdByPin.Value;
             this.Close();
             this.DialogResult = DialogResult.OK;
-            this.studyTypeEnum = StudyTypeEnum.PartStudyByPin;
         }
 
         private int GetDevicePointByID(string interName,int id)

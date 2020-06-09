@@ -33,6 +33,12 @@ namespace CableTestManager.View.VProject
             else
                 this.dnConductionThreshold.Value = (decimal)this.projectInfo.ConductTestThreshold;
 
+            this.dnShortCircuitthreshold.Maximum = 1000;
+            this.dnShortCircuitthreshold.Minimum = (decimal)0.1;
+            this.dnShortCircuitthreshold.Increment = 5;
+            this.dnShortCircuitthreshold.DecimalPlaces = 1;
+            this.dnShortCircuitthreshold.Value = (decimal)this.projectInfo.ShortCircuitTestThreshold;
+
             this.dnInsulateThreshold.Maximum = 1000;
             this.dnInsulateThreshold.Minimum = (decimal)0.1;
             this.dnInsulateThreshold.Increment = 10;
@@ -60,11 +66,6 @@ namespace CableTestManager.View.VProject
                 this.dnInsulateVoltage.Value = 100;
             else
                 this.dnInsulateVoltage.Value = (decimal)this.projectInfo.InsulateTestVoltage;
-
-            this.dnShortCircuitthreshold.Maximum = 1000;
-            this.dnShortCircuitthreshold.Minimum = (decimal)0.1;
-            this.dnShortCircuitthreshold.Increment = 5;
-            this.dnShortCircuitthreshold.DecimalPlaces = 1;
         }
 
         private void EventHandlers()

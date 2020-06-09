@@ -83,7 +83,7 @@ namespace CableTestManager.View
         private int projectTestNumberLen = 8;
         private string startTestDate;
         private string endTestDate;
-        private string curSelfStudyInterfaceName;
+        private string curExportedReportAbsPath;
 
         /*
          * 导通测试完成后，开放短路测试
@@ -94,7 +94,6 @@ namespace CableTestManager.View
          * 每个测试序列/测试线束，每次完成测试后存储测试状态，若此测试线束发生修改后是否更新测试状态为-未测试
          * 
          */
-
 
         #region 测试项最新完成状态，每次测试有完成即更新测试状态
         private bool IsConductLatestCompleteStatus;
@@ -160,6 +159,7 @@ namespace CableTestManager.View
         private const string insulateTestFunCode = "F4 AA";
         private const string voltageWithStandardFunCode = "F5 AA";
         private const string selfStudyTestFunCode = "F1 AA";
+        private const string probTestFunCode = "F6 AA";
         #endregion
 
         private const string REPORT_SECTION_PATH = "REPORT";
@@ -168,12 +168,14 @@ namespace CableTestManager.View
         //private DoubleBufferListView listViewSelfStudy;
         private string curLineCableName;
         private double selfStudyThreshold;//自学习设定的标准值
+        private double probTestThreshold;//探针测试设定阈值
         private List<SelfStudyParams> studyParamList;
+        private List<SelfStudyParams> probParamList = new List<SelfStudyParams>();
+        private List<SelfStudyParams> studyParamValidList;
         private List<CableTestParams> cableTestPramsList;
-        private DataTable dataSourceSelfStudy,dataSourceCableTest;
-        private bool IsFirstSetGridDTStyle;
-        private bool IsFirstSetGridUnDTStyle;
-        private bool IsFirstSetGridOpenCirStyle;
+        private DataTable dataSourceSelfStudy,dataSourceCableTest,dataSourceProb;
+        private bool IsFirstSetGridDTStyle, IsFirstSetGridUnDTStyle, IsFirstSetGridOpenCirStyle;
+        private bool IsFirstSetGridDTProbStyle, IsFirstSetGridUnDTProbStyle, IsFirstSetGridOpenCirProbStyle;
         private CableTestProcess cableTestProcessOneKey;//一键测试对象
         //private CableTestProcessParams.CableTestType currentCableTestType;//一键测试时使用
         private CableTestProcessParams cableTestProcessSig;//单项测试对象
@@ -274,6 +276,7 @@ namespace CableTestManager.View
             this.cableTestProcessSig = new CableTestProcessParams();
             this.cableTestProcessQueue = new Queue<CableTestProcessParams.CableTestType>();
             this.studyParamList = new List<SelfStudyParams>();
+            this.studyParamValidList = new List<SelfStudyParams>();
             this.cableTestPramsList = new List<CableTestParams>();
             this.projectInfoManager = new TProjectBasicInfoManager();
             this.historyDataInfoManager = new THistoryDataBasicManager();
@@ -344,6 +347,18 @@ namespace CableTestManager.View
                 RadGridViewProperties.SetRadGridViewProperty(this.radGridViewCableTest, false, true, 0);
                 this.radGridViewCableTest.Columns[0].BestFit();
             }
+        }
+
+        private void InitProbTable()
+        {
+            this.dataSourceProb = new DataTable();
+            this.dataSourceProb.Columns.Add("序号");
+            this.dataSourceProb.Columns.Add("探针");
+            this.dataSourceProb.Columns.Add("针脚");
+            this.dataSourceProb.Columns.Add("测量值(Ω)");
+            this.dataSourceProb.Columns.Add("测量结果");
+            this.radGridViewProb.DataSource = this.dataSourceProb;
+            RadGridViewProperties.SetRadGridViewProperty(this.radGridViewProb, false, true, 0);
         }
 
         private void EventHandles()
@@ -439,11 +454,40 @@ namespace CableTestManager.View
 
         private void Menu_ExportReport_Click(object sender, EventArgs e)
         {
+            ExportReport();
+            if (MessageBox.Show("是否打开报表？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+            {
+                if (File.Exists(this.curExportedReportAbsPath))
+                {
+                    System.Diagnostics.Process.Start(this.curExportedReportAbsPath);
+                }
+            }
+        }
+
+        private void Menu_PrintReport_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(this.curExportedReportAbsPath))
+            {
+                PDFPrint.UseDefaultPrinter(this.curExportedReportAbsPath);
+            }
+            else
+            {
+                ExportReport();
+                if (File.Exists(this.curExportedReportAbsPath))
+                {
+                    PDFPrint.UseDefaultPrinter(this.curExportedReportAbsPath);
+                }
+            }
+        }
+
+        private void ExportReport()
+        {
             if (!Directory.Exists(this.reportDirectory))
             {
                 Directory.CreateDirectory(this.reportDirectory);
             }
-            ExportPDF(this.reportDirectory + this.projectTestNumber+".pdf");
+            this.curExportedReportAbsPath = this.reportDirectory + "线束测试报告_"+ this.projectTestNumber + ".pdf";
+            ExportPDF(this.curExportedReportAbsPath);
         }
 
         private void Menu_roleManager_Click(object sender, EventArgs e)
@@ -469,26 +513,27 @@ namespace CableTestManager.View
             if (importCableLibrary.ShowDialog() == DialogResult.OK)
             {
                 int iRow = 0;
-                foreach (var rowInfo in this.radGridViewSelfStudy.Rows)
+                foreach (var rowInfo in this.studyParamValidList)
                 {
-                    if (rowInfo.Cells[4].Value.ToString() == "不导通")
+                    if (rowInfo.TestReulst == "不导通")
                         continue;
-                    else if (rowInfo.Cells[4].Value.ToString() == "导通")
+                    else if (rowInfo.TestReulst == "导通")
                     {
                         TCableTestLibrary cableTestLibrary = new TCableTestLibrary();
                         cableTestLibrary.ID = CableTestManager.Common.TablePrimaryKey.InsertCableLibPID();
                         cableTestLibrary.CableName = importCableLibrary.cableLibName;
                         cableTestLibrary.MeasureMethod = importCableLibrary.testMethod + "";
                         int startPoint, endPoint;
-                        if (!int.TryParse(rowInfo.Cells[1].Value.ToString(), out startPoint))
+                        if (!int.TryParse(rowInfo.StartPointOrder, out startPoint))
                             continue;
-                        if(!int.TryParse(rowInfo.Cells[2].Value.ToString(), out endPoint))
+                        if(!int.TryParse(rowInfo.EndPointOrder, out endPoint))
                             continue;
-                        cableTestLibrary.StartInterface = this.curSelfStudyInterfaceName;
+
+                        cableTestLibrary.StartInterface = rowInfo.StartInterfaceName;
                         cableTestLibrary.StartContactPoint = startPoint.ToString();
-                        cableTestLibrary.StartDevPoint = GetDevPointByOrderPoint(this.curSelfStudyInterfaceName, startPoint.ToString());
-                        cableTestLibrary.EndInterface = this.curSelfStudyInterfaceName;
-                        cableTestLibrary.EndDevPoint = GetDevPointByOrderPoint(this.curSelfStudyInterfaceName, endPoint.ToString());
+                        cableTestLibrary.StartDevPoint = GetDevPointByOrderPoint(rowInfo.StartInterfaceName, startPoint.ToString());
+                        cableTestLibrary.EndInterface = rowInfo.EndInterfaceName;
+                        cableTestLibrary.EndDevPoint = GetDevPointByOrderPoint(rowInfo.EndInterfaceName, endPoint.ToString());
                         cableTestLibrary.EndContactPoint = endPoint.ToString();
                         cableTestLibrary.UpdateDate = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                         this.lineStructLibraryDetailManager.Insert(cableTestLibrary);
@@ -506,21 +551,18 @@ namespace CableTestManager.View
             }
         }
 
-        private void Menu_PrintReport_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void Tool_clearSelfGrid_Click(object sender, EventArgs e)
         {
             this.dataSourceSelfStudy.Rows.Clear();
             this.radGridViewSelfStudy.DataSource = this.dataSourceSelfStudy;
+            this.studyParamValidList.Clear();
         }
 
         private void RefreshDataTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             UpdateTestSelfStudyGridView();
             UpdateTestResultByTestPoint();
+            UpdateProbTestGridView();
         }
        
         private void CMainForm_SizeChanged(object sender, EventArgs e)
@@ -591,6 +633,14 @@ namespace CableTestManager.View
                 SelfStudyTestProcess(packageInfo);
             }
             else if (packageInfo.Data[4] == 0xf1 && packageInfo.Data[5] == 0xcc)//自学习结束
+            {
+                this.refreshDataTimer.Enabled = false;
+            }
+            else if (packageInfo.Data[4] == 0xf6 && packageInfo.Data[5] == 0xbb)//探针
+            {
+                ProbTestProcess(packageInfo);
+            }
+            else if (packageInfo.Data[4] == 0xf6 && packageInfo.Data[5] == 0xcc)//探针结束
             {
                 this.refreshDataTimer.Enabled = false;
             }
@@ -698,16 +748,70 @@ namespace CableTestManager.View
             var selfStudyResult = "";
             if (calResult < this.selfStudyThreshold)
                 selfStudyResult = "导通";
-            else if(calResult >= this.selfStudyThreshold)
+            else if (calResult >= this.selfStudyThreshold)
+            {
                 selfStudyResult = "不导通";
-            if(resistanceVal == 0xffffffff)
+                return;
+            }
+            if (resistanceVal == 0xffffffff)
+            {
                 selfStudyResult = "开路";
+                return;
+            }
+            //只接收导通的数据
             SelfStudyParams studyParams = new SelfStudyParams();
-            studyParams.StartPoint = Convert.ToInt32(startInterPoint, 16).ToString();
-            studyParams.EndPoint = Convert.ToInt32(endInterPoint, 16).ToString(); 
+            studyParams.DevStartPoint = Convert.ToInt32(startInterPoint, 16).ToString();
+            studyParams.DevEndPoint = Convert.ToInt32(endInterPoint, 16).ToString();
             studyParams.TestResultVal = calResult.ToString("f2");
             studyParams.TestReulst = selfStudyResult;
             this.studyParamList.Add(studyParams);
+            
+            this.refreshDataTimer.Enabled = true;
+        }
+
+        private void ProbTestProcess(MyPackageInfo packageInfo)
+        {
+            //FF-FF-00-0C-F1-BB-00-01-00-02-01-01-00-00-1A-C9
+            //min/max/setthreshold
+            var startInterPoint = DecConvert2Hex(packageInfo.Data[6]) + DecConvert2Hex(packageInfo.Data[7]);
+            var endInterPoint = DecConvert2Hex(packageInfo.Data[8]) + DecConvert2Hex(packageInfo.Data[9]);
+            var baseNum = DecConvert2Hex(packageInfo.Data[10]);
+            var power = (int)packageInfo.Data[11];
+            byte[] buffer = new byte[4];
+            Array.Copy(packageInfo.Data, 12, buffer, 0, 4);
+            var resistanceVal = Convert.ToUInt32(BitConverter.ToString(buffer).Replace("-", ""), 16);
+            var resistance = resistanceVal / 65536.0;
+            double factor = 0;
+            if (baseNum == "00")
+            {
+                double.TryParse(Convert.ToString((int)packageInfo.Data[11], 16).Substring(0, 1), out factor);
+            }
+            else if (baseNum == "01")
+            {
+                factor = 10 * Math.Pow(10, power);
+            }
+            var calResult = resistance * factor;
+            var selfStudyResult = "";
+            if (calResult < this.probTestThreshold)
+                selfStudyResult = "导通";
+            else if (calResult >= this.probTestThreshold)
+            {
+                selfStudyResult = "不导通";
+                return;
+            }
+            if (resistanceVal == 0xffffffff)
+            {
+                selfStudyResult = "开路";
+                return;
+            }
+            //只接收导通的数据
+            SelfStudyParams studyParams = new SelfStudyParams();
+            studyParams.DevStartPoint = Convert.ToInt32(startInterPoint, 16).ToString();
+            studyParams.DevEndPoint = Convert.ToInt32(endInterPoint, 16).ToString();
+            studyParams.TestResultVal = calResult.ToString("f2");
+            studyParams.TestReulst = selfStudyResult;
+            this.probParamList.Add(studyParams);
+
             this.refreshDataTimer.Enabled = true;
         }
 
@@ -884,12 +988,14 @@ namespace CableTestManager.View
                     this.radGridViewSelfStudy.BeginEdit();
                     foreach (var selfParams in this.studyParamList)
                     {
-                        var startPoint = GetOrderPointByDevPoint(this.curSelfStudyInterfaceName, selfParams.StartPoint);
-                        var endPoint = GetOrderPointByDevPoint(this.curSelfStudyInterfaceName, selfParams.EndPoint);
+                        //this.curSelfStudyInterfaceName, 
+                        var startPoint = GetOrderPointByDevPoint(selfParams.DevStartPoint, 0, this.studyParamList);
+                        var endPoint = GetOrderPointByDevPoint(selfParams.DevEndPoint, 1, this.studyParamList);
                         var testResultVal = selfParams.TestResultVal;
                         var testResult = selfParams.TestReulst;
-                        if (IsGridView2Exist(startPoint, endPoint))
+                        if (IsGridView2Exist(this.radGridViewSelfStudy, startPoint, endPoint))
                             continue;
+                        this.studyParamValidList.Add(selfParams);
                         DataRow dr = this.dataSourceSelfStudy.NewRow();
                         var rCount = this.radGridViewSelfStudy.RowCount;
                         dr[0] = rCount + 1;
@@ -909,11 +1015,73 @@ namespace CableTestManager.View
             }
         }
 
-        private string GetOrderPointByDevPoint(string interName, string did)
+        private void UpdateProbTestGridView()
+        {
+            lock (this)
+            {
+                if (this.probParamList.Count <= 0)
+                    return;
+                this.Invoke(new Action(() =>
+                {
+                    int count = this.probParamList.Count;
+                    this.radGridViewProb.BeginEdit();
+                    foreach (var selfParams in this.probParamList)
+                    {
+                        //this.curSelfStudyInterfaceName, 
+                        var startPoint = GetOrderPointByDevPoint(selfParams.DevStartPoint, 0, this.probParamList);
+                        var endPoint = GetOrderPointByDevPoint(selfParams.DevEndPoint, 1, this.probParamList);
+                        if (startPoint == "" || endPoint == "")
+                            continue;
+                        var testResultVal = selfParams.TestResultVal;
+                        var testResult = selfParams.TestReulst;
+                        if (IsGridView2Exist(this.radGridViewProb,startPoint, endPoint))
+                            continue;
+                        DataRow dr = this.dataSourceProb.NewRow();
+                        var rCount = this.radGridViewProb.RowCount;
+                        dr[0] = rCount + 1;
+                        dr[1] = startPoint;
+                        dr[2] = endPoint;
+                        dr[3] = testResultVal;
+                        dr[4] = testResult;
+                        this.dataSourceProb.Rows.Add(dr);
+                        SetGridStyleProbByTestValue(testResult);
+                    }
+                    this.radGridViewProb.DataSource = this.dataSourceProb;
+                    this.radGridViewProb.CurrentRow = this.radGridViewProb.Rows[this.radGridViewProb.RowCount - 1];
+                    this.probParamList.RemoveRange(0, count);
+                    this.radGridViewProb.EndEdit();
+                    this.refreshDataTimer.Enabled = false;
+                }));
+            }
+        }
+
+        private string GetOrderPointByDevPoint(string did, int stype,List<SelfStudyParams> list)//stype 0 - start,1-end
         {
             InterfaceInfoLibraryManager infoLibraryManager = new InterfaceInfoLibraryManager();
-            var data = infoLibraryManager.GetDataSetByFieldsAndWhere("ContactPoint", $"where InterfaceNo='{interName}' and SwitchStandStitchNo='{did}'").Tables[0];
-            return data.Rows[0][0].ToString();
+            var data = infoLibraryManager.GetDataSetByFieldsAndWhere("ContactPoint,InterfaceNo", $"where SwitchStandStitchNo='{did}'").Tables[0];
+            if (data.Rows.Count < 1)
+                return "";
+            var interName = data.Rows[0][1].ToString();
+            var pointOrder = data.Rows[0][0].ToString();
+            if (stype == 0)
+            {
+                var selfParams = list.Find(id => id.DevStartPoint == did);
+                if (selfParams != null)
+                {
+                    selfParams.StartInterfaceName = interName;
+                    selfParams.StartPointOrder = pointOrder;
+                }
+            }
+            else if (stype == 1)
+            {
+                var selfParams = list.Find(id => id.DevEndPoint == did);
+                if (selfParams != null)
+                {
+                    selfParams.EndInterfaceName = interName;
+                    selfParams.EndPointOrder = pointOrder;
+                }
+            }
+            return pointOrder;
         }
 
         private string GetDevPointByOrderPoint(string interName, string id)
@@ -948,6 +1116,36 @@ namespace CableTestManager.View
                     RadGridViewProperties.SetRadGridViewStyle(this.radGridViewSelfStudy, 4, RadGridViewProperties.GridViewRecordEnum.OpenCircuit);
                     {
                         this.IsFirstSetGridOpenCirStyle = true;
+                    }
+                }
+            }
+        }
+
+        private void SetGridStyleProbByTestValue(string testResult)
+        {
+            if (!IsFirstSetGridDTProbStyle)
+            {
+                if (testResult == "导通")
+                {
+                    RadGridViewProperties.SetRadGridViewStyle(this.radGridViewProb, 4, RadGridViewProperties.GridViewRecordEnum.Conduction);
+                    this.IsFirstSetGridDTProbStyle = true;
+                }
+            }
+            if (!IsFirstSetGridUnDTProbStyle)
+            {
+                if (testResult == "不导通")
+                {
+                    RadGridViewProperties.SetRadGridViewStyle(this.radGridViewProb, 4, RadGridViewProperties.GridViewRecordEnum.UnConduction);
+                    this.IsFirstSetGridUnDTProbStyle = true;
+                }
+            }
+            if (!IsFirstSetGridOpenCirProbStyle)
+            {
+                if (testResult == "开路")
+                {
+                    RadGridViewProperties.SetRadGridViewStyle(this.radGridViewProb, 4, RadGridViewProperties.GridViewRecordEnum.OpenCircuit);
+                    {
+                        this.IsFirstSetGridOpenCirProbStyle = true;
                     }
                 }
             }
@@ -1012,11 +1210,11 @@ namespace CableTestManager.View
             }
         }
 
-        private bool IsGridView2Exist(string startPoint, string endPoint)
+        private bool IsGridView2Exist(RadGridView gridView,string startPoint, string endPoint)
         {
-            if (this.radGridViewSelfStudy.RowCount < 1)
+            if (gridView.RowCount < 1)
                 return false;
-            foreach (var rowInfo in this.radGridViewSelfStudy.Rows)
+            foreach (var rowInfo in gridView.Rows)
             {
                 if (rowInfo.Cells[1].Value != null && rowInfo.Cells[2].Value != null)
                 {
@@ -1354,8 +1552,26 @@ namespace CableTestManager.View
 
         private void Tool_Probe_Click(object sender, EventArgs e)
         {
+            if (!this.IsConnectServer)
+            {
+                if (MessageBox.Show("设备未连接，是否进入参数设置页面？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                    return;
+            }
             RadProbMeasure probeMeasure = new RadProbMeasure();
-            probeMeasure.ShowDialog();
+            if (probeMeasure.ShowDialog() == DialogResult.OK)
+            {
+                var studyMinByPin = probeMeasure.pinMin;
+                var studyMaxByPin = probeMeasure.pinMax;
+                var conductThresholdByPin = probeMeasure.thresholdVal;
+                var selftStudyString = probeMeasure.hexMeasureMethod + DecConvert4ByteHexStr(studyMinByPin) + DecConvert4ByteHexStr(studyMaxByPin) + FloatConvert.FloatConvertByte(conductThresholdByPin);
+                SendSelfStudyOrProbCommand(selftStudyString, probTestFunCode);
+
+                this.probTestThreshold = probeMeasure.thresholdVal;
+
+                this.radDock1.RemoveAllDocumentWindows();
+                this.radDock1.AddDocument(this.documentWindow3);
+                InitProbTable();
+            }
         }
 
         private void Tool_SelfStudy_Click(object sender, EventArgs e)
@@ -1370,23 +1586,22 @@ namespace CableTestManager.View
             if (sefStudy.ShowDialog() == DialogResult.OK)
             {
                 var selfStudyType = sefStudy.studyTypeEnum;
-                if (selfStudyType == frmSefStudy.StudyTypeEnum.AllStudyByPin || selfStudyType == frmSefStudy.StudyTypeEnum.PartStudyByPin)
+                if (selfStudyType == frmSefStudy.StudyTypeEnum.PartStudyByLimit)
                 {
                     var studyMinByPin = sefStudy.pinMin;
                     var studyMaxByPin = sefStudy.pinMax;
                     var conductThresholdByPin = sefStudy.conductThresholdByPin;
-                    this.curSelfStudyInterfaceName = sefStudy.curInterfaceName;
-                    var selftStudyString = DecConvert4ByteHexStr(studyMinByPin) + DecConvert4ByteHexStr(studyMaxByPin) + FloatConvert.FloatConvertByte(conductThresholdByPin);
-                    SendSelfStudyCommand(selftStudyString);
+                    var selftStudyString = sefStudy.hexMeasureMethod + DecConvert4ByteHexStr(studyMinByPin) + DecConvert4ByteHexStr(studyMaxByPin) + FloatConvert.FloatConvertByte(conductThresholdByPin);
+                    SendSelfStudyOrProbCommand(selftStudyString, selfStudyTestFunCode);
                 }
-                else if (selfStudyType == frmSefStudy.StudyTypeEnum.AllStudyByInterface || selfStudyType == frmSefStudy.StudyTypeEnum.PartStudyByInterface)
+                else if (selfStudyType == frmSefStudy.StudyTypeEnum.PartStudyByInterface)
                 {
                     if (sefStudy.selfParamList.Count > 0)
                     {
                         foreach (var obj in sefStudy.selfParamList)
                         {
-                            var selfCommandStr = DecConvert4ByteHexStr(obj.pinMin) + DecConvert4ByteHexStr(obj.pinMax) + FloatConvert.FloatConvertByte(obj.conductThresholdByPin);
-                            SendSelfStudyCommand(selfCommandStr);
+                            var selfCommandStr = sefStudy.hexMeasureMethod + DecConvert4ByteHexStr(obj.pinMin) + DecConvert4ByteHexStr(obj.pinMax) + FloatConvert.FloatConvertByte(obj.conductThresholdByPin);
+                            SendSelfStudyOrProbCommand(selfCommandStr, selfStudyTestFunCode);
                             Thread.Sleep(500);
                         }
                     }
@@ -1774,6 +1989,7 @@ namespace CableTestManager.View
             this.testItemStyleList.Clear();
             UpdateCurrentProTestFunStatusInfo(projectName);
             RadGridViewProperties.ClearGridView(this.radGridViewCableTest,this.dataSourceCableTest);
+            UpdateProjectInfo(projectName);
             //RadGridViewProperties.SetRadGridViewProperty(this.radGridView1,false,true,13);
             //this.radGridView1.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.None;
             //查询项目信息-线束代号 by projectName
@@ -1903,6 +2119,32 @@ namespace CableTestManager.View
                     this.menu_InsulationTest.Enabled = false;
                     this.menu_VoltageWithStandTest.Enabled = false;
                 }
+            }
+        }
+
+        private void UpdateProjectInfo(string projectName)
+        {
+            if (projectName == "")
+                return;
+            var dt = projectInfoManager.GetDataSetByWhere($"where ProjectName='{projectName}'").Tables[0];
+            if (dt.Rows.Count < 1)
+                return;
+            foreach (DataRow dr in dt.Rows)
+            {
+                //this.rtbCurrentTestCable.Text = dr["TestCableName"].ToString();
+                //this.rtbCableCondition.Text = this.rtbCurrentTestCable.Text;
+                this.projectInfo.ConductTestThreshold = double.Parse(dr["ConductTestThreshold"].ToString());
+                this.projectInfo.ConductTestVoltage = double.Parse(dr["ConductTestVoltage"].ToString());
+                this.projectInfo.ConductTestCurrentElect = double.Parse(dr["ConductTestCurrentElect"].ToString());
+                this.projectInfo.ShortCircuitTestThreshold = double.Parse(dr["ShortCircuitTestThreshold"].ToString());
+                this.projectInfo.InsulateTestThreshold = double.Parse(dr["InsulateTestThreshold"].ToString());
+                this.projectInfo.InsulateTestVoltage = double.Parse(dr["InsulateTestVoltage"].ToString());
+                this.projectInfo.InsulateTestRaiseTime = double.Parse(dr["InsulateTestRaiseTime"].ToString());
+                this.projectInfo.InsulateTestHoldTime = double.Parse(dr["InsulateTestHoldTime"].ToString());
+                this.projectInfo.InsulateHigthOrLowElect = double.Parse(dr["InsulateHigthOrLowElect"].ToString());
+                this.projectInfo.VoltageWithStandardThreshold = double.Parse(dr["VoltageWithStandardThreshold"].ToString());
+                this.projectInfo.VoltageWithStandardHoldTime = double.Parse(dr["VoltageWithStandardHoldTime"].ToString());
+                this.projectInfo.VoltageWithStandardVoltage = double.Parse(dr["VoltageWithStandardVoltage"].ToString());
             }
         }
 
@@ -2174,10 +2416,10 @@ namespace CableTestManager.View
         }
         #endregion
 
-        private void SendSelfStudyCommand(string selfStudyString)
+        private void SendSelfStudyOrProbCommand(string selfStudyString, string funCode)
         {
             byte[] selfStudyCommand = new byte[2 + selfStudyString.Length / 2];
-            var selfStudyData = (selfStudyTestFunCode + " " + SplitStringByEmpty(selfStudyString)).Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var selfStudyData = (funCode + " " + SplitStringByEmpty(selfStudyString)).Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             var commandHex = ConvertByte.HexStringToByte(selfStudyCommand, selfStudyData, 0);
             SuperEasyClient.SendMessage(DeviceFunCodeEnum.RequestHead, commandHex);
             //MessageBox.Show("已发送自学习指令！", "提示", MessageBoxButtons.OK);
@@ -2233,7 +2475,17 @@ namespace CableTestManager.View
                 method = measuringMethod;
                 hexString += Convert.ToString(startpoint, 16).PadLeft(4, '0') + Convert.ToString(endpoint, 16).PadLeft(4, '0');
             }
-            hexString = Convert.ToString(method).PadLeft(2, '0') + hexString;
+            var voltage = "0000";
+            var holdTime = "00";
+            if (this.projectInfo.InsulateTestVoltage != 0)
+            {
+                voltage = Convert.ToString((int)this.projectInfo.InsulateTestVoltage, 16).PadLeft(4, '0');
+            }
+            if (this.projectInfo.InsulateTestHoldTime != 0)
+            {
+                holdTime = Convert.ToString((int)this.projectInfo.InsulateTestHoldTime, 16).PadLeft(2, '0');
+            }
+            hexString = Convert.ToString(method).PadLeft(2, '0') + voltage + holdTime + hexString;
 
             return hexString;
         }
@@ -2438,30 +2690,23 @@ namespace CableTestManager.View
                 pdf.SetBaseFont(@"C:\Windows\Fonts\SIMHEI.TTF");
                 //pdf.AddParagraph(sb.ToString(), 15, 1, 20, 0, 0);
                 pdf.AddParagraph("测试报告\r\n", 20);
-                pdf.AddLine(30);
+                pdf.AddLine(71);
                 pdf.AddParagraph($"线束名称：{this.curLineCableName}     测试结果：{this.CalFinalTestResult()}", 15);
-                pdf.AddParagraph("环境湿度：{}     测试温度：{}\r\n", 15);
-                pdf.AddParagraph("测试人员：{}     测试日期：{}\r\n", 15);
-                pdf.AddLine(100);
+                pdf.AddParagraph($"环境湿度：{this.environmentAmbientHumidity}     测试温度：{this.environmentTemperature}\r\n", 15);
+                pdf.AddParagraph($"测试人员：{LocalLogin.currentUserName}     测试日期：{this.startTestDate}\r\n", 15);
+                pdf.AddLine(144);
                 pdf.AddParagraph($"测试参数\r\n", 20);
-                pdf.AddLine(125);
-                pdf.AddParagraph("导通测试阈值：{}     短路测试阈值：{}", 15);
-                pdf.AddParagraph("绝缘测试阈值：{}     绝缘保持时间：{}", 15);
-                pdf.AddParagraph("绝缘电压：{}", 15);
-                pdf.AddLine(195);
+                pdf.AddLine(171);
+                pdf.AddParagraph($"导通测试阈值：{this.projectInfo.ConductTestThreshold}     短路测试阈值：{this.projectInfo.ShortCircuitTestThreshold}", 15);
+                pdf.AddParagraph($"绝缘测试阈值：{this.projectInfo.InsulateTestThreshold}     绝缘保持时间：{this.projectInfo.InsulateTestHoldTime}", 15);
+                pdf.AddParagraph($"绝缘电压：{this.projectInfo.InsulateTestVoltage}", 15);
+                pdf.AddLine(241);
                 pdf.AddParagraph($"异常明细\r\n\n", 20);
                 pdf.AddParagraph("线束测试异常明细",GetCableTestExceptTable(), 15);
                 //pdf.AddParagraph("\r\n", 15);
                 pdf.AddParagraph("测试数据\r\n\r", 20);
                 pdf.AddParagraph("线束测试合格明细",GetCableTestPassTable(), 15);
                 pdf.Close();
-            }
-            if (MessageBox.Show("是否打开报表？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
-            {
-                if (File.Exists(pdfFilePath))
-                {
-                    System.Diagnostics.Process.Start(pdfFilePath);
-                }
             }
         }
 

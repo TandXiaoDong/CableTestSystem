@@ -218,6 +218,7 @@
             // 
             // btn_apply
             // 
+            this.btn_apply.BackColor = System.Drawing.Color.GhostWhite;
             this.btn_apply.Location = new System.Drawing.Point(104, 291);
             this.btn_apply.Name = "btn_apply";
             this.btn_apply.Size = new System.Drawing.Size(114, 36);

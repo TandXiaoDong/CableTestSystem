@@ -221,7 +221,7 @@ namespace CableTestManager.View.VAdd
                 if (totalNum < 1)
                     return;
                 int stitchNo = 1;
-                for (int i = 1; i <= totalNum; i++)
+                for (int i = 0; i < totalNum; i++)
                 {
                     var interfacePointName = "";
                     var switchStandPointNo = "";
@@ -375,7 +375,7 @@ namespace CableTestManager.View.VAdd
             {
                 lock (this)
                 {
-                    btnSubmit.Enabled = false;
+                    SubmitInvok(false);
                     if (this.IsEditView)
                     {
                         UpdateInterfaceInfo();
@@ -425,11 +425,11 @@ namespace CableTestManager.View.VAdd
                         //新增数据
                         if (IsAddNewRow != null)
                         {
-                            if (IsCanInsertOrUpdate(false, -1, plugNo, pinName, stitchNo) == InterfaceExTipEnum.InterfacePoint_NotExistAndStitch_NoExist)
-                            {
-                                plugLibraryDetailManager.Insert(plugLibraryDetail);
-                                iRow++;
-                            }
+                            //if (IsCanInsertOrUpdate(false, -1, plugNo, pinName, stitchNo) == InterfaceExTipEnum.InterfacePoint_NotExistAndStitch_NoExist)
+                            //{
+                            plugLibraryDetailManager.Insert(plugLibraryDetail);
+                            iRow++;
+                            //}
                         }
                     }
 
@@ -448,8 +448,17 @@ namespace CableTestManager.View.VAdd
                     }
                     this.Close();
                     this.DialogResult = DialogResult.OK;
+                    SubmitInvok(true);
                 }
             });
+        }
+
+        private void SubmitInvok(bool b)
+        {
+            this.Invoke(new Action(() =>
+            {
+                btnSubmit.Enabled = b;
+            }));
         }
 
         private List<InterfaceLibCom> GetDevPointOrderID(string devPoint)//排序
@@ -604,11 +613,16 @@ namespace CableTestManager.View.VAdd
                 plugLibraryDetail.Remark = infoObj.Remark;
                 plugLibraryDetail.Operator = LocalLogin.currentUserName;
                 plugLibraryDetail.UpdateDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                if (IsCanInsertOrUpdate(true, infoObj.InterfacePrimaryID, infoObj.InterfaceNO, infoObj.InterfacePointName, infoObj.SwitchStandStitchNo) == InterfaceExTipEnum.InterfacePoint_ExistAndStitchNo_Exist)
+                var result = IsCanInsertOrUpdate(true, infoObj.InterfacePrimaryID, infoObj.InterfaceNO, infoObj.InterfacePointName, infoObj.SwitchStandStitchNo);
+                if (result == InterfaceExTipEnum.InterfacePoint_ExistAndStitchNo_Exist)
                     continue;
-                if (IsCanInsertOrUpdate(true, infoObj.InterfacePrimaryID, infoObj.InterfaceNO, infoObj.InterfacePointName, infoObj.SwitchStandStitchNo) == InterfaceExTipEnum.NONE)
+                if (result == InterfaceExTipEnum.NONE)
                     continue;
-                rowCount += plugLibraryDetailManager.Update(plugLibraryDetail);
+                if (result == InterfaceExTipEnum.InterfacePoint_NotExistANdStitch_Exist)
+                {
+                    rowCount += plugLibraryDetailManager.Update(plugLibraryDetail);
+                }
+                //InterfacePoint_NotExistANdStitch_Exist
             }
             interfaceLibaryInfos.Clear();
             MessageBox.Show($"已更新{rowCount}条数据！","提示",MessageBoxButtons.OK);

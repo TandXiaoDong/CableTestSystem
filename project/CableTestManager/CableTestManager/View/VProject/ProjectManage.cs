@@ -99,8 +99,8 @@ namespace CableTestManager.View.VProject
 
         private void Btn_deleteProject_Click(object sender, EventArgs e)
         {
-            var currentProjectIndex = this.radGridView1.CurrentRow.Index;
-            if (currentProjectIndex < 0)
+            var b = RadGridViewProperties.IsSelectRow(this.radGridView1);
+            if (!b)
             {
                 MessageBox.Show("请选择要删除的项目！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -124,8 +124,8 @@ namespace CableTestManager.View.VProject
 
         private void EnterEditProject()
         {
-            var currentProjectIndex = this.radGridView1.CurrentRow.Index;
-            if (currentProjectIndex < 0)
+            var b = RadGridViewProperties.IsSelectRow(this.radGridView1);
+            if (!b)
             {
                 MessageBox.Show("请选择要编辑的项目！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
