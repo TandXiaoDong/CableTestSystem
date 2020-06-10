@@ -517,6 +517,7 @@
     </Compile>
     <Compile Include="Common\InterfaceLibCom.cs" />
     <Compile Include="Common\SelfStudyTestParams.cs" />
+    <Compile Include="Common\StudyProbCom.cs" />
     <Compile Include="Common\TablePrimaryKey.cs" />
     <Compile Include="Common\UserOperateRecord.cs" />
     <Compile Include="CUserManager\EditRole.cs">
@@ -579,6 +580,8 @@
     <Compile Include="Model\CableTestParams.cs" />
     <Compile Include="Model\CableTestProcessParams.cs" />
     <Compile Include="Model\InterfaceLibaryInfo.cs" />
+    <Compile Include="Model\ProbTestConfig.cs" />
+    <Compile Include="Model\SelfStudyConfig.cs" />
     <Compile Include="Model\SelfStudyParams.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
