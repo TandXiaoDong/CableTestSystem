@@ -6,20 +6,26 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using Telerik.WinControls;
+using CableTestManager.Entity;
 
 namespace CableTestManager.View
 {
     public partial class FrmEnvironmentParams : Telerik.WinControls.UI.RadForm
     {
-        public double temperature;
-        public double ambientHumidity;
-        public FrmEnvironmentParams()
+        //public double temperature;
+        //public double ambientHumidity;
+        private TProjectBasicInfo basicInfo;
+        public FrmEnvironmentParams(TProjectBasicInfo info)
         {
             InitializeComponent();
+            this.basicInfo = info;
         }
 
         private void FrmEnvironmentParams_Load(object sender, EventArgs e)
         {
+            this.tb_temperature.Text = this.basicInfo.Temperature.ToString();
+            this.tb_ambientHumidity.Text = this.basicInfo.AmbientHumidity.ToString();
+
             this.btn_apply.Click += Btn_apply_Click;
             this.btn_cancel.Click += Btn_cancel_Click;
         }
@@ -63,8 +69,8 @@ namespace CableTestManager.View
                 MessageBox.Show("环境湿度取值范围不正确，请重新设置！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            this.temperature = cTemperature;
-            this.ambientHumidity = cAmbientHumidity;
+            this.basicInfo.Temperature = cTemperature;
+            this.basicInfo.AmbientHumidity = cAmbientHumidity;
             this.Close();
             this.DialogResult = DialogResult.OK;
         }

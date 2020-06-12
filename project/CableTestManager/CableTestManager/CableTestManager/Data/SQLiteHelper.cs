@@ -1,5 +1,5 @@
 /************************************************************************************
- *      Copyright (C) 2020 FigKey,All Rights Reserved
+ *      Copyright (C) 2019 FigKey,All Rights Reserved
  *      File:
  *				SQLiteHelper.cs
  *      Description:
@@ -9,7 +9,7 @@
  *				1297953037@qq.com
  *				http://www.figkey.com
  *      Finish DateTime:
- *				2020年06月02日
+ *				2020年06月12日
  *      History:
  *      
  ***********************************************************************************/
@@ -62,6 +62,38 @@ namespace CableTestManager.Data
             return result;
         }
     }
+
+	
+        /// <summary>
+        /// 执行增删改的辅助方法
+        /// </summary>
+        /// <param name="connectionString">连接字符串</param>
+        /// <param name="cmdType">命令类型</param>
+        /// <param name="cmdText">要执行的SQL语句或存储过程名</param>
+        /// <param name="values">SQL语句中的参数</param>
+        /// <returns>返回收影响的行数</returns>
+        public static int ExecuteCommand(string connectionString, CommandType cmdType, List<string> cmdTextList, SQLiteParameter[] values)
+        {
+            using (SQLiteConnection con = CreateConnection(connectionString))
+            {
+                SQLiteCommand cmd = new SQLiteCommand();
+                cmd.Connection = con;
+                cmd.CommandType = cmdType;
+                var sqlTransact = con.BeginTransaction();
+                int result = 0;
+                foreach (var cmdText in cmdTextList)
+                {
+                    cmd.CommandText = cmdText;
+                    if (values != null && values.Length > 0) cmd.Parameters.AddRange(values);
+                    result += cmd.ExecuteNonQuery();
+                }
+                sqlTransact.Commit();
+                con.Close();
+                return result;
+            }
+        }
+
+
     /// <summary>
     /// 执行查询的方法
     /// </summary>

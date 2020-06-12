@@ -90,7 +90,7 @@
             this.dateTimePicker_end.CalendarSize = new System.Drawing.Size(290, 320);
             this.dateTimePicker_end.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.dateTimePicker_end.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker_end.Location = new System.Drawing.Point(496, 74);
+            this.dateTimePicker_end.Location = new System.Drawing.Point(449, 74);
             this.dateTimePicker_end.Name = "dateTimePicker_end";
             this.dateTimePicker_end.Size = new System.Drawing.Size(237, 36);
             this.dateTimePicker_end.TabIndex = 31;
@@ -101,7 +101,7 @@
             // 
             // radLabel1
             // 
-            this.radLabel1.Location = new System.Drawing.Point(461, 86);
+            this.radLabel1.Location = new System.Drawing.Point(414, 86);
             this.radLabel1.Name = "radLabel1";
             this.radLabel1.Size = new System.Drawing.Size(23, 21);
             this.radLabel1.TabIndex = 30;
@@ -113,7 +113,7 @@
             this.dateTimePicker_start.CalendarSize = new System.Drawing.Size(290, 320);
             this.dateTimePicker_start.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.dateTimePicker_start.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker_start.Location = new System.Drawing.Point(209, 75);
+            this.dateTimePicker_start.Location = new System.Drawing.Point(162, 75);
             this.dateTimePicker_start.Name = "dateTimePicker_start";
             this.dateTimePicker_start.Size = new System.Drawing.Size(230, 36);
             this.dateTimePicker_start.TabIndex = 28;
@@ -124,7 +124,7 @@
             // 
             // tb_queryFilter
             // 
-            this.tb_queryFilter.Location = new System.Drawing.Point(212, 22);
+            this.tb_queryFilter.Location = new System.Drawing.Point(162, 22);
             this.tb_queryFilter.Name = "tb_queryFilter";
             this.tb_queryFilter.Size = new System.Drawing.Size(521, 36);
             this.tb_queryFilter.TabIndex = 26;
@@ -135,7 +135,7 @@
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(159, 86);
+            this.label4.Location = new System.Drawing.Point(109, 89);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(45, 15);
@@ -150,9 +150,9 @@
             this.label2.Location = new System.Drawing.Point(11, 34);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(196, 15);
+            this.label2.Size = new System.Drawing.Size(143, 15);
             this.label2.TabIndex = 0;
-            this.label2.Text = "项目名称/被测线束/批次号:";
+            this.label2.Text = "项目名称/被测线束:";
             // 
             // menu_detail
             // 
@@ -165,7 +165,7 @@
             this.radGridView1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.radGridView1.Cursor = System.Windows.Forms.Cursors.Default;
             this.radGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radGridView1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radGridView1.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.radGridView1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.radGridView1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.radGridView1.Location = new System.Drawing.Point(0, 153);
@@ -176,17 +176,17 @@
             gridViewTextBoxColumn1.HeaderText = "序号";
             gridViewTextBoxColumn1.Name = "column1";
             gridViewTextBoxColumn2.EnableExpressionEditor = false;
-            gridViewTextBoxColumn2.HeaderText = "项目名称";
-            gridViewTextBoxColumn2.Name = "column2";
-            gridViewTextBoxColumn2.Width = 79;
+            gridViewTextBoxColumn2.HeaderText = "测试序列";
+            gridViewTextBoxColumn2.Name = "column4";
+            gridViewTextBoxColumn2.Width = 98;
             gridViewTextBoxColumn3.EnableExpressionEditor = false;
-            gridViewTextBoxColumn3.HeaderText = "被测线束";
-            gridViewTextBoxColumn3.Name = "column3";
-            gridViewTextBoxColumn3.Width = 78;
+            gridViewTextBoxColumn3.HeaderText = "项目名称";
+            gridViewTextBoxColumn3.Name = "column2";
+            gridViewTextBoxColumn3.Width = 79;
             gridViewTextBoxColumn4.EnableExpressionEditor = false;
-            gridViewTextBoxColumn4.HeaderText = "批次号";
-            gridViewTextBoxColumn4.Name = "column4";
-            gridViewTextBoxColumn4.Width = 68;
+            gridViewTextBoxColumn4.HeaderText = "被测线束";
+            gridViewTextBoxColumn4.Name = "column3";
+            gridViewTextBoxColumn4.Width = 78;
             gridViewTextBoxColumn5.EnableExpressionEditor = false;
             gridViewTextBoxColumn5.HeaderText = "测试时间";
             gridViewTextBoxColumn5.Name = "column5";

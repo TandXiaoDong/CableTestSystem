@@ -125,9 +125,6 @@ namespace CableTestManager.View.VProject
             foreach (DataRow dr in dt.Rows)
             {
                 this.rtbProjectRemark.Text = dr["Remark"].ToString();
-                var isUseDefaultParams = dr["IsUseSelfDefineParams"].ToString();
-                var IsCommon = dr["IsCommonProject"].ToString();
-                var IsGroup = dr["IsGroupTestProject"].ToString();
                 this.rtbCurrentTestCable.Text = dr["TestCableName"].ToString();
                 this.rtbCableCondition.Text = this.rtbCurrentTestCable.Text;
                 projectInfo.ConductTestThreshold = double.Parse(dr["ConductTestThreshold"].ToString());
@@ -138,7 +135,6 @@ namespace CableTestManager.View.VProject
                 projectInfo.InsulateTestVoltage = double.Parse(dr["InsulateTestVoltage"].ToString());
                 projectInfo.InsulateTestRaiseTime = double.Parse(dr["InsulateTestRaiseTime"].ToString());
                 projectInfo.InsulateTestHoldTime = double.Parse(dr["InsulateTestHoldTime"].ToString());
-                projectInfo.InsulateHigthOrLowElect = double.Parse(dr["InsulateHigthOrLowElect"].ToString());
                 projectInfo.VoltageWithStandardThreshold = double.Parse(dr["VoltageWithStandardThreshold"].ToString());
                 projectInfo.VoltageWithStandardHoldTime = double.Parse(dr["VoltageWithStandardHoldTime"].ToString());
                 projectInfo.VoltageWithStandardVoltage = double.Parse(dr["VoltageWithStandardVoltage"].ToString());

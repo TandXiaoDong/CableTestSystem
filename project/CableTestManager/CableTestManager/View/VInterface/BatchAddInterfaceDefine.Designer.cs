@@ -256,11 +256,14 @@
             this.Controls.Add(this.cb_nameRule);
             this.Controls.Add(this.radLabel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "BatchAddInterfaceDefine";
             // 
             // 
             // 
             this.RootElement.ApplyShapeToControl = true;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "批量添加接点";
             this.ThemeName = "Office2013Light";
             this.Load += new System.EventHandler(this.BatchAddInterfaceDefine_Load);

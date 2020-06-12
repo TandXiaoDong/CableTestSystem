@@ -10,29 +10,28 @@ using WindowsFormTelerik.ControlCommon;
 using WindowsFormTelerik.GridViewExportData;
 using CableTestManager.Business;
 using CableTestManager.Business.Implements;
+using CableTestManager.Common;
 
 namespace CableTestManager.View.VProject
 {
     public partial class RadTestDataDetail : Telerik.WinControls.UI.RadForm
     {
-        private string projectName;
         private string testNumber;
+        private string exportPath;
         private THistoryDataBasicManager historyDataInfoManager;
         private THistoryDataDetailManager historyDataDetailManager;
-        public RadTestDataDetail(string projectName,string testNumber)
+        public RadTestDataDetail(string testNumber, string path)
         {
             InitializeComponent();
-            this.projectName = projectName;
             this.testNumber = testNumber;
-            if(this.projectName != "")
-                this.Text += "(" + this.projectName + ")";
+            this.exportPath = path;
         }
 
         private void RadTestDataDetail_Load(object sender, EventArgs e)
         {
             historyDataInfoManager = new THistoryDataBasicManager();
             historyDataDetailManager = new THistoryDataDetailManager();
-            RadGridViewProperties.SetRadGridViewProperty(this.radGridView1,false,true,13);
+            RadGridViewProperties.SetRadGridViewProperty(this.radGridView1,false,true,this.radGridView1.ColumnCount);
             QueryHistoryBasicInfo(false);
 
             this.menu_close.Click += Menu_close_Click;
@@ -43,12 +42,12 @@ namespace CableTestManager.View.VProject
 
         private void Menu_toReport_Click(object sender, EventArgs e)
         {
-            
+            TestReportInfo.ExportReport(this.exportPath, this.testNumber);
         }
 
         private void Menu_printReport_Click(object sender, EventArgs e)
         {
-            
+            TestReportInfo.PrintReport(this.exportPath, this.testNumber);
         }
 
         private void Menu_insulateByGroundTest_Click(object sender, EventArgs e)
@@ -74,47 +73,34 @@ namespace CableTestManager.View.VProject
         private void QueryHistoryBasicInfo(bool IsLike)
         {
             RadGridViewProperties.ClearGridView(this.radGridView1,null);
-            var dt = historyDataInfoManager.GetDataSetByWhere($"where TestSerialNumber = '{this.testNumber}'").Tables[0];
-            if (dt.Rows.Count < 1)
-                return;
-            //更新测试结果数据
-            foreach (DataRow dr in dt.Rows)
-            {
-                this.lbx_TestResult.Text = dr["FinalTestResult"].ToString();
-                this.lbx_bcCableName.Text = dr["TestCableName"].ToString();
-                this.lbx_batchNumber.Text = dr["BatchNumber"].ToString();
-                this.lbx_testDate.Text = dr["TestDate"].ToString();
-                this.lbx_TestNumber.Text = dr["TestSerialNumber"].ToString();
-                this.lbx_OperatorName.Text = dr["TestOperator"].ToString();
-                this.lbx_testDevType.Text = dr["DeviceTypeNo"].ToString();
-                this.lbx_measuringNumber.Text = dr["DeviceMeasureNumber"].ToString();
-                this.lbx_EnvironmentTemperature.Text = dr["EnvironmentTemperature"].ToString();
-                this.lbx_AmbientHumidity.Text = dr["EnvironmentAmbientHumidity"].ToString();
-            }
+            var hisBasicInfo = TestHisBasicInfo.QueryProTestHisBasicInfo(this.testNumber);
+            this.lbx_TestResult.Text = hisBasicInfo.FinalTestResult;
+            this.lbx_bcCableName.Text = hisBasicInfo.TestCableName;
+            this.lbx_testDate.Text = hisBasicInfo.TestStartDate;
+            this.lbx_TestNumber.Text = hisBasicInfo.TestSerialNumber;
+            this.lbx_OperatorName.Text = hisBasicInfo.TestOperator;
+            this.lbx_EnvironmentTemperature.Text = hisBasicInfo.EnvironmentTemperature;
+            this.lbx_AmbientHumidity.Text = hisBasicInfo.EnvironmentAmbientHumidity;
+            this.lbx_conductResult.Text = hisBasicInfo.ConductTestResult;
+            this.lbx_circuitResult.Text = hisBasicInfo.ShortCircuitTestResult;
+            this.lbx_insulateResult.Text = hisBasicInfo.InsulateTestResult;
+            if (hisBasicInfo.ProjectName != "")
+                this.Text += "(" + hisBasicInfo.ProjectName + ")";
+
             //更新测试参数
-            TProjectBasicInfoManager projectInfoManager = new TProjectBasicInfoManager();
-            if (this.projectName != "")
-            {
-                dt = projectInfoManager.GetDataSetByWhere($"where ProjectName = '{this.projectName}'").Tables[0];
-                if (dt.Rows.Count > 0)
-                {
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        this.lbx_conductThreshold.Text = "≤" + dr["ConductTestThreshold"].ToString() + "Ω";
-                        this.lbx_shortCircuitThreshold.Text = "≥" + dr["ShortCircuitTestThreshold"].ToString() + "Ω";
-                        this.lbx_insulateThreshold.Text = "≥" + dr["InsulateTestThreshold"].ToString() + "MΩ";
-                        this.lbx_insulateVoltage.Text = dr["InsulateTestVoltage"].ToString() + "VDC";
-                        this.lbx_insulateTime.Text = dr["InsulateTestHoldTime"].ToString() + "s";
-                        this.lbx_pressureProofThreshold.Text = "≤" + dr["VoltageWithStandardThreshold"].ToString() + "mA";
-                        this.lbx_pressureProofTime.Text = dr["VoltageWithStandardHoldTime"].ToString() + "s";
-                        this.lbx_pressureProofVoltage.Text = dr["VoltageWithStandardVoltage"].ToString() + "VAC";
-                    }
-                }
-            }
+            this.lbx_conductThreshold.Text = "≤" + hisBasicInfo.ConductThreshold + "Ω";
+            this.lbx_shortCircuitThreshold.Text = "≥" + hisBasicInfo.ShortCircuitThreshold + "Ω";
+            this.lbx_insulateThreshold.Text = "≥" + hisBasicInfo.InsulateThreshold + "Ω";
+            this.lbx_insulateVoltage.Text = hisBasicInfo.InsulateVoltage + "V";
+            this.lbx_insulateTime.Text = hisBasicInfo.InsulateHoldTime + "s";
+            //this.lbx_pressureProofThreshold.Text = "≤" + dr["VoltageWithStandardThreshold"].ToString() + "mA";
+            //this.lbx_pressureProofTime.Text = dr["VoltageWithStandardHoldTime"].ToString() + "s";
+            //this.lbx_pressureProofVoltage.Text = dr["VoltageWithStandardVoltage"].ToString() + "VAC";
+
             //更新测试数据详情
             if (this.testNumber == "")
                 return;
-            dt = historyDataDetailManager.GetDataSetByWhere($"where TestSerialNumber = '{this.testNumber}'").Tables[0];
+            var dt = historyDataDetailManager.GetDataSetByWhere($"where TestSerialNumber = '{this.testNumber}'").Tables[0];
             if (dt.Rows.Count < 1)
                 return;
             foreach (DataRow dr in dt.Rows)
@@ -129,8 +115,6 @@ namespace CableTestManager.View.VProject
                 var shortCircuitTestResult = dr["ShortCircuitTestResult"].ToString();
                 var insulateValue = dr["InsulateValue"].ToString();
                 var insulateResult = dr["InsulateTestResult"].ToString();
-                var pressureElectValue = dr["VoltageWithStandardValue"].ToString();
-                var pressureResult = dr["VoltageWithStandardTestResult"].ToString();
                 if (IsExistTestInfo(sInter, sPoint, eInter, ePoint))
                     continue;
                 this.radGridView1.Rows.AddNew();
@@ -142,10 +126,10 @@ namespace CableTestManager.View.VProject
                 this.radGridView1.Rows[rCount - 1].Cells[4].Value = ePoint;
                 this.radGridView1.Rows[rCount - 1].Cells[5].Value = conductValue;
                 this.radGridView1.Rows[rCount - 1].Cells[6].Value = conductResult;
-                this.radGridView1.Rows[rCount - 1].Cells[7].Value = insulateValue;
-                this.radGridView1.Rows[rCount - 1].Cells[8].Value = insulateResult;
-                this.radGridView1.Rows[rCount - 1].Cells[9].Value = pressureElectValue;
-                this.radGridView1.Rows[rCount - 1].Cells[10].Value = pressureResult;
+                this.radGridView1.Rows[rCount - 1].Cells[7].Value = shortCircuitValue;
+                this.radGridView1.Rows[rCount - 1].Cells[8].Value = shortCircuitTestResult;
+                this.radGridView1.Rows[rCount - 1].Cells[9].Value = insulateValue;
+                this.radGridView1.Rows[rCount - 1].Cells[10].Value = insulateResult;
             }
         }
 

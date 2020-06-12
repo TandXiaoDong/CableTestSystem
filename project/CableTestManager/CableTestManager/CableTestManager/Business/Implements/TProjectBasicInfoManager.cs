@@ -12,11 +12,11 @@ namespace CableTestManager.Business.Implements
     {
 		#region  Ù–‘◊¢»Î
 		
-        private ITProjectBasicInfoDBService dBService = new TProjectBasicInfoDBService();
+        private ITProjectBasicInfoService service = new TProjectBasicInfoService();
 
         public TProjectBasicInfoManager()
         {
-            base.BaseDBService = this.dBService;
+            base.BaseService = this.service;
         }
         
         #endregion

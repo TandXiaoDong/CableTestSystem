@@ -135,21 +135,47 @@ namespace CableTestManager.View.VAdd
                 interfaceLibaryInfos.Add(interfaceLibaryInfo);
         }
 
-        private void Menu_deleteSelect_Click(object sender, EventArgs e)
+        private void Menu_deleteAll_Click(object sender, EventArgs e)
         {
-            var currentRow = this.radGridView1.CurrentRow;
-            if (currentRow == null)
+            if (this.radGridView1.RowCount <= 0)
                 return;
-            this.radGridView1.CurrentRow.Delete();
+            if (MessageBox.Show($"确认要删除设备所有接点?", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+            {
+                return;
+            }
+            var interName = this.radGridView1.Rows[0].Cells[1].Value.ToString();
+            int del = 0;
+            foreach (var rowInfo in this.radGridView1.Rows)
+            {
+                var curInterName = rowInfo.Cells[1].Value.ToString();
+                var curDevPoint = rowInfo.Cells[4].Value.ToString();
+                del += plugLibraryDetailManager.DeleteByWhere($"where InterfaceNo='{curInterName}'");
+            }
+            
+            if (del > 0)
+            {
+                RefreshDataGrid();
+                MessageBox.Show($"已删除接口{interName}的接点数{del}!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
-        private void Menu_deleteAll_Click(object sender, EventArgs e)
+        private void Menu_deleteSelect_Click(object sender, EventArgs e)
         {
             if (this.radGridView1.RowCount < 1)
                 return;
-            for (int i = this.radGridView1.RowCount - 1; i >= 0; i--)
+            var currentRow = this.radGridView1.CurrentRow;
+            if (currentRow == null)
+                return;
+            var curInterName = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
+            var curDevPoint = this.radGridView1.CurrentRow.Cells[4].Value.ToString();
+            if (MessageBox.Show($"确认要删除设备接点{curDevPoint}?", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
             {
-                this.radGridView1.Rows[i].Delete();
+                var del = plugLibraryDetailManager.DeleteByWhere($"where InterfaceNo='{curInterName}' and SwitchStandStitchNo='{curDevPoint}'");
+                if (del > 0)
+                {
+                    RefreshDataGrid();
+                    MessageBox.Show($"已删除设备接点{curDevPoint}", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
 
@@ -294,10 +320,10 @@ namespace CableTestManager.View.VAdd
 
         private void RadGridView1_CellValueChanged(object sender, GridViewCellEventArgs e)
         {
-            var currentMethod = this.radGridView1.CurrentRow.Cells[3].Value;
-            if (currentMethod == null)
-                return;
-            UpdateSwitchPointValue(currentMethod.ToString());
+            //var currentMethod = this.radGridView1.CurrentRow.Cells[3].Value;
+            //if (currentMethod == null)
+            //    return;
+            //UpdateSwitchPointValue(currentMethod.ToString());
         }
 
         private void UpdateSwitchPointValue(string methodName)
@@ -305,11 +331,11 @@ namespace CableTestManager.View.VAdd
             GridViewComboBoxColumn stitchColumn = this.radGridView1.Columns["columnStitch"] as GridViewComboBoxColumn;
             if (methodName == TWO_WIRE_METHOD)
             {
-                stitchColumn.DataSource = TwoWireMethodStitchList();
+                stitchColumn.DataSource = DevPoint2Line();//TwoWireMethodStitchList();
             }
             else if (methodName == FOUR_WIRE_METHOD)
             {
-                stitchColumn.DataSource = FourWireMethodStitchList();
+                stitchColumn.DataSource = DevPoint4Line();//FourWireMethodStitchList();
             }
             else
             {
@@ -337,8 +363,36 @@ namespace CableTestManager.View.VAdd
             return list;
         }
 
+        private List<int> DevPoint2Line()
+        {
+            List<int> list = new List<int>();
+            for (int i = 1; i <= 384; i++)
+            {
+                if (!InterfaceLibCom.IsExistDevicePoint(i.ToString()))
+                {
+                    list.Add(i);
+                }
+            }
+            return list;
+        }
+
+        private List<string> DevPoint4Line()
+        {
+            List<string> list = new List<string>();
+            for (int i = 1; i <= 384; i += 2)
+            {
+                var curPoint = i + "," + (i + 1);
+                if (!InterfaceLibCom.IsExistDevicePoint(curPoint))
+                {
+                    list.Add(curPoint);
+                }
+            }
+            return list;
+        }
+
         private void RefreshDataGrid()
         {
+            RadGridViewProperties.ClearGridView(this.radGridView1, null);
             InterfaceInfoLibraryManager plugLibraryDetailManager = new InterfaceInfoLibraryManager();
             var dt = plugLibraryDetailManager.GetDataSetByWhere($"where InterfaceNo='{this.plugno}'").Tables[0];
             if (dt.Rows.Count > 0)
@@ -371,94 +425,87 @@ namespace CableTestManager.View.VAdd
 
         private void SubmitData()
         {
-            System.Threading.Tasks.Task.Run(()=>
+            lock (this)
             {
-                lock (this)
+                if (this.IsEditView)
                 {
-                    SubmitInvok(false);
-                    if (this.IsEditView)
-                    {
-                        UpdateInterfaceInfo();
-                        return;
-                    }
-                    if (this.radGridView1.RowCount < 1)
-                    {
-                        MessageBox.Show("没有可以提交的数据!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                    if (!CheckValid())
-                        return;
-                    int beforeInsertCount = plugLibraryDetailManager.GetRowCount();
-                    int excuteCount = 0;
-                    //submit data
-                    int iRow = 1;
-                    foreach (var rowInfo in this.radGridView1.Rows)
-                    {
-                        var plugNo = rowInfo.Cells[1].Value.ToString();
-                        var pinName = rowInfo.Cells[2].Value.ToString();
-                        var testMethod = rowInfo.Cells[3].Value.ToString();
-                        var stitchNo = rowInfo.Cells[4].Value.ToString();
-                        var IsAddNewRow = rowInfo.Cells[7].Value;
-                        var remark = "";
-                        var connectorName = "";
-                        if (rowInfo.Cells[6].Value != null)
-                            remark = rowInfo.Cells[6].Value.ToString();
-                        if (rowInfo.Cells[5].Value != null)
-                            connectorName = rowInfo.Cells[5].Value.ToString();
-
-                        #region TPlugLibraryDetail
-                        InterfaceInfoLibrary plugLibraryDetail = new InterfaceInfoLibrary();
-                        plugLibraryDetail.ID = CableTestManager.Common.TablePrimaryKey.InsertInterfaceLibPID();
-                        plugLibraryDetail.InterfaceNo = plugNo;
-                        plugLibraryDetail.ContactPointName = pinName;
-                        if (testMethod == TWO_WIRE_METHOD)
-                            plugLibraryDetail.MeasureMethod = "2";
-                        else if (testMethod == FOUR_WIRE_METHOD)
-                            plugLibraryDetail.MeasureMethod = "4";
-                        plugLibraryDetail.SwitchStandStitchNo = stitchNo;
-                        plugLibraryDetail.Remark = remark;
-                        plugLibraryDetail.Operator = LocalLogin.currentUserName;
-                        plugLibraryDetail.ConnectorName = connectorName;
-                        plugLibraryDetail.ContactPoint = iRow.ToString();
-                        #endregion
-
-                        //新增数据
-                        if (IsAddNewRow != null)
-                        {
-                            //if (IsCanInsertOrUpdate(false, -1, plugNo, pinName, stitchNo) == InterfaceExTipEnum.InterfacePoint_NotExistAndStitch_NoExist)
-                            //{
-                            plugLibraryDetailManager.Insert(plugLibraryDetail);
-                            iRow++;
-                            //}
-                        }
-                    }
-
-                    int afterInsertCount = plugLibraryDetailManager.GetRowCount();
-                    if (afterInsertCount - beforeInsertCount > 0)
-                    {
-                        MessageBox.Show($"已更新{afterInsertCount - beforeInsertCount}条数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else if (excuteCount > 0)
-                    {
-                        MessageBox.Show($"已更新{excuteCount}条数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MessageBox.Show($"已更新{0}条数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    this.Close();
-                    this.DialogResult = DialogResult.OK;
-                    SubmitInvok(true);
+                    UpdateInterfaceInfo();
+                    return;
                 }
-            });
-        }
+                if (this.radGridView1.RowCount < 1)
+                {
+                    MessageBox.Show("没有可以提交的数据!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (!CheckValid())
+                    return;
+                int beforeInsertCount = plugLibraryDetailManager.GetRowCount();
+                int excuteCount = 0;
+                //submit data
+                int iRow = 0;
+                int id = 0;
+                List<InterfaceInfoLibrary> libList = new List<InterfaceInfoLibrary>();
+                foreach (var rowInfo in this.radGridView1.Rows)
+                {
+                    var plugNo = rowInfo.Cells[1].Value.ToString();
+                    var pinName = rowInfo.Cells[2].Value.ToString();
+                    var testMethod = rowInfo.Cells[3].Value.ToString();
+                    var stitchNo = rowInfo.Cells[4].Value.ToString();
+                    var IsAddNewRow = rowInfo.Cells[7].Value;
+                    var remark = "";
+                    var connectorName = "";
+                    if (rowInfo.Cells[6].Value != null)
+                        remark = rowInfo.Cells[6].Value.ToString();
+                    if (rowInfo.Cells[5].Value != null)
+                        connectorName = rowInfo.Cells[5].Value.ToString();
 
-        private void SubmitInvok(bool b)
-        {
-            this.Invoke(new Action(() =>
-            {
-                btnSubmit.Enabled = b;
-            }));
+                    #region TPlugLibraryDetail
+                    InterfaceInfoLibrary plugLibraryDetail = new InterfaceInfoLibrary();
+                    plugLibraryDetail.ID = CableTestManager.Common.TablePrimaryKey.InsertInterfaceLibPID() + id;
+                    plugLibraryDetail.InterfaceNo = plugNo;
+                    plugLibraryDetail.ContactPointName = pinName;
+                    if (testMethod == TWO_WIRE_METHOD)
+                        plugLibraryDetail.MeasureMethod = "2";
+                    else if (testMethod == FOUR_WIRE_METHOD)
+                        plugLibraryDetail.MeasureMethod = "4";
+                    plugLibraryDetail.SwitchStandStitchNo = stitchNo;
+                    plugLibraryDetail.Remark = remark;
+                    plugLibraryDetail.Operator = LocalLogin.currentUserName;
+                    plugLibraryDetail.ConnectorName = connectorName;
+                    plugLibraryDetail.ContactPoint = iRow.ToString();
+                    #endregion
+
+                    //新增数据
+                    if (IsAddNewRow != null)
+                    {
+                        //if (IsCanInsertOrUpdate(false, -1, plugNo, pinName, stitchNo) == InterfaceExTipEnum.InterfacePoint_NotExistAndStitch_NoExist)
+                        //{
+                        //plugLibraryDetailManager.Insert(plugLibraryDetail);
+                        libList.Add(plugLibraryDetail);
+                        iRow++;
+                        id++;
+                        //}
+                    }
+                }
+
+                plugLibraryDetailManager.Insert(libList);
+
+                int afterInsertCount = plugLibraryDetailManager.GetRowCount();
+                if (afterInsertCount - beforeInsertCount > 0)
+                {
+                    MessageBox.Show($"已更新{afterInsertCount - beforeInsertCount}条数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (excuteCount > 0)
+                {
+                    MessageBox.Show($"已更新{excuteCount}条数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show($"已更新{0}条数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                this.Close();
+                this.DialogResult = DialogResult.OK;
+            }
         }
 
         private List<InterfaceLibCom> GetDevPointOrderID(string devPoint)//排序

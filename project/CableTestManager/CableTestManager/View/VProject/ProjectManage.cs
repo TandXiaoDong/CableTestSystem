@@ -168,8 +168,6 @@ namespace CableTestManager.View.VProject
             {
                 var projectName = dr["ProjectName"].ToString();
                 var testCableName = dr["TestCableName"].ToString();
-                var batchNumber = dr["BatchNumber"].ToString();
-                var IsCommonProject = dr["IsCommonProject"].ToString();
                 var remark = dr["Remark"].ToString();
                 if (IsExistProject(projectName))
                     continue;
@@ -178,9 +176,7 @@ namespace CableTestManager.View.VProject
                 this.radGridView1.Rows[iCount - 1].Cells[0].Value = iCount;
                 this.radGridView1.Rows[iCount - 1].Cells[1].Value = projectName;
                 this.radGridView1.Rows[iCount - 1].Cells[2].Value = testCableName;
-                this.radGridView1.Rows[iCount - 1].Cells[3].Value = batchNumber;
-                this.radGridView1.Rows[iCount - 1].Cells[4].Value = IsCommonProject;
-                this.radGridView1.Rows[iCount - 1].Cells[5].Value = remark;
+                this.radGridView1.Rows[iCount - 1].Cells[3].Value = remark;
             }
         }
 

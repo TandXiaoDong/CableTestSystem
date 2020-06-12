@@ -12,11 +12,11 @@ namespace CableTestManager.Business.Implements
     {
 		#region  Ù–‘◊¢»Î
 		
-        private ITConnectorLibraryDBService dBService = new TConnectorLibraryDBService();
+        private ITConnectorLibraryService service = new TConnectorLibraryService();
 
         public TConnectorLibraryManager()
         {
-            base.BaseDBService = this.dBService;
+            base.BaseService = this.service;
         }
         
         #endregion

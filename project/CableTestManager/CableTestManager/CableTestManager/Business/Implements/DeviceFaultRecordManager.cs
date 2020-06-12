@@ -12,11 +12,11 @@ namespace CableTestManager.Business.Implements
     {
 		#region  Ù–‘◊¢»Î
 		
-        private IDeviceFaultRecordDBService dBService = new DeviceFaultRecordDBService();
+        private IDeviceFaultRecordService service = new DeviceFaultRecordService();
 
         public DeviceFaultRecordManager()
         {
-            base.BaseDBService = this.dBService;
+            base.BaseService = this.service;
         }
         
         #endregion

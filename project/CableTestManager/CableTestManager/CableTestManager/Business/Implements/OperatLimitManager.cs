@@ -12,11 +12,11 @@ namespace CableTestManager.Business.Implements
     {
 		#region  Ù–‘◊¢»Î
 		
-        private IOperatLimitDBService dBService = new OperatLimitDBService();
+        private IOperatLimitService service = new OperatLimitService();
 
         public OperatLimitManager()
         {
-            base.BaseDBService = this.dBService;
+            base.BaseService = this.service;
         }
         
         #endregion

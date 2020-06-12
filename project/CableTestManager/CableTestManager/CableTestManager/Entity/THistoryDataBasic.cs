@@ -1,5 +1,5 @@
 /************************************************************************************
- *      Copyright (C) 2020 FigKey,All Rights Reserved
+ *      Copyright (C) 2019 FigKey,All Rights Reserved
  *      File:
  *				THistoryDataBasic.cs
  *      Description:
@@ -9,7 +9,7 @@
  *				1297953037@qq.com
  *				http://www.figkey.com
  *      Finish DateTime:
- *				2020年06月02日
+ *				2020年06月12日
  *      History:
  ***********************************************************************************/
 using System;
@@ -29,32 +29,28 @@ namespace CableTestManager.Entity
         private long _iD = 0;
         private string _testSerialNumber = String.Empty;
         private string _projectName = String.Empty;
-        private string _batchNumber = String.Empty;
         private string _testCableName = String.Empty;
-        private string _testDate = String.Empty;
+        private string _testStartDate = String.Empty;
+        private string _testEndDate = String.Empty;
         private string _testOperator = String.Empty;
         private string _environmentTemperature = String.Empty;
         private string _environmentAmbientHumidity = String.Empty;
-        private string _deviceTypeNo = String.Empty;
-        private string _deviceMeasureNumber = String.Empty;
         private string _finalTestResult = String.Empty;
+        private string _conductTestResult = String.Empty;
         private double _conductThreshold = 0.0;
         private double _conductVoltage = 0.0;
         private double _conductElect = 0.0;
+        private string _shortCircuitTestResult = String.Empty;
         private double _shortCircuitThreshold = 0.0;
-        private double _insulateHighOrLowElect = 0.0;
+        private string _insulateTestResult = String.Empty;
         private double _insulateThreshold = 0.0;
         private double _insulateHoldTime = 0.0;
         private double _insulateVoltage = 0.0;
         private double _insulateRaiseTime = 0.0;
+        private string _voltageWithStandardTestResult = String.Empty;
         private double _voltageWithStandardThreshold = 0.0;
         private double _voltageWithStandardHoldTime = 0.0;
         private double _voltageWithStandardVoltage = 0.0;
-        private long _isConductTestComplete = 0;
-        private long _isInsulateTestComplete = 0;
-        private long _isInsulateByGroundTestComplete = 0;
-        private long _isVoltageWithStandardTestComplete = 0;
-        private long _isShortCircuteTestComplete = 0;
         private long _conductTestExceptCount = 0;
         private long _shortcircuitTestExceptCount = 0;
         private long _insulateTestExceptCount = 0;
@@ -87,13 +83,6 @@ namespace CableTestManager.Entity
         }
 
 
-        public string BatchNumber
-        {
-            set { this._batchNumber = value; }
-            get { return this._batchNumber; }
-        }
-
-
         public string TestCableName
         {
             set { this._testCableName = value; }
@@ -101,10 +90,17 @@ namespace CableTestManager.Entity
         }
 
 
-        public string TestDate
+        public string TestStartDate
         {
-            set { this._testDate = value; }
-            get { return this._testDate; }
+            set { this._testStartDate = value; }
+            get { return this._testStartDate; }
+        }
+
+
+        public string TestEndDate
+        {
+            set { this._testEndDate = value; }
+            get { return this._testEndDate; }
         }
 
 
@@ -129,24 +125,17 @@ namespace CableTestManager.Entity
         }
 
 
-        public string DeviceTypeNo
-        {
-            set { this._deviceTypeNo = value; }
-            get { return this._deviceTypeNo; }
-        }
-
-
-        public string DeviceMeasureNumber
-        {
-            set { this._deviceMeasureNumber = value; }
-            get { return this._deviceMeasureNumber; }
-        }
-
-
         public string FinalTestResult
         {
             set { this._finalTestResult = value; }
             get { return this._finalTestResult; }
+        }
+
+
+        public string ConductTestResult
+        {
+            set { this._conductTestResult = value; }
+            get { return this._conductTestResult; }
         }
 
 
@@ -171,6 +160,13 @@ namespace CableTestManager.Entity
         }
 
 
+        public string ShortCircuitTestResult
+        {
+            set { this._shortCircuitTestResult = value; }
+            get { return this._shortCircuitTestResult; }
+        }
+
+
         public double ShortCircuitThreshold
         {
             set { this._shortCircuitThreshold = value; }
@@ -178,10 +174,10 @@ namespace CableTestManager.Entity
         }
 
 
-        public double InsulateHighOrLowElect
+        public string InsulateTestResult
         {
-            set { this._insulateHighOrLowElect = value; }
-            get { return this._insulateHighOrLowElect; }
+            set { this._insulateTestResult = value; }
+            get { return this._insulateTestResult; }
         }
 
 
@@ -213,6 +209,13 @@ namespace CableTestManager.Entity
         }
 
 
+        public string VoltageWithStandardTestResult
+        {
+            set { this._voltageWithStandardTestResult = value; }
+            get { return this._voltageWithStandardTestResult; }
+        }
+
+
         public double VoltageWithStandardThreshold
         {
             set { this._voltageWithStandardThreshold = value; }
@@ -231,41 +234,6 @@ namespace CableTestManager.Entity
         {
             set { this._voltageWithStandardVoltage = value; }
             get { return this._voltageWithStandardVoltage; }
-        }
-
-
-        public long IsConductTestComplete
-        {
-            set { this._isConductTestComplete = value; }
-            get { return this._isConductTestComplete; }
-        }
-
-
-        public long IsInsulateTestComplete
-        {
-            set { this._isInsulateTestComplete = value; }
-            get { return this._isInsulateTestComplete; }
-        }
-
-
-        public long IsInsulateByGroundTestComplete
-        {
-            set { this._isInsulateByGroundTestComplete = value; }
-            get { return this._isInsulateByGroundTestComplete; }
-        }
-
-
-        public long IsVoltageWithStandardTestComplete
-        {
-            set { this._isVoltageWithStandardTestComplete = value; }
-            get { return this._isVoltageWithStandardTestComplete; }
-        }
-
-
-        public long IsShortCircuteTestComplete
-        {
-            set { this._isShortCircuteTestComplete = value; }
-            get { return this._isShortCircuteTestComplete; }
         }
 
 

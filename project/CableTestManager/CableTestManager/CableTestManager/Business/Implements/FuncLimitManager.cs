@@ -12,11 +12,11 @@ namespace CableTestManager.Business.Implements
     {
 		#region  Ù–‘◊¢»Î
 		
-        private IFuncLimitDBService dBService = new FuncLimitDBService();
+        private IFuncLimitService service = new FuncLimitService();
 
         public FuncLimitManager()
         {
-            base.BaseDBService = this.dBService;
+            base.BaseService = this.service;
         }
         
         #endregion

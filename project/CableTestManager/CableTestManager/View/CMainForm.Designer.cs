@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition3 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition2 = new Telerik.WinControls.UI.TableViewDefinition();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CMainForm));
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition4 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition5 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition6 = new Telerik.WinControls.UI.TableViewDefinition();
             this.radMenuItem1 = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_newProject = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_closeProject = new Telerik.WinControls.UI.RadMenuItem();
@@ -59,7 +59,6 @@
             this.menu_devSelfCheck = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_devDebugAssitant = new Telerik.WinControls.UI.RadMenuItem();
             this.radMenuItem6 = new Telerik.WinControls.UI.RadMenuItem();
-            this.radMenuItem26 = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_StartResistanceCompensation = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_ResistanceCompensationManage = new Telerik.WinControls.UI.RadMenuItem();
             this.radMenuItem31 = new Telerik.WinControls.UI.RadMenuItem();
@@ -110,19 +109,23 @@
             this.radLabelElement5 = new Telerik.WinControls.UI.RadLabelElement();
             this.lbx_monitorDate = new Telerik.WinControls.UI.RadLabelElement();
             this.radDock1 = new Telerik.WinControls.UI.Docking.RadDock();
-            this.documentWindow3 = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.radGridViewProb = new Telerik.WinControls.UI.RadGridView();
             this.toolWindow1 = new Telerik.WinControls.UI.Docking.ToolWindow();
             this.radTreeView1 = new Telerik.WinControls.UI.RadTreeView();
+            this.toolTabStrip3 = new Telerik.WinControls.UI.Docking.ToolTabStrip();
             this.documentContainer2 = new Telerik.WinControls.UI.Docking.DocumentContainer();
             this.documentTabStrip1 = new Telerik.WinControls.UI.Docking.DocumentTabStrip();
+            this.documentWindow3 = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.radGridViewProb = new Telerik.WinControls.UI.RadGridView();
             this.documentWindow2 = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.radGridViewSelfStudy = new Telerik.WinControls.UI.RadGridView();
+            this.tb_selfStudyTip = new System.Windows.Forms.TextBox();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.tool_clearSelfGrid = new System.Windows.Forms.ToolStripButton();
             this.tool_importCableLib = new System.Windows.Forms.ToolStripButton();
             this.documentWindow1 = new Telerik.WinControls.UI.Docking.DocumentWindow();
             this.radGridViewCableTest = new Telerik.WinControls.UI.RadGridView();
             this.panelStatus = new Telerik.WinControls.UI.RadPanel();
+            this.lbx_testStatus = new Telerik.WinControls.UI.RadLabel();
             this.radStatusStrip1 = new Telerik.WinControls.UI.RadStatusStrip();
             this.radLabelElement7 = new Telerik.WinControls.UI.RadLabelElement();
             this.radLabelElement8 = new Telerik.WinControls.UI.RadLabelElement();
@@ -148,47 +151,35 @@
             this.telerikMetroTouchTheme1 = new Telerik.WinControls.Themes.TelerikMetroTouchTheme();
             this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
             this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
-            this.toolWindow2 = new Telerik.WinControls.UI.Docking.ToolWindow();
-            this.toolTabStrip3 = new Telerik.WinControls.UI.Docking.ToolTabStrip();
-            this.radSplitContainer1 = new Telerik.WinControls.UI.RadSplitContainer();
-            this.toolTabStrip1 = new Telerik.WinControls.UI.Docking.ToolTabStrip();
-            this.tb_log = new System.Windows.Forms.TextBox();
-            this.tb_selfStudyTip = new System.Windows.Forms.TextBox();
-            this.radGridViewSelfStudy = new Telerik.WinControls.UI.RadGridView();
-            this.lbx_testStatus = new System.Windows.Forms.TextBox();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusStrip)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).BeginInit();
             this.radDock1.SuspendLayout();
-            this.documentWindow3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewProb)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewProb.MasterTemplate)).BeginInit();
             this.toolWindow1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radTreeView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toolTabStrip3)).BeginInit();
+            this.toolTabStrip3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentContainer2)).BeginInit();
             this.documentContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).BeginInit();
             this.documentTabStrip1.SuspendLayout();
+            this.documentWindow3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewProb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewProb.MasterTemplate)).BeginInit();
             this.documentWindow2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewSelfStudy)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewSelfStudy.MasterTemplate)).BeginInit();
             this.toolStrip2.SuspendLayout();
             this.documentWindow1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewCableTest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridViewCableTest.MasterTemplate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelStatus)).BeginInit();
             this.panelStatus.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lbx_testStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radStatusStrip1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
-            this.toolWindow2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.toolTabStrip3)).BeginInit();
-            this.toolTabStrip3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radSplitContainer1)).BeginInit();
-            this.radSplitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.toolTabStrip1)).BeginInit();
-            this.toolTabStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewSelfStudy)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewSelfStudy.MasterTemplate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -359,7 +350,6 @@
             // radMenuItem6
             // 
             this.radMenuItem6.Items.AddRange(new Telerik.WinControls.RadItem[] {
-            this.radMenuItem26,
             this.menu_StartResistanceCompensation,
             this.menu_ResistanceCompensationManage,
             this.radMenuItem31,
@@ -368,16 +358,12 @@
             this.radMenuItem6.Name = "radMenuItem6";
             this.radMenuItem6.Text = "设置(S)";
             // 
-            // radMenuItem26
-            // 
-            this.radMenuItem26.Name = "radMenuItem26";
-            this.radMenuItem26.Text = "启用辅助供电";
-            this.radMenuItem26.Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
-            // 
             // menu_StartResistanceCompensation
             // 
+            this.menu_StartResistanceCompensation.Image = global::CableTestManager.Properties.Resources.勾选;
             this.menu_StartResistanceCompensation.Name = "menu_StartResistanceCompensation";
             this.menu_StartResistanceCompensation.Text = "启用电阻补偿";
+            this.menu_StartResistanceCompensation.Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
             // 
             // menu_ResistanceCompensationManage
             // 
@@ -469,7 +455,7 @@
             // tool_InterfaceLibrary
             // 
             this.tool_InterfaceLibrary.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tool_InterfaceLibrary.Image = global::CableTestManager.Properties.Resources.IntefaceLibrary;
+            this.tool_InterfaceLibrary.Image = ((System.Drawing.Image)(resources.GetObject("tool_InterfaceLibrary.Image")));
             this.tool_InterfaceLibrary.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tool_InterfaceLibrary.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_InterfaceLibrary.Name = "tool_InterfaceLibrary";
@@ -484,7 +470,7 @@
             // 
             // tool_HarnessLibrary
             // 
-            this.tool_HarnessLibrary.Image = global::CableTestManager.Properties.Resources.cable__2_;
+            this.tool_HarnessLibrary.Image = ((System.Drawing.Image)(resources.GetObject("tool_HarnessLibrary.Image")));
             this.tool_HarnessLibrary.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tool_HarnessLibrary.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_HarnessLibrary.Name = "tool_HarnessLibrary";
@@ -499,7 +485,7 @@
             // 
             // tool_NewProject
             // 
-            this.tool_NewProject.Image = global::CableTestManager.Properties.Resources.folder_new__2_;
+            this.tool_NewProject.Image = ((System.Drawing.Image)(resources.GetObject("tool_NewProject.Image")));
             this.tool_NewProject.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tool_NewProject.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_NewProject.Name = "tool_NewProject";
@@ -509,7 +495,7 @@
             // 
             // tool_OpenProject
             // 
-            this.tool_OpenProject.Image = global::CableTestManager.Properties.Resources.folder_open__2_;
+            this.tool_OpenProject.Image = ((System.Drawing.Image)(resources.GetObject("tool_OpenProject.Image")));
             this.tool_OpenProject.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tool_OpenProject.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_OpenProject.Name = "tool_OpenProject";
@@ -524,7 +510,7 @@
             // 
             // tool_HistoryData
             // 
-            this.tool_HistoryData.Image = global::CableTestManager.Properties.Resources.database_active__2_;
+            this.tool_HistoryData.Image = ((System.Drawing.Image)(resources.GetObject("tool_HistoryData.Image")));
             this.tool_HistoryData.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tool_HistoryData.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_HistoryData.Name = "tool_HistoryData";
@@ -539,7 +525,7 @@
             // 
             // tool_ConnectDevice
             // 
-            this.tool_ConnectDevice.Image = global::CableTestManager.Properties.Resources.server_link;
+            this.tool_ConnectDevice.Image = ((System.Drawing.Image)(resources.GetObject("tool_ConnectDevice.Image")));
             this.tool_ConnectDevice.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tool_ConnectDevice.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_ConnectDevice.Name = "tool_ConnectDevice";
@@ -554,7 +540,7 @@
             // 
             // tool_SelfStudy
             // 
-            this.tool_SelfStudy.Image = global::CableTestManager.Properties.Resources.selfStudy;
+            this.tool_SelfStudy.Image = ((System.Drawing.Image)(resources.GetObject("tool_SelfStudy.Image")));
             this.tool_SelfStudy.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tool_SelfStudy.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_SelfStudy.Name = "tool_SelfStudy";
@@ -569,7 +555,7 @@
             // 
             // tool_Probe
             // 
-            this.tool_Probe.Image = global::CableTestManager.Properties.Resources.probe;
+            this.tool_Probe.Image = ((System.Drawing.Image)(resources.GetObject("tool_Probe.Image")));
             this.tool_Probe.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tool_Probe.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_Probe.Name = "tool_Probe";
@@ -735,7 +721,7 @@
             // 
             this.radLabelElement18.Name = "radLabelElement18";
             this.statusStrip.SetSpring(this.radLabelElement18, false);
-            this.radLabelElement18.Text = "服务器地址：";
+            this.radLabelElement18.Text = "设备地址：";
             this.radLabelElement18.TextWrap = true;
             // 
             // lbx_serviceURL
@@ -749,7 +735,7 @@
             // 
             this.radLabelElement19.Name = "radLabelElement19";
             this.statusStrip.SetSpring(this.radLabelElement19, false);
-            this.radLabelElement19.Text = "服务器端口：";
+            this.radLabelElement19.Text = "设备端口：";
             this.radLabelElement19.TextWrap = true;
             // 
             // lbx_servicePort
@@ -775,10 +761,10 @@
             // 
             // radDock1
             // 
-            this.radDock1.ActiveWindow = this.toolWindow2;
+            this.radDock1.ActiveWindow = this.toolWindow1;
             this.radDock1.CausesValidation = false;
             this.radDock1.Controls.Add(this.toolTabStrip3);
-            this.radDock1.Controls.Add(this.radSplitContainer1);
+            this.radDock1.Controls.Add(this.documentContainer2);
             this.radDock1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.radDock1.IsCleanUpTarget = true;
             this.radDock1.Location = new System.Drawing.Point(0, 149);
@@ -794,29 +780,6 @@
             this.radDock1.TabIndex = 10;
             this.radDock1.TabStop = false;
             this.radDock1.ThemeName = "MaterialBlueGrey";
-            // 
-            // documentWindow3
-            // 
-            this.documentWindow3.Controls.Add(this.radGridViewProb);
-            this.documentWindow3.Font = new System.Drawing.Font("宋体", 9F);
-            this.documentWindow3.Location = new System.Drawing.Point(4, 54);
-            this.documentWindow3.Name = "documentWindow3";
-            this.documentWindow3.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.documentWindow3.Size = new System.Drawing.Size(1081, 289);
-            this.documentWindow3.Text = "探针";
-            // 
-            // radGridViewProb
-            // 
-            this.radGridViewProb.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radGridViewProb.Location = new System.Drawing.Point(0, 0);
-            // 
-            // 
-            // 
-            this.radGridViewProb.MasterTemplate.ViewDefinition = tableViewDefinition1;
-            this.radGridViewProb.Name = "radGridViewProb";
-            this.radGridViewProb.Size = new System.Drawing.Size(1081, 289);
-            this.radGridViewProb.TabIndex = 0;
-            this.radGridViewProb.ThemeName = "TelerikMetroTouch";
             // 
             // toolWindow1
             // 
@@ -841,6 +804,25 @@
             this.radTreeView1.SpacingBetweenNodes = -1;
             this.radTreeView1.TabIndex = 0;
             this.radTreeView1.ThemeName = "MaterialBlueGrey";
+            // 
+            // toolTabStrip3
+            // 
+            this.toolTabStrip3.CanUpdateChildIndex = true;
+            this.toolTabStrip3.CausesValidation = false;
+            this.toolTabStrip3.Controls.Add(this.toolWindow1);
+            this.toolTabStrip3.Location = new System.Drawing.Point(0, 0);
+            this.toolTabStrip3.Name = "toolTabStrip3";
+            // 
+            // 
+            // 
+            this.toolTabStrip3.RootElement.MinSize = new System.Drawing.Size(25, 25);
+            this.toolTabStrip3.SelectedIndex = 0;
+            this.toolTabStrip3.Size = new System.Drawing.Size(234, 548);
+            this.toolTabStrip3.SizeInfo.AbsoluteSize = new System.Drawing.Size(234, 200);
+            this.toolTabStrip3.SizeInfo.SplitterCorrection = new System.Drawing.Size(34, 0);
+            this.toolTabStrip3.TabIndex = 1;
+            this.toolTabStrip3.TabStop = false;
+            this.toolTabStrip3.ThemeName = "MaterialBlueGrey";
             // 
             // documentContainer2
             // 
@@ -873,12 +855,35 @@
             // 
             this.documentTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
             this.documentTabStrip1.SelectedIndex = 2;
-            this.documentTabStrip1.Size = new System.Drawing.Size(1097, 391);
+            this.documentTabStrip1.Size = new System.Drawing.Size(1097, 548);
             this.documentTabStrip1.SizeInfo.AutoSizeScale = new System.Drawing.SizeF(0F, 0.2228916F);
             this.documentTabStrip1.SizeInfo.SplitterCorrection = new System.Drawing.Size(0, 114);
             this.documentTabStrip1.TabIndex = 0;
             this.documentTabStrip1.TabStop = false;
             this.documentTabStrip1.ThemeName = "MaterialBlueGrey";
+            // 
+            // documentWindow3
+            // 
+            this.documentWindow3.Controls.Add(this.radGridViewProb);
+            this.documentWindow3.Font = new System.Drawing.Font("宋体", 9F);
+            this.documentWindow3.Location = new System.Drawing.Point(4, 54);
+            this.documentWindow3.Name = "documentWindow3";
+            this.documentWindow3.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.documentWindow3.Size = new System.Drawing.Size(1089, 490);
+            this.documentWindow3.Text = "探针";
+            // 
+            // radGridViewProb
+            // 
+            this.radGridViewProb.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radGridViewProb.Location = new System.Drawing.Point(0, 0);
+            // 
+            // 
+            // 
+            this.radGridViewProb.MasterTemplate.ViewDefinition = tableViewDefinition4;
+            this.radGridViewProb.Name = "radGridViewProb";
+            this.radGridViewProb.Size = new System.Drawing.Size(1089, 490);
+            this.radGridViewProb.TabIndex = 0;
+            this.radGridViewProb.ThemeName = "TelerikMetroTouch";
             // 
             // documentWindow2
             // 
@@ -889,8 +894,32 @@
             this.documentWindow2.Location = new System.Drawing.Point(4, 54);
             this.documentWindow2.Name = "documentWindow2";
             this.documentWindow2.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.documentWindow2.Size = new System.Drawing.Size(1089, 333);
+            this.documentWindow2.Size = new System.Drawing.Size(1089, 490);
             this.documentWindow2.Text = "自学习";
+            // 
+            // radGridViewSelfStudy
+            // 
+            this.radGridViewSelfStudy.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radGridViewSelfStudy.Location = new System.Drawing.Point(0, 47);
+            // 
+            // 
+            // 
+            this.radGridViewSelfStudy.MasterTemplate.ViewDefinition = tableViewDefinition5;
+            this.radGridViewSelfStudy.Name = "radGridViewSelfStudy";
+            this.radGridViewSelfStudy.Size = new System.Drawing.Size(1089, 443);
+            this.radGridViewSelfStudy.TabIndex = 4;
+            this.radGridViewSelfStudy.ThemeName = "TelerikMetroTouch";
+            // 
+            // tb_selfStudyTip
+            // 
+            this.tb_selfStudyTip.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tb_selfStudyTip.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tb_selfStudyTip.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tb_selfStudyTip.Location = new System.Drawing.Point(0, 28);
+            this.tb_selfStudyTip.Name = "tb_selfStudyTip";
+            this.tb_selfStudyTip.Size = new System.Drawing.Size(1089, 19);
+            this.tb_selfStudyTip.TabIndex = 3;
+            this.tb_selfStudyTip.Visible = false;
             // 
             // toolStrip2
             // 
@@ -906,7 +935,7 @@
             // 
             // tool_clearSelfGrid
             // 
-            this.tool_clearSelfGrid.Image = global::CableTestManager.Properties.Resources.ClearGrid;
+            this.tool_clearSelfGrid.Image = ((System.Drawing.Image)(resources.GetObject("tool_clearSelfGrid.Image")));
             this.tool_clearSelfGrid.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_clearSelfGrid.Name = "tool_clearSelfGrid";
             this.tool_clearSelfGrid.Size = new System.Drawing.Size(62, 25);
@@ -915,7 +944,7 @@
             // tool_importCableLib
             // 
             this.tool_importCableLib.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tool_importCableLib.Image = global::CableTestManager.Properties.Resources.import;
+            this.tool_importCableLib.Image = ((System.Drawing.Image)(resources.GetObject("tool_importCableLib.Image")));
             this.tool_importCableLib.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tool_importCableLib.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_importCableLib.Name = "tool_importCableLib";
@@ -931,7 +960,7 @@
             this.documentWindow1.Location = new System.Drawing.Point(4, 54);
             this.documentWindow1.Name = "documentWindow1";
             this.documentWindow1.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.documentWindow1.Size = new System.Drawing.Size(1089, 333);
+            this.documentWindow1.Size = new System.Drawing.Size(1089, 490);
             this.documentWindow1.Text = "Cable Test";
             // 
             // radGridViewCableTest
@@ -941,9 +970,9 @@
             // 
             // 
             // 
-            this.radGridViewCableTest.MasterTemplate.ViewDefinition = tableViewDefinition3;
+            this.radGridViewCableTest.MasterTemplate.ViewDefinition = tableViewDefinition6;
             this.radGridViewCableTest.Name = "radGridViewCableTest";
-            this.radGridViewCableTest.Size = new System.Drawing.Size(1089, 273);
+            this.radGridViewCableTest.Size = new System.Drawing.Size(1089, 430);
             this.radGridViewCableTest.TabIndex = 7;
             this.radGridViewCableTest.ThemeName = "TelerikMetroTouch";
             // 
@@ -957,6 +986,15 @@
             this.panelStatus.Size = new System.Drawing.Size(1089, 35);
             this.panelStatus.TabIndex = 6;
             this.panelStatus.ThemeName = "MaterialBlueGrey";
+            // 
+            // lbx_testStatus
+            // 
+            this.lbx_testStatus.Location = new System.Drawing.Point(503, 8);
+            this.lbx_testStatus.Name = "lbx_testStatus";
+            this.lbx_testStatus.Size = new System.Drawing.Size(74, 21);
+            this.lbx_testStatus.TabIndex = 1;
+            this.lbx_testStatus.Text = "等待测试 ";
+            this.lbx_testStatus.ThemeName = "MaterialBlueGrey";
             // 
             // radStatusStrip1
             // 
@@ -982,7 +1020,7 @@
             this.radLabelElement16,
             this.lbx_voltageExCount,
             this.radLabelElement21});
-            this.radStatusStrip1.Location = new System.Drawing.Point(0, 308);
+            this.radStatusStrip1.Location = new System.Drawing.Point(0, 465);
             this.radStatusStrip1.Name = "radStatusStrip1";
             this.radStatusStrip1.Size = new System.Drawing.Size(1089, 25);
             this.radStatusStrip1.TabIndex = 2;
@@ -1146,118 +1184,6 @@
             this.radMenu1.TabIndex = 0;
             this.radMenu1.ThemeName = "MaterialBlueGrey";
             // 
-            // toolWindow2
-            // 
-            this.toolWindow2.Caption = null;
-            this.toolWindow2.Controls.Add(this.tb_log);
-            this.toolWindow2.Font = new System.Drawing.Font("宋体", 9F);
-            this.toolWindow2.Location = new System.Drawing.Point(4, 52);
-            this.toolWindow2.Name = "toolWindow2";
-            this.toolWindow2.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.Floating;
-            this.toolWindow2.Size = new System.Drawing.Size(1089, 93);
-            this.toolWindow2.Text = "Monitor Log";
-            // 
-            // toolTabStrip3
-            // 
-            this.toolTabStrip3.CanUpdateChildIndex = true;
-            this.toolTabStrip3.Controls.Add(this.toolWindow1);
-            this.toolTabStrip3.Location = new System.Drawing.Point(0, 0);
-            this.toolTabStrip3.Name = "toolTabStrip3";
-            // 
-            // 
-            // 
-            this.toolTabStrip3.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.toolTabStrip3.SelectedIndex = 0;
-            this.toolTabStrip3.Size = new System.Drawing.Size(234, 548);
-            this.toolTabStrip3.SizeInfo.AbsoluteSize = new System.Drawing.Size(234, 200);
-            this.toolTabStrip3.SizeInfo.SplitterCorrection = new System.Drawing.Size(34, 0);
-            this.toolTabStrip3.TabIndex = 1;
-            this.toolTabStrip3.TabStop = false;
-            this.toolTabStrip3.ThemeName = "MaterialBlueGrey";
-            // 
-            // radSplitContainer1
-            // 
-            this.radSplitContainer1.CausesValidation = false;
-            this.radSplitContainer1.Controls.Add(this.documentContainer2);
-            this.radSplitContainer1.Controls.Add(this.toolTabStrip1);
-            this.radSplitContainer1.IsCleanUpTarget = true;
-            this.radSplitContainer1.Location = new System.Drawing.Point(236, 0);
-            this.radSplitContainer1.Name = "radSplitContainer1";
-            this.radSplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.radSplitContainer1.Padding = new System.Windows.Forms.Padding(5);
-            // 
-            // 
-            // 
-            this.radSplitContainer1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.radSplitContainer1.Size = new System.Drawing.Size(1097, 548);
-            this.radSplitContainer1.SizeInfo.AbsoluteSize = new System.Drawing.Size(1097, 347);
-            this.radSplitContainer1.SizeInfo.SplitterCorrection = new System.Drawing.Size(-34, 33);
-            this.radSplitContainer1.SplitterWidth = 8;
-            this.radSplitContainer1.TabIndex = 2;
-            this.radSplitContainer1.TabStop = false;
-            this.radSplitContainer1.ThemeName = "MaterialBlueGrey";
-            // 
-            // toolTabStrip1
-            // 
-            this.toolTabStrip1.CanUpdateChildIndex = true;
-            this.toolTabStrip1.CausesValidation = false;
-            this.toolTabStrip1.Controls.Add(this.toolWindow2);
-            this.toolTabStrip1.Location = new System.Drawing.Point(0, 399);
-            this.toolTabStrip1.Name = "toolTabStrip1";
-            // 
-            // 
-            // 
-            this.toolTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.toolTabStrip1.SelectedIndex = 0;
-            this.toolTabStrip1.Size = new System.Drawing.Size(1097, 149);
-            this.toolTabStrip1.SizeInfo.AbsoluteSize = new System.Drawing.Size(200, 149);
-            this.toolTabStrip1.SizeInfo.AutoSizeScale = new System.Drawing.SizeF(0F, -0.2228916F);
-            this.toolTabStrip1.SizeInfo.SplitterCorrection = new System.Drawing.Size(0, -165);
-            this.toolTabStrip1.TabIndex = 3;
-            this.toolTabStrip1.TabStop = false;
-            this.toolTabStrip1.ThemeName = "MaterialBlueGrey";
-            // 
-            // tb_log
-            // 
-            this.tb_log.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tb_log.Location = new System.Drawing.Point(0, 0);
-            this.tb_log.Multiline = true;
-            this.tb_log.Name = "tb_log";
-            this.tb_log.Size = new System.Drawing.Size(1089, 93);
-            this.tb_log.TabIndex = 0;
-            // 
-            // tb_selfStudyTip
-            // 
-            this.tb_selfStudyTip.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tb_selfStudyTip.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tb_selfStudyTip.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tb_selfStudyTip.Location = new System.Drawing.Point(0, 28);
-            this.tb_selfStudyTip.Name = "tb_selfStudyTip";
-            this.tb_selfStudyTip.Size = new System.Drawing.Size(1089, 19);
-            this.tb_selfStudyTip.TabIndex = 3;
-            this.tb_selfStudyTip.Visible = false;
-            // 
-            // radGridViewSelfStudy
-            // 
-            this.radGridViewSelfStudy.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radGridViewSelfStudy.Location = new System.Drawing.Point(0, 47);
-            // 
-            // 
-            // 
-            this.radGridViewSelfStudy.MasterTemplate.ViewDefinition = tableViewDefinition2;
-            this.radGridViewSelfStudy.Name = "radGridViewSelfStudy";
-            this.radGridViewSelfStudy.Size = new System.Drawing.Size(1089, 286);
-            this.radGridViewSelfStudy.TabIndex = 4;
-            this.radGridViewSelfStudy.ThemeName = "TelerikMetroTouch";
-            // 
-            // lbx_testStatus
-            // 
-            this.lbx_testStatus.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lbx_testStatus.Location = new System.Drawing.Point(459, 15);
-            this.lbx_testStatus.Name = "lbx_testStatus";
-            this.lbx_testStatus.Size = new System.Drawing.Size(100, 14);
-            this.lbx_testStatus.TabIndex = 0;
-            // 
             // CMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1286,17 +1212,21 @@
             ((System.ComponentModel.ISupportInitialize)(this.statusStrip)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).EndInit();
             this.radDock1.ResumeLayout(false);
-            this.documentWindow3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewProb.MasterTemplate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewProb)).EndInit();
             this.toolWindow1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radTreeView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toolTabStrip3)).EndInit();
+            this.toolTabStrip3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.documentContainer2)).EndInit();
             this.documentContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).EndInit();
             this.documentTabStrip1.ResumeLayout(false);
+            this.documentWindow3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewProb.MasterTemplate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewProb)).EndInit();
             this.documentWindow2.ResumeLayout(false);
             this.documentWindow2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewSelfStudy.MasterTemplate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridViewSelfStudy)).EndInit();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
             this.documentWindow1.ResumeLayout(false);
@@ -1306,18 +1236,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelStatus)).EndInit();
             this.panelStatus.ResumeLayout(false);
             this.panelStatus.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lbx_testStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radStatusStrip1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).EndInit();
-            this.toolWindow2.ResumeLayout(false);
-            this.toolWindow2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.toolTabStrip3)).EndInit();
-            this.toolTabStrip3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.radSplitContainer1)).EndInit();
-            this.radSplitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.toolTabStrip1)).EndInit();
-            this.toolTabStrip1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewSelfStudy.MasterTemplate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridViewSelfStudy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1367,7 +1288,6 @@
         private Telerik.WinControls.UI.RadMenuItem menu_historyData;
         private Telerik.WinControls.UI.RadMenuItem menu_connectServer;
         private Telerik.WinControls.UI.RadMenuItem menu_disConnect;
-        private Telerik.WinControls.UI.RadMenuItem radMenuItem26;
         private Telerik.WinControls.UI.RadMenuItem menu_StartResistanceCompensation;
         private Telerik.WinControls.UI.RadMenuItem menu_ResistanceCompensationManage;
         private Telerik.WinControls.UI.RadMenuItem menu_faultCode;
@@ -1429,7 +1349,6 @@
         private System.Windows.Forms.ToolStripButton tool_importCableLib;
         private Telerik.WinControls.UI.RadMenuItem menu_operateLog;
         private Telerik.WinControls.UI.RadMenuItem menu_roleManager;
-        private Telerik.WinControls.UI.RadMenu radMenu1;
         private Telerik.WinControls.UI.RadLabelElement radLabelElement2;
         private Telerik.WinControls.UI.RadImageButtonElement radImageButtonElement1;
         private Telerik.WinControls.UI.RadLabelElement radLabelElement4;
@@ -1441,13 +1360,10 @@
         private Telerik.WinControls.UI.RadLabelElement radLabelElement21;
         private Telerik.WinControls.UI.Docking.DocumentWindow documentWindow3;
         private Telerik.WinControls.UI.RadGridView radGridViewProb;
-        private Telerik.WinControls.UI.Docking.ToolWindow toolWindow2;
         private Telerik.WinControls.UI.Docking.ToolTabStrip toolTabStrip3;
-        private Telerik.WinControls.UI.RadSplitContainer radSplitContainer1;
-        private Telerik.WinControls.UI.Docking.ToolTabStrip toolTabStrip1;
-        private System.Windows.Forms.TextBox tb_log;
         private Telerik.WinControls.UI.RadGridView radGridViewSelfStudy;
         private System.Windows.Forms.TextBox tb_selfStudyTip;
-        private System.Windows.Forms.TextBox lbx_testStatus;
+        private Telerik.WinControls.UI.RadLabel lbx_testStatus;
+        private Telerik.WinControls.UI.RadMenu radMenu1;
     }
 }

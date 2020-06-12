@@ -12,11 +12,11 @@ namespace CableTestManager.Business.Implements
     {
 		#region  Ù–‘◊¢»Î
 		
-        private ISqlite_sequenceDBService dBService = new Sqlite_sequenceDBService();
+        private ISqlite_sequenceService service = new Sqlite_sequenceService();
 
         public Sqlite_sequenceManager()
         {
-            base.BaseDBService = this.dBService;
+            base.BaseService = this.service;
         }
         
         #endregion

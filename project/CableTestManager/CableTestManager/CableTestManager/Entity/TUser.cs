@@ -1,5 +1,5 @@
 /************************************************************************************
- *      Copyright (C) 2020 FigKey,All Rights Reserved
+ *      Copyright (C) 2019 FigKey,All Rights Reserved
  *      File:
  *				TUser.cs
  *      Description:
@@ -9,7 +9,7 @@
  *				1297953037@qq.com
  *				http://www.figkey.com
  *      Finish DateTime:
- *				2020年06月02日
+ *				2020年06月12日
  *      History:
  ***********************************************************************************/
 using System;

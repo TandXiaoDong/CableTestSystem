@@ -78,6 +78,7 @@
             // 
             // cb_pressureProofTest
             // 
+            this.cb_pressureProofTest.Enabled = false;
             this.cb_pressureProofTest.Location = new System.Drawing.Point(202, 94);
             this.cb_pressureProofTest.Name = "cb_pressureProofTest";
             this.cb_pressureProofTest.Size = new System.Drawing.Size(89, 19);

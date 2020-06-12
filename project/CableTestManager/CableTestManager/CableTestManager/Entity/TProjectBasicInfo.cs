@@ -1,5 +1,5 @@
 /************************************************************************************
- *      Copyright (C) 2020 FigKey,All Rights Reserved
+ *      Copyright (C) 2019 FigKey,All Rights Reserved
  *      File:
  *				TProjectBasicInfo.cs
  *      Description:
@@ -9,7 +9,7 @@
  *				1297953037@qq.com
  *				http://www.figkey.com
  *      Finish DateTime:
- *				2020年06月02日
+ *				2020年06月12日
  *      History:
  ***********************************************************************************/
 using System;
@@ -28,20 +28,11 @@ namespace CableTestManager.Entity
 
         private long _iD = 0;
         private string _projectName = String.Empty;
-        private string _batchNumber = String.Empty;
-        private long _isCommonProject = 0;
-        private long _isGroupTestProject = 0;
         private string _testCableName = String.Empty;
-        private long _isExistTestItem = 0;
-        private long _isExistConductTest = 0;
-        private long _isExistInsulateTest = 0;
-        private long _isExistShortCircuitTest = 0;
-        private long _isExistVoltageWithStandardTest = 0;
         private double _conductTestThreshold = 0.0;
         private double _conductTestVoltage = 0.0;
         private double _conductTestCurrentElect = 0.0;
         private double _shortCircuitTestThreshold = 0.0;
-        private double _insulateHigthOrLowElect = 0.0;
         private double _insulateTestThreshold = 0.0;
         private double _insulateTestHoldTime = 0.0;
         private double _insulateTestVoltage = 0.0;
@@ -49,7 +40,11 @@ namespace CableTestManager.Entity
         private double _voltageWithStandardThreshold = 0.0;
         private double _voltageWithStandardHoldTime = 0.0;
         private double _voltageWithStandardVoltage = 0.0;
-        private long _isUseSelfDefineParams = 0;
+        private double _resistanceCompensation = 0.0;
+        private double _insulateVolCompensation = 0.0;
+        private double _insulateResCompensation = 0.0;
+        private double _temperature = 0.0;
+        private double _ambientHumidity = 0.0;
         private string _remark = String.Empty;
         private string _updateDate = String.Empty;
 
@@ -73,66 +68,10 @@ namespace CableTestManager.Entity
         }
 
 
-        public string BatchNumber
-        {
-            set { this._batchNumber = value; }
-            get { return this._batchNumber; }
-        }
-
-
-        public long IsCommonProject
-        {
-            set { this._isCommonProject = value; }
-            get { return this._isCommonProject; }
-        }
-
-
-        public long IsGroupTestProject
-        {
-            set { this._isGroupTestProject = value; }
-            get { return this._isGroupTestProject; }
-        }
-
-
         public string TestCableName
         {
             set { this._testCableName = value; }
             get { return this._testCableName; }
-        }
-
-
-        public long IsExistTestItem
-        {
-            set { this._isExistTestItem = value; }
-            get { return this._isExistTestItem; }
-        }
-
-
-        public long IsExistConductTest
-        {
-            set { this._isExistConductTest = value; }
-            get { return this._isExistConductTest; }
-        }
-
-
-        public long IsExistInsulateTest
-        {
-            set { this._isExistInsulateTest = value; }
-            get { return this._isExistInsulateTest; }
-        }
-
-
-        public long IsExistShortCircuitTest
-        {
-            set { this._isExistShortCircuitTest = value; }
-            get { return this._isExistShortCircuitTest; }
-        }
-
-
-        public long IsExistVoltageWithStandardTest
-        {
-            set { this._isExistVoltageWithStandardTest = value; }
-            get { return this._isExistVoltageWithStandardTest; }
         }
 
 
@@ -161,13 +100,6 @@ namespace CableTestManager.Entity
         {
             set { this._shortCircuitTestThreshold = value; }
             get { return this._shortCircuitTestThreshold; }
-        }
-
-
-        public double InsulateHigthOrLowElect
-        {
-            set { this._insulateHigthOrLowElect = value; }
-            get { return this._insulateHigthOrLowElect; }
         }
 
 
@@ -220,10 +152,38 @@ namespace CableTestManager.Entity
         }
 
 
-        public long IsUseSelfDefineParams
+        public double ResistanceCompensation
         {
-            set { this._isUseSelfDefineParams = value; }
-            get { return this._isUseSelfDefineParams; }
+            set { this._resistanceCompensation = value; }
+            get { return this._resistanceCompensation; }
+        }
+
+
+        public double InsulateVolCompensation
+        {
+            set { this._insulateVolCompensation = value; }
+            get { return this._insulateVolCompensation; }
+        }
+
+
+        public double InsulateResCompensation
+        {
+            set { this._insulateResCompensation = value; }
+            get { return this._insulateResCompensation; }
+        }
+
+
+        public double Temperature
+        {
+            set { this._temperature = value; }
+            get { return this._temperature; }
+        }
+
+
+        public double AmbientHumidity
+        {
+            set { this._ambientHumidity = value; }
+            get { return this._ambientHumidity; }
         }
 
 

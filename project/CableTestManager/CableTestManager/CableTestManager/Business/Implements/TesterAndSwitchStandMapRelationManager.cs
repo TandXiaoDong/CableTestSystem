@@ -12,11 +12,11 @@ namespace CableTestManager.Business.Implements
     {
 		#region  Ù–‘◊¢»Î
 		
-        private ITesterAndSwitchStandMapRelationDBService dBService = new TesterAndSwitchStandMapRelationDBService();
+        private ITesterAndSwitchStandMapRelationService service = new TesterAndSwitchStandMapRelationService();
 
         public TesterAndSwitchStandMapRelationManager()
         {
-            base.BaseDBService = this.dBService;
+            base.BaseService = this.service;
         }
         
         #endregion

@@ -1,5 +1,5 @@
 /************************************************************************************
- *      Copyright (C) 2020 FigKey,All Rights Reserved
+ *      Copyright (C) 2019 FigKey,All Rights Reserved
  *      File:
  *				THistoryDataDetail.cs
  *      Description:
@@ -9,7 +9,7 @@
  *				1297953037@qq.com
  *				http://www.figkey.com
  *      Finish DateTime:
- *				2020年06月02日
+ *				2020年06月12日
  *      History:
  ***********************************************************************************/
 using System;
@@ -35,12 +35,12 @@ namespace CableTestManager.Entity
         private string _endContactPoint = String.Empty;
         private string _conductValue = String.Empty;
         private string _conductTestResult = String.Empty;
+        private string _shortCircuitValue = String.Empty;
+        private string _shortCircuitTestResult = String.Empty;
         private string _insulateValue = String.Empty;
         private string _insulateTestResult = String.Empty;
         private string _voltageWithStandardValue = String.Empty;
         private string _voltageWithStandardTestResult = String.Empty;
-        private string _shortCircuitValue = String.Empty;
-        private string _shortCircuitTestResult = String.Empty;
 
 
         #endregion
@@ -111,6 +111,20 @@ namespace CableTestManager.Entity
         }
 
 
+        public string ShortCircuitValue
+        {
+            set { this._shortCircuitValue = value; }
+            get { return this._shortCircuitValue; }
+        }
+
+
+        public string ShortCircuitTestResult
+        {
+            set { this._shortCircuitTestResult = value; }
+            get { return this._shortCircuitTestResult; }
+        }
+
+
         public string InsulateValue
         {
             set { this._insulateValue = value; }
@@ -136,20 +150,6 @@ namespace CableTestManager.Entity
         {
             set { this._voltageWithStandardTestResult = value; }
             get { return this._voltageWithStandardTestResult; }
-        }
-
-
-        public string ShortCircuitValue
-        {
-            set { this._shortCircuitValue = value; }
-            get { return this._shortCircuitValue; }
-        }
-
-
-        public string ShortCircuitTestResult
-        {
-            set { this._shortCircuitTestResult = value; }
-            get { return this._shortCircuitTestResult; }
         }
 
 

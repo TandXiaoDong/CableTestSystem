@@ -1,7 +1,7 @@
 /************************************************************************************
- *      Copyright (C) 2020 FigKey,All Rights Reserved
+ *      Copyright (C) 2019 FigKey,All Rights Reserved
  *      File:
- *				IBaseDBService.cs
+ *				IBaseService.cs
  *      Description:
  *				 数据访问基础接口
  *      Author:
@@ -9,7 +9,7 @@
  *				1297953037@qq.com
  *				http://www.figkey.com
  *      Finish DateTime:
- *				2020年06月02日
+ *				2020年06月12日
  *      History:
  ***********************************************************************************/
 using System;
@@ -20,7 +20,7 @@ using System.Data;
 namespace CableTestManager.Data
 {
     using CableTestManager.Components;
-    public interface IBaseDBService<T>
+    public interface IBaseService<T>
     {
         /// <summary>
         /// 按照主键查找
@@ -180,6 +180,12 @@ namespace CableTestManager.Data
         /// <param name="entity">对应新记录的实体数据</param>
         /// <returns>返回追加记录的主键值</returns>
         int Insert(T entity);
+		/// <summary>
+        /// 添加新记录
+        /// </summary>
+        /// <param name="entitys">对应新记录的实体数据</param>
+        /// <returns>返回追加记录的主键值</returns>
+        int Insert(List<T> entitys);
         /// <summary>
         /// 更新记录
         /// </summary>

@@ -12,11 +12,11 @@ namespace CableTestManager.Business.Implements
     {
 		#region  Ù–‘◊¢»Î
 		
-        private ITSwitchWorkWearLibraryDBService dBService = new TSwitchWorkWearLibraryDBService();
+        private ITSwitchWorkWearLibraryService service = new TSwitchWorkWearLibraryService();
 
         public TSwitchWorkWearLibraryManager()
         {
-            base.BaseDBService = this.dBService;
+            base.BaseService = this.service;
         }
         
         #endregion

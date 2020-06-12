@@ -1,7 +1,7 @@
 /************************************************************************************
- *      Copyright (C) 2020 FigKey,All Rights Reserved
+ *      Copyright (C) 2019 FigKey,All Rights Reserved
  *      File:
- *				BaseDBService.cs
+ *				BaseService.cs
  *      Description:
  *				 基于泛型数据访问抽象基类
  *      Author:
@@ -9,7 +9,7 @@
  *				1297953037@qq.com
  *				http://www.figkey.com
  *      Finish DateTime:
- *				2020年06月02日
+ *				2020年06月12日
  *      History:
  *      
  ***********************************************************************************/
@@ -26,7 +26,7 @@ namespace CableTestManager.Data
     /// 基于泛型数据访问抽象基类，封装了基本数据访问操作CRUD
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class BaseDBService<T> : IBaseDBService<T>
+    public abstract class BaseService<T> : IBaseService<T>
     {
         #region 私有字段
 
@@ -38,7 +38,7 @@ private string procedureName = "MesnacPaging";   //分页存储过程名
 
 #region 构造方法
 
-public BaseDBService()
+public BaseService()
         {
             //获取实体类T的映射信息
             this.classMap = EntityMapperHandler.GetInstance().GetMapDictionary()[typeof(T).Name];
@@ -96,7 +96,7 @@ protected List<T> GetBySql(CommandType cmdType, string cmdText, SQLiteParameter[
 
 #endregion
 
-#region IBaseDBService<T> 成员
+#region IBaseService<T> 成员
 /// <summary>
 /// 按住键或标识列查找，只有是单字段主键（非组合键）时才按主键查找
 /// </summary>
@@ -577,6 +577,49 @@ public int Insert(T entity)
     }
     return result;
 }
+        /// <summary>
+        /// 向表中追加一条记录
+        /// </summary>
+        /// <param name="entity">封装记录的实体</param>
+        /// <returns>如果有自增列，则返回对应的自增列的值，否则返回受影响的行数</returns>
+        public int Insert(List<T> entityList)
+        {
+            List<string> cmdTextList = new List<string>();
+            foreach (var entity in entityList)
+            {
+                var cmdText = "insert into {0}({1}) values({2});";
+                var columns = String.Empty;
+                var ps = String.Empty;
+                var pv = String.Empty;
+                List<SQLiteParameter> parameters = new List<SQLiteParameter>();
+                foreach (XmlPropertyMap pm in this.classMap.Properties.Values)
+                {
+                    //组合字段列表和参数列表，去掉自动增长列
+                    if (pm != this.classMap.Identity)
+                    {
+                        columns = String.IsNullOrEmpty(columns) ? pm.ColumnName : columns + "," + pm.ColumnName;
+                        ps = String.IsNullOrEmpty(ps) ? "@" + pm.ColumnName : ps + ",@" + pm.ColumnName;
+                        parameters.Add(new SQLiteParameter("@" + pm.ColumnName, this.properties[pm.ColumnName].GetValue(entity, null)));
+                        pv += $"'{this.properties[pm.ColumnName].GetValue(entity, null)}',";
+                    }
+                }
+                pv = pv.Substring(0, pv.LastIndexOf(','));
+                cmdText = String.Format(cmdText, this.classMap.TableName, columns, pv);
+                cmdTextList.Add(cmdText);
+            }
+            int result = 0;
+
+            if (this.classMap.Identity == null)
+            {
+                result = SQLiteHelper.ExecuteCommand(SQLiteHelper.CONSTR, CommandType.Text, cmdTextList, null);
+            }
+            else
+            {
+                //result = Convert.ToInt32(SQLiteHelper.GetScalar(SQLiteHelper.CONSTR, CommandType.Text, cmdText, parameters.ToArray()));
+            }
+            return result;
+        }
+
 /// <summary>
 /// 更新表中的一条记录
 /// </summary>

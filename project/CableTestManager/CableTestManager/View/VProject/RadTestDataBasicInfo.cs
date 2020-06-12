@@ -18,11 +18,13 @@ namespace CableTestManager.View.VProject
     {
         private THistoryDataBasicManager historyDataInfoManager;
         private THistoryDataDetailManager historyDataDetailManager;
+        private string exportPath;
 
-        public RadTestDataBasicInfo()
+        public RadTestDataBasicInfo(string path)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterParent;
+            this.exportPath = path;
         }
 
         private void RadTestDataBasicInfo_Load(object sender, EventArgs e)
@@ -30,7 +32,9 @@ namespace CableTestManager.View.VProject
             historyDataInfoManager = new THistoryDataBasicManager();
             historyDataDetailManager = new THistoryDataDetailManager();
 
-            RadGridViewProperties.SetRadGridViewProperty(this.radGridView1, false,true,7);
+            this.dateTimePicker_start.Text = DateTime.Now.ToString("yyyy-MM-dd");
+            this.dateTimePicker_end.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            RadGridViewProperties.SetRadGridViewProperty(this.radGridView1, false,true,this.radGridView1.ColumnCount);
             QueryHistoryBasicInfo(true);
             InitFuncState();
 
@@ -74,6 +78,10 @@ namespace CableTestManager.View.VProject
                 MessageBox.Show("请选择要删除的项目！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            if (MessageBox.Show("确认要删除该项目的数据？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+            {
+                return;
+            }
             var currentProject = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
             var delRow = historyDataInfoManager.DeleteByWhere($"where ProjectName = '{currentProject}'");
             delRow += historyDataDetailManager.DeleteByWhere($"where ProjectName = '{currentProject}'");
@@ -82,6 +90,7 @@ namespace CableTestManager.View.VProject
                 UserOperateRecord.UpdateOperateRecord($"删除历史数据-删除项目{currentProject}");
                 MessageBox.Show("删除数据完成！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
+            QueryHistoryBasicInfo(true);
         }
 
         private void Menu_export_Click(object sender, EventArgs e)
@@ -101,19 +110,14 @@ namespace CableTestManager.View.VProject
 
         private void Menu_detail_Click(object sender, EventArgs e)
         {
-            var selectProjectIndex = this.radGridView1.CurrentRow.Index;
-            if (selectProjectIndex < 0)
+            var b = RadGridViewProperties.IsSelectRow(this.radGridView1);
+            if (!b)
             {
                 MessageBox.Show("请选择要查看明细的项目！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 return;
             }
-            var currentProject = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
-            var testTime = this.radGridView1.CurrentRow.Cells[4].Value.ToString();
-            var dt = historyDataInfoManager.GetDataSetByFieldsAndWhere("TestSerialNumber", $"where ProjectName = '{currentProject}' and TestDate = '{testTime}'").Tables[0];
-            if (dt.Rows.Count < 1)
-                return;
-            var testNumber = dt.Rows[0][0].ToString();
-            RadTestDataDetail testDataDetail = new RadTestDataDetail(currentProject, testNumber);
+            var testSerial = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
+            RadTestDataDetail testDataDetail = new RadTestDataDetail(testSerial, this.exportPath);
             testDataDetail.ShowDialog();
         }
 
@@ -125,41 +129,32 @@ namespace CableTestManager.View.VProject
         private void QueryHistoryBasicInfo(bool IsLike)
         {
             RadGridViewProperties.ClearGridView(this.radGridView1,null);
-            var selectSQL = "";
-            var fields = "ProjectName,TestCableName,BatchNumber,TestDate,TestOperator,FinalTestResult";
+            var where = "";
             if (this.tb_queryFilter.Text.Trim() != "")
             {
                 if (IsLike)
-                    selectSQL = $"where ProjectName like '%{this.tb_queryFilter.Text}%' and TestDate >= '{this.dateTimePicker_start.Text}' and TestDate <= '{this.dateTimePicker_end.Text}'";
+                    where = $"where ProjectName like '%{this.tb_queryFilter.Text}%' and TestStartDate >= '{this.dateTimePicker_start.Text}' and TestStartDate <= '{this.dateTimePicker_end.Text}'";
                 else
-                    selectSQL = $"where ProjectName = '{this.tb_queryFilter.Text}' and TestDate >= '{this.dateTimePicker_start.Text}' and TestDate <= '{this.dateTimePicker_end.Text}'";
+                    where = $"where ProjectName = '{this.tb_queryFilter.Text}' and TestStartDate >= '{this.dateTimePicker_start.Text}' and TestStartDate <= '{this.dateTimePicker_end.Text}'";
             }
-            var dt = historyDataInfoManager.GetDataSetByFieldsAndWhere(fields, selectSQL).Tables[0];
+            var dt = historyDataInfoManager.GetDataSetByWhere(where).Tables[0];
             if (dt.Rows.Count < 1)
             {
                 if (IsLike)
-                    selectSQL = $"where TestCableName like '%{this.tb_queryFilter.Text}%' and TestDate >= '{this.dateTimePicker_start.Text}' and TestDate <= '{this.dateTimePicker_end.Text}'";
+                    where = $"where TestCableName like '%{this.tb_queryFilter.Text}%' and TestStartDate >= '{this.dateTimePicker_start.Text}' and TestStartDate <= '{this.dateTimePicker_end.Text}'";
                 else
-                    selectSQL = $"where TestCableName = '{this.tb_queryFilter.Text}' and TestDate >= '{this.dateTimePicker_start.Text}' and TestDate <= '{this.dateTimePicker_end.Text}'";
+                    where = $"where TestCableName = '{this.tb_queryFilter.Text}' and TestStartDate >= '{this.dateTimePicker_start.Text}' and TestStartDate <= '{this.dateTimePicker_end.Text}'";
 
-                dt = historyDataInfoManager.GetDataSetByFieldsAndWhere(fields,selectSQL).Tables[0];
-                if (dt.Rows.Count < 1)
-                {
-                    if(IsLike)
-                        selectSQL = $"where BatchNumber like '%{this.tb_queryFilter.Text}%' and TestDate >= '{this.dateTimePicker_start.Text}' and TestDate <= '{this.dateTimePicker_end.Text}'";
-                    else
-                        selectSQL = $"where BatchNumber = '{this.tb_queryFilter.Text}' and TestDate >= '{this.dateTimePicker_start.Text}' and TestDate <= '{this.dateTimePicker_end.Text}'";
-                    dt = historyDataInfoManager.GetDataSetByFieldsAndWhere(fields,selectSQL).Tables[0];
-                }
+                dt = historyDataInfoManager.GetDataSetByWhere(where).Tables[0];
             }
             if (dt.Rows.Count < 1)
                 return;
             foreach (DataRow dr in dt.Rows)
             {
+                var testSerial = dr["TestSerialNumber"].ToString();
                 var projectName = dr["ProjectName"].ToString();
                 var testCableName = dr["TestCableName"].ToString();
-                var batchNumber = dr["BatchNumber"].ToString();
-                var testTime = dr["TestDate"].ToString();
+                var testTime = dr["TestStartDate"].ToString();
                 var tester = dr["TestOperator"].ToString();
                 var testResult = dr["FinalTestResult"].ToString();
                 if (IsExistTestProject(testTime))
@@ -167,9 +162,9 @@ namespace CableTestManager.View.VProject
                 this.radGridView1.Rows.AddNew();
                 var rCount = this.radGridView1.RowCount;
                 this.radGridView1.Rows[rCount - 1].Cells[0].Value = rCount;
-                this.radGridView1.Rows[rCount - 1].Cells[1].Value = projectName;
-                this.radGridView1.Rows[rCount - 1].Cells[2].Value = testCableName;
-                this.radGridView1.Rows[rCount - 1].Cells[3].Value = batchNumber;
+                this.radGridView1.Rows[rCount - 1].Cells[1].Value = testSerial;
+                this.radGridView1.Rows[rCount - 1].Cells[2].Value = projectName;
+                this.radGridView1.Rows[rCount - 1].Cells[3].Value = testCableName;
                 this.radGridView1.Rows[rCount - 1].Cells[4].Value = testTime;
                 this.radGridView1.Rows[rCount - 1].Cells[5].Value = tester;
                 this.radGridView1.Rows[rCount - 1].Cells[6].Value = testResult;
