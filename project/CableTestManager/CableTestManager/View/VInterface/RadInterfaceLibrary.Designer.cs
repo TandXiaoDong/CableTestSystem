@@ -59,8 +59,8 @@
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(177, 25);
-            this.toolStripLabel1.Text = "接口代号/连接器型号：";
+            this.toolStripLabel1.Size = new System.Drawing.Size(90, 25);
+            this.toolStripLabel1.Text = "接口代号：";
             // 
             // tb_queryFilter
             // 

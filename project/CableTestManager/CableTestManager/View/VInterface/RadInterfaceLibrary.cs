@@ -71,6 +71,12 @@ namespace CableTestManager.View.VInterface
             this.tool_edit.Click += Tool_edit_Click;
             this.tool_export.Click += Tool_export_Click;
             this.radGridView1.CellDoubleClick += RadGridView1_CellDoubleClick;
+            this.tb_queryFilter.TextChanged += Tb_queryFilter_TextChanged;
+        }
+
+        private void Tb_queryFilter_TextChanged(object sender, EventArgs e)
+        {
+            QueryInterfaceInfo();
         }
 
         private void RadGridView1_CellDoubleClick(object sender, GridViewCellEventArgs e)
@@ -124,7 +130,7 @@ namespace CableTestManager.View.VInterface
             var queryFilter = this.tb_queryFilter.Text.Trim();
             var selectSQL = "";
             if (queryFilter != "")
-                selectSQL = $"where InterfaceNo like '%{queryFilter}%' OR ConnectorName like '%{queryFilter}%' ";
+                selectSQL = $"where InterfaceNo like '%{queryFilter}%'";
             var dbSource = plugLibraryDetailManager.GetDataSetByWhere(selectSQL).Tables[0];
             if (dbSource.Rows.Count < 1)
                 return;

@@ -71,6 +71,12 @@ namespace CableTestManager.View.VInterface
             this.tool_export.Click += Tool_export_Click;
             this.tool_query.Click += Tool_query_Click;
             this.radGridView1.CellDoubleClick += RadGridView1_CellDoubleClick;
+            this.tool_queryFilter.TextChanged += Tool_queryFilter_TextChanged;
+        }
+
+        private void Tool_queryFilter_TextChanged(object sender, EventArgs e)
+        {
+            QueryCableLibInfo();
         }
 
         private void RadGridView1_CellDoubleClick(object sender, GridViewCellEventArgs e)
@@ -141,7 +147,12 @@ namespace CableTestManager.View.VInterface
         private void QueryCableLibInfo()
         {
             RadGridViewProperties.ClearGridView(this.radGridView1,null);
-            var data = lineStructLibraryDetailManager.GetDataSetByFieldsAndWhere("distinct CableName", "").Tables[0];
+            var where = "";
+            if (this.tool_queryFilter.Text != "")
+            {
+                where = $"where CableName like '%{this.tool_queryFilter.Text}%'";
+            }
+            var data = lineStructLibraryDetailManager.GetDataSetByFieldsAndWhere("distinct CableName", where).Tables[0];
             if (data.Rows.Count < 1)
                 return;
             int iRow = 0;

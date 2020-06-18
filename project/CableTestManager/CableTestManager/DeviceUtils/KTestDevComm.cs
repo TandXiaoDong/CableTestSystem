@@ -154,80 +154,7 @@ namespace CableTestManager.DeviceUtils
 		//				}
 		//			}
 		//		}
-		[return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.U1)]
-		public unsafe bool InitCAN()
-		{
-			bool result = false;
-			try
-			{
-				byte this2;
-				if (0 != this.mnCommState)
-				{
-					this2 = 0;
-					return this2 != 0;
-				}
-				this.mdwDeviceType = 3u;
-				this.mdwDeviceInd = 0u;
-				this.mdwCANInd = 0u;
-				this.mdwSendType = 0u;
-				this.cannum = 0u;
-				this.code = 0u;
-				this.mask = 4294967295u;
-				this.filtertype = 0;
-				this.mode = 0;
-				this.timing0 = 1;
-				this.timing1 = 28;
-				bool flag;
-				//try
-				//{
-				//	*(int*)this.init_config = (int)this.code;
-				//	*(int*)(this.init_config + 4 / sizeof(_VCI_INIT_CONFIG)) = (int)this.mask;
-				//	*(byte*)(this.init_config + 12 / sizeof(_VCI_INIT_CONFIG)) = this.filtertype;
-				//	*(byte*)(this.init_config + 15 / sizeof(_VCI_INIT_CONFIG)) = this.mode;
-				//	*(byte*)(this.init_config + 13 / sizeof(_VCI_INIT_CONFIG)) = this.timing0;
-				//	*(byte*)(this.init_config + 14 / sizeof(_VCI_INIT_CONFIG)) = this.timing1;
-				//}
-				//catch (System.Exception ex)
-				//{
-				//	this.ExceptionRecordFunc(ex.StackTrace);
-				//	flag = false;
-				//	goto IL_177;
-				//}
-				//if (< Module >.VCI_OpenDevice(this.mdwDeviceType, this.mdwDeviceInd, 0) != 1)
-				//{
-				//	this2 = 0;
-				//	return this2 != 0;
-				//}
-				//if (< Module >.VCI_InitCAN(this.mdwDeviceType, this.mdwDeviceInd, this.cannum, this.init_config) != 1)
-				//{
-				//			< Module >.VCI_CloseDevice(this.mdwDeviceType, this.mdwDeviceInd);
-				//	this2 = 0;
-				//	return this2 != 0;
-				//}
-				//		< Module >.VCI_ClearBuffer(this.mdwDeviceType, this.mdwDeviceInd, 0);
-				//this.mnCommState = KTestDevComm.CAN_COMM_READY;
-				//this.StartRecvData();
-				//uint num = this.cannum;
-				//this.mdwCanNum = num;
-				//if (< Module >.VCI_StartCAN(this.mdwDeviceType, this.mdwDeviceInd, num) != 1)
-				//{
-				//	this2 = 0;
-				//	return this2 != 0;
-				//}
-				//this2 = 1;
-				//return this2 != 0;
-				//IL_177:
-				//this2 = (flag ? 1 : 0);
-				//return this2 != 0;
-			}
-			catch (System.Exception ex2)
-			{
-				//this.ExceptionRecordFunc(ex2.StackTrace);
-				result = false;
-			}
-			return result;
-		}
-		[return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.U1)]
+
 		public bool CloseCAN()
 		{
 			bool bCloseOk = false;
@@ -343,65 +270,7 @@ namespace CableTestManager.DeviceUtils
 		//			}
 		//			return pCtrlCmd2;
 		//		}
-		[return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.U1)]
-		public unsafe bool OnSend(int FrmID, byte[] pBuffer, int Length)
-		{
-			try
-			{
-				if (this.mnCommState != KTestDevComm.CAN_COMM_READY)
-				{
-					byte pBuffer2 = 0;
-					return pBuffer2 != 0;
-				}
-				if (pBuffer == null)
-				{
-					byte pBuffer2 = 0;
-					return pBuffer2 != 0;
-				}
-				if (Length <= 0)
-				{
-					byte pBuffer2 = 0;
-					return pBuffer2 != 0;
-				}
-				if (Length > 8)
-				{
-					byte pBuffer2 = 0;
-					return pBuffer2 != 0;
-				}
-				//_VCI_CAN_OBJ* ptr = < Module >.@new(24u);
-				//_VCI_CAN_OBJ* Length2;
-				//if (ptr != null)
-				//{
-				//	initblk(ptr, 0, 24);
-				//	Length2 = ptr;
-				//}
-				//else
-				//{
-				//	Length2 = null;
-				//}
-				//_VCI_CAN_OBJ* frameinfo = Length2;
-				//*(int*)Length2 = FrmID;
-				//*(byte*)(Length2 + 12 / sizeof(_VCI_CAN_OBJ)) = (byte)Length;
-				//for (int i = 0; i < 8; i++)
-				//{
-				//	*(byte*)(frameinfo + i / sizeof(_VCI_CAN_OBJ) + 13 / sizeof(_VCI_CAN_OBJ)) = pBuffer[i];
-				//}
-				//*(byte*)(frameinfo + 11 / sizeof(_VCI_CAN_OBJ)) = 1;
-				//*(byte*)(frameinfo + 10 / sizeof(_VCI_CAN_OBJ)) = 0;
-				//*(byte*)(frameinfo + 9 / sizeof(_VCI_CAN_OBJ)) = (byte)this.mdwSendType;
-				//if (< Module >.VCI_Transmit(this.mdwDeviceType, this.mdwDeviceInd, this.mdwCanNum, frameinfo, 1) != 1)
-				//{
-				//	byte pBuffer2 = 0;
-				//	return pBuffer2 != 0;
-				//}
-			}
-			catch (System.Exception ex)
-			{
-				//this.ExceptionRecordFunc(ex.StackTrace);
-				return false;
-			}
-			return true;
-		}
+
 		//		[return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.U1)]
 		//		public bool ParseRepCmd(int nFrmID, byte[] pCmdBuf, int nCmdLen)
 		//		{

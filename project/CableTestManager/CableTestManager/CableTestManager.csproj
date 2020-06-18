@@ -491,7 +491,6 @@
     <Compile Include="DeviceUtils\InterfaceDefineStruct.cs" />
     <Compile Include="DeviceUtils\JYNYTestStruct.cs" />
     <Compile Include="DeviceUtils\KGroupTestParaInfo.cs" />
-    <Compile Include="DeviceUtils\KLineTestProcessor.cs" />
     <Compile Include="DeviceUtils\KParseRepCmd.cs" />
     <Compile Include="DeviceUtils\KTestDevComm.cs" />
     <Compile Include="DeviceUtils\ParStruct.cs" />

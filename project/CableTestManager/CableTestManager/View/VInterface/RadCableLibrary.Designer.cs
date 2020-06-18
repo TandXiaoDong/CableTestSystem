@@ -40,7 +40,7 @@
             this.windows8Theme1 = new Telerik.WinControls.Themes.Windows8Theme();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
+            this.tool_queryFilter = new System.Windows.Forms.ToolStripTextBox();
             this.tool_query = new System.Windows.Forms.ToolStripButton();
             this.tool_add = new System.Windows.Forms.ToolStripButton();
             this.tool_edit = new System.Windows.Forms.ToolStripButton();
@@ -60,7 +60,7 @@
             this.toolStrip1.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel1,
-            this.toolStripTextBox1,
+            this.tool_queryFilter,
             this.tool_query,
             this.tool_add,
             this.tool_edit,
@@ -76,13 +76,13 @@
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(248, 25);
-            this.toolStripLabel1.Text = "接口名称/接点数量/连接器型号：";
+            this.toolStripLabel1.Size = new System.Drawing.Size(90, 25);
+            this.toolStripLabel1.Text = "线束名称：";
             // 
-            // toolStripTextBox1
+            // tool_queryFilter
             // 
-            this.toolStripTextBox1.Name = "toolStripTextBox1";
-            this.toolStripTextBox1.Size = new System.Drawing.Size(130, 28);
+            this.tool_queryFilter.Name = "tool_queryFilter";
+            this.tool_queryFilter.Size = new System.Drawing.Size(130, 28);
             // 
             // tool_query
             // 
@@ -209,7 +209,7 @@
         private Telerik.WinControls.Themes.Windows8Theme windows8Theme1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
+        private System.Windows.Forms.ToolStripTextBox tool_queryFilter;
         private System.Windows.Forms.ToolStripButton tool_query;
         private System.Windows.Forms.ToolStripButton tool_add;
         private System.Windows.Forms.ToolStripButton tool_edit;

@@ -71,10 +71,7 @@ namespace CableTestManager.View.VInterface
             this.checkConduction.CheckState = CheckState.Checked;
             this.checkInsulate.CheckState = CheckState.Checked;
             this.checkPressureProof.CheckState = CheckState.Checked;
-            if (this.IsEditView)
-            {
-                this.rtbCableName.ReadOnly = true;
-            }
+
             GetLineStructDetailData(lineCableName);
         }
 
@@ -603,7 +600,7 @@ namespace CableTestManager.View.VInterface
 
             if (this.IsEditView)
             {
-                if (UpdateCableInfo() + AddCableInfo() > 0)
+                if (UpdateCableInfo() + AddCableInfo() + UpdateCableName() > 0)
                 {
                     MessageBox.Show("更新成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -622,6 +619,19 @@ namespace CableTestManager.View.VInterface
             }
             this.Close();
             this.DialogResult = DialogResult.OK;
+        }
+
+        private int UpdateCableName()
+        {
+            if (this.IsEditView)
+            {
+                if (this.lineCableName.Trim() != this.rtbCableName.Text.Trim())//名称已修改
+                {
+                    var row = this.lineStructManager.UpdateFields($"CableName = '{this.rtbCableName.Text.Trim()}'", $"CableName = '{this.lineCableName}'");
+                    return row;
+                }
+            }
+            return 0;
         }
 
         private int AddCableInfo()

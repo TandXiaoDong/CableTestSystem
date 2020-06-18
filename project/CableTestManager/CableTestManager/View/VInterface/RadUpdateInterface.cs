@@ -31,7 +31,6 @@ namespace CableTestManager.View.VAdd
         private InterfaceInfoLibrary infoLibrary;
         List<InterfaceInfoLibrary> addNewRowList = new List<InterfaceInfoLibrary>();
         private DataTable dataSource;//cache edit mode to add new row
-        private int editModeUpdateCount = 0;
 
         public RadUpdateInterface(string title, string plugNo,bool IsEdit)
         {
@@ -83,7 +82,6 @@ namespace CableTestManager.View.VAdd
                 this.radGridView1.Columns[0].ReadOnly = true;
                 this.radGridView1.Columns[1].ReadOnly = true;
                 this.tb_interfacelNo.Text = this.plugno;
-                this.tb_interfacelNo.ReadOnly = true;
             }
             else
             {
@@ -534,27 +532,33 @@ namespace CableTestManager.View.VAdd
             {
                 if (this.IsEditView)
                 {
-                    UpdateInterfaceInfo();//更新数据
-                    EditAddNewInterInfo();//添加新行
+                    if (UpdateInterfaceInfo() + EditAddNewInterInfo() + UpdateInterfaceName() > 0)
+                    {
+                        MessageBox.Show($"更新成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
                 else
                 {
-                    AddNewInterInfo();
+                    if (AddNewInterInfo() > 0)
+                    {
+                        MessageBox.Show($"更新成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
                 this.Close();
                 this.DialogResult = DialogResult.OK;
             }
         }
 
-        private void AddNewInterInfo()
+        private int AddNewInterInfo()
         {
+            int resCount = 0;
             if (this.radGridView1.RowCount < 1)
             {
                 MessageBox.Show("没有可以提交的数据!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                return 0;
             }
             if (!CheckValid())
-                return;
+                return 0;
             int beforeInsertCount = plugLibraryDetailManager.GetRowCount();
             int excuteCount = 0;
             //submit data
@@ -604,34 +608,19 @@ namespace CableTestManager.View.VAdd
                 }
             }
 
-            plugLibraryDetailManager.Insert(libList);
-
-            int afterInsertCount = plugLibraryDetailManager.GetRowCount();
-            if (afterInsertCount - beforeInsertCount > 0)
-            {
-                MessageBox.Show($"已更新{afterInsertCount - beforeInsertCount}条数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (excuteCount > 0)
-            {
-                MessageBox.Show($"已更新{excuteCount}条数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                MessageBox.Show($"已更新{0}条数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            resCount = plugLibraryDetailManager.Insert(libList);
+            return resCount;
         }
 
-        private void EditAddNewInterInfo()
+        private int EditAddNewInterInfo()
         {
             if (this.dataSource.Rows.Count < 1)
             {
-                MessageBox.Show($"已更新{this.editModeUpdateCount}条数据！","提示",MessageBoxButtons.OK,MessageBoxIcon.Information);
-                return;
+                return 0;
             }
             if (!CheckValid())
-                return;
-            int beforeInsertCount = plugLibraryDetailManager.GetRowCount();
-            int excuteCount = 0;
+                return 0;
+            //int beforeInsertCount = plugLibraryDetailManager.GetRowCount();
             //submit data
             int iRow = 1;
             int id = 0;
@@ -677,22 +666,23 @@ namespace CableTestManager.View.VAdd
                 }
             }
 
-            plugLibraryDetailManager.Insert(libList);
+            var resCount = plugLibraryDetailManager.Insert(libList);
             this.dataSource.Clear();
-            int afterInsertCount = plugLibraryDetailManager.GetRowCount();
+            //int afterInsertCount = plugLibraryDetailManager.GetRowCount();
+            return resCount;
+        }
 
-            if (afterInsertCount - beforeInsertCount > 0)
+        private int UpdateInterfaceName()
+        {
+            if (this.IsEditView)
             {
-                MessageBox.Show($"已更新{afterInsertCount - beforeInsertCount + this.editModeUpdateCount}条数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (this.plugno.Trim() != this.tb_interfacelNo.Text.Trim())//名称已修改
+                {
+                    var row = this.plugLibraryDetailManager.UpdateFields($"InterfaceNo = '{this.tb_interfacelNo.Text.Trim()}'", $"InterfaceNo = '{this.plugno}'");
+                    return row;
+                }
             }
-            else if (excuteCount > 0)
-            {
-                MessageBox.Show($"已更新{excuteCount}条数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                MessageBox.Show($"已更新{0}条数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            return 0;
         }
 
         private List<InterfaceLibCom> GetDevPointOrderID(string devPoint)//排序
@@ -869,12 +859,14 @@ namespace CableTestManager.View.VAdd
             }
         }
 
-        private void UpdateInterfaceInfo()
+        private int UpdateInterfaceInfo()
         {
+            int resCount = 0;
             if (interfaceLibaryInfos.Count < 1)
-                return;
+                return 0;
             if (!CheckValid())
-                return;
+                return 0;
+            
             foreach (var infoObj in this.interfaceLibaryInfos)
             {
                 infoObj.Operator = LocalLogin.currentUserName;
@@ -882,7 +874,7 @@ namespace CableTestManager.View.VAdd
                 var result = IsCanInsertOrUpdate(true, infoObj.ID, infoObj.InterfaceNo, infoObj.ContactPointName, infoObj.SwitchStandStitchNo, infoObj.Remark);
                 if (result == InterfaceExTipEnum.InterfacePoint_NotExistAndStitch_NoExist)
                 {
-                    editModeUpdateCount += plugLibraryDetailManager.Update(infoObj);
+                    resCount += plugLibraryDetailManager.Update(infoObj);
                 }
                 else
                 {
@@ -891,8 +883,7 @@ namespace CableTestManager.View.VAdd
             }
             interfaceLibaryInfos.Clear();
             RefreshDataGrid();
-            if (editModeUpdateCount <= 0)
-                return;
+            return resCount;
         }
 
         private bool IsNullInterfaceNo()
