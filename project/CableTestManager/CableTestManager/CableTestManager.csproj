@@ -447,9 +447,13 @@
     <Compile Include="ClientSocket\SuperSocketServer\SocketServerControl.cs" />
     <Compile Include="ClientSocket\SuperSocketServer\StartServerOfConfig.cs" />
     <Compile Include="ClientSocket\SuperSocketServer\SuperSocketConfig.cs" />
+    <Compile Include="Common\DeviceConfigParams.cs" />
+    <Compile Include="Common\DoubleBufferGridView.cs" />
     <Compile Include="Common\DoubleBufferListView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Common\InterfaceBasicInfo.cs" />
+    <Compile Include="Common\SelfCheckParams.cs" />
     <Compile Include="Common\TestHisBasicInfo.cs" />
     <Compile Include="Common\TestReportInfo.cs" />
     <Compile Include="Common\InterfaceLibCom.cs" />
@@ -517,6 +521,7 @@
     <Compile Include="Model\CableLibParams.cs" />
     <Compile Include="Model\CableTestParams.cs" />
     <Compile Include="Model\CableTestProcessParams.cs" />
+    <Compile Include="Model\DeviceConfig.cs" />
     <Compile Include="Model\InterfaceLibaryInfo.cs" />
     <Compile Include="Model\ProbTestConfig.cs" />
     <Compile Include="Model\SelfStudyConfig.cs" />
@@ -614,11 +619,11 @@
     <Compile Include="View\VEquipment\DevDebugAssitant.Designer.cs">
       <DependentUpon>DevDebugAssitant.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\VEquipment\DevSelfCheck.cs">
+    <Compile Include="View\VEquipment\FrmDevSelfCheck.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\VEquipment\DevSelfCheck.Designer.cs">
-      <DependentUpon>DevSelfCheck.cs</DependentUpon>
+    <Compile Include="View\VEquipment\FrmDevSelfCheck.Designer.cs">
+      <DependentUpon>FrmDevSelfCheck.cs</DependentUpon>
     </Compile>
     <Compile Include="View\VEquipment\ResistanceManage.cs">
       <SubType>Form</SubType>
@@ -1066,8 +1071,8 @@
     <EmbeddedResource Include="View\VEquipment\DevDebugAssitant.resx">
       <DependentUpon>DevDebugAssitant.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\VEquipment\DevSelfCheck.resx">
-      <DependentUpon>DevSelfCheck.cs</DependentUpon>
+    <EmbeddedResource Include="View\VEquipment\FrmDevSelfCheck.resx">
+      <DependentUpon>FrmDevSelfCheck.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\VEquipment\ResistanceManage.resx">
       <DependentUpon>ResistanceManage.cs</DependentUpon>
@@ -1398,6 +1403,13 @@
     <None Include="Resources\报表模板.png" />
     <None Include="Resources\勾选.png" />
     <EmbeddedResource Include="CableTestManager\Entity\EntityMapper.xml" />
+    <None Include="Resources\勾选16.png" />
+    <None Include="Resources\停止1.png" />
+    <None Include="Resources\cable %282%291.png" />
+    <None Include="Resources\停止48.png" />
+    <None Include="Resources\已停止.png" />
+    <None Include="Resources\已停止1.png" />
+    <None Include="Resources\停止.png" />
     <Content Include="完善.txt" />
     <Content Include="完善与优化.txt" />
     <Content Include="需求梳理.txt" />

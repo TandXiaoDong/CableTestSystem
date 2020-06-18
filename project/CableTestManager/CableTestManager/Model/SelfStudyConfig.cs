@@ -13,12 +13,12 @@ namespace CableTestManager.Model
             /// <summary>
             /// 范围学习
             /// </summary>
-            ProbTestByLimit,
+            SelfTestByLimit,
 
             /// <summary>
             /// 按接口学习
             /// </summary>
-            ProbTestByInterface,
+            SelfTestByInterface,
         }
 
         public SutdyTestTypeEnum StudyTestType { get; set; }

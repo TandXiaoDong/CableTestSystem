@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CableTestManager.Entity;
+using CableTestManager.Model;
 
 namespace CableTestManager.View.VEquipment
 {
@@ -16,10 +17,12 @@ namespace CableTestManager.View.VEquipment
         //电阻补偿-测试结果补偿电阻包括：自学习/探针/导通/短路
         //绝缘电压补偿-发送绝缘电压补偿电压
         //绝缘电阻补偿-测试结果补偿绝缘电阻
-        TProjectBasicInfo projectBasicInfo;
-        public ResistanceManage(TProjectBasicInfo basicInfo)
+        private TProjectBasicInfo projectBasicInfo;
+        private DeviceConfig devConfig;
+        public ResistanceManage(TProjectBasicInfo basicInfo, DeviceConfig config)
         {
             InitializeComponent();
+            this.devConfig = config;
             this.projectBasicInfo = basicInfo;
         }
 
@@ -40,9 +43,18 @@ namespace CableTestManager.View.VEquipment
             this.num_insResCom.DecimalPlaces = 2;
             this.num_insResCom.Increment = 2;
 
-            this.num_resComVal.Value = (decimal)this.projectBasicInfo.ResistanceCompensation;
-            this.num_insVolCom.Value = (decimal)this.projectBasicInfo.InsulateVolCompensation;
-            this.num_insResCom.Value = (decimal)this.projectBasicInfo.InsulateResCompensation;
+            if (this.devConfig.AssCompensateVal >= (double)this.num_resComVal.Minimum && this.devConfig.AssCompensateVal <= (double)this.num_resComVal.Maximum)
+            {
+                this.num_resComVal.Value = (decimal)this.devConfig.AssCompensateVal;
+            }
+            if (this.devConfig.InsulateVolCompensateVal >= (double)this.num_insVolCom.Minimum && this.devConfig.InsulateVolCompensateVal <= (double)this.num_insVolCom.Maximum)
+            {
+                this.num_insVolCom.Value = (decimal)this.devConfig.InsulateVolCompensateVal;
+            }
+            if (this.devConfig.InsulateAssCompensateVal >= (double)this.num_insResCom.Minimum && this.devConfig.InsulateAssCompensateVal <= (double)this.num_insResCom.Maximum)
+            {
+                this.num_insResCom.Value = (decimal)this.devConfig.InsulateAssCompensateVal;
+            }
         }
 
         private void ResistanceManage_Load(object sender, EventArgs e)
@@ -63,6 +75,9 @@ namespace CableTestManager.View.VEquipment
             this.projectBasicInfo.ResistanceCompensation = (double)this.num_resComVal.Value;
             this.projectBasicInfo.InsulateVolCompensation = (double)this.num_insVolCom.Value;
             this.projectBasicInfo.InsulateResCompensation = (double)this.num_insResCom.Value;
+            this.devConfig.AssCompensateVal = (double)this.num_resComVal.Value;
+            this.devConfig.InsulateVolCompensateVal = (double)this.num_insVolCom.Value;
+            this.devConfig.InsulateAssCompensateVal = (double)this.num_insResCom.Value;
             this.Close();
             this.DialogResult = DialogResult.OK;
         }

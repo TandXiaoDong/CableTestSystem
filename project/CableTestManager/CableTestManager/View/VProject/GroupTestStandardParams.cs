@@ -19,13 +19,13 @@ namespace CableTestManager.View.VProject
     {
         private TProjectBasicInfoManager projectInfoManager;
         private TCableTestLibraryManager lineStructLibraryDetailManager;
-        private CableJudgeThreshold judgeThreshold;
+        private DeviceConfig devConfig;
         private string testLineCable;
-        public GroupTestStandardParams(string lineCable,CableJudgeThreshold cableJudgeThreshold)
+        public GroupTestStandardParams(string lineCable,DeviceConfig config)
         {
             InitializeComponent();
             this.testLineCable = lineCable;
-            this.judgeThreshold = cableJudgeThreshold;
+            this.devConfig = config;
         }
 
         private void GroupTestStandardParams_Load(object sender, EventArgs e)
@@ -73,13 +73,13 @@ namespace CableTestManager.View.VProject
                 this.radGridView1.Rows[rCount - 1].Cells[2].Value = startContactPoint;
                 this.radGridView1.Rows[rCount - 1].Cells[3].Value = endInterface;
                 this.radGridView1.Rows[rCount - 1].Cells[4].Value = endContactPoint;
-                this.radGridView1.Rows[rCount - 1].Cells[5].Value = judgeThreshold.ConductionThreshold;
-                this.radGridView1.Rows[rCount - 1].Cells[6].Value = judgeThreshold.InsulateThreshold;
-                this.radGridView1.Rows[rCount - 1].Cells[7].Value = judgeThreshold.InsulateHoldTime;
-                this.radGridView1.Rows[rCount - 1].Cells[8].Value = judgeThreshold.InsulateVoltage;
-                this.radGridView1.Rows[rCount - 1].Cells[9].Value = judgeThreshold.PressureProofThreshold;
-                this.radGridView1.Rows[rCount - 1].Cells[10].Value = judgeThreshold.PressureProofHoldTime;
-                this.radGridView1.Rows[rCount - 1].Cells[11].Value = judgeThreshold.PressureProofVoltage;
+                this.radGridView1.Rows[rCount - 1].Cells[5].Value = this.devConfig.ConductThreshold;
+                this.radGridView1.Rows[rCount - 1].Cells[6].Value = this.devConfig.InsulateThreshold;
+                this.radGridView1.Rows[rCount - 1].Cells[7].Value = this.devConfig.InsulateHoldTime;
+                this.radGridView1.Rows[rCount - 1].Cells[8].Value = this.devConfig.InsulateVoltage;
+                this.radGridView1.Rows[rCount - 1].Cells[9].Value = this.devConfig.PressureWithVoltageThreshold;
+                //this.radGridView1.Rows[rCount - 1].Cells[10].Value = this.devConfig.PressureProofHoldTime;
+                //this.radGridView1.Rows[rCount - 1].Cells[11].Value = this.devConfig.PressureProofVoltage;
             }
         }
 

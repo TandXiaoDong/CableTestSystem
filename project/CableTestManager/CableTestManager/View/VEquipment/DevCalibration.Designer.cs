@@ -30,10 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DevCalibration));
             this.radGroupBox1 = new Telerik.WinControls.UI.RadGroupBox();
+            this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.radLabel4 = new Telerik.WinControls.UI.RadLabel();
             this.tb_dzResult = new Telerik.WinControls.UI.RadTextBox();
             this.btn_dztest = new Telerik.WinControls.UI.RadButton();
             this.radGroupBox2 = new Telerik.WinControls.UI.RadGroupBox();
+            this.radLabel9 = new Telerik.WinControls.UI.RadLabel();
             this.radLabel5 = new Telerik.WinControls.UI.RadLabel();
             this.tb_insulateDY_Result = new Telerik.WinControls.UI.RadTextBox();
             this.btn_insulateVoltageTest = new Telerik.WinControls.UI.RadButton();
@@ -42,6 +44,7 @@
             this.num_insulateDY_voltage = new System.Windows.Forms.NumericUpDown();
             this.radLabel2 = new Telerik.WinControls.UI.RadLabel();
             this.radGroupBox3 = new Telerik.WinControls.UI.RadGroupBox();
+            this.radLabel10 = new Telerik.WinControls.UI.RadLabel();
             this.radLabel6 = new Telerik.WinControls.UI.RadLabel();
             this.tb_insulateDz_Result = new Telerik.WinControls.UI.RadTextBox();
             this.btn_insulateDZTest = new Telerik.WinControls.UI.RadButton();
@@ -49,16 +52,15 @@
             this.num_insulateDZ_time = new System.Windows.Forms.NumericUpDown();
             this.num_insulateDZ_voltage = new System.Windows.Forms.NumericUpDown();
             this.radLabel8 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel9 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel10 = new Telerik.WinControls.UI.RadLabel();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).BeginInit();
             this.radGroupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_dzResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_dztest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox2)).BeginInit();
             this.radGroupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_insulateDY_Result)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_insulateVoltageTest)).BeginInit();
@@ -68,6 +70,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox3)).BeginInit();
             this.radGroupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_insulateDz_Result)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_insulateDZTest)).BeginInit();
@@ -75,9 +78,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.num_insulateDZ_time)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_insulateDZ_voltage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel10)).BeginInit();
             this.SuspendLayout();
             // 
             // radGroupBox1
@@ -95,6 +95,14 @@
             this.radGroupBox1.TabIndex = 1;
             this.radGroupBox1.Text = "电阻计量";
             this.radGroupBox1.ThemeName = "Office2013Light";
+            // 
+            // radLabel1
+            // 
+            this.radLabel1.Location = new System.Drawing.Point(491, 59);
+            this.radLabel1.Name = "radLabel1";
+            this.radLabel1.Size = new System.Drawing.Size(15, 18);
+            this.radLabel1.TabIndex = 3;
+            this.radLabel1.Text = "Ω";
             // 
             // radLabel4
             // 
@@ -143,6 +151,15 @@
             this.radGroupBox2.Text = "绝缘电压计量";
             this.radGroupBox2.ThemeName = "Office2013Light";
             // 
+            // radLabel9
+            // 
+            this.radLabel9.Location = new System.Drawing.Point(491, 118);
+            this.radLabel9.Name = "radLabel9";
+            this.radLabel9.Size = new System.Drawing.Size(13, 18);
+            this.radLabel9.TabIndex = 8;
+            this.radLabel9.Text = "V";
+            this.radLabel9.Visible = false;
+            // 
             // radLabel5
             // 
             this.radLabel5.Location = new System.Drawing.Point(288, 115);
@@ -151,6 +168,7 @@
             this.radLabel5.TabIndex = 7;
             this.radLabel5.Text = "测量值：";
             this.radLabel5.ThemeName = "MaterialBlueGrey";
+            this.radLabel5.Visible = false;
             // 
             // tb_insulateDY_Result
             // 
@@ -159,6 +177,7 @@
             this.tb_insulateDY_Result.Size = new System.Drawing.Size(120, 36);
             this.tb_insulateDY_Result.TabIndex = 6;
             this.tb_insulateDY_Result.ThemeName = "MaterialBlueGrey";
+            this.tb_insulateDY_Result.Visible = false;
             // 
             // btn_insulateVoltageTest
             // 
@@ -224,6 +243,14 @@
             this.radGroupBox3.Text = "绝缘电阻计量";
             this.radGroupBox3.ThemeName = "Office2013Light";
             // 
+            // radLabel10
+            // 
+            this.radLabel10.Location = new System.Drawing.Point(491, 88);
+            this.radLabel10.Name = "radLabel10";
+            this.radLabel10.Size = new System.Drawing.Size(15, 18);
+            this.radLabel10.TabIndex = 15;
+            this.radLabel10.Text = "Ω";
+            // 
             // radLabel6
             // 
             this.radLabel6.Location = new System.Drawing.Point(288, 85);
@@ -285,30 +312,6 @@
             this.radLabel8.Text = "绝缘电压：";
             this.radLabel8.ThemeName = "MaterialBlueGrey";
             // 
-            // radLabel1
-            // 
-            this.radLabel1.Location = new System.Drawing.Point(491, 59);
-            this.radLabel1.Name = "radLabel1";
-            this.radLabel1.Size = new System.Drawing.Size(15, 18);
-            this.radLabel1.TabIndex = 3;
-            this.radLabel1.Text = "Ω";
-            // 
-            // radLabel9
-            // 
-            this.radLabel9.Location = new System.Drawing.Point(491, 118);
-            this.radLabel9.Name = "radLabel9";
-            this.radLabel9.Size = new System.Drawing.Size(13, 18);
-            this.radLabel9.TabIndex = 8;
-            this.radLabel9.Text = "V";
-            // 
-            // radLabel10
-            // 
-            this.radLabel10.Location = new System.Drawing.Point(491, 88);
-            this.radLabel10.Name = "radLabel10";
-            this.radLabel10.Size = new System.Drawing.Size(15, 18);
-            this.radLabel10.TabIndex = 15;
-            this.radLabel10.Text = "Ω";
-            // 
             // DevCalibration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -323,17 +326,19 @@
             this.MinimizeBox = false;
             this.Name = "DevCalibration";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "绝缘电压计量";
+            this.Text = "设备计量";
             this.Load += new System.EventHandler(this.DevCalibration_Load);
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).EndInit();
             this.radGroupBox1.ResumeLayout(false);
             this.radGroupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_dzResult)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_dztest)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox2)).EndInit();
             this.radGroupBox2.ResumeLayout(false);
             this.radGroupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_insulateDY_Result)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_insulateVoltageTest)).EndInit();
@@ -344,6 +349,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox3)).EndInit();
             this.radGroupBox3.ResumeLayout(false);
             this.radGroupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_insulateDz_Result)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_insulateDZTest)).EndInit();
@@ -351,9 +357,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.num_insulateDZ_time)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_insulateDZ_voltage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel10)).EndInit();
             this.ResumeLayout(false);
 
         }

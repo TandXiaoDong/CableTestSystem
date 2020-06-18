@@ -152,6 +152,7 @@
             // 
             // btn_cancel
             // 
+            this.btn_cancel.BackColor = System.Drawing.Color.GhostWhite;
             this.btn_cancel.Location = new System.Drawing.Point(244, 252);
             this.btn_cancel.Name = "btn_cancel";
             this.btn_cancel.Size = new System.Drawing.Size(97, 36);
@@ -161,6 +162,7 @@
             // 
             // btn_register
             // 
+            this.btn_register.BackColor = System.Drawing.Color.GhostWhite;
             this.btn_register.Location = new System.Drawing.Point(119, 252);
             this.btn_register.Name = "btn_register";
             this.btn_register.Size = new System.Drawing.Size(94, 36);

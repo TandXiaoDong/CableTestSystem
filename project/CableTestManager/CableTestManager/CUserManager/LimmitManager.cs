@@ -25,9 +25,9 @@ namespace CableTestManager.CUserManager
         #region func limit const params
         private const string FUN_INTERFACE_LIB_MANAGE_NAME = "接口库管理";
         private const string FUN_CABLE_LIB_MANAGE_NAME = "线束库管理";
-        private const string FUN_CONNECTOR_LIB_MANAGE_NAME = "连接器库管理";
-        private const string FUN_SWITCH_WEAR_LIB_MANAGE_NAME = "转接工装库管理";
-        private const string FUN_SWITCH_STAND_LIB_MANAGE_NAME = "转接台阵脚映射库管理";
+        //private const string FUN_CONNECTOR_LIB_MANAGE_NAME = "连接器库管理";
+        //private const string FUN_SWITCH_WEAR_LIB_MANAGE_NAME = "转接工装库管理";
+        //private const string FUN_SWITCH_STAND_LIB_MANAGE_NAME = "转接台阵脚映射库管理";
         private const string FUN_SELF_STUDY_NAME = "自学习";
         private const string FUN_CONDUCT_TEST_NAME = "导通测试";
         private const string FUN_INSULATE_TEST_NAME = "绝缘测试";
@@ -44,10 +44,10 @@ namespace CableTestManager.CUserManager
         private const string FUN_START_RESISTAN_COMPENSAT = "启用电阻补偿";
         private const string FUN_RESISTAN_COMPENSAT_MANAGE = "电阻补偿管理";
         private const string FUN_REPORT_PATH_SET = "报表保存路径设置";
-        private const string FUN_DEVICE_SELF_CHECK = "设备校验";
-        private const string FUN_DEVICE_CALIBRATE = "设备校准";
+        private const string FUN_DEVICE_SELF_CHECK = "设备自检";
+        private const string FUN_DEVICE_CALIBRATE = "设备计量";
         private const string FUN_DEVICE_DEBUG = "设备调试助手";
-        private const string FUN_FAULT_QUERY = "设备故障查询";
+        //private const string FUN_FAULT_QUERY = "设备故障查询";
         private const string FUN_ENVIRONMENT_PARAMS_SET = "试验环境参数配置";
         #endregion
 
@@ -62,21 +62,21 @@ namespace CableTestManager.CUserManager
         private const string OPERATE_DEL_CABLE_LIB = "删除线束";
         private const string OPERATE_ADD_CABLE_LIB = "添加线束";
         private const string OPERATE_EXPORT_CABLE_LIB = "导出线束库";
-        private const string OPERATE_QUERY_CONNECTOR_LIB = "查询连接器库";
-        private const string OPERATE_EDIT_CONNECTOR = "编辑连接器";
-        private const string OPERATE_DEL_CONNECTOR = "删除连接器";
-        private const string OPERATE_ADD_CONNECTOR = "添加连接器";
-        private const string OPERATE_EXPORT_CONNECTOR = "导出连接器库";
-        private const string OPERATE_QUERY_SWITCH_WEAR = "查询转接工装库";
-        private const string OPERATE_ADD_SWITCH_WEAR = "添加转接工装";
-        private const string OPERATE_EDIT_SWITCH_WEAR = "编辑转接工装";
-        private const string OPERATE_DEL_SWITCH_WEAR = "删除转接工装";
-        private const string OPERATE_EXPORT_SWITCH_WEAR = "导出转接工装库";
-        private const string OPERATE_QUERY_SWITCH_STAND = "查询转接台阵脚映射库";
-        private const string OPERATE_ADD_SWITCH_STAND = "新增转接台阵脚映射";
-        private const string OPERATE_EDIT_SWITCH_STAND = "编辑转接台阵脚映射";
-        private const string OPERATE_DEL_SWITCH_STAND = "删除转接台阵脚映射";
-        private const string OPERATE_EXPORT_SWITCH_STAND = "导出转接台阵脚映射库";
+        //private const string OPERATE_QUERY_CONNECTOR_LIB = "查询连接器库";
+        //private const string OPERATE_EDIT_CONNECTOR = "编辑连接器";
+        //private const string OPERATE_DEL_CONNECTOR = "删除连接器";
+        //private const string OPERATE_ADD_CONNECTOR = "添加连接器";
+        //private const string OPERATE_EXPORT_CONNECTOR = "导出连接器库";
+        //private const string OPERATE_QUERY_SWITCH_WEAR = "查询转接工装库";
+        //private const string OPERATE_ADD_SWITCH_WEAR = "添加转接工装";
+        //private const string OPERATE_EDIT_SWITCH_WEAR = "编辑转接工装";
+        //private const string OPERATE_DEL_SWITCH_WEAR = "删除转接工装";
+        //private const string OPERATE_EXPORT_SWITCH_WEAR = "导出转接工装库";
+        //private const string OPERATE_QUERY_SWITCH_STAND = "查询转接台阵脚映射库";
+        //private const string OPERATE_ADD_SWITCH_STAND = "新增转接台阵脚映射";
+        //private const string OPERATE_EDIT_SWITCH_STAND = "编辑转接台阵脚映射";
+        //private const string OPERATE_DEL_SWITCH_STAND = "删除转接台阵脚映射";
+        //private const string OPERATE_EXPORT_SWITCH_STAND = "导出转接台阵脚映射库";
         private const string OPERATE_QUERY_PROJECT = "查询项目信息";
         private const string OPERATE_ADD_PROJECT = "添加项目";
         private const string OPERATE_EDIT_PROJECT = "编辑项目";
@@ -107,6 +107,12 @@ namespace CableTestManager.CUserManager
             this.btn_ok.Click += Btn_ok_Click;
             this.checkAllFunc.CheckStateChanged += CheckAllFunc_CheckStateChanged;
             this.checkAllOperat.CheckStateChanged += CheckAllOperat_CheckStateChanged;
+            this.cob_roleList.SelectedIndexChanged += Cob_roleList_SelectedIndexChanged;
+        }
+
+        private void Cob_roleList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            InitCheckLimitByRole(this.cob_roleList.Text.Trim());
         }
 
         private void CheckAllOperat_CheckStateChanged(object sender, EventArgs e)
@@ -118,6 +124,13 @@ namespace CableTestManager.CUserManager
                     item.CheckState = Telerik.WinControls.Enumerations.ToggleState.On;
                 }
             }
+            else
+            {
+                foreach (var item in this.checkListOperatLimit.Items)
+                {
+                    item.CheckState = Telerik.WinControls.Enumerations.ToggleState.Off;
+                }
+            }
         }
 
         private void CheckAllFunc_CheckStateChanged(object sender, EventArgs e)
@@ -127,6 +140,13 @@ namespace CableTestManager.CUserManager
                 foreach (var item in this.checkListFuncLimit.Items)
                 {
                     item.CheckState = Telerik.WinControls.Enumerations.ToggleState.On;
+                }
+            }
+            else
+            {
+                foreach (var item in this.checkListFuncLimit.Items)
+                {
+                    item.CheckState = Telerik.WinControls.Enumerations.ToggleState.Off;
                 }
             }
         }
@@ -157,11 +177,11 @@ namespace CableTestManager.CUserManager
                     case FUN_CONDUCT_TEST_NAME:
                         funcLimit.ConductTest = ConvertState2Dec(item.CheckState);
                         break;
-                    case FUN_CONNECTOR_LIB_MANAGE_NAME:
-                        funcLimit.ConnectorLib = ConvertState2Dec(item.CheckState);
-                        break;
+                    //case FUN_CONNECTOR_LIB_MANAGE_NAME:
+                    //    funcLimit.ConnectorLib = ConvertState2Dec(item.CheckState);
+                    //    break;
                     case FUN_DEVICE_CALIBRATE:
-                        funcLimit.DeviceCalibration  = ConvertState2Dec(item.CheckState);
+                        funcLimit.DeviceCalibration = ConvertState2Dec(item.CheckState);
                         break;
                     case FUN_DEVICE_DEBUG:
                         funcLimit.DeviceDebug = ConvertState2Dec(item.CheckState);
@@ -175,9 +195,9 @@ namespace CableTestManager.CUserManager
                     case FUN_EXCUTE_REPORT_NAME:
                         funcLimit.ExcuteReport = ConvertState2Dec(item.CheckState);
                         break;
-                    case FUN_FAULT_QUERY:
-                        funcLimit.DeviceFaultQuery = ConvertState2Dec(item.CheckState);
-                        break;
+                    //case FUN_FAULT_QUERY:
+                    //    funcLimit.DeviceFaultQuery = ConvertState2Dec(item.CheckState);
+                    //    break;
                     case FUN_INSULATE_TEST_NAME:
                         funcLimit.InsulateTest = ConvertState2Dec(item.CheckState);
                         break;
@@ -217,12 +237,12 @@ namespace CableTestManager.CUserManager
                     case FUN_START_RESISTAN_COMPENSAT:
                         funcLimit.StartResistanceCompensation = ConvertState2Dec(item.CheckState);
                         break;
-                    case FUN_SWITCH_STAND_LIB_MANAGE_NAME:
-                        funcLimit.SwitchStandLib = ConvertState2Dec(item.CheckState);
-                        break;
-                    case FUN_SWITCH_WEAR_LIB_MANAGE_NAME:
-                        funcLimit.SwitchWearLib = ConvertState2Dec(item.CheckState);
-                        break;
+                    //case FUN_SWITCH_STAND_LIB_MANAGE_NAME:
+                    //    funcLimit.SwitchStandLib = ConvertState2Dec(item.CheckState);
+                    //    break;
+                    //case FUN_SWITCH_WEAR_LIB_MANAGE_NAME:
+                    //    funcLimit.SwitchWearLib = ConvertState2Dec(item.CheckState);
+                    //    break;
                     case FUN_TEST_DATA:
                         funcLimit.HistoryTestData = ConvertState2Dec(item.CheckState);
                         break;
@@ -235,27 +255,27 @@ namespace CableTestManager.CUserManager
                     case OPERATE_ADD_CABLE_LIB:
                         operatLimit.CableLib_add = ConvertState2Dec(item.CheckState);
                         break;
-                    case OPERATE_ADD_CONNECTOR:
-                        operatLimit.ConnectorLib_add = ConvertState2Dec(item.CheckState);
-                        break;
+                    //case OPERATE_ADD_CONNECTOR:
+                    //    operatLimit.ConnectorLib_add = ConvertState2Dec(item.CheckState);
+                    //    break;
                     case OPERATE_ADD_INTER_INFO:
                         operatLimit.InterfaceLib_add = ConvertState2Dec(item.CheckState);
                         break;
                     case OPERATE_ADD_PROJECT:
                         operatLimit.Project_add = ConvertState2Dec(item.CheckState);
                         break;
-                    case OPERATE_ADD_SWITCH_STAND:
-                        operatLimit.SwitchStandLib_add = ConvertState2Dec(item.CheckState);
-                        break;
-                    case OPERATE_ADD_SWITCH_WEAR:
-                        operatLimit.SwitchWearLib_add = ConvertState2Dec(item.CheckState);
-                        break;
+                    //case OPERATE_ADD_SWITCH_STAND:
+                    //    operatLimit.SwitchStandLib_add = ConvertState2Dec(item.CheckState);
+                    //    break;
+                    //case OPERATE_ADD_SWITCH_WEAR:
+                    //    operatLimit.SwitchWearLib_add = ConvertState2Dec(item.CheckState);
+                    //    break;
                     case OPERATE_DEL_CABLE_LIB:
                         operatLimit.CableLib_del = ConvertState2Dec(item.CheckState);
                         break;
-                    case OPERATE_DEL_CONNECTOR:
-                        operatLimit.ConnectorLib_del = ConvertState2Dec(item.CheckState);
-                        break;
+                    //case OPERATE_DEL_CONNECTOR:
+                    //    operatLimit.ConnectorLib_del = ConvertState2Dec(item.CheckState);
+                    //    break;
                     case OPERATE_DEL_INTER_INFO:
                         operatLimit.InterfaceLib_del = ConvertState2Dec(item.CheckState);
                         break;
@@ -265,48 +285,48 @@ namespace CableTestManager.CUserManager
                     case OPERATE_DEL_PROJECT:
                         operatLimit.Project_del = ConvertState2Dec(item.CheckState);
                         break;
-                    case OPERATE_DEL_SWITCH_STAND:
-                        operatLimit.SwitchStandLib_del = ConvertState2Dec(item.CheckState);
-                        break;
-                    case OPERATE_DEL_SWITCH_WEAR:
-                        operatLimit.SwitchWearLib_del = ConvertState2Dec(item.CheckState);
-                        break;
+                    //case OPERATE_DEL_SWITCH_STAND:
+                    //    operatLimit.SwitchStandLib_del = ConvertState2Dec(item.CheckState);
+                    //    break;
+                    //case OPERATE_DEL_SWITCH_WEAR:
+                    //    operatLimit.SwitchWearLib_del = ConvertState2Dec(item.CheckState);
+                    //    break;
                     case OPERATE_DEL_TEST_DATA:
                         operatLimit.HistoryTestData_del = ConvertState2Dec(item.CheckState);
                         break;
                     case OPERATE_EDIT_CABLE_LIB:
                         operatLimit.CableLib_edit = ConvertState2Dec(item.CheckState);
                         break;
-                    case OPERATE_EDIT_CONNECTOR:
-                        operatLimit.ConnectorLib_edit = ConvertState2Dec(item.CheckState);
-                        break;
+                    //case OPERATE_EDIT_CONNECTOR:
+                    //    operatLimit.ConnectorLib_edit = ConvertState2Dec(item.CheckState);
+                    //    break;
                     case OPERATE_EDIT_INTER_INFO:
                         operatLimit.InterfaceLib_edit = ConvertState2Dec(item.CheckState);
                         break;
                     case OPERATE_EDIT_PROJECT:
                         operatLimit.Project_edit = ConvertState2Dec(item.CheckState);
                         break;
-                    case OPERATE_EDIT_SWITCH_STAND:
-                        operatLimit.SwitchStandLib_edit = ConvertState2Dec(item.CheckState);
-                        break;
-                    case OPERATE_EDIT_SWITCH_WEAR:
-                        operatLimit.SwitchWearLib_edit = ConvertState2Dec(item.CheckState);
-                        break;
-                    case OPERATE_EXPORT_CONNECTOR:
-                        operatLimit.ConnectorLib_export = ConvertState2Dec(item.CheckState);
-                        break;
+                    //case OPERATE_EDIT_SWITCH_STAND:
+                    //    operatLimit.SwitchStandLib_edit = ConvertState2Dec(item.CheckState);
+                    //    break;
+                    //case OPERATE_EDIT_SWITCH_WEAR:
+                    //    operatLimit.SwitchWearLib_edit = ConvertState2Dec(item.CheckState);
+                    //    break;
+                    //case OPERATE_EXPORT_CONNECTOR:
+                    //    operatLimit.ConnectorLib_export = ConvertState2Dec(item.CheckState);
+                    //    break;
                     case OPERATE_EXPORT_INTER_INFO:
                         operatLimit.InterfaceLib_export = ConvertState2Dec(item.CheckState);
                         break;
                     case OPERATE_EXPORT_OPERATE_RECORD:
                         operatLimit.OperatorRecord_export = ConvertState2Dec(item.CheckState);
                         break;
-                    case OPERATE_EXPORT_SWITCH_STAND:
-                        operatLimit.SwitchStandLib_export = ConvertState2Dec(item.CheckState);
-                        break;
-                    case OPERATE_EXPORT_SWITCH_WEAR:
-                        operatLimit.SwitchWearLib_export = ConvertState2Dec(item.CheckState);
-                        break;
+                    //case OPERATE_EXPORT_SWITCH_STAND:
+                    //    operatLimit.SwitchStandLib_export = ConvertState2Dec(item.CheckState);
+                    //    break;
+                    //case OPERATE_EXPORT_SWITCH_WEAR:
+                    //    operatLimit.SwitchWearLib_export = ConvertState2Dec(item.CheckState);
+                    //    break;
                     case OPERATE_EXPORT_TEST_DATA:
                         operatLimit.HistoryTestData_export = ConvertState2Dec(item.CheckState);
                         break;
@@ -316,9 +336,9 @@ namespace CableTestManager.CUserManager
                     case OPERATE_QUERY_CABLE_LIB:
                         operatLimit.CableLib_query = ConvertState2Dec(item.CheckState);
                         break;
-                    case OPERATE_QUERY_CONNECTOR_LIB:
-                        operatLimit.ConnectorLib_query = ConvertState2Dec(item.CheckState);
-                        break;
+                    //case OPERATE_QUERY_CONNECTOR_LIB:
+                    //    operatLimit.ConnectorLib_query = ConvertState2Dec(item.CheckState);
+                    //    break;
                     case OPERATE_QUERY_INTER_INFO:
                         operatLimit.InterfaceLib_query = ConvertState2Dec(item.CheckState);
                         break;
@@ -328,12 +348,12 @@ namespace CableTestManager.CUserManager
                     case OPERATE_QUERY_PROJECT:
                         operatLimit.Project_query = ConvertState2Dec(item.CheckState);
                         break;
-                    case OPERATE_QUERY_SWITCH_STAND:
-                        operatLimit.SwitchStandLib_query = ConvertState2Dec(item.CheckState);
-                        break;
-                    case OPERATE_QUERY_SWITCH_WEAR:
-                        operatLimit.SwitchWearLib_query = ConvertState2Dec(item.CheckState);
-                        break;
+                    //case OPERATE_QUERY_SWITCH_STAND:
+                    //    operatLimit.SwitchStandLib_query = ConvertState2Dec(item.CheckState);
+                    //    break;
+                    //case OPERATE_QUERY_SWITCH_WEAR:
+                    //    operatLimit.SwitchWearLib_query = ConvertState2Dec(item.CheckState);
+                    //    break;
                     case OPERATE_QUERY_TEST_DATA:
                         operatLimit.HistoryTestData_query = ConvertState2Dec(item.CheckState);
                         break;
@@ -353,12 +373,20 @@ namespace CableTestManager.CUserManager
             if (IsExistRoleOperatLimit(curRole))
             {
                 operatLimit.ID = GetOperatIDByRole(curRole);
-                this.operatLimitManager.Update(operatLimit);
+                var ups = this.operatLimitManager.Update(operatLimit);
+                if (ups > 0)
+                {
+                    MessageBox.Show("更新成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             else
             {
                 operatLimit.ID = TablePrimaryKey.InsertOperateLimitPID();
-                this.operatLimitManager.Insert(operatLimit);
+                var ins = this.operatLimitManager.Insert(operatLimit);
+                if (ins > 0)
+                {
+                    MessageBox.Show("更新成功！","提示",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                }
             }
             this.Close();
         }
@@ -394,13 +422,13 @@ namespace CableTestManager.CUserManager
             this.checkListFuncLimit.Items.Add(FUN_CABLE_LIB_MANAGE_NAME);
             this.checkListFuncLimit.Items.Add(FUN_CIRCUIT_TEST_NAME);
             this.checkListFuncLimit.Items.Add(FUN_CONDUCT_TEST_NAME);
-            this.checkListFuncLimit.Items.Add(FUN_CONNECTOR_LIB_MANAGE_NAME);
+            //this.checkListFuncLimit.Items.Add(FUN_CONNECTOR_LIB_MANAGE_NAME);
             this.checkListFuncLimit.Items.Add(FUN_DEVICE_CALIBRATE);
             this.checkListFuncLimit.Items.Add(FUN_DEVICE_DEBUG);
             this.checkListFuncLimit.Items.Add(FUN_DEVICE_SELF_CHECK);
             this.checkListFuncLimit.Items.Add(FUN_ENVIRONMENT_PARAMS_SET);
             this.checkListFuncLimit.Items.Add(FUN_EXCUTE_REPORT_NAME);
-            this.checkListFuncLimit.Items.Add(FUN_FAULT_QUERY);
+            //this.checkListFuncLimit.Items.Add(FUN_FAULT_QUERY);
             this.checkListFuncLimit.Items.Add(FUN_INSULATE_TEST_NAME);
             this.checkListFuncLimit.Items.Add(FUN_INTERFACE_LIB_MANAGE_NAME);
             this.checkListFuncLimit.Items.Add(FUN_NEW_PROJECT);
@@ -414,44 +442,44 @@ namespace CableTestManager.CUserManager
             this.checkListFuncLimit.Items.Add(FUN_SAVE_DATA);
             this.checkListFuncLimit.Items.Add(FUN_SELF_STUDY_NAME);
             this.checkListFuncLimit.Items.Add(FUN_START_RESISTAN_COMPENSAT);
-            this.checkListFuncLimit.Items.Add(FUN_SWITCH_STAND_LIB_MANAGE_NAME);
-            this.checkListFuncLimit.Items.Add(FUN_SWITCH_WEAR_LIB_MANAGE_NAME);
+            //this.checkListFuncLimit.Items.Add(FUN_SWITCH_STAND_LIB_MANAGE_NAME);
+            //this.checkListFuncLimit.Items.Add(FUN_SWITCH_WEAR_LIB_MANAGE_NAME);
             this.checkListFuncLimit.Items.Add(FUN_TEST_DATA);
 
             this.checkListOperatLimit.Items.Add(OPERATE_ADD_CABLE_LIB);
-            this.checkListOperatLimit.Items.Add(OPERATE_ADD_CONNECTOR);
+            //this.checkListOperatLimit.Items.Add(OPERATE_ADD_CONNECTOR);
             this.checkListOperatLimit.Items.Add(OPERATE_ADD_INTER_INFO);
             this.checkListOperatLimit.Items.Add(OPERATE_ADD_PROJECT);
-            this.checkListOperatLimit.Items.Add(OPERATE_ADD_SWITCH_STAND);
-            this.checkListOperatLimit.Items.Add(OPERATE_ADD_SWITCH_WEAR);
+            //this.checkListOperatLimit.Items.Add(OPERATE_ADD_SWITCH_STAND);
+            //this.checkListOperatLimit.Items.Add(OPERATE_ADD_SWITCH_WEAR);
             this.checkListOperatLimit.Items.Add(OPERATE_DEL_CABLE_LIB);
-            this.checkListOperatLimit.Items.Add(OPERATE_DEL_CONNECTOR);
+            //this.checkListOperatLimit.Items.Add(OPERATE_DEL_CONNECTOR);
             this.checkListOperatLimit.Items.Add(OPERATE_DEL_INTER_INFO);
             this.checkListOperatLimit.Items.Add(OPERATE_DEL_OPERATE_RECORD);
             this.checkListOperatLimit.Items.Add(OPERATE_DEL_PROJECT);
-            this.checkListOperatLimit.Items.Add(OPERATE_DEL_SWITCH_STAND);
-            this.checkListOperatLimit.Items.Add(OPERATE_DEL_SWITCH_WEAR);
+            //this.checkListOperatLimit.Items.Add(OPERATE_DEL_SWITCH_STAND);
+            //this.checkListOperatLimit.Items.Add(OPERATE_DEL_SWITCH_WEAR);
             this.checkListOperatLimit.Items.Add(OPERATE_DEL_TEST_DATA);
             this.checkListOperatLimit.Items.Add(OPERATE_EDIT_CABLE_LIB);
-            this.checkListOperatLimit.Items.Add(OPERATE_EDIT_CONNECTOR);
+            //this.checkListOperatLimit.Items.Add(OPERATE_EDIT_CONNECTOR);
             this.checkListOperatLimit.Items.Add(OPERATE_EDIT_INTER_INFO);
             this.checkListOperatLimit.Items.Add(OPERATE_EDIT_PROJECT);
-            this.checkListOperatLimit.Items.Add(OPERATE_EDIT_SWITCH_STAND);
-            this.checkListOperatLimit.Items.Add(OPERATE_EDIT_SWITCH_WEAR);
+            //this.checkListOperatLimit.Items.Add(OPERATE_EDIT_SWITCH_STAND);
+            //this.checkListOperatLimit.Items.Add(OPERATE_EDIT_SWITCH_WEAR);
             this.checkListOperatLimit.Items.Add(OPERATE_EXPORT_CABLE_LIB);
-            this.checkListOperatLimit.Items.Add(OPERATE_EXPORT_CONNECTOR);
+            //this.checkListOperatLimit.Items.Add(OPERATE_EXPORT_CONNECTOR);
             this.checkListOperatLimit.Items.Add(OPERATE_EXPORT_INTER_INFO);
             this.checkListOperatLimit.Items.Add(OPERATE_EXPORT_OPERATE_RECORD);
-            this.checkListOperatLimit.Items.Add(OPERATE_EXPORT_SWITCH_STAND);
-            this.checkListOperatLimit.Items.Add(OPERATE_EXPORT_SWITCH_WEAR);
+            //this.checkListOperatLimit.Items.Add(OPERATE_EXPORT_SWITCH_STAND);
+            //this.checkListOperatLimit.Items.Add(OPERATE_EXPORT_SWITCH_WEAR);
             this.checkListOperatLimit.Items.Add(OPERATE_EXPORT_TEST_DATA);
             this.checkListOperatLimit.Items.Add(OPERATE_QUERY_CABLE_LIB);
-            this.checkListOperatLimit.Items.Add(OPERATE_QUERY_CONNECTOR_LIB);
+            //this.checkListOperatLimit.Items.Add(OPERATE_QUERY_CONNECTOR_LIB);
             this.checkListOperatLimit.Items.Add(OPERATE_QUERY_INTER_INFO);
             this.checkListOperatLimit.Items.Add(OPERATE_QUERY_OPERATE_RECORD);
             this.checkListOperatLimit.Items.Add(OPERATE_QUERY_PROJECT);
-            this.checkListOperatLimit.Items.Add(OPERATE_QUERY_SWITCH_STAND);
-            this.checkListOperatLimit.Items.Add(OPERATE_QUERY_SWITCH_WEAR);
+            //this.checkListOperatLimit.Items.Add(OPERATE_QUERY_SWITCH_STAND);
+            //this.checkListOperatLimit.Items.Add(OPERATE_QUERY_SWITCH_WEAR);
             this.checkListOperatLimit.Items.Add(OPERATE_QUERY_TEST_DATA);
         }
 
@@ -477,9 +505,9 @@ namespace CableTestManager.CUserManager
                             case FUN_CONDUCT_TEST_NAME:
                                 item.CheckState = ConvertDec2State(dr["ConductTest"].ToString());
                                 break;
-                            case FUN_CONNECTOR_LIB_MANAGE_NAME:
-                                item.CheckState = ConvertDec2State(dr["ConnectorLib"].ToString());
-                                break;
+                            //case FUN_CONNECTOR_LIB_MANAGE_NAME:
+                            //    item.CheckState = ConvertDec2State(dr["ConnectorLib"].ToString());
+                            //    break;
                             case FUN_DEVICE_CALIBRATE:
                                 item.CheckState = ConvertDec2State(dr["DeviceCalibration"].ToString());
                                 break;
@@ -495,9 +523,9 @@ namespace CableTestManager.CUserManager
                             case FUN_EXCUTE_REPORT_NAME:
                                 item.CheckState = ConvertDec2State(dr["ExcuteReport"].ToString());
                                 break;
-                            case FUN_FAULT_QUERY:
-                                item.CheckState = ConvertDec2State(dr["DeviceFaultQuery"].ToString());
-                                break;
+                            //case FUN_FAULT_QUERY:
+                            //    item.CheckState = ConvertDec2State(dr["DeviceFaultQuery"].ToString());
+                            //    break;
                             case FUN_INSULATE_TEST_NAME:
                                 item.CheckState = ConvertDec2State(dr["InsulateTest"].ToString());
                                 break;
@@ -537,12 +565,12 @@ namespace CableTestManager.CUserManager
                             case FUN_START_RESISTAN_COMPENSAT:
                                 item.CheckState = ConvertDec2State(dr["StartResistanceCompensation"].ToString());
                                 break;
-                            case FUN_SWITCH_STAND_LIB_MANAGE_NAME:
-                                item.CheckState = ConvertDec2State(dr["SwitchStandLib"].ToString());
-                                break;
-                            case FUN_SWITCH_WEAR_LIB_MANAGE_NAME:
-                                item.CheckState = ConvertDec2State(dr["SwitchWearLib"].ToString());
-                                break;
+                            //case FUN_SWITCH_STAND_LIB_MANAGE_NAME:
+                            //    item.CheckState = ConvertDec2State(dr["SwitchStandLib"].ToString());
+                            //    break;
+                            //case FUN_SWITCH_WEAR_LIB_MANAGE_NAME:
+                            //    item.CheckState = ConvertDec2State(dr["SwitchWearLib"].ToString());
+                            //    break;
                             case FUN_TEST_DATA:
                                 item.CheckState = ConvertDec2State(dr["HistoryTestData"].ToString());
                                 break;
@@ -562,27 +590,27 @@ namespace CableTestManager.CUserManager
                             case OPERATE_ADD_CABLE_LIB:
                                 item.CheckState = ConvertDec2State(dr["CableLib_add"].ToString());
                                 break;
-                            case OPERATE_ADD_CONNECTOR:
-                                item.CheckState = ConvertDec2State(dr["ConnectorLib_add"].ToString());
-                                break;
+                            //case OPERATE_ADD_CONNECTOR:
+                            //    item.CheckState = ConvertDec2State(dr["ConnectorLib_add"].ToString());
+                            //    break;
                             case OPERATE_ADD_INTER_INFO:
                                 item.CheckState = ConvertDec2State(dr["InterfaceLib_add"].ToString());
                                 break;
                             case OPERATE_ADD_PROJECT:
                                 item.CheckState = ConvertDec2State(dr["Project_add"].ToString());
                                 break;
-                            case OPERATE_ADD_SWITCH_STAND:
-                                item.CheckState = ConvertDec2State(dr["SwitchStandLib_add"].ToString());
-                                break;
-                            case OPERATE_ADD_SWITCH_WEAR:
-                                item.CheckState = ConvertDec2State(dr["SwitchWearLib_add"].ToString());
-                                break;
+                            //case OPERATE_ADD_SWITCH_STAND:
+                            //    item.CheckState = ConvertDec2State(dr["SwitchStandLib_add"].ToString());
+                            //    break;
+                            //case OPERATE_ADD_SWITCH_WEAR:
+                            //    item.CheckState = ConvertDec2State(dr["SwitchWearLib_add"].ToString());
+                            //    break;
                             case OPERATE_DEL_CABLE_LIB:
                                 item.CheckState = ConvertDec2State(dr["CableLib_del"].ToString());
                                 break;
-                            case OPERATE_DEL_CONNECTOR:
-                                item.CheckState = ConvertDec2State(dr["ConnectorLib_del"].ToString());
-                                break;
+                            //case OPERATE_DEL_CONNECTOR:
+                            //    item.CheckState = ConvertDec2State(dr["ConnectorLib_del"].ToString());
+                            //    break;
                             case OPERATE_DEL_INTER_INFO:
                                 item.CheckState = ConvertDec2State(dr["InterfaceLib_del"].ToString());
                                 break;
@@ -592,48 +620,48 @@ namespace CableTestManager.CUserManager
                             case OPERATE_DEL_PROJECT:
                                 item.CheckState = ConvertDec2State(dr["Project_del"].ToString());
                                 break;
-                            case OPERATE_DEL_SWITCH_STAND:
-                                item.CheckState = ConvertDec2State(dr["SwitchStandLib_del"].ToString());
-                                break;
-                            case OPERATE_DEL_SWITCH_WEAR:
-                                item.CheckState = ConvertDec2State(dr["SwitchWearLib_del"].ToString());
-                                break;
+                            //case OPERATE_DEL_SWITCH_STAND:
+                            //    item.CheckState = ConvertDec2State(dr["SwitchStandLib_del"].ToString());
+                            //    break;
+                            //case OPERATE_DEL_SWITCH_WEAR:
+                            //    item.CheckState = ConvertDec2State(dr["SwitchWearLib_del"].ToString());
+                            //    break;
                             case OPERATE_DEL_TEST_DATA:
                                 item.CheckState = ConvertDec2State(dr["HistoryTestData_del"].ToString());
                                 break;
                             case OPERATE_EDIT_CABLE_LIB:
                                 item.CheckState = ConvertDec2State(dr["CableLib_edit"].ToString());
                                 break;
-                            case OPERATE_EDIT_CONNECTOR:
-                                item.CheckState = ConvertDec2State(dr["ConnectorLib_edit"].ToString());
-                                break;
+                            //case OPERATE_EDIT_CONNECTOR:
+                            //    item.CheckState = ConvertDec2State(dr["ConnectorLib_edit"].ToString());
+                            //    break;
                             case OPERATE_EDIT_INTER_INFO:
                                 item.CheckState = ConvertDec2State(dr["InterfaceLib_edit"].ToString());
                                 break;
                             case OPERATE_EDIT_PROJECT:
                                 item.CheckState = ConvertDec2State(dr["project_edit"].ToString());
                                 break;
-                            case OPERATE_EDIT_SWITCH_STAND:
-                                item.CheckState = ConvertDec2State(dr["SwitchStandLib_edit"].ToString());
-                                break;
-                            case OPERATE_EDIT_SWITCH_WEAR:
-                                item.CheckState = ConvertDec2State(dr["SwitchWearLib_edit"].ToString());
-                                break;
-                            case OPERATE_EXPORT_CONNECTOR:
-                                item.CheckState = ConvertDec2State(dr["ConnectorLib_export"].ToString());
-                                break;
+                            //case OPERATE_EDIT_SWITCH_STAND:
+                            //    item.CheckState = ConvertDec2State(dr["SwitchStandLib_edit"].ToString());
+                            //    break;
+                            //case OPERATE_EDIT_SWITCH_WEAR:
+                            //    item.CheckState = ConvertDec2State(dr["SwitchWearLib_edit"].ToString());
+                            //    break;
+                            //case OPERATE_EXPORT_CONNECTOR:
+                            //    item.CheckState = ConvertDec2State(dr["ConnectorLib_export"].ToString());
+                            //    break;
                             case OPERATE_EXPORT_INTER_INFO:
                                 item.CheckState = ConvertDec2State(dr["InterfaceLib_export"].ToString());
                                 break;
                             case OPERATE_EXPORT_OPERATE_RECORD:
                                 item.CheckState = ConvertDec2State(dr["OperatorRecord_export"].ToString());
                                 break;
-                            case OPERATE_EXPORT_SWITCH_STAND:
-                                item.CheckState = ConvertDec2State(dr["SwitchStandLib_export"].ToString());
-                                break;
-                            case OPERATE_EXPORT_SWITCH_WEAR:
-                                item.CheckState = ConvertDec2State(dr["SwitchWearLib_export"].ToString());
-                                break;
+                            //case OPERATE_EXPORT_SWITCH_STAND:
+                            //    item.CheckState = ConvertDec2State(dr["SwitchStandLib_export"].ToString());
+                            //    break;
+                            //case OPERATE_EXPORT_SWITCH_WEAR:
+                            //    item.CheckState = ConvertDec2State(dr["SwitchWearLib_export"].ToString());
+                            //    break;
                             case OPERATE_EXPORT_TEST_DATA:
                                 item.CheckState = ConvertDec2State(dr["HistoryTestData_export"].ToString());
                                 break;
@@ -643,9 +671,9 @@ namespace CableTestManager.CUserManager
                             case OPERATE_QUERY_CABLE_LIB:
                                 item.CheckState = ConvertDec2State(dr["CableLib_query"].ToString());
                                 break;
-                            case OPERATE_QUERY_CONNECTOR_LIB:
-                                item.CheckState = ConvertDec2State(dr["ConnectorLib_query"].ToString());
-                                break;
+                            //case OPERATE_QUERY_CONNECTOR_LIB:
+                            //    item.CheckState = ConvertDec2State(dr["ConnectorLib_query"].ToString());
+                            //    break;
                             case OPERATE_QUERY_INTER_INFO:
                                 item.CheckState = ConvertDec2State(dr["InterfaceLib_query"].ToString());
                                 break;
@@ -655,12 +683,12 @@ namespace CableTestManager.CUserManager
                             case OPERATE_QUERY_PROJECT:
                                 item.CheckState = ConvertDec2State(dr["Project_query"].ToString());
                                 break;
-                            case OPERATE_QUERY_SWITCH_STAND:
-                                item.CheckState = ConvertDec2State(dr["SwitchStandLib_query"].ToString());
-                                break;
-                            case OPERATE_QUERY_SWITCH_WEAR:
-                                item.CheckState = ConvertDec2State(dr["SwitchWearLib_query"].ToString());
-                                break;
+                            //case OPERATE_QUERY_SWITCH_STAND:
+                            //    item.CheckState = ConvertDec2State(dr["SwitchStandLib_query"].ToString());
+                            //    break;
+                            //case OPERATE_QUERY_SWITCH_WEAR:
+                            //    item.CheckState = ConvertDec2State(dr["SwitchWearLib_query"].ToString());
+                            //    break;
                             case OPERATE_QUERY_TEST_DATA:
                                 item.CheckState = ConvertDec2State(dr["HistoryTestData_query"].ToString());
                                 break;

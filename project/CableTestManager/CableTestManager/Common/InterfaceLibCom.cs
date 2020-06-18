@@ -41,7 +41,7 @@ namespace CableTestManager.Common
                 }
                 else//for two line method
                 {
-                    if (pointPin.ToString() == point)
+                    if (pointPin == point)
                         return true;
                 }
             }

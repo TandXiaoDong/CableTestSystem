@@ -58,6 +58,8 @@
             this.num_fmax = new System.Windows.Forms.NumericUpDown();
             this.num_fmin = new System.Windows.Forms.NumericUpDown();
             this.num_fthreshold = new System.Windows.Forms.NumericUpDown();
+            this.radLabel3 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel4 = new Telerik.WinControls.UI.RadLabel();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.conductionThresholdByPin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel5)).BeginInit();
@@ -87,6 +89,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.num_fmax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_fmin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_fthreshold)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -148,6 +152,7 @@
             // radGroupBox1
             // 
             this.radGroupBox1.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
+            this.radGroupBox1.Controls.Add(this.radLabel4);
             this.radGroupBox1.Controls.Add(this.mulInterB);
             this.radGroupBox1.Controls.Add(this.mulInterA);
             this.radGroupBox1.Controls.Add(this.radLabel10);
@@ -289,6 +294,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.radLabel3);
             this.panel2.Controls.Add(this.radLabel6);
             this.panel2.Controls.Add(this.btn_fcancel);
             this.panel2.Controls.Add(this.radLabel7);
@@ -374,6 +380,22 @@
             this.num_fthreshold.Size = new System.Drawing.Size(155, 26);
             this.num_fthreshold.TabIndex = 22;
             // 
+            // radLabel3
+            // 
+            this.radLabel3.Location = new System.Drawing.Point(337, 192);
+            this.radLabel3.Name = "radLabel3";
+            this.radLabel3.Size = new System.Drawing.Size(60, 18);
+            this.radLabel3.TabIndex = 25;
+            this.radLabel3.Text = "(0~1000Ω)";
+            // 
+            // radLabel4
+            // 
+            this.radLabel4.Location = new System.Drawing.Point(351, 206);
+            this.radLabel4.Name = "radLabel4";
+            this.radLabel4.Size = new System.Drawing.Size(60, 18);
+            this.radLabel4.TabIndex = 26;
+            this.radLabel4.Text = "(0~1000Ω)";
+            // 
             // frmSefStudy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -421,6 +443,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.num_fmax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_fmin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_fthreshold)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -454,5 +478,7 @@
         private Telerik.WinControls.UI.RadMultiColumnComboBox mulInterA;
         private Telerik.WinControls.UI.RadLabel radLabel10;
         private Telerik.WinControls.UI.RadLabel radLabel9;
+        private Telerik.WinControls.UI.RadLabel radLabel4;
+        private Telerik.WinControls.UI.RadLabel radLabel3;
     }
 }

@@ -18,7 +18,7 @@ namespace CableTestManager.View.VProject
     public partial class ProjectManage : Telerik.WinControls.UI.RadForm
     {
         private TProjectBasicInfoManager projectInfoManager;
-        private CableJudgeThreshold judgeThreshold;
+        private DeviceConfig devConfig;
         public string openProjectName;
         public OperateType operateType;
 
@@ -29,13 +29,13 @@ namespace CableTestManager.View.VProject
             EditProject
         }
 
-        public ProjectManage(CableJudgeThreshold cableJudgeThreshold)
+        public ProjectManage(DeviceConfig config)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterParent;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.judgeThreshold = cableJudgeThreshold;
+            this.devConfig = config;
         }
 
         private void ProjectManage_Load(object sender, EventArgs e)
@@ -106,6 +106,10 @@ namespace CableTestManager.View.VProject
                 return;
             }
             var selectProject = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
+            if (MessageBox.Show($"确定要删除项目{selectProject}", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+            {
+                return;
+            }
             var delRow = projectInfoManager.DeleteByWhere($"where ProjectName = '{selectProject}'");
             if (delRow > 0)
             {
@@ -131,7 +135,7 @@ namespace CableTestManager.View.VProject
                 return;
             }
             var selectProject = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
-            RadProjectCreat radProjectCreat = new RadProjectCreat("编辑项目", selectProject, judgeThreshold, true);
+            RadProjectCreat radProjectCreat = new RadProjectCreat("编辑项目", selectProject, this.devConfig, true);
             radProjectCreat.ShowDialog();
         }
 

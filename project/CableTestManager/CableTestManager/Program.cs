@@ -7,6 +7,7 @@ using CableTestManager.View;
 using WindowsFormTelerik.CommonUI;
 using CableTestManager.CUserManager;
 using System.Diagnostics;
+using CableTestManager.Common;
 
 namespace CableTestManager
 {
@@ -31,17 +32,22 @@ namespace CableTestManager
             if (localLogin.DialogResult == DialogResult.OK)
             {
                 var programeVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() + "\n";
-                WelcomeForm welcomeForm = new WelcomeForm(CMainForm.CableTestSystemName,programeVersion);
-                welcomeForm.Show();
-                applicationContext = new ApplicationContext();
-                applicationContext.Tag = welcomeForm;
-                Application.Idle += Application_Idle;
-                Application.Run(applicationContext);
+                //WelcomeForm welcomeForm = new WelcomeForm(DeviceConfigParams.CableTestSystemName,programeVersion);
+                //welcomeForm.Show();
+                //applicationContext = new ApplicationContext();
+                //applicationContext.Tag = welcomeForm;
+                //Application.Idle += Application_Idle;
+                //Application.Run(applicationContext);
+
+                CMainForm cMainForm = new CMainForm();
+                cMainForm.Init();
+                Application.Run(cMainForm);
             }
         }
 
         private static bool CheckAppRunState()
         {
+            System.Threading.Thread.Sleep(100);
             var processName = Process.GetCurrentProcess().ProcessName;
             Process[] processClient = Process.GetProcessesByName(processName);
             if (processClient.Length > 1)

@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using Telerik.WinControls;
 using CableTestManager.Entity;
+using CableTestManager.Model;
 
 namespace CableTestManager.View.VProject
 {
@@ -14,12 +15,14 @@ namespace CableTestManager.View.VProject
     {
         private TProjectBasicInfo projectInfo;
         private bool IsEditView;
-        public SetFixedTestParams(TProjectBasicInfo projectInfo,bool IsEdit)
+        private DeviceConfig devConfig;
+        public SetFixedTestParams(TProjectBasicInfo projectInfo,bool IsEdit, DeviceConfig config)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterParent;
             this.projectInfo = projectInfo;
             this.IsEditView = IsEdit;
+            this.devConfig = config;
         }
 
         private void Init()
@@ -29,22 +32,25 @@ namespace CableTestManager.View.VProject
             this.dnConductionThreshold.Increment = 10;
             this.dnConductionThreshold.DecimalPlaces = 1;
             if (!this.IsEditView)
-                this.dnConductionThreshold.Value = 2;
+                this.dnConductionThreshold.Value = (decimal)this.devConfig.ConductThreshold;
             else
                 this.dnConductionThreshold.Value = (decimal)this.projectInfo.ConductTestThreshold;
 
-            this.dnShortCircuitthreshold.Maximum = 50000;//1000;
+            this.dnShortCircuitthreshold.Maximum = 1000;
             this.dnShortCircuitthreshold.Minimum = 0;
             this.dnShortCircuitthreshold.Increment = 5;
             this.dnShortCircuitthreshold.DecimalPlaces = 1;
-            this.dnShortCircuitthreshold.Value = (decimal)this.projectInfo.ShortCircuitTestThreshold;
+            if (!this.IsEditView)
+                this.dnShortCircuitthreshold.Value = (decimal)this.devConfig.ShortCircuitThreshold;
+            else
+                this.dnShortCircuitthreshold.Value = (decimal)this.projectInfo.ShortCircuitTestThreshold;
 
             this.dnInsulateThreshold.Maximum = 1000;
             this.dnInsulateThreshold.Minimum = 0;
             this.dnInsulateThreshold.Increment = 10;
             this.dnInsulateThreshold.DecimalPlaces = 1;
             if (!this.IsEditView)
-                this.dnInsulateThreshold.Value = 20;
+                this.dnInsulateThreshold.Value = (decimal)this.devConfig.InsulateThreshold;
             else
                 this.dnInsulateThreshold.Value = (decimal)this.projectInfo.InsulateTestThreshold;
 
@@ -53,17 +59,16 @@ namespace CableTestManager.View.VProject
             this.dnInsulateHoldTime.Increment = 1;
             this.dnInsulateHoldTime.DecimalPlaces = 3;
             if (!this.IsEditView)
-                this.dnInsulateHoldTime.Value = 1;
+                this.dnInsulateHoldTime.Value = (decimal)this.devConfig.InsulateHoldTime;
             else
                 this.dnInsulateHoldTime.Value = (decimal)this.projectInfo.InsulateTestHoldTime;
 
-            
             this.dnInsulateVoltage.Maximum = 500;
-            this.dnInsulateVoltage.Minimum = 30;
+            this.dnInsulateVoltage.Minimum = 10;
             this.dnInsulateVoltage.Increment = 5;
             this.dnInsulateVoltage.DecimalPlaces = 0;
             if (!this.IsEditView)
-                this.dnInsulateVoltage.Value = 100;
+                this.dnInsulateVoltage.Value = (decimal)this.devConfig.InsulateVoltage;
             else
                 this.dnInsulateVoltage.Value = (decimal)this.projectInfo.InsulateTestVoltage;
         }
@@ -88,16 +93,20 @@ namespace CableTestManager.View.VProject
         private void BtnApply_Click(object sender, EventArgs e)
         {
             this.projectInfo.ConductTestThreshold = (double)this.dnConductionThreshold.Value;
-
+            this.projectInfo.ShortCircuitTestThreshold = (double)this.dnShortCircuitthreshold.Value;
             this.projectInfo.InsulateTestThreshold = (double)this.dnInsulateThreshold.Value;
             this.projectInfo.InsulateTestVoltage = (double)this.dnInsulateVoltage.Value;
             this.projectInfo.InsulateTestHoldTime = (double)this.dnInsulateHoldTime.Value;
 
+            this.devConfig.ConductThreshold = this.projectInfo.ConductTestThreshold;
+            this.devConfig.ShortCircuitThreshold = this.projectInfo.ShortCircuitTestThreshold;
+            this.devConfig.InsulateThreshold = this.projectInfo.InsulateTestThreshold;
+            this.devConfig.InsulateVoltage = this.projectInfo.InsulateTestVoltage;
+            this.devConfig.InsulateHoldTime = this.projectInfo.InsulateTestHoldTime;
+
             this.projectInfo.VoltageWithStandardThreshold = 0;
             this.projectInfo.VoltageWithStandardVoltage = 0;
             this.projectInfo.VoltageWithStandardHoldTime = 0;
-
-            this.projectInfo.ShortCircuitTestThreshold = (double)this.dnShortCircuitthreshold.Value;
 
             this.Close();
             this.DialogResult = DialogResult.OK;

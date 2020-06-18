@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CableTestManager.Business.Implements;
 
 namespace CableTestManager.View.VSelfStydy
 {
@@ -50,6 +51,12 @@ namespace CableTestManager.View.VSelfStydy
                 this.testMethod = 2;
             else if (this.cb_measureMethod.SelectedIndex == 1)
                 this.testMethod = 4;
+            if (IsCableExist(this.cableLibName))
+            {
+                this.tb_cableName.Focus();
+                MessageBox.Show("线束名称已存在，请重新编辑线束名称！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                return;
+            }
             this.Close();
             this.DialogResult = DialogResult.OK;
         }
@@ -57,6 +64,15 @@ namespace CableTestManager.View.VSelfStydy
         private void Btn_cancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private bool IsCableExist(string cableName)
+        {
+            TCableTestLibraryManager cableManage = new TCableTestLibraryManager();
+            var count = cableManage.GetRowCountByWhere($"where CableName = '{cableName}'");
+            if (count > 0)
+                return true;
+            return false;
         }
     }
 }

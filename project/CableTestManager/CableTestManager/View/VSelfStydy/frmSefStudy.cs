@@ -32,23 +32,23 @@ namespace CableTestManager.View.VSelfStydy
 
         private void Init()
         {
-            this.conductionThresholdByPin.Maximum = 1200;
+            this.conductionThresholdByPin.Maximum = 1000;
             this.conductionThresholdByPin.Minimum = 0;
             this.conductionThresholdByPin.Increment = 10;
+            this.conductionThresholdByPin.Value = 1000;
+
+            this.num_fthreshold.Maximum = 1000;
+            this.num_fthreshold.Minimum = 0;
+            this.num_fthreshold.Increment = 10;
+            this.num_fthreshold.Value = 1000;
+
+            this.num_fmin.Minimum = 1;
+            this.num_fmin.Maximum = 384;
+            this.num_fmax.Minimum = 1;
+            this.num_fmax.Maximum = 384;
 
             this.InterfaceInfoLibrary = new InterfaceInfoLibraryManager();
             this.studyTestParamsList = new List<SelfStudyTestParams>();
-
-            if (this.studyConfig.StudyTestType == SelfStudyConfig.SutdyTestTypeEnum.ProbTestByInterface)
-            {
-
-            }
-            else if (this.studyConfig.StudyTestType == SelfStudyConfig.SutdyTestTypeEnum.ProbTestByLimit)
-            {
-                this.num_fmin.Value = this.studyConfig.LimitMin;
-                this.num_fmax.Value = this.studyConfig.LimitMax;
-                this.num_fthreshold.Value = (decimal)this.studyConfig.TestThresholdVal;
-            }
         }
 
         private void frmSefStudy_Load(object sender, EventArgs e)
@@ -57,6 +57,14 @@ namespace CableTestManager.View.VSelfStydy
             this.mulInterB.MultiColumnComboBoxElement.Columns.Add("B");
             StudyProbCom.InitMulCombox(this.mulInterA);
             StudyProbCom.InitMulCombox(this.mulInterB);
+            if (this.mulInterA.EditorControl.Rows.Count >= 1)
+            {
+                this.mulInterA.SelectedIndex = 0;
+            }
+            if (this.mulInterB.EditorControl.Rows.Count >= 2)
+            {
+                this.mulInterB.SelectedIndex = 1;
+            }
             Init();
 
             this.btn_defineStudyByPin.Click += Btn_defineStudyByPin_Click;
@@ -72,7 +80,7 @@ namespace CableTestManager.View.VSelfStydy
 
         private void Btn_fstart_Click(object sender, EventArgs e)
         {
-            this.studyConfig.StudyTestType = SelfStudyConfig.SutdyTestTypeEnum.ProbTestByLimit;
+            this.studyConfig.StudyTestType = SelfStudyConfig.SutdyTestTypeEnum.SelfTestByLimit;
             this.studyConfig.LimitMin = (int)this.num_fmin.Value;
             this.studyConfig.LimitMax = (int)this.num_fmax.Value;
             this.studyConfig.TestThresholdVal = (float)this.num_fthreshold.Value;
@@ -136,7 +144,7 @@ namespace CableTestManager.View.VSelfStydy
             this.studyConfig.TestInterAList = ConvertDevPointHex(GetAllDevPointByInter(this.mulInterA.Text.Trim()));
             this.studyConfig.TestInterBList = ConvertDevPointHex(GetAllDevPointByInter(this.mulInterB.Text.Trim()));
             this.studyConfig.TestThresholdVal = (float)this.conductionThresholdByPin.Value;
-            this.studyConfig.StudyTestType = SelfStudyConfig.SutdyTestTypeEnum.ProbTestByInterface;
+            this.studyConfig.StudyTestType = SelfStudyConfig.SutdyTestTypeEnum.SelfTestByInterface;
             this.Close();
             this.DialogResult = DialogResult.OK;
         }

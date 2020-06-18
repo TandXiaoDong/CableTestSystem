@@ -39,7 +39,11 @@ namespace CableTestManager.Common
                 projectInfo.InsulateVolCompensation = double.Parse(dr["InsulateVolCompensation"].ToString());
                 projectInfo.InsulateResCompensation = double.Parse(dr["InsulateResCompensation"].ToString());
                 projectInfo.Temperature = double.Parse(dr["Temperature"].ToString());
+                if (projectInfo.Temperature == 0)
+                    projectInfo.Temperature = 25;
                 projectInfo.AmbientHumidity = double.Parse(dr["AmbientHumidity"].ToString());
+                if (projectInfo.AmbientHumidity == 0)
+                    projectInfo.AmbientHumidity = 56;
             }
             return projectInfo;
         }

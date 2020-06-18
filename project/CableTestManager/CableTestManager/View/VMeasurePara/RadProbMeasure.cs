@@ -29,16 +29,21 @@ namespace CableTestManager.View
 
         private void RadProbMeasure_Load(object sender, EventArgs e)
         {
-            if (this.testConfig.ProbTestType == ProbTestConfig.ProbTestTypeEnum.ProbTestByInterface)
-            {
+            this.conductionThresholdByPin.Minimum = 0;
+            this.conductionThresholdByPin.Maximum = 1000;
+            this.conductionThresholdByPin.Increment = 10;
+            this.conductionThresholdByPin.Value = 1000;
 
-            }
-            else if (this.testConfig.ProbTestType == ProbTestConfig.ProbTestTypeEnum.ProbTestByLimit)
-            {
-                this.num_fminPin.Value = this.testConfig.LimitMin;
-                this.num_fmaxPin.Value = this.testConfig.LimitMax;
-                this.num_fthreshold.Value = (decimal)this.testConfig.TestThresholdVal;
-            }
+            this.num_fthreshold.Minimum = 0;
+            this.num_fthreshold.Maximum = 1000;
+            this.num_fthreshold.Increment = 10;
+            this.num_fthreshold.Value = 1000;
+
+            this.num_fminPin.Minimum = 1;
+            this.num_fminPin.Maximum = 384;
+            this.num_fmaxPin.Minimum = 1;
+            this.num_fmaxPin.Maximum = 384;
+           
             this.cobInter.MultiColumnComboBoxElement.Columns.Add("A");
             StudyProbCom.InitMulCombox(this.cobInter);
             InterfaceInfoLibrary = new InterfaceInfoLibraryManager();

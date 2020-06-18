@@ -29,7 +29,6 @@ namespace CableTestManager.CUserManager
             this.roleManager = new TRoleManager();
             this.roleEntity = new TRole();
 
-            RadGridViewProperties.SetRadGridViewProperty(this.radGridView1, false, true, 0);
             QueryRoleInfo();
 
             this.menu_add.Click += Menu_add_Click;
@@ -100,7 +99,6 @@ namespace CableTestManager.CUserManager
         private void Menu_add_Click(object sender, EventArgs e)
         {
             EditRole editRole = new EditRole("新增角色", "", "");
-            int rCount = this.roleManager.GetRowCount();
             if (editRole.ShowDialog() == DialogResult.OK)
             {
                 this.roleEntity.ID = TablePrimaryKey.InsertRolePID();
@@ -108,7 +106,7 @@ namespace CableTestManager.CUserManager
                 this.roleEntity.Remark = editRole.roleRemark;
                 this.roleEntity.UpdateDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 var cCount = roleManager.Insert(this.roleEntity);
-                if (cCount - rCount > 0)
+                if (cCount > 0)
                 {
                     UserOperateRecord.UpdateOperateRecord($"新增角色-{roleEntity.UserRole}");
                     QueryRoleInfo();
@@ -126,6 +124,7 @@ namespace CableTestManager.CUserManager
                 rowInfo.Cells[0].Value = i + 1;
                 i++;
             }
+            RadGridViewProperties.SetRadGridViewProperty(this.radGridView1, false, true, this.radGridView1.ColumnCount);
         }
 
         private int GetRoleID(string roleName)

@@ -70,13 +70,13 @@ namespace CommonUtil.CUserManager
             }
 
             this.radGridView1.DataSource = this.dataSource;
+            RadGridViewProperties.SetRadGridViewProperty(this.radGridView1, false, true, this.radGridView1.ColumnCount);
         }
 
         private void UserManager_Load(object sender, EventArgs e)
         {
             userHelper = new UserHelper();
             InitDataTable();
-            RadGridViewProperties.SetRadGridViewProperty(this.radGridView1,false,true,0);
             SelectAllUser();
         }
 

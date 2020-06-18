@@ -27,12 +27,11 @@ namespace CableTestManager.View.VAdd
         private string plugno;
         private InterfaceInfoLibraryManager plugLibraryDetailManager;
         private bool IsEditView;
-        private string interPointName;
-        private string testMethod;
-        private string switchStandStitch;
-        private string remark;
-        List<InterfaceLibaryInfo> interfaceLibaryInfos;
-
+        List<InterfaceInfoLibrary> interfaceLibaryInfos;
+        private InterfaceInfoLibrary infoLibrary;
+        List<InterfaceInfoLibrary> addNewRowList = new List<InterfaceInfoLibrary>();
+        private DataTable dataSource;//cache edit mode to add new row
+        private int editModeUpdateCount = 0;
 
         public RadUpdateInterface(string title, string plugNo,bool IsEdit)
         {
@@ -43,6 +42,7 @@ namespace CableTestManager.View.VAdd
             this.IsEditView = IsEdit;
 
             Init(IsEdit);
+            InitDataTable();
             RefreshDataGrid();
             EventHandlers();
         }
@@ -53,8 +53,20 @@ namespace CableTestManager.View.VAdd
             InterfacePoint_ExistAndStitchNo_NotExist,
             InterfacePoint_ExistAndStitchNo_Exist,
             InterfacePoint_NotExistAndStitch_NoExist,
-            InterfacePoint_NotExistANdStitch_Exist
+            InterfacePoint_NotExistANdStitch_Exist,
+            InterPointNameExist,
+            DevSwitchPointExist
         }
+
+        private const string COLUMN_ORDER = "序号";
+        private const string COLUMN_INTER_NAME = "接口代号";
+        private const string COLUMN_METHOD_NAME = "测量方法";
+        private const string COLUMN_INTER_POINT = "接点名称";
+        private const string COLUMN_DEV_POINT = "设备针脚号";
+        private const string COLUMN_CONNECTOR = "连接器";
+        private const string COLUMN_REMARK = "备注";
+        private const string COLUMN_ADD_NEWROW = "新行";
+        private const string COLUMN_KEY_ID = "ID";
 
         private void Init(bool IsEdit)
         {
@@ -63,18 +75,34 @@ namespace CableTestManager.View.VAdd
             RadGridViewProperties.SetRadGridViewProperty(this.radGridView1,false,false,8);
             GridViewComboBoxColumn methodName = this.radGridView1.Columns["columnMethod"] as GridViewComboBoxColumn;
             methodName.DataSource = new string[] { TWO_WIRE_METHOD,FOUR_WIRE_METHOD};
-            interfaceLibaryInfos = new List<InterfaceLibaryInfo>();
+            interfaceLibaryInfos = new List<InterfaceInfoLibrary>();
             this.radGridView1.Columns[5].IsVisible = false;
             this.radGridView1.Columns[7].IsVisible = false;
             if (IsEdit)
             {
                 this.radGridView1.Columns[0].ReadOnly = true;
                 this.radGridView1.Columns[1].ReadOnly = true;
+                this.tb_interfacelNo.Text = this.plugno;
+                this.tb_interfacelNo.ReadOnly = true;
             }
             else
             {
                 this.radGridView1.ReadOnly = true;
             }
+        }
+
+        private void InitDataTable()
+        {
+            this.dataSource = new DataTable();
+            this.dataSource.Columns.Add(COLUMN_ORDER);
+            this.dataSource.Columns.Add(COLUMN_INTER_NAME);
+            this.dataSource.Columns.Add(COLUMN_INTER_POINT);
+            this.dataSource.Columns.Add(COLUMN_METHOD_NAME);
+            this.dataSource.Columns.Add(COLUMN_DEV_POINT);
+            this.dataSource.Columns.Add(COLUMN_CONNECTOR);
+            this.dataSource.Columns.Add(COLUMN_REMARK);
+            this.dataSource.Columns.Add(COLUMN_ADD_NEWROW);
+            this.dataSource.Columns.Add(COLUMN_KEY_ID);
         }
 
         private void EventHandlers()
@@ -107,13 +135,36 @@ namespace CableTestManager.View.VAdd
             var method = this.radGridView1.CurrentRow.Cells[3].Value.ToString();
             var stitch = this.radGridView1.CurrentRow.Cells[4].Value.ToString();
             var rmark = this.radGridView1.CurrentRow.Cells[6].Value.ToString();
-            if (pointn != this.interPointName || this.testMethod != method || stitch != this.switchStandStitch || this.remark != rmark)
+            var id = this.radGridView1.CurrentRow.Cells[8].Value.ToString();
+            var obj1 = interfaceLibaryInfos.Find(obj => obj.ID == int.Parse(id));
+            if (method == "二线法")
             {
-                var obj1 = interfaceLibaryInfos.Find(obj => obj.InterfaceNO == interNo);
-                obj1.InterfacePointName = pointn;
-                obj1.MeasureMethod = method;
+                obj1.MeasureMethod = "2";
+            }
+            else
+            {
+                obj1.MeasureMethod = "4";
+            }
+            bool IsModify = false;
+            if (pointn != obj1.ContactPointName)
+            {
+                obj1.ContactPointName = pointn;
+                IsModify = true;
+            }
+            if (stitch != obj1.SwitchStandStitchNo)
+            {
                 obj1.SwitchStandStitchNo = stitch;
+                IsModify = true;
+            }
+            if (obj1.Remark != rmark)
+            {
                 obj1.Remark = rmark;
+                IsModify = true;
+            }
+
+            if(!IsModify)
+            {
+                interfaceLibaryInfos.Remove(obj1);
             }
         }
 
@@ -122,17 +173,18 @@ namespace CableTestManager.View.VAdd
             var cIndex = this.radGridView1.CurrentRow.Index;
             if (cIndex < 0)
                 return;
-            
-            this.interPointName = this.radGridView1.CurrentRow.Cells[2].Value.ToString();
-            this.testMethod = this.radGridView1.CurrentRow.Cells[3].Value.ToString();
-            this.switchStandStitch = this.radGridView1.CurrentRow.Cells[4].Value.ToString();
-            this.remark = this.radGridView1.CurrentRow.Cells[6].Value.ToString();
-            InterfaceLibaryInfo interfaceLibaryInfo = new InterfaceLibaryInfo();
-            interfaceLibaryInfo.InterfaceNO = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
-            interfaceLibaryInfo.InterfacePrimaryID = GetPlugPrimary(interfaceLibaryInfo.InterfaceNO, this.interPointName, this.switchStandStitch);
-            var obj1 = interfaceLibaryInfos.Find(obj => obj.InterfaceNO == interfaceLibaryInfo.InterfaceNO);
+            var interPointName = this.radGridView1.CurrentRow.Cells[2].Value.ToString();
+            var switchStandStitch = this.radGridView1.CurrentRow.Cells[4].Value.ToString();
+            var interName = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
+            var rmark = this.radGridView1.CurrentRow.Cells[6].Value.ToString();
+            var id = this.radGridView1.CurrentRow.Cells[8].Value.ToString();
+            var curObj = InterfaceBasicInfo.QueryInterfaceLibInfo(id);
+            var obj1 = interfaceLibaryInfos.Find(obj => obj.ID == curObj.ID);
             if (obj1 == null)
-                interfaceLibaryInfos.Add(interfaceLibaryInfo);
+            {
+                this.infoLibrary = curObj;
+                interfaceLibaryInfos.Add(this.infoLibrary);
+            }
         }
 
         private void Menu_deleteAll_Click(object sender, EventArgs e)
@@ -174,6 +226,7 @@ namespace CableTestManager.View.VAdd
                 if (del > 0)
                 {
                     RefreshDataGrid();
+                    UpdateCurInterPointOrder(curInterName);
                     MessageBox.Show($"已删除设备接点{curDevPoint}", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -231,8 +284,11 @@ namespace CableTestManager.View.VAdd
 
         private void Menu_batchAddInterfacePoint_Click(object sender, EventArgs e)
         {
-            if (!IsValidInterfaceNO())
-                return;
+            if (!IsEditView)
+            {
+                if (!IsValidInterfaceNO())
+                    return;
+            }
             BatchAddInterfaceDefine batchAddInterfaceDefine = new BatchAddInterfaceDefine();
             if (batchAddInterfaceDefine.ShowDialog() == DialogResult.OK)
             {
@@ -240,14 +296,15 @@ namespace CableTestManager.View.VAdd
                 var testMethod = batchAddInterfaceDefine.testMethod;
                 var startInterfacePoint = batchAddInterfaceDefine.startInterfacePoint;
                 var startPin = batchAddInterfaceDefine.startPin;
-                var totalNum = batchAddInterfaceDefine.totalNum;
+                var curTotalNum = batchAddInterfaceDefine.totalNum;
                 int startInterfacePointIndex,startPinIndex;
                 int.TryParse(startPin,out startPinIndex);
                 int.TryParse(startInterfacePoint,out startInterfacePointIndex);
-                if (totalNum < 1)
+                int startIndex = batchAddInterfaceDefine.startIndex;
+                if (curTotalNum < 1)
                     return;
                 int stitchNo = 1;
-                for (int i = 0; i < totalNum; i++)
+                for (int i = startIndex; i < curTotalNum + startIndex; i++)
                 {
                     var interfacePointName = "";
                     var switchStandPointNo = "";
@@ -269,6 +326,11 @@ namespace CableTestManager.View.VAdd
                     {
                         return;
                     }
+                    //InterfaceInfoLibrary interLib = new InterfaceInfoLibrary();
+                    //interLib.InterfaceNo = this.plugno;
+                    //interLib.ContactPointName = interfacePointName;
+                    //interLib.SwitchStandStitchNo = switchStandPointNo;
+                    
                     AddGridViewRow(interfacePointName, testMethod, switchStandPointNo, "");
                     startPinIndex++;
                     startInterfacePointIndex++;
@@ -278,8 +340,11 @@ namespace CableTestManager.View.VAdd
 
         private void Menu_signalAddInterfacePoint_Click(object sender, EventArgs e)
         {
-            if (!IsValidInterfaceNO())
-                return;
+            if (!this.IsEditView)
+            {
+                if (!IsValidInterfaceNO())
+                    return;
+            }
             AddSignalInterfaceDefine addSignalInterfaceDefine = new AddSignalInterfaceDefine();
             if (addSignalInterfaceDefine.ShowDialog() == DialogResult.OK)
             {
@@ -306,6 +371,19 @@ namespace CableTestManager.View.VAdd
             this.radGridView1.Rows[rCount - 1].Cells[5].Value = connectorType;
             this.radGridView1.Rows[rCount - 1].Cells[6].Value = this.tb_remark.Text.Trim();
             this.radGridView1.Rows[rCount - 1].Cells[7].Value = 1;
+
+            if (this.IsEditView)//this is edit mode to add new row
+            {
+                DataRow dataRow = this.dataSource.NewRow();
+                dataRow[COLUMN_INTER_NAME] = this.tb_interfacelNo.Text.Trim();
+                dataRow[COLUMN_INTER_POINT] = interfacePointName;
+                dataRow[COLUMN_METHOD_NAME] = testMethod;
+                dataRow[COLUMN_DEV_POINT] = switchStandPointNo;
+                dataRow[COLUMN_CONNECTOR] = connectorType;
+                dataRow[COLUMN_REMARK] = this.tb_remark.Text.Trim();
+                dataRow[COLUMN_ADD_NEWROW] = 1;
+                this.dataSource.Rows.Add(dataRow);
+            }
         }
 
         private void BtnClose_Click(object sender, EventArgs e)
@@ -316,6 +394,8 @@ namespace CableTestManager.View.VAdd
         private void BtnSubmit_Click(object sender, EventArgs e)
         {
             SubmitData();
+            this.Close();
+            this.DialogResult = DialogResult.OK;
         }
 
         private void RadGridView1_CellValueChanged(object sender, GridViewCellEventArgs e)
@@ -398,27 +478,52 @@ namespace CableTestManager.View.VAdd
             if (dt.Rows.Count > 0)
             {
                 int iRow = 0;
+                InterfaceLibCom.data = null;
                 foreach (DataRow dr in dt.Rows)
                 {
+                    var interName = dr["InterfaceNo"].ToString();
+                    var pointName = dr["ContactPointName"].ToString();
+                    var method = dr["MeasureMethod"].ToString();
+                    var devPoint = dr["SwitchStandStitchNo"].ToString();
+                    var connector = dr["ConnectorName"].ToString();
+                    var remark = dr["remark"].ToString();
+                    var keyID = dr["ID"].ToString();
+
                     this.radGridView1.Rows.AddNew();
                     this.radGridView1.Rows[iRow].Cells[0].Value = iRow + 1;
-                    this.radGridView1.Rows[iRow].Cells[1].Value = dr["InterfaceNo"].ToString();
-                    this.radGridView1.Rows[iRow].Cells[2].Value = dr["ContactPointName"].ToString();
-                    if (dr["MeasureMethod"].ToString() == "2")
+                    this.radGridView1.Rows[iRow].Cells[1].Value = interName;
+                    this.radGridView1.Rows[iRow].Cells[2].Value = pointName;
+                    if (method == "2")
                     {
                         this.radGridView1.Rows[iRow].Cells[3].Value = TWO_WIRE_METHOD;
                         UpdateSwitchPointValue(TWO_WIRE_METHOD);
                     }
-                    else if (dr["MeasureMethod"].ToString() == "4")
+                    else if (method == "4")
                     {
                         this.radGridView1.Rows[iRow].Cells[3].Value = FOUR_WIRE_METHOD;
                         UpdateSwitchPointValue(FOUR_WIRE_METHOD);
                     }
-                    this.radGridView1.Rows[iRow].Cells[4].Value = dr["SwitchStandStitchNo"].ToString();
-                    this.radGridView1.Rows[iRow].Cells[5].Value = dr["ConnectorName"].ToString();
-                    this.radGridView1.Rows[iRow].Cells[6].Value = dr["remark"].ToString();
+                    this.radGridView1.Rows[iRow].Cells[4].Value = devPoint;
+                    this.radGridView1.Rows[iRow].Cells[5].Value = connector;
+                    this.radGridView1.Rows[iRow].Cells[6].Value = remark;
+                    this.radGridView1.Rows[iRow].Cells[8].Value = keyID;
                     
                     iRow++;
+                }
+            }
+        }
+
+        private void UpdateCurInterPointOrder(string interName)
+        {
+            var data = this.plugLibraryDetailManager.GetDataSetByWhere($"where InterfaceNo='{interName}'").Tables[0];
+            if (data.Rows.Count > 0)
+            {
+                int i = 1;
+                foreach (DataRow dr in data.Rows)
+                {
+                    var id = int.Parse(dr["ID"].ToString());
+                    this.plugLibraryDetailManager.UpdateFields($"ContactPoint = '{i}'",$"where ID='{id}'");
+                    i++;
                 }
             }
         }
@@ -429,82 +534,164 @@ namespace CableTestManager.View.VAdd
             {
                 if (this.IsEditView)
                 {
-                    UpdateInterfaceInfo();
-                    return;
-                }
-                if (this.radGridView1.RowCount < 1)
-                {
-                    MessageBox.Show("没有可以提交的数据!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (!CheckValid())
-                    return;
-                int beforeInsertCount = plugLibraryDetailManager.GetRowCount();
-                int excuteCount = 0;
-                //submit data
-                int iRow = 0;
-                int id = 0;
-                List<InterfaceInfoLibrary> libList = new List<InterfaceInfoLibrary>();
-                foreach (var rowInfo in this.radGridView1.Rows)
-                {
-                    var plugNo = rowInfo.Cells[1].Value.ToString();
-                    var pinName = rowInfo.Cells[2].Value.ToString();
-                    var testMethod = rowInfo.Cells[3].Value.ToString();
-                    var stitchNo = rowInfo.Cells[4].Value.ToString();
-                    var IsAddNewRow = rowInfo.Cells[7].Value;
-                    var remark = "";
-                    var connectorName = "";
-                    if (rowInfo.Cells[6].Value != null)
-                        remark = rowInfo.Cells[6].Value.ToString();
-                    if (rowInfo.Cells[5].Value != null)
-                        connectorName = rowInfo.Cells[5].Value.ToString();
-
-                    #region TPlugLibraryDetail
-                    InterfaceInfoLibrary plugLibraryDetail = new InterfaceInfoLibrary();
-                    plugLibraryDetail.ID = CableTestManager.Common.TablePrimaryKey.InsertInterfaceLibPID() + id;
-                    plugLibraryDetail.InterfaceNo = plugNo;
-                    plugLibraryDetail.ContactPointName = pinName;
-                    if (testMethod == TWO_WIRE_METHOD)
-                        plugLibraryDetail.MeasureMethod = "2";
-                    else if (testMethod == FOUR_WIRE_METHOD)
-                        plugLibraryDetail.MeasureMethod = "4";
-                    plugLibraryDetail.SwitchStandStitchNo = stitchNo;
-                    plugLibraryDetail.Remark = remark;
-                    plugLibraryDetail.Operator = LocalLogin.currentUserName;
-                    plugLibraryDetail.ConnectorName = connectorName;
-                    plugLibraryDetail.ContactPoint = iRow.ToString();
-                    #endregion
-
-                    //新增数据
-                    if (IsAddNewRow != null)
-                    {
-                        //if (IsCanInsertOrUpdate(false, -1, plugNo, pinName, stitchNo) == InterfaceExTipEnum.InterfacePoint_NotExistAndStitch_NoExist)
-                        //{
-                        //plugLibraryDetailManager.Insert(plugLibraryDetail);
-                        libList.Add(plugLibraryDetail);
-                        iRow++;
-                        id++;
-                        //}
-                    }
-                }
-
-                plugLibraryDetailManager.Insert(libList);
-
-                int afterInsertCount = plugLibraryDetailManager.GetRowCount();
-                if (afterInsertCount - beforeInsertCount > 0)
-                {
-                    MessageBox.Show($"已更新{afterInsertCount - beforeInsertCount}条数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else if (excuteCount > 0)
-                {
-                    MessageBox.Show($"已更新{excuteCount}条数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    UpdateInterfaceInfo();//更新数据
+                    EditAddNewInterInfo();//添加新行
                 }
                 else
                 {
-                    MessageBox.Show($"已更新{0}条数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    AddNewInterInfo();
                 }
                 this.Close();
                 this.DialogResult = DialogResult.OK;
+            }
+        }
+
+        private void AddNewInterInfo()
+        {
+            if (this.radGridView1.RowCount < 1)
+            {
+                MessageBox.Show("没有可以提交的数据!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (!CheckValid())
+                return;
+            int beforeInsertCount = plugLibraryDetailManager.GetRowCount();
+            int excuteCount = 0;
+            //submit data
+            int iRow = 1;
+            int id = 0;
+            List<InterfaceInfoLibrary> libList = new List<InterfaceInfoLibrary>();
+            foreach (var rowInfo in this.radGridView1.Rows)
+            {
+                var plugNo = rowInfo.Cells[1].Value.ToString();
+                var pinName = rowInfo.Cells[2].Value.ToString();
+                var testMethod = rowInfo.Cells[3].Value.ToString();
+                var stitchNo = rowInfo.Cells[4].Value.ToString();
+                var IsAddNewRow = rowInfo.Cells[7].Value;
+                var remark = "";
+                var connectorName = "";
+                if (rowInfo.Cells[6].Value != null)
+                    remark = rowInfo.Cells[6].Value.ToString();
+                if (rowInfo.Cells[5].Value != null)
+                    connectorName = rowInfo.Cells[5].Value.ToString();
+
+                #region TPlugLibraryDetail
+                InterfaceInfoLibrary plugLibraryDetail = new InterfaceInfoLibrary();
+                plugLibraryDetail.ID = CableTestManager.Common.TablePrimaryKey.InsertInterfaceLibPID() + id;
+                plugLibraryDetail.InterfaceNo = plugNo;
+                plugLibraryDetail.ContactPointName = pinName;
+                if (testMethod == TWO_WIRE_METHOD)
+                    plugLibraryDetail.MeasureMethod = "2";
+                else if (testMethod == FOUR_WIRE_METHOD)
+                    plugLibraryDetail.MeasureMethod = "4";
+                plugLibraryDetail.SwitchStandStitchNo = stitchNo;
+                plugLibraryDetail.Remark = remark;
+                plugLibraryDetail.Operator = LocalLogin.currentUserName;
+                plugLibraryDetail.ConnectorName = connectorName;
+                plugLibraryDetail.ContactPoint = iRow.ToString();
+                #endregion
+
+                //新增数据
+                if (IsAddNewRow != null)
+                {
+                    //if (IsCanInsertOrUpdate(false, -1, plugNo, pinName, stitchNo) == InterfaceExTipEnum.InterfacePoint_NotExistAndStitch_NoExist)
+                    //{
+                    //plugLibraryDetailManager.Insert(plugLibraryDetail);
+                    libList.Add(plugLibraryDetail);
+                    iRow++;
+                    id++;
+                    //}
+                }
+            }
+
+            plugLibraryDetailManager.Insert(libList);
+
+            int afterInsertCount = plugLibraryDetailManager.GetRowCount();
+            if (afterInsertCount - beforeInsertCount > 0)
+            {
+                MessageBox.Show($"已更新{afterInsertCount - beforeInsertCount}条数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (excuteCount > 0)
+            {
+                MessageBox.Show($"已更新{excuteCount}条数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show($"已更新{0}条数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void EditAddNewInterInfo()
+        {
+            if (this.dataSource.Rows.Count < 1)
+            {
+                MessageBox.Show($"已更新{this.editModeUpdateCount}条数据！","提示",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                return;
+            }
+            if (!CheckValid())
+                return;
+            int beforeInsertCount = plugLibraryDetailManager.GetRowCount();
+            int excuteCount = 0;
+            //submit data
+            int iRow = 1;
+            int id = 0;
+            List<InterfaceInfoLibrary> libList = new List<InterfaceInfoLibrary>();
+            foreach (DataRow rowInfo in this.dataSource.Rows)
+            {
+                var plugNo = rowInfo[1].ToString();
+                var pinName = rowInfo[2].ToString();
+                var testMethod = rowInfo[3].ToString();
+                var stitchNo = rowInfo[4].ToString();
+                var IsAddNewRow = rowInfo[7].ToString();
+                var remark = "";
+                var connectorName = "";
+                remark = rowInfo[6].ToString();
+                connectorName = rowInfo[5].ToString();
+
+                #region TPlugLibraryDetail
+                InterfaceInfoLibrary plugLibraryDetail = new InterfaceInfoLibrary();
+                plugLibraryDetail.ID = CableTestManager.Common.TablePrimaryKey.InsertInterfaceLibPID() + id;
+                plugLibraryDetail.InterfaceNo = plugNo;
+                plugLibraryDetail.ContactPointName = pinName;
+                if (testMethod == TWO_WIRE_METHOD)
+                    plugLibraryDetail.MeasureMethod = "2";
+                else if (testMethod == FOUR_WIRE_METHOD)
+                    plugLibraryDetail.MeasureMethod = "4";
+                plugLibraryDetail.SwitchStandStitchNo = stitchNo;
+                plugLibraryDetail.Remark = remark;
+                plugLibraryDetail.Operator = LocalLogin.currentUserName;
+                plugLibraryDetail.ConnectorName = connectorName;
+                plugLibraryDetail.ContactPoint = iRow.ToString();
+                #endregion
+
+                //新增数据
+                if (IsAddNewRow != null)
+                {
+                    //if (IsCanInsertOrUpdate(false, -1, plugNo, pinName, stitchNo) == InterfaceExTipEnum.InterfacePoint_NotExistAndStitch_NoExist)
+                    //{
+                    //plugLibraryDetailManager.Insert(plugLibraryDetail);
+                    libList.Add(plugLibraryDetail);
+                    iRow++;
+                    id++;
+                    //}
+                }
+            }
+
+            plugLibraryDetailManager.Insert(libList);
+            this.dataSource.Clear();
+            int afterInsertCount = plugLibraryDetailManager.GetRowCount();
+
+            if (afterInsertCount - beforeInsertCount > 0)
+            {
+                MessageBox.Show($"已更新{afterInsertCount - beforeInsertCount + this.editModeUpdateCount}条数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (excuteCount > 0)
+            {
+                MessageBox.Show($"已更新{excuteCount}条数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show($"已更新{0}条数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -514,7 +701,6 @@ namespace CableTestManager.View.VAdd
             foreach (var rowInfo in this.radGridView1.Rows)
             {
                 int.TryParse(rowInfo.Cells[3].Value.ToString(), out dPoint);
-
             }
             return new List<InterfaceLibCom>();
         }
@@ -604,39 +790,83 @@ namespace CableTestManager.View.VAdd
             return true;
         }
 
-        private InterfaceExTipEnum IsCanInsertOrUpdate(bool IsUpdate,long ID, string interfaceNo,string interfacePName,string switchStandStitch)
+        private InterfaceExTipEnum IsCanInsertOrUpdate(bool IsUpdate,long ID, string interfaceNo,string interfacePName,string switchStandStitch, string remark)
         {
             //查询本地库是否已存在要更新的值，不存在时可以更新
-            var selectPointSQL = $"where InterfaceNo='{interfaceNo}' and ContactPointName='{interfacePName}'";
-            var selectStitchSQL = $"where InterfaceNo='{interfaceNo}' and SwitchStandStitchNo like '%{switchStandStitch}%'";
-            if (IsUpdate)
+            var where = $"where ID == '{ID}' and InterfaceNo='{interfaceNo}'";
+
+            var interNameCount = plugLibraryDetailManager.GetRowCountByWhere(where);
+
+            if (interNameCount > 0)
             {
-                selectPointSQL = $"where ID != '{ID}' and InterfaceNo='{interfaceNo}' and ContactPointName='{interfacePName}'";
-                selectStitchSQL = $"where ID != '{ID}' and InterfaceNo='{interfaceNo}' and SwitchStandStitchNo like '%{switchStandStitch}%'";
+                where = $"where InterfaceNo='{interfaceNo}' and ContactPointName='{interfacePName}' and SwitchStandStitchNo='{switchStandStitch}' and Remark='{remark}'";
+                interNameCount = plugLibraryDetailManager.GetRowCountByWhere(where);
+                if (interNameCount > 0)
+                {
+                    where = $"where InterfaceNo='{interfaceNo}' and ContactPointName='{interfacePName}'";
+                    var whereDev = $"where InterfaceNo='{interfaceNo}' and SwitchStandStitchNo='{switchStandStitch}'";
+                    interNameCount = plugLibraryDetailManager.GetRowCountByWhere(where);
+                    var devCount = plugLibraryDetailManager.GetRowCountByWhere(where);
+                    if (interNameCount > 0)
+                    {
+                        if (devCount > 0)
+                        {
+                            MessageBox.Show($"接点{interfacePName}已存在,针脚{switchStandStitch}已存在！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return InterfaceExTipEnum.InterfacePoint_ExistAndStitchNo_Exist;
+                        }
+                        else
+                        {
+                            MessageBox.Show($"接点{interfacePName}已存在！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return InterfaceExTipEnum.InterfacePoint_ExistAndStitchNo_NotExist;
+                        }
+                    }
+                    else
+                    {
+                        if (devCount > 0)
+                        {
+                            MessageBox.Show($"针脚{switchStandStitch}已存在！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return InterfaceExTipEnum.InterfacePoint_NotExistANdStitch_Exist;
+                        }
+                        else
+                        {
+                            return InterfaceExTipEnum.NONE;
+                        }
+                    }
+                }
+                else
+                {
+                    //接点或者针脚是否存在
+                    var where1 = $"where ID != '{ID}' and InterfaceNo = '{interfaceNo}' and ContactPointName='{interfacePName}'";
+                    var where2 = $"where ID != '{ID}' and InterfaceNo = '{interfaceNo}' and SwitchStandStitchNo='{switchStandStitch}'";
+                    var cpointCount = plugLibraryDetailManager.GetRowCountByWhere(where1);
+                    var dpointCount = plugLibraryDetailManager.GetRowCountByWhere(where2);
+                    if (cpointCount > 0 && dpointCount <= 0)
+                    {
+                        MessageBox.Show($"接点{interfacePName}已存在！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return InterfaceExTipEnum.InterfacePoint_ExistAndStitchNo_Exist;
+                    }
+                    else if (cpointCount <= 0 && dpointCount > 0)
+                    {
+                        MessageBox.Show($"针脚{switchStandStitch}已存在！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return InterfaceExTipEnum.InterfacePoint_NotExistANdStitch_Exist;
+                    }
+                    else if (cpointCount > 0 && dpointCount > 0)
+                    {
+                        MessageBox.Show($"接点{interfacePName}已存在,针脚{switchStandStitch}已存在！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return InterfaceExTipEnum.InterfacePoint_ExistAndStitchNo_Exist;
+                    }
+                    else
+                    {
+                        //update
+                        return InterfaceExTipEnum.InterfacePoint_NotExistAndStitch_NoExist;
+                    }
+                }
             }
-            var interNameData = plugLibraryDetailManager.GetDataSetByWhere(selectPointSQL).Tables[0];
-            var stitchNoData = plugLibraryDetailManager.GetDataSetByWhere(selectStitchSQL).Tables[0];
-            if (interNameData.Rows.Count < 1 && stitchNoData.Rows.Count < 1)
+            else
             {
-                //update
-                return InterfaceExTipEnum.InterfacePoint_NotExistAndStitch_NoExist;
+                //insert
+                return InterfaceExTipEnum.NONE;
             }
-            else if (interNameData.Rows.Count > 0 && stitchNoData.Rows.Count > 0)
-            {
-                MessageBox.Show($"接点{interfacePName}已存在,针脚{switchStandStitch}已存在！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return InterfaceExTipEnum.InterfacePoint_ExistAndStitchNo_Exist;
-            }
-            else if (interNameData.Rows.Count > 0 && stitchNoData.Rows.Count < 1)
-            {
-                MessageBox.Show($"接点{interfacePName}已存在！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return InterfaceExTipEnum.InterfacePoint_ExistAndStitchNo_NotExist;
-            }
-            else if (interNameData.Rows.Count < 1 && stitchNoData.Rows.Count > 0)
-            {
-                MessageBox.Show($"针脚{switchStandStitch}已存在！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return InterfaceExTipEnum.InterfacePoint_NotExistANdStitch_Exist;
-            }
-            return InterfaceExTipEnum.NONE;
         }
 
         private void UpdateInterfaceInfo()
@@ -645,34 +875,24 @@ namespace CableTestManager.View.VAdd
                 return;
             if (!CheckValid())
                 return;
-            int rowCount = 0;
             foreach (var infoObj in this.interfaceLibaryInfos)
             {
-                InterfaceInfoLibrary plugLibraryDetail = new InterfaceInfoLibrary();
-                plugLibraryDetail.ID = infoObj.InterfacePrimaryID;
-                plugLibraryDetail.InterfaceNo = infoObj.InterfaceNO;
-                plugLibraryDetail.ContactPointName = infoObj.InterfacePointName;
-                plugLibraryDetail.SwitchStandStitchNo = infoObj.SwitchStandStitchNo;
-                if (infoObj.MeasureMethod == TWO_WIRE_METHOD)
-                    plugLibraryDetail.MeasureMethod = "2";
-                else if (infoObj.MeasureMethod == FOUR_WIRE_METHOD)
-                    plugLibraryDetail.MeasureMethod = "4";
-                plugLibraryDetail.Remark = infoObj.Remark;
-                plugLibraryDetail.Operator = LocalLogin.currentUserName;
-                plugLibraryDetail.UpdateDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                var result = IsCanInsertOrUpdate(true, infoObj.InterfacePrimaryID, infoObj.InterfaceNO, infoObj.InterfacePointName, infoObj.SwitchStandStitchNo);
-                if (result == InterfaceExTipEnum.InterfacePoint_ExistAndStitchNo_Exist)
-                    continue;
-                if (result == InterfaceExTipEnum.NONE)
-                    continue;
-                if (result == InterfaceExTipEnum.InterfacePoint_NotExistANdStitch_Exist)
+                infoObj.Operator = LocalLogin.currentUserName;
+                infoObj.UpdateDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                var result = IsCanInsertOrUpdate(true, infoObj.ID, infoObj.InterfaceNo, infoObj.ContactPointName, infoObj.SwitchStandStitchNo, infoObj.Remark);
+                if (result == InterfaceExTipEnum.InterfacePoint_NotExistAndStitch_NoExist)
                 {
-                    rowCount += plugLibraryDetailManager.Update(plugLibraryDetail);
+                    editModeUpdateCount += plugLibraryDetailManager.Update(infoObj);
                 }
-                //InterfacePoint_NotExistANdStitch_Exist
+                else
+                {
+                    continue;
+                }
             }
             interfaceLibaryInfos.Clear();
-            MessageBox.Show($"已更新{rowCount}条数据！","提示",MessageBoxButtons.OK);
+            RefreshDataGrid();
+            if (editModeUpdateCount <= 0)
+                return;
         }
 
         private bool IsNullInterfaceNo()

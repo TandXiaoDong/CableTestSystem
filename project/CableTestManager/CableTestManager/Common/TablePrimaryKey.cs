@@ -84,7 +84,7 @@ namespace CableTestManager.Common
         public static long InsertHistoryBasicPID()
         {
             long id = -1;
-            THistoryDataDetailManager objManager = new THistoryDataDetailManager();
+            THistoryDataBasicManager objManager = new THistoryDataBasicManager();
             var dt = objManager.GetDataSetByWhere("order by ID DESC limit 1").Tables[0];
             if (dt.Rows.Count < 1)
                 return 0;

@@ -24,16 +24,16 @@ namespace CableTestManager.View.VProject
         private TCableTestLibraryManager lineStructLibraryDetailManager;
         public string projectName;
         private bool IsSetFixParams;
-        private CableJudgeThreshold judgeThreshold;
+        private DeviceConfig devConfig;
         private bool IsEditView;
         
-        public RadProjectCreat(string title,string projectName, CableJudgeThreshold cableJudgeThreshold,bool IsEdit)
+        public RadProjectCreat(string title,string projectName, DeviceConfig config,bool IsEdit)
         {
             InitializeComponent();
             this.title = title;
             this.projectName = projectName;
             this.StartPosition = FormStartPosition.CenterParent;
-            this.judgeThreshold = cableJudgeThreshold;
+            this.devConfig = config;
             this.IsEditView = IsEdit;
             Init();
             EventHandlers();
@@ -73,7 +73,7 @@ namespace CableTestManager.View.VProject
                 MessageBox.Show("未选择测试线束！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 return;
             }
-            GroupTestStandardParams groupTestStandardParams = new GroupTestStandardParams(curLineCable,this.judgeThreshold);
+            GroupTestStandardParams groupTestStandardParams = new GroupTestStandardParams(curLineCable,this.devConfig);
             groupTestStandardParams.ShowDialog(); 
         }
 
@@ -84,7 +84,7 @@ namespace CableTestManager.View.VProject
 
         private void OpenFixParamsConfig()
         {
-            SetFixedTestParams setFixedTestParams = new SetFixedTestParams(projectInfo,IsEditView);
+            SetFixedTestParams setFixedTestParams = new SetFixedTestParams(projectInfo,IsEditView, this.devConfig);
             if (setFixedTestParams.ShowDialog() == DialogResult.OK)
             {
                 IsSetFixParams = true;
@@ -209,33 +209,44 @@ namespace CableTestManager.View.VProject
                 MessageBox.Show("请选择被测线束！", "提示", MessageBoxButtons.OK);
                 return;
             }
-            //add info 
-            projectInfo.ID = CableTestManager.Common.TablePrimaryKey.InsertProjectBInfoPID();
-            projectInfo.ProjectName = this.rtbProjectName.Text.Trim();
-            this.projectName = projectInfo.ProjectName;
-            projectInfo.Remark = this.rtbProjectRemark.Text.Trim();
-            projectInfo.TestCableName = this.rtbCurrentTestCable.Text;
+            if (!this.IsEditView)//new project ,check rename for project name
+            {
+                if (IsExistProject(this.rtbProjectName.Text.Trim()))
+                {
+                    MessageBox.Show("项目名称已存在，请重新编辑项目名称！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
             if (projectInfo.ConductTestThreshold == 0 || projectInfo.ShortCircuitTestThreshold == 0 || projectInfo.InsulateTestThreshold == 0)
             {
                 MessageBox.Show("请设置本次试验的参数！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 return;
             }
-
+            projectInfo.ID = CableTestManager.Common.TablePrimaryKey.InsertProjectBInfoPID();
+            projectInfo.ProjectName = this.rtbProjectName.Text.Trim();
+            projectInfo.Remark = this.rtbProjectRemark.Text.Trim();
+            projectInfo.TestCableName = this.rtbCurrentTestCable.Text;
             var iRow = 0;
             var originCount = projectInfoManager.GetRowCount();
-            if (!IsExistProject(projectInfo.ProjectName))
+            if (!this.IsEditView)
             {
-                iRow = projectInfoManager.Insert(projectInfo);
-                iRow = iRow - originCount;
-                UserOperateRecord.UpdateOperateRecord($"创建项目{projectInfo.ProjectName}");
+                this.projectName = projectInfo.ProjectName;
+                //insert info 
+                if (!IsExistProject(this.rtbProjectName.Text.Trim()))
+                {
+                    iRow = projectInfoManager.Insert(projectInfo);
+                    iRow = iRow - originCount;
+                    UserOperateRecord.UpdateOperateRecord($"创建项目{projectInfo.ProjectName}");
+                }
             }
             else
             {
                 //update
-                projectInfo.ID = GetProjectInfoID(projectInfo.ProjectName);
+                projectInfo.ID = GetProjectInfoID(this.projectName);
                 iRow = projectInfoManager.Update(projectInfo);
                 if (iRow > 0)
                 {
+                    this.projectName = projectInfo.ProjectName;
                     UserOperateRecord.UpdateOperateRecord($"修改项目信息-项目{projectInfo.ProjectName}");
                     MessageBox.Show("更新成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

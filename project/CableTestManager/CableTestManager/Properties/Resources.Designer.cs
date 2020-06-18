@@ -463,6 +463,16 @@ namespace CableTestManager.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap 停止 {
+            get {
+                object obj = ResourceManager.GetObject("停止", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap 删除16_sig {
             get {
                 object obj = ResourceManager.GetObject("删除16_sig", resourceCulture);
@@ -473,9 +483,9 @@ namespace CableTestManager.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap 勾选 {
+        internal static System.Drawing.Bitmap 勾选16 {
             get {
-                object obj = ResourceManager.GetObject("勾选", resourceCulture);
+                object obj = ResourceManager.GetObject("勾选16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -536,6 +546,16 @@ namespace CableTestManager.Properties {
         internal static System.Drawing.Bitmap 左双箭头48 {
             get {
                 object obj = ResourceManager.GetObject("左双箭头48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 已停止1 {
+            get {
+                object obj = ResourceManager.GetObject("已停止1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

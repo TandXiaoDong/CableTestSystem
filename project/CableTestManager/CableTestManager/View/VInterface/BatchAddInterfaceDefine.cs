@@ -18,6 +18,7 @@ namespace CableTestManager.View.VInterface
         public string startInterfacePoint;
         public string startPin;
         public int totalNum;
+        public int startIndex;
         private const string NUMBER_RAISE = "1,2,3...数字递增";
         private int maxPin = 384;
         public List<int> _2devPointList;
@@ -138,6 +139,7 @@ namespace CableTestManager.View.VInterface
                 if (pinNum > maxPin / 2)
                     this.totalNum = this._4devPointList.Count;
             }
+            this.startIndex = this.cb_switchStandPointNo.SelectedIndex;
             this.Close();
             this.DialogResult = DialogResult.OK;
         }

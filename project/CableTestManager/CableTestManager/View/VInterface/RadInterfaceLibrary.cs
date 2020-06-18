@@ -86,6 +86,7 @@ namespace CableTestManager.View.VInterface
         private void Tool_edit_Click(object sender, EventArgs e)
         {
             EditInterfaceLibrary();
+            QueryInterfaceInfo();
         }
 
         private void Tool_delete_Click(object sender, EventArgs e)
@@ -171,7 +172,11 @@ namespace CableTestManager.View.VInterface
                 return;
             }
             RadUpdateInterface radUpdateInterface = new RadUpdateInterface("编辑接口库",plugNo.ToString(),true);
-            radUpdateInterface.ShowDialog();
+            if (radUpdateInterface.ShowDialog() == DialogResult.OK)
+            {
+                QueryInterfaceInfo();
+                UserOperateRecord.UpdateOperateRecord($"编辑接口");
+            }
         }
 
         private bool IsExistPlugNo(string plugNo)

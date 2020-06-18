@@ -145,6 +145,7 @@ namespace CommonUtil.CUserManager
                     user.UserName = username;
                     user.UserPassword = pwd;
                     user.UserRole = userType;
+                    user.UpdateDate = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     int executeResult = userManager.Insert(user);
                     if (executeResult < 1)
                     {

@@ -238,11 +238,14 @@
   <data name="万通公司LOG426x90" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\万通公司LOG426x90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="停止" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\停止.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="删除16_sig" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\删除16_sig.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="勾选" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\勾选.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="勾选16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\勾选16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="单箭头右48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\单箭头右48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -261,6 +264,9 @@
   </data>
   <data name="左双箭头48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\左双箭头48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="已停止1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\已停止1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="打印" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\打印.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

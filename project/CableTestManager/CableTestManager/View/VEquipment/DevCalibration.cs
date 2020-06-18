@@ -16,6 +16,7 @@ namespace CableTestManager.View.VEquipment
 {
     public partial class DevCalibration : Form
     {
+        private System.Timers.Timer timer = new System.Timers.Timer();
         public DevCalibration()
         {
             InitializeComponent();
@@ -30,27 +31,35 @@ namespace CableTestManager.View.VEquipment
 
         private void Init()
         {
-            this.num_insulateDY_voltage.Minimum = 30;
-            this.num_insulateDY_voltage.Maximum = 50;
+            this.num_insulateDY_voltage.Minimum = 0;
+            this.num_insulateDY_voltage.Maximum = 500;
 
-            this.num_insulateDZ_voltage.Minimum = 30;
-            this.num_insulateDZ_voltage.Maximum = 50;
+            this.num_insulateDZ_voltage.Minimum = 0;
+            this.num_insulateDZ_voltage.Maximum = 500;
 
             this.num_insulateDY_time.Minimum = 0;
             this.num_insulateDY_time.Maximum = 120;
 
             this.num_insulateDZ_time.Minimum = 0;
             this.num_insulateDZ_time.Maximum = 120;
+
+            timer.Interval = 200;
         }
 
         private void DevCalibration_Load(object sender, EventArgs e)
         {
             Init();
 
+            this.timer.Elapsed += Timer_Elapsed;
             this.btn_dztest.Click += Btn_dztest_Click;
             this.btn_insulateDZTest.Click += Btn_insulateDZTest_Click;
             this.btn_insulateVoltageTest.Click += Btn_insulateVoltageTest_Click;
             SuperEasyClient.NoticeMessageEvent += SuperEasyClient_NoticeMessageEvent;
+        }
+
+        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            
         }
 
         private void SuperEasyClient_NoticeMessageEvent(ClientSocket.AppBase.MyPackageInfo packageInfo)
@@ -72,7 +81,7 @@ namespace CableTestManager.View.VEquipment
             {
                 TestItemProcess(packageInfo, TestTypeEnum.InsVoltageTest);
             }
-            else if (packageInfo.Data[4] == 0xf9 && packageInfo.Data[5] == 0xcc)//绝缘电阻计量
+            else if (packageInfo.Data[4] == 0xf9 && packageInfo.Data[5] == 0xbb)//绝缘电阻计量
             {
                 TestItemProcess(packageInfo, TestTypeEnum.InsAssTest);
             }
@@ -137,18 +146,22 @@ namespace CableTestManager.View.VEquipment
                 factor = 10 * Math.Pow(10, power);
             }
             var calResult = (resistance * factor).ToString("f2");
-            switch (testType)
+
+            Task.Run(()=>
             {
-                case TestTypeEnum.AssTest:
-                    this.tb_dzResult.Text = calResult;
-                    break;
-                case TestTypeEnum.InsVoltageTest:
-                    this.tb_insulateDY_Result.Text = calResult;
-                    break;
-                case TestTypeEnum.InsAssTest:
-                    this.tb_insulateDz_Result.Text = calResult;
-                    break;
-            }
+                switch (testType)
+                {
+                    case TestTypeEnum.AssTest:
+                        this.tb_dzResult.Text = calResult;
+                        break;
+                    case TestTypeEnum.InsVoltageTest:
+                        this.tb_insulateDY_Result.Text = calResult;
+                        break;
+                    case TestTypeEnum.InsAssTest:
+                        this.tb_insulateDz_Result.Text = calResult;
+                        break;
+                }
+            });
         }
 
         private string DecConvert2Hex(byte b)

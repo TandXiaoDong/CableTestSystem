@@ -72,22 +72,22 @@ namespace CableTestManager.View.VProject
 
         private void Menu_deleteData_Click(object sender, EventArgs e)
         {
-            var selectProjectIndex = this.radGridView1.CurrentRow.Index;
-            if (selectProjectIndex < 0)
+            var b = RadGridViewProperties.IsSelectRow(this.radGridView1);
+            if (!b)
             {
-                MessageBox.Show("请选择要删除的项目！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("请选择要删除的测试序列！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (MessageBox.Show("确认要删除该项目的数据？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+            var testNumber = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
+            if (MessageBox.Show($"确认要删除测试序列{testNumber}的数据？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2) != DialogResult.Yes)
             {
                 return;
             }
-            var currentProject = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
-            var delRow = historyDataInfoManager.DeleteByWhere($"where ProjectName = '{currentProject}'");
-            delRow += historyDataDetailManager.DeleteByWhere($"where ProjectName = '{currentProject}'");
+            var delRow = historyDataInfoManager.DeleteByWhere($"where TestSerialNumber = '{testNumber}'");
+            delRow += historyDataDetailManager.DeleteByWhere($"where TestSerialNumber = '{testNumber}'");
             if (delRow > 0)
             {
-                UserOperateRecord.UpdateOperateRecord($"删除历史数据-删除项目{currentProject}");
+                UserOperateRecord.UpdateOperateRecord($"删除历史数据-删除测试序列{testNumber}");
                 MessageBox.Show("删除数据完成！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
             QueryHistoryBasicInfo(true);
@@ -157,7 +157,7 @@ namespace CableTestManager.View.VProject
                 var testTime = dr["TestStartDate"].ToString();
                 var tester = dr["TestOperator"].ToString();
                 var testResult = dr["FinalTestResult"].ToString();
-                if (IsExistTestProject(testTime))
+                if (IsExistTestProject(testSerial))
                     continue;
                 this.radGridView1.Rows.AddNew();
                 var rCount = this.radGridView1.RowCount;
@@ -171,13 +171,13 @@ namespace CableTestManager.View.VProject
             }
         }
 
-        private bool IsExistTestProject(string testTime)
+        private bool IsExistTestProject(string testNumber)
         {
             if (this.radGridView1.RowCount < 1)
                 return false;
             foreach (var rowInfo in this.radGridView1.Rows)
             {
-                if (rowInfo.Cells[4].Value.ToString() == testTime)
+                if (rowInfo.Cells[1].Value.ToString() == testNumber)
                     return true;
             }
             return false;

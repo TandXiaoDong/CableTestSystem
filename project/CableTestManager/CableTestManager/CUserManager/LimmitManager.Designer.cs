@@ -133,7 +133,7 @@
             // 
             // checkAllFunc
             // 
-            this.checkAllFunc.Location = new System.Drawing.Point(5, 28);
+            this.checkAllFunc.Location = new System.Drawing.Point(16, 28);
             this.checkAllFunc.Name = "checkAllFunc";
             this.checkAllFunc.Size = new System.Drawing.Size(74, 32);
             this.checkAllFunc.TabIndex = 22;
@@ -155,7 +155,7 @@
             // 
             // checkAllOperat
             // 
-            this.checkAllOperat.Location = new System.Drawing.Point(14, 28);
+            this.checkAllOperat.Location = new System.Drawing.Point(20, 28);
             this.checkAllOperat.Name = "checkAllOperat";
             this.checkAllOperat.Size = new System.Drawing.Size(74, 32);
             this.checkAllOperat.TabIndex = 23;
@@ -164,6 +164,7 @@
             // 
             // btn_ok
             // 
+            this.btn_ok.BackColor = System.Drawing.Color.GhostWhite;
             this.btn_ok.Location = new System.Drawing.Point(156, 564);
             this.btn_ok.Name = "btn_ok";
             this.btn_ok.Size = new System.Drawing.Size(110, 32);
@@ -173,6 +174,7 @@
             // 
             // btn_cancel
             // 
+            this.btn_cancel.BackColor = System.Drawing.Color.GhostWhite;
             this.btn_cancel.Location = new System.Drawing.Point(323, 564);
             this.btn_cancel.Name = "btn_cancel";
             this.btn_cancel.Size = new System.Drawing.Size(110, 32);

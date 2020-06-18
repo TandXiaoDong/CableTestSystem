@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using Telerik.WinControls;
 using CableTestManager.Entity;
+using CableTestManager.Model;
 
 namespace CableTestManager.View
 {
@@ -15,16 +16,18 @@ namespace CableTestManager.View
         //public double temperature;
         //public double ambientHumidity;
         private TProjectBasicInfo basicInfo;
-        public FrmEnvironmentParams(TProjectBasicInfo info)
+        private DeviceConfig devConfig;
+        public FrmEnvironmentParams(TProjectBasicInfo info, DeviceConfig config)
         {
             InitializeComponent();
             this.basicInfo = info;
+            this.devConfig = config;
         }
 
         private void FrmEnvironmentParams_Load(object sender, EventArgs e)
         {
-            this.tb_temperature.Text = this.basicInfo.Temperature.ToString();
-            this.tb_ambientHumidity.Text = this.basicInfo.AmbientHumidity.ToString();
+            this.tb_temperature.Text = this.devConfig.Temperature.ToString();
+            this.tb_ambientHumidity.Text = this.devConfig.Humidity.ToString();
 
             this.btn_apply.Click += Btn_apply_Click;
             this.btn_cancel.Click += Btn_cancel_Click;
@@ -71,6 +74,8 @@ namespace CableTestManager.View
             }
             this.basicInfo.Temperature = cTemperature;
             this.basicInfo.AmbientHumidity = cAmbientHumidity;
+            this.devConfig.Temperature = cTemperature;
+            this.devConfig.Humidity = cAmbientHumidity;
             this.Close();
             this.DialogResult = DialogResult.OK;
         }
