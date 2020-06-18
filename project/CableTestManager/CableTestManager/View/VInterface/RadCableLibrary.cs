@@ -102,7 +102,7 @@ namespace CableTestManager.View.VInterface
             RadUpdateCable radUpdateCable = new RadUpdateCable("编辑线束库", lineCableName,true);
             if (radUpdateCable.ShowDialog() == DialogResult.OK)
             {
-
+                QueryCableLibInfo();
             }
         }
 
@@ -134,6 +134,7 @@ namespace CableTestManager.View.VInterface
             if (radUpdateCable.ShowDialog() == DialogResult.OK)
             {
                 UserOperateRecord.UpdateOperateRecord($"添加线束库");
+                QueryCableLibInfo();
             }
         }
 

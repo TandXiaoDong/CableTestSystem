@@ -39,7 +39,7 @@ namespace CableTestManager.CUserManager
         private const string FUN_NEW_PROJECT = "新建项目";
         private const string FUN_PROJECT_MANAGE = "项目管理";
         private const string FUN_TEST_DATA = "测试数据";
-        private const string FUN_OPERAT_RECORD = "操作记录";
+        //private const string FUN_OPERAT_RECORD = "操作记录";
         private const string FUN_PROBE = "探针";
         private const string FUN_START_RESISTAN_COMPENSAT = "启用电阻补偿";
         private const string FUN_RESISTAN_COMPENSAT_MANAGE = "电阻补偿管理";
@@ -210,9 +210,9 @@ namespace CableTestManager.CUserManager
                     case FUN_ONE_KEY_TEST_NAME:
                         funcLimit.OneKeyTest = ConvertState2Dec(item.CheckState);
                         break;
-                    case FUN_OPERAT_RECORD:
-                        funcLimit.OperatorRecord = ConvertState2Dec(item.CheckState);
-                        break;
+                    //case FUN_OPERAT_RECORD:
+                    //    funcLimit.OperatorRecord = ConvertState2Dec(item.CheckState);
+                    //    break;
                     case FUN_PRINT_REPORT:
                         funcLimit.PrintReport = ConvertState2Dec(item.CheckState);
                         break;
@@ -433,7 +433,7 @@ namespace CableTestManager.CUserManager
             this.checkListFuncLimit.Items.Add(FUN_INTERFACE_LIB_MANAGE_NAME);
             this.checkListFuncLimit.Items.Add(FUN_NEW_PROJECT);
             this.checkListFuncLimit.Items.Add(FUN_ONE_KEY_TEST_NAME);
-            this.checkListFuncLimit.Items.Add(FUN_OPERAT_RECORD); 
+            //this.checkListFuncLimit.Items.Add(FUN_OPERAT_RECORD); 
             this.checkListFuncLimit.Items.Add(FUN_PRINT_REPORT);
             this.checkListFuncLimit.Items.Add(FUN_PROBE);
             this.checkListFuncLimit.Items.Add(FUN_PROJECT_MANAGE);
@@ -538,9 +538,9 @@ namespace CableTestManager.CUserManager
                             case FUN_ONE_KEY_TEST_NAME:
                                 item.CheckState = ConvertDec2State(dr["OneKeyTest"].ToString());
                                 break;
-                            case FUN_OPERAT_RECORD:
-                                item.CheckState = ConvertDec2State(dr["OperatorRecord"].ToString());
-                                break;
+                            //case FUN_OPERAT_RECORD:
+                            //    item.CheckState = ConvertDec2State(dr["OperatorRecord"].ToString());
+                            //    break;
                             case FUN_PRINT_REPORT:
                                 item.CheckState = ConvertDec2State(dr["PrintReport"].ToString());
                                 break;

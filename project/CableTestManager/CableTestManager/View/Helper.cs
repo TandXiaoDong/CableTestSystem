@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using Telerik.WinControls;
 
-namespace CRTMonitor
+namespace CableTestManager
 {
     public partial class Helper : Telerik.WinControls.UI.RadForm
     {
@@ -18,9 +18,6 @@ namespace CRTMonitor
 
         private void Helper_Load(object sender, EventArgs e)
         {
-            linkLabel1.Text = "www.figkey.com";
-            linkLabel1.LinkVisited = true;
-            linkLabel1.LinkClicked += LinkLabel1_LinkClicked;
             this.btn_ok.Click += Btn_ok_Click;
         }
 
@@ -31,7 +28,7 @@ namespace CRTMonitor
 
         private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("iexplore.exe", linkLabel1.Text);
+            //System.Diagnostics.Process.Start("iexplore.exe", linkLabel1.Text);
         }
     }
 }

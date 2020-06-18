@@ -9,17 +9,20 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CableTestManager.ClientSocket;
 using CableTestManager.ClientSocket.AppBase;
-using CommonUtils.Logger;
+using CableTestManager.Model;
 using CommonUtils.ByteHelper;
 
 namespace CableTestManager.View.VEquipment
 {
+
     public partial class DevCalibration : Form
     {
         private System.Timers.Timer timer = new System.Timers.Timer();
-        public DevCalibration()
+        private DeviceConfig devConfig;
+        public DevCalibration(DeviceConfig config)
         {
             InitializeComponent();
+            this.devConfig = config;
         }
 
         private enum TestTypeEnum
@@ -146,13 +149,21 @@ namespace CableTestManager.View.VEquipment
                 factor = 10 * Math.Pow(10, power);
             }
             var calResult = (resistance * factor).ToString("f2");
+            var assResult = resistance * factor;
 
             Task.Run(()=>
             {
                 switch (testType)
                 {
                     case TestTypeEnum.AssTest:
-                        this.tb_dzResult.Text = calResult;
+                        if (this.devConfig.CompensateState == "1")
+                        {
+                            this.tb_dzResult.Text = (assResult + this.devConfig.AssCompensateVal).ToString("f2");
+                        }
+                        else
+                        {
+                            this.tb_dzResult.Text = calResult;
+                        }
                         break;
                     case TestTypeEnum.InsVoltageTest:
                         this.tb_insulateDY_Result.Text = calResult;

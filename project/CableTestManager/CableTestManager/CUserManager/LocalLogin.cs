@@ -18,6 +18,7 @@ using CommonUtil.CUserManager;
 using WindowsFormTelerik.CommonUI;
 using CableTestManager.View;
 using CableTestManager.Common;
+using CableTestManager.Business.Implements;
 
 namespace CableTestManager.CUserManager
 {
@@ -252,19 +253,7 @@ namespace CableTestManager.CUserManager
                 MessageBox.Show("连接数据库服务异常！","ERR",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 return;
             }
-            var dt = ds.Tables[0];
-            if (dt.Rows.Count > 0)
-            {
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    //tbx_username.Items.Add(dt.Rows[i][0].ToString());
-                }
-            }
-            else
-            {
-                //添加默认用户
-                userHelper.Register("admin", "admin", "管理员");
-            }
+            CheckSysAdminExist();
             tbx_username.Text = "";
             configPath = AppDomain.CurrentDomain.BaseDirectory+INI_CONFIG_NAME;
             ReadLastCfg();
@@ -358,6 +347,17 @@ namespace CableTestManager.CUserManager
         {
             Register register = new Register("注册");
             register.ShowDialog();
+        }
+
+        private void CheckSysAdminExist()
+        {
+            TUserManager userManager = new TUserManager();
+            var count = userManager.GetRowCountByWhere($"where UserName='admin' and UserRole='管理员'");
+            if (count <= 0)
+            {
+                //系统管理员不存在
+                userHelper.Register("admin","admin123","管理员");
+            }
         }
     }
 }

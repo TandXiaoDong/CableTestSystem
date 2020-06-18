@@ -36,6 +36,7 @@
             this.btnCancel = new Telerik.WinControls.UI.RadButton();
             this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
             this.office2013LightTheme1 = new Telerik.WinControls.Themes.Office2013LightTheme();
+            this.telerikMetroTouchTheme1 = new Telerik.WinControls.Themes.TelerikMetroTouchTheme();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lbxLimit)).BeginInit();
@@ -76,26 +77,27 @@
             this.btnApply.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btnApply.Location = new System.Drawing.Point(107, 95);
             this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new System.Drawing.Size(65, 22);
+            this.btnApply.Size = new System.Drawing.Size(65, 32);
             this.btnApply.TabIndex = 3;
             this.btnApply.Text = "确定";
-            this.btnApply.ThemeName = "ControlDefault";
+            this.btnApply.ThemeName = "TelerikMetroTouch";
             // 
             // btnCancel
             // 
             this.btnCancel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btnCancel.Location = new System.Drawing.Point(204, 94);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(58, 23);
+            this.btnCancel.Size = new System.Drawing.Size(58, 32);
             this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "取消";
+            this.btnCancel.ThemeName = "TelerikMetroTouch";
             // 
             // BatchAddCableSet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(310, 138);
+            this.ClientSize = new System.Drawing.Size(318, 138);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnApply);
             this.Controls.Add(this.lbxLimit);
@@ -130,5 +132,6 @@
         private Telerik.WinControls.UI.RadButton btnCancel;
         private Telerik.WinControls.Themes.MaterialBlueGreyTheme materialBlueGreyTheme1;
         private Telerik.WinControls.Themes.Office2013LightTheme office2013LightTheme1;
+        private Telerik.WinControls.Themes.TelerikMetroTouchTheme telerikMetroTouchTheme1;
     }
 }

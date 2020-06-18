@@ -88,7 +88,7 @@ namespace CableTestManager.View
         private string curLineCableName;
         private Queue<SelfStudyParams> studyParamQueue;
         private Queue<SelfStudyParams> probParamQueue = new Queue<SelfStudyParams>();
-        private List<SelfStudyParams> studyParamValidList;
+        private List<SelfStudyParams> studyParamValidList;//有效数据导入到线束库
         private Queue<CableTestParams> cableTestPramsQueue;
         private DataTable dataSourceSelfStudy,dataSourceCableTest, dataSourceInsulateTest, dataSourceProb;
         private bool IsFirstSetGridDTStyle, IsFirstSetGridUnDTStyle, IsFirstSetGridOpenCirStyle;
@@ -129,6 +129,7 @@ namespace CableTestManager.View
                 this.menu_userManager.Visibility = ElementVisibility.Collapsed;
                 this.menu_roleManager.Visibility = ElementVisibility.Collapsed;
                 this.menu_authorManager.Visibility = ElementVisibility.Collapsed;
+                this.menu_operateLog.Visibility = ElementVisibility.Collapsed;
                 var data = funLimitManager.GetDataSetByWhere($"where UserRole='{LocalLogin.currentUserType}'").Tables[0];
                 if (data.Rows.Count > 0)
                 {
@@ -159,7 +160,6 @@ namespace CableTestManager.View
                         this.menu_newProject.Visibility = ConvertDec2EleVisState(dr["NewProject"].ToString());
 
                         this.menu_OneKeyTest.Visibility = ConvertDec2EleVisState(dr["OneKeyTest"].ToString());
-                        this.menu_operateLog.Visibility = ConvertDec2EleVisState(dr["OperatorRecord"].ToString());
                         this.menu_PrintReport.Visibility = ConvertDec2EleVisState(dr["PrintReport"].ToString());
                         
                         this.tool_Probe.Visible = ConvertDec2State(dr["Probe"].ToString());
@@ -341,8 +341,10 @@ namespace CableTestManager.View
             this.tool_reportSavePath.Click += Tool_reportSavePath_Click;
             this.tool_stop.Click += Tool_stop_Click;
             #endregion
-            
+
             #region menu event
+            this.menu_abort.Click += Menu_abort_Click;
+            this.menu_helper.Click += Menu_helper_Click;
             this.menu_showToolWin.Click += Menu_showToolWin_Click;
             this.menu_showSysStatus.Click += Menu_showSysStatus_Click;
             this.menu_showProStatus.Click += Menu_showProStatus_Click;
@@ -391,9 +393,24 @@ namespace CableTestManager.View
             SuperEasyClient.NoticeMessageEvent += SuperEasyClient_NoticeMessageEvent;
         }
 
+        private void Menu_helper_Click(object sender, EventArgs e)
+        {
+            var helperFile = AppDomain.CurrentDomain.BaseDirectory + "temp\\线束测试操作编程说明书.docx";
+            if (File.Exists(helperFile))
+            {
+                System.Diagnostics.Process.Start(helperFile);
+            }
+        }
+
+        private void Menu_abort_Click(object sender, EventArgs e)
+        {
+            Helper helper = new Helper();
+            helper.Show();
+        }
+
         private void CMainForm_SizeChanged(object sender, EventArgs e)
         {
-            this.lbx_testStatus.Location = new Point(this.panelStatus.Width / 2);
+            this.lbx_testStatus.Location = new Point(this.panelStatus.Width / 2 - this.lbx_testStatus.Width);
         }
 
         private void Tool_stop_Click(object sender, EventArgs e)
@@ -1905,10 +1922,12 @@ namespace CableTestManager.View
                             break;
 
                         case CABLE_DETAIL:
-                            if (string.IsNullOrEmpty(this.curLineCableName))
-                                return;
-                            RadUpdateCable radUpdateCable = new RadUpdateCable($"线束{this.curLineCableName}", this.curLineCableName, true);
-                            radUpdateCable.Show();
+                            if (this.projectInfo.ProjectName == "" || this.projectInfo.ProjectName == null)
+                            {
+                                this.projectInfo.ProjectName = projectName;
+                            }
+                            FrmCableTestInfo cableTestInfo = new FrmCableTestInfo(this.projectInfo);
+                            cableTestInfo.Show();
                             break;
 
                         case DEVICE_DETAIL:
@@ -2027,7 +2046,7 @@ namespace CableTestManager.View
         /// <param name="e"></param>
         private void Menu_devCalibration_Click(object sender, EventArgs e)
         {
-            DevCalibration deviceCalibration = new DevCalibration();
+            DevCalibration deviceCalibration = new DevCalibration(this.deviceConfig);
             deviceCalibration.ShowDialog();
         }
 
@@ -2347,17 +2366,24 @@ namespace CableTestManager.View
             var projectInfoData = projectInfoManager.GetDataSetByFieldsAndWhere("distinct ProjectName", "").Tables[0];
             if (projectInfoData.Rows.Count < 1)
                 return;
+            ImageList imageList = new ImageList();
+            imageList.Images.Add(Resources.打开工程);
+            imageList.Images.Add(Resources.关闭);
+            imageList.Images.Add(Resources.编辑);
+            imageList.Images.Add(Resources.查看);
+            this.radTreeView1.ImageList = imageList;
             foreach (DataRow dr in projectInfoData.Rows)
             {
                 var projectName = dr["ProjectName"].ToString();
                 RadTreeNode root = this.radTreeView1.Nodes.Add(projectName);
-                var projectNode = root.Nodes.Add(PROJECT_INFO, 1);
-                projectNode.Nodes.Add(PROJECT_OPEN_TEST);
-                projectNode.Nodes.Add(PROJECT_CLOSE_TEST);
-                projectNode.Nodes.Add(PROJECT_EDIT, 1);
+                //var projectNode = root.Nodes.Add(PROJECT_INFO);
+                root.Nodes.Add(PROJECT_OPEN_TEST, 0);
+                root.Nodes.Add(PROJECT_CLOSE_TEST, 1);
+                root.Nodes.Add(PROJECT_EDIT, 2);
+                root.Nodes.Add(CABLE_DETAIL, 3);
                 //projectNode.Nodes.Add(WORK_WEAR, 1);
-                var cableNode = root.Nodes.Add(TEST_CABLE, 1);
-                cableNode.Nodes.Add(CABLE_DETAIL, 1);
+                //var cableNode = root.Nodes.Add(TEST_CABLE);
+                //cableNode.Nodes.Add(CABLE_DETAIL);
                 //var deviceNode = root.Nodes.Add(DEVICE_INFO, 1);
                 //deviceNode.Nodes.Add(DEVICE_DETAIL, 1);
                 if (curProName == projectName)

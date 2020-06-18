@@ -35,6 +35,7 @@
             this.radLabel2 = new Telerik.WinControls.UI.RadLabel();
             this.btn_ok = new Telerik.WinControls.UI.RadButton();
             this.btn_cancel = new Telerik.WinControls.UI.RadButton();
+            this.telerikMetroTouchTheme1 = new Telerik.WinControls.Themes.TelerikMetroTouchTheme();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_roleName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_remark)).BeginInit();
@@ -81,7 +82,7 @@
             // 
             this.btn_ok.Location = new System.Drawing.Point(104, 141);
             this.btn_ok.Name = "btn_ok";
-            this.btn_ok.Size = new System.Drawing.Size(67, 32);
+            this.btn_ok.Size = new System.Drawing.Size(67, 36);
             this.btn_ok.TabIndex = 4;
             this.btn_ok.Text = "确定";
             this.btn_ok.ThemeName = "TelerikMetroTouch";
@@ -132,5 +133,6 @@
         private Telerik.WinControls.UI.RadLabel radLabel2;
         private Telerik.WinControls.UI.RadButton btn_ok;
         private Telerik.WinControls.UI.RadButton btn_cancel;
+        private Telerik.WinControls.Themes.TelerikMetroTouchTheme telerikMetroTouchTheme1;
     }
 }

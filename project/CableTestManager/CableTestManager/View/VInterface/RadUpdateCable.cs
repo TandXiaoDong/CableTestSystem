@@ -29,6 +29,12 @@ namespace CableTestManager.View.VInterface
         private bool IsPressureCompletedTest;
         private List<CableLibParams> cableLibList = new List<CableLibParams>();
         private InterfaceInfoLibraryManager plugLibraryDetailManager = new InterfaceInfoLibraryManager();
+        private const string COLUMN_ORDER = "序号";
+        private const string COLUMN_START_INTER = "起始接口";
+        private const string COLUMN_START_POINT = "起始接点";
+        private const string COLUMN_END_INTER = "最终接口";
+        private const string COLUMN_END_POINT = "最终接点";
+        private DataTable cableAddDatasource,cableDelDatasource;
 
         public RadUpdateCable(string title,string lineCableName,bool IsEdit)
         {
@@ -48,9 +54,9 @@ namespace CableTestManager.View.VInterface
         {
             this.StartPosition = FormStartPosition.CenterParent;
             this.rdb2Method.CheckState = CheckState.Checked;
+            InitDataTable();
             lineStructManager = new TCableTestLibraryManager();
-            RadGridViewProperties.SetRadGridViewProperty(this.radGridView1,false,true,11);
-            this.radGridView1.Columns[10].IsVisible = false;
+            RadGridViewProperties.SetRadGridViewProperty(this.radGridView1,false,true,5);
 
             this.cb_startInterface.EditorControl.Columns.Add("startInterfacePoint");
             this.cb_startInterface.EditorControl.ShowColumnHeaders = false;
@@ -70,6 +76,18 @@ namespace CableTestManager.View.VInterface
                 this.rtbCableName.ReadOnly = true;
             }
             GetLineStructDetailData(lineCableName);
+        }
+
+        private void InitDataTable()
+        {
+            this.cableAddDatasource = new DataTable();
+            this.cableAddDatasource.Columns.Add(COLUMN_ORDER);
+            this.cableAddDatasource.Columns.Add(COLUMN_START_INTER);
+            this.cableAddDatasource.Columns.Add(COLUMN_START_POINT);
+            this.cableAddDatasource.Columns.Add(COLUMN_END_INTER);
+            this.cableAddDatasource.Columns.Add(COLUMN_END_POINT);
+
+            this.cableDelDatasource = this.cableAddDatasource.Clone();
         }
 
         private void EventHandlers()
@@ -175,6 +193,7 @@ namespace CableTestManager.View.VInterface
                 return;
             for (int i = this.radGridView1.RowCount - 1; i >= 0; i--)
             {
+                AddDelCableInfo(i);
                 this.radGridView1.Rows[i].Delete();
             }
         }
@@ -184,9 +203,24 @@ namespace CableTestManager.View.VInterface
             int cIndex = this.radGridView1.CurrentRow.Index;
             if (cIndex < 0)
                 return;
+            AddDelCableInfo(cIndex);
             this.radGridView1.Rows[cIndex].Delete();
         }
 
+        private void AddDelCableInfo(int rowIndex)
+        {
+            var startInterName = this.radGridView1.Rows[rowIndex].Cells[1].Value.ToString();
+            var startContact = this.radGridView1.Rows[rowIndex].Cells[2].Value.ToString();
+            var endInterName = this.radGridView1.Rows[rowIndex].Cells[3].Value.ToString();
+            var endContact = this.radGridView1.Rows[rowIndex].Cells[4].Value.ToString();
+
+            DataRow dataRow = this.cableDelDatasource.NewRow();
+            dataRow[COLUMN_START_INTER] = startInterName;
+            dataRow[COLUMN_START_POINT] = startContact;
+            dataRow[COLUMN_END_INTER] = endInterName;
+            dataRow[COLUMN_END_POINT] = endContact;
+            this.cableDelDatasource.Rows.Add(dataRow);
+        }
 
         private void Tool_batchAdd_Click(object sender, EventArgs e)
         {
@@ -216,10 +250,13 @@ namespace CableTestManager.View.VInterface
                 MessageBox.Show("线束代号不能为空！","Warning",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 return;
             }
-            if (IsCableNoExist(cableName))
+            if (!this.IsEditView)
             {
-                MessageBox.Show("线束代号已存在，请重新命名！", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                if (IsCableNoExist(cableName))
+                {
+                    MessageBox.Show("线束代号已存在，请重新命名！", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
             }
             RadCableLibraryManager radCableLibraryManager = new RadCableLibraryManager(cableName);
             if (radCableLibraryManager.ShowDialog() == DialogResult.OK)
@@ -448,42 +485,19 @@ namespace CableTestManager.View.VInterface
             //add to radgridview
             this.radGridView1.Rows.AddNew();
             var rowCount = this.radGridView1.RowCount;
-            var IsGround = "";
-            var IsInsulate = "";
-            var IsContaction = "";
-            var IsPressureProof = "";
-            var IsCirCuit = "";
-            if (this.checkGround.Checked)
-                IsGround = "是";
-            else
-                IsGround = "否";
-            if (this.checkInsulate.Checked)
-                IsInsulate = "是";
-            else
-                IsInsulate = "否";
-            if (this.checkConduction.Checked)
-                IsContaction = "是";
-            else
-                IsContaction = "否";
-            if (this.checkPressureProof.Checked)
-                IsPressureProof = "是";
-            else
-                IsPressureProof = "否";
-            if (this.checkCircuit.Checked)
-                IsCirCuit = "是";
-            else
-                IsCirCuit = "否";
             this.radGridView1.Rows[rowCount - 1].Cells[0].Value = rowCount;
             this.radGridView1.Rows[rowCount - 1].Cells[1].Value = this.cb_startInterface.Text;
             this.radGridView1.Rows[rowCount - 1].Cells[2].Value = startContact;
             this.radGridView1.Rows[rowCount - 1].Cells[3].Value = this.cb_endInterface.Text;
             this.radGridView1.Rows[rowCount - 1].Cells[4].Value = endContact;
-            this.radGridView1.Rows[rowCount - 1].Cells[5].Value = IsGround;
-            this.radGridView1.Rows[rowCount - 1].Cells[6].Value = IsContaction;
-            this.radGridView1.Rows[rowCount - 1].Cells[7].Value = IsCirCuit;
-            this.radGridView1.Rows[rowCount - 1].Cells[8].Value = IsInsulate;
-            this.radGridView1.Rows[rowCount - 1].Cells[9].Value = IsPressureProof;
-            this.radGridView1.Rows[rowCount - 1].Cells[10].Value = 1;//new add row
+
+            DataRow dataRow = this.cableAddDatasource.NewRow();
+            dataRow[COLUMN_ORDER] = rowCount;
+            dataRow[COLUMN_START_INTER] = this.cb_startInterface.Text;
+            dataRow[COLUMN_START_POINT] = startContact;
+            dataRow[COLUMN_END_INTER] = this.cb_endInterface.Text;
+            dataRow[COLUMN_END_POINT] = endContact;
+            this.cableAddDatasource.Rows.Add(dataRow);
         }
 
         private void BatchAddConnect()
@@ -586,43 +600,40 @@ namespace CableTestManager.View.VInterface
         {
             if (this.radGridView1.Rows.Count < 1)
                 return;
-            if (this.rtbCableName.Text.Trim() == "")
+
+            if (this.IsEditView)
             {
-                MessageBox.Show("线束代号不能为空！", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                if (UpdateCableInfo() + AddCableInfo() > 0)
+                {
+                    MessageBox.Show("更新成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
-            foreach (var rowInfo in this.radGridView1.Rows)
+            else
             {
-                var startInterface = rowInfo.Cells[1].Value.ToString();
-                var startContactPoint = rowInfo.Cells[2].Value.ToString();
-                var endInterface = rowInfo.Cells[3].Value.ToString();
-                var endContactPoint = rowInfo.Cells[4].Value.ToString();
-                var IsAddNewRow = rowInfo.Cells[10].Value;
-                var IsGround = rowInfo.Cells[5].Value.ToString();
-                if (IsGround == "是")
-                    IsGround = "1";
-                else
-                    IsGround = "0";
-                var IsConduction = rowInfo.Cells[6].Value.ToString();
-                if (IsConduction == "是")
-                    IsConduction = "1";
-                else
-                    IsConduction = "0";
-                var IsCircuit = rowInfo.Cells[7].Value.ToString();
-                if (IsCircuit == "是")
-                    IsCircuit = "1";
-                else
-                    IsCircuit = "0";
-                var IsInsulate = rowInfo.Cells[8].Value.ToString();
-                if (IsInsulate == "是")
-                    IsInsulate = "1";
-                else
-                    IsInsulate = "0";
-                var IsPreasureProof = rowInfo.Cells[9].Value.ToString();
-                if (IsPreasureProof == "是")
-                    IsPreasureProof = "1";
-                else
-                    IsPreasureProof = "0";
+                if (this.rtbCableName.Text.Trim() == "")
+                {
+                    MessageBox.Show("线束代号不能为空！", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (AddCableInfo() > 0)
+                {
+                    MessageBox.Show("更新成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            this.Close();
+            this.DialogResult = DialogResult.OK;
+        }
+
+        private int AddCableInfo()
+        {
+            int rowCount = 0;
+            foreach (DataRow rowInfo in this.cableAddDatasource.Rows)
+            {
+                var startInterface = rowInfo[1].ToString();
+                var startContactPoint = rowInfo[2].ToString();
+                var endInterface = rowInfo[3].ToString();
+                var endContactPoint = rowInfo[4].ToString();
+
                 TCableTestLibrary lineStructLibraryDetail = new TCableTestLibrary();
                 lineStructLibraryDetail.ID = CableTestManager.Common.TablePrimaryKey.InsertCableLibPID();
                 lineStructLibraryDetail.CableName = this.rtbCableName.Text.Trim();
@@ -642,27 +653,31 @@ namespace CableTestManager.View.VInterface
                     lineStructLibraryDetail.EndDevPoint = cEndObj.DevInterPoint;
                 }
                 lineStructLibraryDetail.MeasureMethod = QueryMeasuringMethod(startInterface).ToString();
-                //lineStructLibraryDetail.IsGroundTest = int.Parse(IsGround);
-                //lineStructLibraryDetail.IsConductTest = int.Parse(IsConduction);
-                //lineStructLibraryDetail.IsShortCircuitTest = int.Parse(IsCircuit);
-                //lineStructLibraryDetail.IsInsulateTest = int.Parse(IsInsulate);
-                //lineStructLibraryDetail.IsVoltageWithStandardTest = int.Parse(IsPreasureProof);
-                //lineStructLibraryDetail.UpdateDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                lineStructLibraryDetail.UpdateDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                if (IsAddNewRow != null)
-                {
-                    //insert
-                    lineStructManager.Insert(lineStructLibraryDetail);
-                }
-                else
-                {
-                    //update
-                    lineStructLibraryDetail.ID = GetCablePrimary(this.rtbCableName.Text.Trim(), startInterface,startContactPoint,endInterface, endContactPoint);
-                    lineStructManager.Update(lineStructLibraryDetail);
-                }
+                rowCount += lineStructManager.Insert(lineStructLibraryDetail);
             }
-            MessageBox.Show("提交成功！","提示",MessageBoxButtons.OK);
-            this.Close();
+
+            this.cableAddDatasource.Clear();
+            return rowCount;
+        }
+
+        private int UpdateCableInfo()
+        {
+            int rowCount = 0;
+            foreach (DataRow rowInfo in this.cableDelDatasource.Rows)
+            {
+                var startInterface = rowInfo[1].ToString();
+                var startContactPoint = rowInfo[2].ToString();
+                var endInterface = rowInfo[3].ToString();
+                var endContactPoint = rowInfo[4].ToString();
+
+                TCableTestLibrary lineStructLibraryDetail = new TCableTestLibrary();
+                lineStructLibraryDetail.ID = GetCablePrimary(this.rtbCableName.Text.Trim(), startInterface, startContactPoint, endInterface, endContactPoint);
+                rowCount += this.lineStructManager.Delete(lineStructLibraryDetail.ID);
+            }
+            this.cableDelDatasource.Clear();
+            return rowCount;
         }
 
         private int QueryMeasuringMethod(string PlugNo)
@@ -752,36 +767,6 @@ namespace CableTestManager.View.VInterface
                     this.radGridView1.Rows[iRow].Cells[2].Value = dr["StartContactPoint"].ToString();
                     this.radGridView1.Rows[iRow].Cells[3].Value = dr["EndInterface"].ToString();
                     this.radGridView1.Rows[iRow].Cells[4].Value = dr["EndContactPoint"].ToString();
-                    var IsGroud = dr["IsGroundTest"].ToString();
-                    if (IsGroud == "0")
-                        IsGroud = "否";
-                    else if (IsGroud == "1")
-                        IsGroud = "是";
-                    this.radGridView1.Rows[iRow].Cells[5].Value = IsGroud;
-                    var IsContaction = dr["IsConductTest"].ToString();
-                    if (IsContaction == "0")
-                        IsContaction = "否";
-                    else if (IsContaction == "1")
-                        IsContaction = "是";
-                    this.radGridView1.Rows[iRow].Cells[6].Value = IsContaction;
-                    var IsCircuit = dr["IsShortCircuitTest"].ToString();
-                    if (IsCircuit == "0")
-                        IsCircuit = "否";
-                    else if (IsCircuit == "1")
-                        IsCircuit = "是";
-                    this.radGridView1.Rows[iRow].Cells[7].Value = IsCircuit;
-                    var IsInsulate = dr["IsInsulateTest"].ToString();
-                    if (IsInsulate == "0")
-                        IsInsulate = "否";
-                    else if (IsInsulate == "1")
-                        IsInsulate = "是";
-                    this.radGridView1.Rows[iRow].Cells[8].Value = IsInsulate;
-                    var IsPreasureProof = dr["IsVoltageWithStandardTest"].ToString();
-                    if (IsPreasureProof == "0")
-                        IsPreasureProof = "否";
-                    else if (IsPreasureProof == "1")
-                        IsPreasureProof = "是";
-                    this.radGridView1.Rows[iRow].Cells[9].Value = IsPreasureProof;
                     iRow++;
                 }
             }));

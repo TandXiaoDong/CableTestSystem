@@ -511,12 +511,6 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helper.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Helper.Designer.cs">
-      <DependentUpon>Helper.cs</DependentUpon>
-    </Compile>
     <Compile Include="Model\CableJudgeThreshold.cs" />
     <Compile Include="Model\CableLibParams.cs" />
     <Compile Include="Model\CableTestParams.cs" />
@@ -678,6 +672,12 @@
     </Compile>
     <Compile Include="View\VInterface\EditSwitchWorkWear.Designer.cs">
       <DependentUpon>EditSwitchWorkWear.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\VInterface\FrmCableTestInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VInterface\FrmCableTestInfo.Designer.cs">
+      <DependentUpon>FrmCableTestInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="View\VInterface\ImportInterfacePointByConnector.cs">
       <SubType>Form</SubType>
@@ -1012,9 +1012,6 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Helper.resx">
-      <DependentUpon>Helper.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -1100,6 +1097,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\VInterface\EditSwitchWorkWear.resx">
       <DependentUpon>EditSwitchWorkWear.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VInterface\FrmCableTestInfo.resx">
+      <DependentUpon>FrmCableTestInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\VInterface\ImportInterfacePointByConnector.resx">
       <DependentUpon>ImportInterfacePointByConnector.cs</DependentUpon>
@@ -1410,6 +1410,9 @@
     <None Include="Resources\已停止.png" />
     <None Include="Resources\已停止1.png" />
     <None Include="Resources\停止.png" />
+    <None Include="Resources\打开项目.png" />
+    <None Include="Resources\关闭.png" />
+    <None Include="Resources\查看.png" />
     <Content Include="完善.txt" />
     <Content Include="完善与优化.txt" />
     <Content Include="需求梳理.txt" />

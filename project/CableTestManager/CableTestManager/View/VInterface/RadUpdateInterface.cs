@@ -225,9 +225,9 @@ namespace CableTestManager.View.VAdd
                 var del = plugLibraryDetailManager.DeleteByWhere($"where InterfaceNo='{curInterName}' and SwitchStandStitchNo='{curDevPoint}'");
                 if (del > 0)
                 {
+                    MessageBox.Show($"已删除设备接点{curDevPoint}", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     RefreshDataGrid();
                     UpdateCurInterPointOrder(curInterName);
-                    MessageBox.Show($"已删除设备接点{curDevPoint}", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }

@@ -35,14 +35,20 @@ namespace CableTestManager.View.VProject
             this.dateTimePicker_start.Text = DateTime.Now.ToString("yyyy-MM-dd");
             this.dateTimePicker_end.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             RadGridViewProperties.SetRadGridViewProperty(this.radGridView1, false,true,this.radGridView1.ColumnCount);
-            QueryHistoryBasicInfo(true);
+            QueryHistoryBasicInfo();
             InitFuncState();
 
+            this.tb_queryFilter.TextChanged += Tb_queryFilter_TextChanged;
             this.menu_close.Click += Menu_close_Click;
             this.menu_detail.Click += Menu_detail_Click;
             this.menu_likeQuery.Click += Menu_likeQuery_Click;
             this.menu_export.Click += Menu_export_Click;
             this.menu_deleteData.Click += Menu_deleteData_Click;
+        }
+
+        private void Tb_queryFilter_TextChanged(object sender, EventArgs e)
+        {
+            QueryHistoryBasicInfo();
         }
 
         private void InitFuncState()
@@ -90,7 +96,7 @@ namespace CableTestManager.View.VProject
                 UserOperateRecord.UpdateOperateRecord($"删除历史数据-删除测试序列{testNumber}");
                 MessageBox.Show("删除数据完成！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
-            QueryHistoryBasicInfo(true);
+            QueryHistoryBasicInfo();
         }
 
         private void Menu_export_Click(object sender, EventArgs e)
@@ -100,12 +106,12 @@ namespace CableTestManager.View.VProject
 
         private void Menu_likeQuery_Click(object sender, EventArgs e)
         {
-            QueryHistoryBasicInfo(true);
+            QueryHistoryBasicInfo();
         }
 
         private void Menu_eqlQuery_Click(object sender, EventArgs e)
         {
-            QueryHistoryBasicInfo(false);
+            QueryHistoryBasicInfo();
         }
 
         private void Menu_detail_Click(object sender, EventArgs e)
@@ -126,27 +132,19 @@ namespace CableTestManager.View.VProject
             this.Close();
         }
 
-        private void QueryHistoryBasicInfo(bool IsLike)
+        private void QueryHistoryBasicInfo()
         {
             RadGridViewProperties.ClearGridView(this.radGridView1,null);
             var where = "";
             if (this.tb_queryFilter.Text.Trim() != "")
             {
-                if (IsLike)
-                    where = $"where ProjectName like '%{this.tb_queryFilter.Text}%' and TestStartDate >= '{this.dateTimePicker_start.Text}' and TestStartDate <= '{this.dateTimePicker_end.Text}'";
-                else
-                    where = $"where ProjectName = '{this.tb_queryFilter.Text}' and TestStartDate >= '{this.dateTimePicker_start.Text}' and TestStartDate <= '{this.dateTimePicker_end.Text}'";
+                where = $"where ProjectName like '%{this.tb_queryFilter.Text}%' and TestStartDate >= '{this.dateTimePicker_start.Text}' and TestStartDate <= '{this.dateTimePicker_end.Text}'";
+            }
+            else
+            {
+                where = $"where TestStartDate >= '{this.dateTimePicker_start.Text}' and TestStartDate <= '{this.dateTimePicker_end.Text}'";
             }
             var dt = historyDataInfoManager.GetDataSetByWhere(where).Tables[0];
-            if (dt.Rows.Count < 1)
-            {
-                if (IsLike)
-                    where = $"where TestCableName like '%{this.tb_queryFilter.Text}%' and TestStartDate >= '{this.dateTimePicker_start.Text}' and TestStartDate <= '{this.dateTimePicker_end.Text}'";
-                else
-                    where = $"where TestCableName = '{this.tb_queryFilter.Text}' and TestStartDate >= '{this.dateTimePicker_start.Text}' and TestStartDate <= '{this.dateTimePicker_end.Text}'";
-
-                dt = historyDataInfoManager.GetDataSetByWhere(where).Tables[0];
-            }
             if (dt.Rows.Count < 1)
                 return;
             foreach (DataRow dr in dt.Rows)

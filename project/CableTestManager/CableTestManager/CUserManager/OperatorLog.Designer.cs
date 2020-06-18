@@ -43,7 +43,6 @@
             this.dateTimePickerStartTime = new Telerik.WinControls.UI.RadDateTimePicker();
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.tool_query = new System.Windows.Forms.ToolStripButton();
             this.tool_likeQuery = new System.Windows.Forms.ToolStripButton();
             this.tool_deleteSignalData = new System.Windows.Forms.ToolStripButton();
             this.tool_deleteAllData = new System.Windows.Forms.ToolStripButton();
@@ -151,7 +150,6 @@
             // 
             this.toolStrip1.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tool_query,
             this.tool_likeQuery,
             this.tool_deleteSignalData,
             this.tool_deleteAllData,
@@ -162,14 +160,6 @@
             this.toolStrip1.Size = new System.Drawing.Size(1089, 28);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // tool_query
-            // 
-            this.tool_query.Image = global::CableTestManager.Properties.Resources.查询;
-            this.tool_query.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool_query.Name = "tool_query";
-            this.tool_query.Size = new System.Drawing.Size(94, 25);
-            this.tool_query.Text = "精确查询";
             // 
             // tool_likeQuery
             // 
@@ -184,16 +174,16 @@
             this.tool_deleteSignalData.Image = global::CableTestManager.Properties.Resources.delete16;
             this.tool_deleteSignalData.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_deleteSignalData.Name = "tool_deleteSignalData";
-            this.tool_deleteSignalData.Size = new System.Drawing.Size(142, 25);
-            this.tool_deleteSignalData.Text = "删除选择行记录";
+            this.tool_deleteSignalData.Size = new System.Drawing.Size(94, 25);
+            this.tool_deleteSignalData.Text = "删除记录";
             // 
             // tool_deleteAllData
             // 
             this.tool_deleteAllData.Image = global::CableTestManager.Properties.Resources.delete16;
             this.tool_deleteAllData.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool_deleteAllData.Name = "tool_deleteAllData";
-            this.tool_deleteAllData.Size = new System.Drawing.Size(126, 25);
-            this.tool_deleteAllData.Text = "删除所有记录";
+            this.tool_deleteAllData.Size = new System.Drawing.Size(94, 25);
+            this.tool_deleteAllData.Text = "删除所有";
             // 
             // tool_export
             // 
@@ -289,7 +279,6 @@
         private Telerik.WinControls.UI.RadLabel radLabel3;
         private Telerik.WinControls.UI.RadLabel radLabel2;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton tool_query;
         private System.Windows.Forms.ToolStripButton tool_likeQuery;
         private System.Windows.Forms.ToolStripButton tool_deleteSignalData;
         private System.Windows.Forms.ToolStripButton tool_export;

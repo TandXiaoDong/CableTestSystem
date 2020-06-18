@@ -57,7 +57,7 @@ namespace CableTestManager.View.VProject
 
         private void Menu_exportExcel_Click(object sender, EventArgs e)
         {
-            
+            GridViewExport.ExportGridViewData(GridViewExport.ExportFormat.EXCEL, this.radGridView1);
         }
 
         private void Menu_close_Click(object sender, EventArgs e)

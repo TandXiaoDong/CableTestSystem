@@ -97,11 +97,19 @@ namespace CommonUtil.CUserManager
                 MessageBox.Show("请选择要删除的用户！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 return;
             }
+            if (username.ToString() == "admin")
+            {
+                return;
+            }
             DeleteUser(username.ToString());
         }
 
         private void DeleteUser(string username)
         {
+            if (username == "admin")
+            {
+                return;
+            }
             var dt = userHelper.GetUserInfo(username).Tables[0];
 
             if (dt.Rows.Count < 1)
@@ -109,7 +117,7 @@ namespace CommonUtil.CUserManager
             var roleID = dt.Rows[0][0].ToString();
             if (roleID == "0")//admin
                 return;
-            if (MessageBox.Show($"确认要删除用户【{username}】?", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
+            if (MessageBox.Show($"确认要删除用户【{username}】?", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.OK)
             {
                 return;
             }

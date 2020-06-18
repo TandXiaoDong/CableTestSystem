@@ -241,6 +241,9 @@
   <data name="停止" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\停止.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="关闭" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\关闭.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="删除16_sig" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\删除16_sig.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -274,11 +277,17 @@
   <data name="打开工程" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\打开工程.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="打开项目" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\打开项目.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="批量16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\批量16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="报表模板" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\报表模板.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="查看" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\查看.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="查询" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\查询.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

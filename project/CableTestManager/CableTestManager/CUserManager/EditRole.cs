@@ -38,9 +38,15 @@ namespace CableTestManager.CUserManager
 
         private void Btn_ok_Click(object sender, EventArgs e)
         {
-            if (this.tb_roleName.Text.Trim() == "")
+            var roleName = this.tb_roleName.Text.Trim();
+            if (roleName == "")
             {
                 MessageBox.Show("角色名称不能为空!","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                return;
+            }
+            if (roleName == "管理员")
+            {
+                MessageBox.Show("管理员为本系统最高权限，请添加其它角色！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 return;
             }
             if (IsExistRole(this.tb_roleName.Text.Trim()))
