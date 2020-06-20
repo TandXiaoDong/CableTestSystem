@@ -678,7 +678,7 @@ public int UpdateFields(string fields, string where)
     }
     else
     {
-        cmdText = String.Format(cmdText, this.classMap.TableName, fields, "where " + where);
+        cmdText = String.Format(cmdText, this.classMap.TableName, fields, where);
     }
     int result = SQLiteHelper.ExecuteCommand(SQLiteHelper.CONSTR, CommandType.Text, cmdText, null);
     return result;

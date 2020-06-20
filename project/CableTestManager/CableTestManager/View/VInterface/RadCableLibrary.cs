@@ -121,6 +121,11 @@ namespace CableTestManager.View.VInterface
                 return;
             }
             var LineStructName = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
+            if (IsInterUsed(LineStructName))
+            {
+                MessageBox.Show($"线束{LineStructName}已被项目使用,删除失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (MessageBox.Show($"确认要删除线束代号{LineStructName}?", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2) != DialogResult.OK)
             {
                 return;
@@ -132,6 +137,17 @@ namespace CableTestManager.View.VInterface
                 UserOperateRecord.UpdateOperateRecord($"删除线束库{LineStructName}");
                 QueryCableLibInfo();
             }
+        }
+
+        private bool IsInterUsed(string cableName)
+        {
+            TProjectBasicInfoManager libraryManager = new TProjectBasicInfoManager();
+            var data = libraryManager.GetDataSetByFieldsAndWhere("DISTINCT ProjectName", $"where TestCableName = '{cableName}'").Tables[0];
+            if (data.Rows.Count > 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         private void Tool_add_Click(object sender, EventArgs e)

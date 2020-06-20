@@ -38,12 +38,30 @@ namespace CableTestManager.View.VProject
             QueryHistoryBasicInfo();
             InitFuncState();
 
+            this.dateTimePicker_start.ValueChanged += DateTimePicker_start_ValueChanged;
+            this.dateTimePicker_end.ValueChanged += DateTimePicker_end_ValueChanged;
             this.tb_queryFilter.TextChanged += Tb_queryFilter_TextChanged;
             this.menu_close.Click += Menu_close_Click;
             this.menu_detail.Click += Menu_detail_Click;
             this.menu_likeQuery.Click += Menu_likeQuery_Click;
             this.menu_export.Click += Menu_export_Click;
             this.menu_deleteData.Click += Menu_deleteData_Click;
+            this.radGridView1.CellDoubleClick += RadGridView1_CellDoubleClick;
+        }
+
+        private void DateTimePicker_end_ValueChanged(object sender, EventArgs e)
+        {
+            QueryHistoryBasicInfo();
+        }
+
+        private void DateTimePicker_start_ValueChanged(object sender, EventArgs e)
+        {
+            QueryHistoryBasicInfo();
+        }
+
+        private void RadGridView1_CellDoubleClick(object sender, Telerik.WinControls.UI.GridViewCellEventArgs e)
+        {
+            QueryProjectDetail();
         }
 
         private void Tb_queryFilter_TextChanged(object sender, EventArgs e)
@@ -116,10 +134,15 @@ namespace CableTestManager.View.VProject
 
         private void Menu_detail_Click(object sender, EventArgs e)
         {
+            QueryProjectDetail();
+        }
+
+        private void QueryProjectDetail()
+        {
             var b = RadGridViewProperties.IsSelectRow(this.radGridView1);
             if (!b)
             {
-                MessageBox.Show("请选择要查看明细的项目！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                MessageBox.Show("请选择要查看明细的项目！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             var testSerial = this.radGridView1.CurrentRow.Cells[1].Value.ToString();

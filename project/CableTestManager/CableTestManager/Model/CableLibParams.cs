@@ -8,6 +8,8 @@ namespace CableTestManager.Model
 {
     class CableLibParams
     {
+        public string CableName { get; set; }
+
         public string InterfaceName { get; set; }
 
         public string InterContactPoint { get; set; }

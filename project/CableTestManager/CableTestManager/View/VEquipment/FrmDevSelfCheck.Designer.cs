@@ -70,7 +70,7 @@
             // 
             // lbx_checkTip
             // 
-            this.lbx_checkTip.Location = new System.Drawing.Point(106, 145);
+            this.lbx_checkTip.Location = new System.Drawing.Point(77, 144);
             this.lbx_checkTip.Name = "lbx_checkTip";
             this.lbx_checkTip.Size = new System.Drawing.Size(150, 21);
             this.lbx_checkTip.TabIndex = 3;

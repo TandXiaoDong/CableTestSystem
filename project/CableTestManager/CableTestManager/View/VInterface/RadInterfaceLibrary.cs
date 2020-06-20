@@ -100,12 +100,28 @@ namespace CableTestManager.View.VInterface
             if(!RadGridViewProperties.IsSelectRow(this.radGridView1))
                 return;
             var plugNo = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
+            if (IsInterUsed(plugNo))
+            {
+                MessageBox.Show($"接口{plugNo}已被线束库使用,删除失败！","提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                return;
+            }
             if (MessageBox.Show($"确认要删除接口{plugNo}？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 plugLibraryDetailManager.DeleteByWhere($"where InterfaceNo='{plugNo}'");
                 QueryInterfaceInfo();
                 UserOperateRecord.UpdateOperateRecord($"删除接口{plugNo}");
             }
+        }
+
+        private bool IsInterUsed(string interName)
+        {
+            TCableTestLibraryManager libraryManager = new TCableTestLibraryManager();
+            var data = libraryManager.GetDataSetByFieldsAndWhere("DISTINCT CableName", $"where StartInterface = '{interName}' OR EndInterface = '{interName}'").Tables[0];
+            if (data.Rows.Count > 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         private void Tool_add_Click(object sender, EventArgs e)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -141,7 +142,10 @@ namespace CommonUtil.CUserManager
             }
             var userID = userHelper.GetUserID(username.ToString());
             ModifyPwd modifyPwd = new ModifyPwd(userID,username.ToString());
-            modifyPwd.ShowDialog();
+            if (modifyPwd.ShowDialog() == DialogResult.OK)
+            {
+                SelectAllUser();
+            }
         }
     }
 }

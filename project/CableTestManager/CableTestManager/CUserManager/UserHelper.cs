@@ -175,10 +175,10 @@ namespace CommonUtil.CUserManager
         #endregion
 
         #region 修改密码
-        public int ModifyUserPassword(string username, string pwd)
+        public int ModifyUserPassword(string oldUserName,string newUserName, string pwd)
         {
             TUserManager userManager = new TUserManager();
-            return userManager.UpdateFields($"UserPassword = '{pwd}'", $"where UserName='{username}'");
+            return userManager.UpdateFields($"UserPassword = '{pwd}',UserName = '{newUserName}'", $"where UserName='{oldUserName}'");
         }
         #endregion
 

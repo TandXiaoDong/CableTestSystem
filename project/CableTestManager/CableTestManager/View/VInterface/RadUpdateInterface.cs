@@ -189,11 +189,16 @@ namespace CableTestManager.View.VAdd
         {
             if (this.radGridView1.RowCount <= 0)
                 return;
+            var interName = this.radGridView1.Rows[0].Cells[1].Value.ToString();
+            if (IsInterUsed(interName))
+            {
+                MessageBox.Show($"接口{interName}已被线束库使用,删除失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (MessageBox.Show($"确认要删除设备所有接点?", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.OK)
             {
                 return;
             }
-            var interName = this.radGridView1.Rows[0].Cells[1].Value.ToString();
             int del = 0;
             foreach (var rowInfo in this.radGridView1.Rows)
             {
@@ -218,6 +223,11 @@ namespace CableTestManager.View.VAdd
                 return;
             var curInterName = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
             var curDevPoint = this.radGridView1.CurrentRow.Cells[4].Value.ToString();
+            if (IsInterUsed(curInterName))
+            {
+                MessageBox.Show($"接口{curInterName}已被线束库使用,删除失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (MessageBox.Show($"确认要删除设备接点{curDevPoint}?", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
             {
                 var del = plugLibraryDetailManager.DeleteByWhere($"where InterfaceNo='{curInterName}' and SwitchStandStitchNo='{curDevPoint}'");
@@ -228,6 +238,17 @@ namespace CableTestManager.View.VAdd
                     UpdateCurInterPointOrder(curInterName);
                 }
             }
+        }
+
+        private bool IsInterUsed(string interName)
+        {
+            TCableTestLibraryManager libraryManager = new TCableTestLibraryManager();
+            var data = libraryManager.GetDataSetByFieldsAndWhere("DISTINCT CableName", $"where StartInterface = '{interName}' OR EndInterface = '{interName}'").Tables[0];
+            if (data.Rows.Count > 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         private void Menu_importFromFile_Click(object sender, EventArgs e)

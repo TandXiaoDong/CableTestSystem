@@ -188,6 +188,11 @@ namespace CableTestManager.View.VInterface
         {
             if (this.radGridView1.RowCount < 1)
                 return;
+            if (IsInterUsed(this.lineCableName))
+            {
+                MessageBox.Show($"线束{this.lineCableName}已被项目使用,删除失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             for (int i = this.radGridView1.RowCount - 1; i >= 0; i--)
             {
                 AddDelCableInfo(i);
@@ -200,6 +205,11 @@ namespace CableTestManager.View.VInterface
             int cIndex = this.radGridView1.CurrentRow.Index;
             if (cIndex < 0)
                 return;
+            if (IsInterUsed(this.lineCableName))
+            {
+                MessageBox.Show($"线束{this.lineCableName}已被项目使用,删除失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             AddDelCableInfo(cIndex);
             this.radGridView1.Rows[cIndex].Delete();
         }
@@ -217,6 +227,17 @@ namespace CableTestManager.View.VInterface
             dataRow[COLUMN_END_INTER] = endInterName;
             dataRow[COLUMN_END_POINT] = endContact;
             this.cableDelDatasource.Rows.Add(dataRow);
+        }
+
+        private bool IsInterUsed(string cableName)
+        {
+            TProjectBasicInfoManager libraryManager = new TProjectBasicInfoManager();
+            var data = libraryManager.GetDataSetByFieldsAndWhere("DISTINCT ProjectName", $"where TestCableName = '{cableName}'").Tables[0];
+            if (data.Rows.Count > 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         private void Tool_batchAdd_Click(object sender, EventArgs e)
@@ -627,7 +648,7 @@ namespace CableTestManager.View.VInterface
             {
                 if (this.lineCableName.Trim() != this.rtbCableName.Text.Trim())//名称已修改
                 {
-                    var row = this.lineStructManager.UpdateFields($"CableName = '{this.rtbCableName.Text.Trim()}'", $"CableName = '{this.lineCableName}'");
+                    var row = this.lineStructManager.UpdateFields($"CableName = '{this.rtbCableName.Text.Trim()}'", $"where CableName = '{this.lineCableName}'");
                     return row;
                 }
             }

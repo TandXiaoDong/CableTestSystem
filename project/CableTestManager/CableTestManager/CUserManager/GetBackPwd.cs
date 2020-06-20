@@ -72,7 +72,7 @@ namespace CommonUtil.CUserManager
                 MessageBox.Show("两次密码不一致！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             var userID = userHelper.GetUserID(username);
-            var res = userHelper.ModifyUserPassword(username,confirmPwd);
+            var res = userHelper.ModifyUserPassword(username, username, confirmPwd);
             if (res == 1)
             {
                 MessageBox.Show("修改成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);

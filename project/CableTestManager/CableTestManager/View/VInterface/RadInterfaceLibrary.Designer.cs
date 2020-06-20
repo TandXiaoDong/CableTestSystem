@@ -141,7 +141,7 @@
             gridViewTextBoxColumn1.HeaderText = "序号";
             gridViewTextBoxColumn1.Name = "column1";
             gridViewTextBoxColumn2.EnableExpressionEditor = false;
-            gridViewTextBoxColumn2.HeaderText = "接口代号";
+            gridViewTextBoxColumn2.HeaderText = "接口名称";
             gridViewTextBoxColumn2.Name = "column2";
             gridViewTextBoxColumn2.Width = 93;
             gridViewTextBoxColumn3.EnableExpressionEditor = false;
@@ -162,9 +162,9 @@
             gridViewTextBoxColumn6.Name = "column6";
             gridViewTextBoxColumn6.Width = 74;
             gridViewTextBoxColumn7.EnableExpressionEditor = false;
-            gridViewTextBoxColumn7.HeaderText = "操作员";
+            gridViewTextBoxColumn7.HeaderText = "操作用户";
             gridViewTextBoxColumn7.Name = "column7";
-            gridViewTextBoxColumn7.Width = 57;
+            gridViewTextBoxColumn7.Width = 78;
             this.radGridView1.MasterTemplate.Columns.AddRange(new Telerik.WinControls.UI.GridViewDataColumn[] {
             gridViewTextBoxColumn1,
             gridViewTextBoxColumn2,

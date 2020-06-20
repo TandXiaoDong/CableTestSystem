@@ -76,14 +76,14 @@ namespace CableTestManager.Common
                 pdf.AddParagraph("测试报告\r\n", 20);
                 pdf.AddLine(71);
                 pdf.AddParagraph($"线束名称：{hisInfo.TestCableName}     测试结果：{CalFinalTestResult(hisInfo.ProjectName, hisInfo.TestCableName, testSerial)}", 15);
-                pdf.AddParagraph($"环境湿度：{hisInfo.EnvironmentAmbientHumidity}     测试温度：{hisInfo.EnvironmentTemperature}\r\n", 15);
-                pdf.AddParagraph($"测试人员：{hisInfo.TestOperator}     测试日期：{hisInfo.TestStartDate}\r\n", 15);
+                pdf.AddParagraph($"环境湿度：{hisInfo.EnvironmentAmbientHumidity}%        测试温度：{hisInfo.EnvironmentTemperature}℃        测试人员：{hisInfo.TestOperator}\r\n", 15);
+                pdf.AddParagraph($"测试日期：{hisInfo.TestStartDate} - {hisInfo.TestEndDate}\r\n", 15);
                 pdf.AddLine(144);
                 pdf.AddParagraph($"测试参数\r\n", 20);
                 pdf.AddLine(171);
-                pdf.AddParagraph($"导通测试阈值：{hisInfo.ConductThreshold}     短路测试阈值：{hisInfo.ShortCircuitThreshold}", 15);
-                pdf.AddParagraph($"绝缘测试阈值：{hisInfo.InsulateThreshold}     绝缘保持时间：{hisInfo.InsulateHoldTime}", 15);
-                pdf.AddParagraph($"绝缘电压：{hisInfo.InsulateVoltage}", 15);
+                pdf.AddParagraph($"导通测试阈值：{hisInfo.ConductThreshold}Ω        短路测试阈值：{hisInfo.ShortCircuitThreshold}Ω", 15);
+                pdf.AddParagraph($"绝缘测试阈值：{hisInfo.InsulateThreshold}MΩ        绝缘保持时间：{hisInfo.InsulateHoldTime}S", 15);
+                pdf.AddParagraph($"绝缘电压：{hisInfo.InsulateVoltage}V", 15);
                 pdf.AddLine(241);
                 pdf.AddParagraph($"异常明细\r\n\n", 20);
                 pdf.AddParagraph("线束测试异常明细", QueryCableTestExceptTable(detailData), 15);
@@ -137,9 +137,18 @@ namespace CableTestManager.Common
         private static DataTable QueryCableTestPassTable(DataTable data)
         {
             //导通测试结果//短路测试结果//绝缘测试结果//耐压测试结果
-            var where = "导通测试结果='合格' and 短路测试结果='合格' and 绝缘测试结果='合格'";
-            //where = "导通测试结果='不合格'";
-            DataRow[] dataRow = data.Select(where);
+            var where1 = "导通测试结果='合格' and 短路测试结果='合格' and 绝缘测试结果='合格'";
+            var where2 = "导通测试结果='合格' and 短路测试结果='合格'";
+            var where3 = "导通测试结果='合格'";
+            DataRow[] dataRow = data.Select(where1);
+            if (dataRow.Length == 0)
+            {
+                dataRow = data.Select(where2);
+                if (dataRow.Length == 0)
+                {
+                    dataRow = data.Select(where3);
+                }
+            }
             DataTable datasource = data.Clone();
             foreach (DataRow dr in dataRow)
             {

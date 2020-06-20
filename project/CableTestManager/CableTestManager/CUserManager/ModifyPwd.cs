@@ -23,7 +23,6 @@ namespace CommonUtil.CUserManager
             this.tb_user.Text = username;
             this.userName = username;
             this.userID = userID;
-            this.tb_user.ReadOnly = true;
         }
 
         private void ModifyPwd_Load(object sender, EventArgs e)
@@ -83,7 +82,7 @@ namespace CommonUtil.CUserManager
                 }
             }
             //验证旧密码
-            var loginResult = userHelper.Login(userName,oldPwd);
+            var loginResult = userHelper.Login(userName , oldPwd);
             if (loginResult ==  UserHelper.LoginResult.Err_Password)
             {
                 MessageBox.Show("旧密码错误！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -95,12 +94,13 @@ namespace CommonUtil.CUserManager
                 return;
             }
 
-            var res = userHelper.ModifyUserPassword(username, confirmPwd);
+            var res = userHelper.ModifyUserPassword(userName, username, confirmPwd);
             if (res == 1)
             {
                 UserOperateRecord.UpdateOperateRecord($"修改密码");
                 MessageBox.Show("修改成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.Close();
+                this.DialogResult = DialogResult.OK;
             }
             else
             {
