@@ -18,6 +18,8 @@ namespace CableTestManager.View.VInterface
         public BatchAddCableSet(int contactMax,int contactMin)
         {
             InitializeComponent();
+            this.numericUpDown1.Minimum = 0;
+            this.numericUpDown1.Maximum = 384;
             this.contactMax = contactMax;
             this.contactMin = contactMin;
             this.StartPosition = FormStartPosition.CenterParent;

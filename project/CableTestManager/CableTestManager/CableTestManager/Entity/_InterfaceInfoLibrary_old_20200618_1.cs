@@ -1,7 +1,7 @@
 /************************************************************************************
  *      Copyright (C) 2019 FigKey,All Rights Reserved
  *      File:
- *				InterfaceInfoLibrary.cs
+ *				_InterfaceInfoLibrary_old_20200618_1.cs
  *      Description:
  *		
  *      Author:
@@ -19,14 +19,15 @@ using System.Text;
 namespace CableTestManager.Entity
 {
     /// <summary>
-    /// 实体类InterfaceInfoLibrary
+    /// 实体类_InterfaceInfoLibrary_old_20200618_1
     /// </summary>
     [Serializable]
-    public class InterfaceInfoLibrary
+    public class _InterfaceInfoLibrary_old_20200618_1
     {
         #region 私有字段
 
         private long _iD = 0;
+        private long _interfaceID = 0;
         private string _interfaceNo = String.Empty;
         private string _contactPointName = String.Empty;
         private string _switchStandStitchNo = String.Empty;
@@ -47,6 +48,13 @@ namespace CableTestManager.Entity
         {
             set { this._iD = value; }
             get { return this._iD; }
+        }
+
+
+        public long InterfaceID
+        {
+            set { this._interfaceID = value; }
+            get { return this._interfaceID; }
         }
 
 

@@ -14,13 +14,14 @@ using CableTestManager.Entity;
 using WindowsFormTelerik.GridViewExportData;
 using Telerik.WinControls.UI;
 using CableTestManager.Model;
+using CableTestManager.CUserManager;
 
 namespace CableTestManager.View.VInterface
 {
     public partial class RadUpdateCable : RadForm
     {
         private TCableTestLibraryManager lineStructManager;
-        private string lineCableName;
+        private string lineCableName, remark;
         private bool IsEditView;
         //是否有完成过测试
         private bool IsConductCompletedTest;
@@ -36,12 +37,13 @@ namespace CableTestManager.View.VInterface
         private const string COLUMN_END_POINT = "最终接点";
         private DataTable cableAddDatasource,cableDelDatasource;
 
-        public RadUpdateCable(string title,string lineCableName,bool IsEdit)
+        public RadUpdateCable(string title,string lineCableName,bool IsEdit,string remark)
         {
             InitializeComponent();
             this.Text = title;
             this.IsEditView = IsEdit;
             this.lineCableName = lineCableName;
+            this.remark = remark;
         }
 
         private void RadUpdateCable_Load(object sender, EventArgs e)
@@ -646,9 +648,9 @@ namespace CableTestManager.View.VInterface
         {
             if (this.IsEditView)
             {
-                if (this.lineCableName.Trim() != this.rtbCableName.Text.Trim())//名称已修改
+                if (this.lineCableName.Trim() != this.rtbCableName.Text.Trim() || this.remark != this.rtb_remark.Text.Trim())//名称已修改
                 {
-                    var row = this.lineStructManager.UpdateFields($"CableName = '{this.rtbCableName.Text.Trim()}'", $"where CableName = '{this.lineCableName}'");
+                    var row = this.lineStructManager.UpdateFields($"CableName = '{this.rtbCableName.Text.Trim()}', Remark = '{this.rtb_remark.Text.Trim()}'", $"where CableName = '{this.lineCableName}'");
                     return row;
                 }
             }
@@ -658,6 +660,7 @@ namespace CableTestManager.View.VInterface
         private int AddCableInfo()
         {
             int rowCount = 0;
+            List<TCableTestLibrary> cableLibList = new List<TCableTestLibrary>();
             foreach (DataRow rowInfo in this.cableAddDatasource.Rows)
             {
                 var startInterface = rowInfo[1].ToString();
@@ -666,7 +669,7 @@ namespace CableTestManager.View.VInterface
                 var endContactPoint = rowInfo[4].ToString();
 
                 TCableTestLibrary lineStructLibraryDetail = new TCableTestLibrary();
-                lineStructLibraryDetail.ID = CableTestManager.Common.TablePrimaryKey.InsertCableLibPID();
+                lineStructLibraryDetail.ID = CableTestManager.Common.TablePrimaryKey.InsertCableLibPID() + rowCount;
                 lineStructLibraryDetail.CableName = this.rtbCableName.Text.Trim();
                 lineStructLibraryDetail.Remark = this.rtb_remark.Text;
                 lineStructLibraryDetail.StartInterface = startInterface;
@@ -685,12 +688,13 @@ namespace CableTestManager.View.VInterface
                 }
                 lineStructLibraryDetail.MeasureMethod = QueryMeasuringMethod(startInterface).ToString();
                 lineStructLibraryDetail.UpdateDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-
-                rowCount += lineStructManager.Insert(lineStructLibraryDetail);
+                lineStructLibraryDetail.Operator = LocalLogin.currentUserName;
+                cableLibList.Add(lineStructLibraryDetail);
+                rowCount++;
             }
-
+            var row = lineStructManager.Insert(cableLibList);
             this.cableAddDatasource.Clear();
-            return rowCount;
+            return row;
         }
 
         private int UpdateCableInfo()

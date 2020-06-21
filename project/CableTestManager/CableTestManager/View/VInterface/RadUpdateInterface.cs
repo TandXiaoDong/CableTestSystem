@@ -116,6 +116,12 @@ namespace CableTestManager.View.VAdd
             this.radGridView1.CellValueChanged += RadGridView1_CellValueChanged;
             this.radGridView1.CellBeginEdit += RadGridView1_CellBeginEdit;
             this.radGridView1.CellEndEdit += RadGridView1_CellEndEdit;
+            this.FormClosed += RadUpdateInterface_FormClosed;
+        }
+
+        private void RadUpdateInterface_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            InterfaceLibCom.data = null;
         }
 
         private void Btn_close_Click(object sender, EventArgs e)
@@ -497,7 +503,6 @@ namespace CableTestManager.View.VAdd
             if (dt.Rows.Count > 0)
             {
                 int iRow = 0;
-                InterfaceLibCom.data = null;
                 foreach (DataRow dr in dt.Rows)
                 {
                     var interName = dr["InterfaceNo"].ToString();
@@ -699,7 +704,7 @@ namespace CableTestManager.View.VAdd
             {
                 if (this.plugno.Trim() != this.tb_interfacelNo.Text.Trim())//名称已修改
                 {
-                    var row = this.plugLibraryDetailManager.UpdateFields($"InterfaceNo = '{this.tb_interfacelNo.Text.Trim()}'", $"InterfaceNo = '{this.plugno}'");
+                    var row = this.plugLibraryDetailManager.UpdateFields($"InterfaceNo = '{this.tb_interfacelNo.Text.Trim()}'", $"where InterfaceNo = '{this.plugno}'");
                     return row;
                 }
             }

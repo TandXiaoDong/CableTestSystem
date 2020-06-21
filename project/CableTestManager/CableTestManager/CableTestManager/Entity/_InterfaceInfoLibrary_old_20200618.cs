@@ -1,7 +1,7 @@
 /************************************************************************************
  *      Copyright (C) 2019 FigKey,All Rights Reserved
  *      File:
- *				InterfaceInfoLibrary.cs
+ *				_InterfaceInfoLibrary_old_20200618.cs
  *      Description:
  *		
  *      Author:
@@ -19,10 +19,10 @@ using System.Text;
 namespace CableTestManager.Entity
 {
     /// <summary>
-    /// 实体类InterfaceInfoLibrary
+    /// 实体类_InterfaceInfoLibrary_old_20200618
     /// </summary>
     [Serializable]
-    public class InterfaceInfoLibrary
+    public class _InterfaceInfoLibrary_old_20200618
     {
         #region 私有字段
 

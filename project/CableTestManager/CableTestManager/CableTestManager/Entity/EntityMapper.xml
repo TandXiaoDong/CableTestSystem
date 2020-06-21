@@ -107,6 +107,7 @@
 		<property name="IsShortCircuitTest" column="IsShortCircuitTest" />
 		<property name="Remark" column="Remark" />
 		<property name="UpdateDate" column="UpdateDate" />
+		<property name="Operator" column="Operator" />
 	</class>
 	<class name="TConnectorLibrary" table="TConnectorLibrary">
 		<property name="ID" column="ID" isPK="true" />
@@ -223,47 +224,83 @@
 		<property name="TesterStitchNo" column="TesterStitchNo" />
 		<property name="SwitchStandStitchNo" column="SwitchStandStitchNo" />
 	</class>
-	<class name="_TProjectBasicInfo_old_20200612" table="_TProjectBasicInfo_old_20200612">
+	<class name="_InterfaceInfoLibrary_old_20200618" table="_InterfaceInfoLibrary_old_20200618">
 		<property name="ID" column="ID" isPK="true" />
-		<property name="ProjectName" column="ProjectName" />
-		<property name="TestCableName" column="TestCableName" />
-		<property name="ConductTestThreshold" column="ConductTestThreshold" />
-		<property name="ConductTestVoltage" column="ConductTestVoltage" />
-		<property name="ConductTestCurrentElect" column="ConductTestCurrentElect" />
-		<property name="ShortCircuitTestThreshold" column="ShortCircuitTestThreshold" />
-		<property name="InsulateTestThreshold" column="InsulateTestThreshold" />
-		<property name="InsulateTestHoldTime" column="InsulateTestHoldTime" />
-		<property name="InsulateTestVoltage" column="InsulateTestVoltage" />
-		<property name="InsulateTestRaiseTime" column="InsulateTestRaiseTime" />
-		<property name="VoltageWithStandardThreshold" column="VoltageWithStandardThreshold" />
-		<property name="VoltageWithStandardHoldTime" column="VoltageWithStandardHoldTime" />
-		<property name="VoltageWithStandardVoltage" column="VoltageWithStandardVoltage" />
-		<property name="ResistanceCompensation" column="ResistanceCompensation" />
-		<property name="InsulateVolCompensation" column="InsulateVolCompensation" />
-		<property name="InsulateResCompensation" column="InsulateResCompensation" />
+		<property name="InterfaceNo" column="InterfaceNo" />
+		<property name="ContactPointName" column="ContactPointName" />
+		<property name="SwitchStandStitchNo" column="SwitchStandStitchNo" />
+		<property name="ContactPoint" column="ContactPoint" />
+		<property name="MeasureMethod" column="MeasureMethod" />
+		<property name="ConnectorName" column="ConnectorName" />
+		<property name="Operator" column="Operator" />
 		<property name="Remark" column="Remark" />
 		<property name="UpdateDate" column="UpdateDate" />
 	</class>
-	<class name="_TProjectBasicInfo_old_20200612_1" table="_TProjectBasicInfo_old_20200612_1">
+	<class name="_InterfaceInfoLibrary_old_20200618_1" table="_InterfaceInfoLibrary_old_20200618_1">
 		<property name="ID" column="ID" isPK="true" />
-		<property name="ProjectName" column="ProjectName" />
-		<property name="TestCableName" column="TestCableName" />
-		<property name="ConductTestThreshold" column="ConductTestThreshold" />
-		<property name="ConductTestVoltage" column="ConductTestVoltage" />
-		<property name="ConductTestCurrentElect" column="ConductTestCurrentElect" />
-		<property name="ShortCircuitTestThreshold" column="ShortCircuitTestThreshold" />
-		<property name="InsulateTestThreshold" column="InsulateTestThreshold" />
-		<property name="InsulateTestHoldTime" column="InsulateTestHoldTime" />
-		<property name="InsulateTestVoltage" column="InsulateTestVoltage" />
-		<property name="InsulateTestRaiseTime" column="InsulateTestRaiseTime" />
-		<property name="VoltageWithStandardThreshold" column="VoltageWithStandardThreshold" />
-		<property name="VoltageWithStandardHoldTime" column="VoltageWithStandardHoldTime" />
-		<property name="VoltageWithStandardVoltage" column="VoltageWithStandardVoltage" />
-		<property name="ResistanceCompensation" column="ResistanceCompensation" />
-		<property name="InsulateVolCompensation" column="InsulateVolCompensation" />
-		<property name="InsulateResCompensation" column="InsulateResCompensation" />
-		<property name="Temperature" column="Temperature" />
-		<property name="AmbientHumidity" column="AmbientHumidity" />
+		<property name="InterfaceID" column="InterfaceID" />
+		<property name="InterfaceNo" column="InterfaceNo" />
+		<property name="ContactPointName" column="ContactPointName" />
+		<property name="SwitchStandStitchNo" column="SwitchStandStitchNo" />
+		<property name="ContactPoint" column="ContactPoint" />
+		<property name="MeasureMethod" column="MeasureMethod" />
+		<property name="ConnectorName" column="ConnectorName" />
+		<property name="Operator" column="Operator" />
+		<property name="Remark" column="Remark" />
+		<property name="UpdateDate" column="UpdateDate" />
+	</class>
+	<class name="_TCableTestLibrary_old_20200618" table="_TCableTestLibrary_old_20200618">
+		<property name="ID" column="ID" isPK="true" />
+		<property name="CableName" column="CableName" />
+		<property name="StartInterface" column="StartInterface" />
+		<property name="StartContactPoint" column="StartContactPoint" />
+		<property name="StartDevPoint" column="StartDevPoint" />
+		<property name="EndInterface" column="EndInterface" />
+		<property name="EndContactPoint" column="EndContactPoint" />
+		<property name="EndDevPoint" column="EndDevPoint" />
+		<property name="MeasureMethod" column="MeasureMethod" />
+		<property name="IsGroundTest" column="IsGroundTest" />
+		<property name="IsInsulateTest" column="IsInsulateTest" />
+		<property name="IsConductTest" column="IsConductTest" />
+		<property name="IsVoltageWithStandardTest" column="IsVoltageWithStandardTest" />
+		<property name="IsShortCircuitTest" column="IsShortCircuitTest" />
+		<property name="Remark" column="Remark" />
+		<property name="UpdateDate" column="UpdateDate" />
+	</class>
+	<class name="_TCableTestLibrary_old_20200618_1" table="_TCableTestLibrary_old_20200618_1">
+		<property name="ID" column="ID" isPK="true" />
+		<property name="CableID" column="CableID" />
+		<property name="CableName" column="CableName" />
+		<property name="StartInterface" column="StartInterface" />
+		<property name="StartContactPoint" column="StartContactPoint" />
+		<property name="StartDevPoint" column="StartDevPoint" />
+		<property name="EndInterface" column="EndInterface" />
+		<property name="EndContactPoint" column="EndContactPoint" />
+		<property name="EndDevPoint" column="EndDevPoint" />
+		<property name="MeasureMethod" column="MeasureMethod" />
+		<property name="IsGroundTest" column="IsGroundTest" />
+		<property name="IsInsulateTest" column="IsInsulateTest" />
+		<property name="IsConductTest" column="IsConductTest" />
+		<property name="IsVoltageWithStandardTest" column="IsVoltageWithStandardTest" />
+		<property name="IsShortCircuitTest" column="IsShortCircuitTest" />
+		<property name="Remark" column="Remark" />
+		<property name="UpdateDate" column="UpdateDate" />
+	</class>
+	<class name="_TCableTestLibrary_old_20200621" table="_TCableTestLibrary_old_20200621">
+		<property name="ID" column="ID" isPK="true" />
+		<property name="CableName" column="CableName" />
+		<property name="StartInterface" column="StartInterface" />
+		<property name="StartContactPoint" column="StartContactPoint" />
+		<property name="StartDevPoint" column="StartDevPoint" />
+		<property name="EndInterface" column="EndInterface" />
+		<property name="EndContactPoint" column="EndContactPoint" />
+		<property name="EndDevPoint" column="EndDevPoint" />
+		<property name="MeasureMethod" column="MeasureMethod" />
+		<property name="IsGroundTest" column="IsGroundTest" />
+		<property name="IsInsulateTest" column="IsInsulateTest" />
+		<property name="IsConductTest" column="IsConductTest" />
+		<property name="IsVoltageWithStandardTest" column="IsVoltageWithStandardTest" />
+		<property name="IsShortCircuitTest" column="IsShortCircuitTest" />
 		<property name="Remark" column="Remark" />
 		<property name="UpdateDate" column="UpdateDate" />
 	</class>

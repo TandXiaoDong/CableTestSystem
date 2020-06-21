@@ -8,13 +8,13 @@ namespace CableTestManager.Business.Implements
     using CableTestManager.Data.Interface;
     using CableTestManager.Data.Implements;
     using CableTestManager.Business.Interface;
-    public class _TProjectBasicInfo_old_20200612Manager : BaseManager<_TProjectBasicInfo_old_20200612>, I_TProjectBasicInfo_old_20200612Manager
+    public class _TCableTestLibrary_old_20200618Manager : BaseManager<_TCableTestLibrary_old_20200618>, I_TCableTestLibrary_old_20200618Manager
     {
 		#region  Ù–‘◊¢»Î
 		
-        private I_TProjectBasicInfo_old_20200612Service service = new _TProjectBasicInfo_old_20200612Service();
+        private I_TCableTestLibrary_old_20200618Service service = new _TCableTestLibrary_old_20200618Service();
 
-        public _TProjectBasicInfo_old_20200612Manager()
+        public _TCableTestLibrary_old_20200618Manager()
         {
             base.BaseService = this.service;
         }

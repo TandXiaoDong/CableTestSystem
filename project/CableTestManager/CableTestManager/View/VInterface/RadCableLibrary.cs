@@ -105,7 +105,13 @@ namespace CableTestManager.View.VInterface
             if (!b)
                 return;
             var lineCableName = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
-            RadUpdateCable radUpdateCable = new RadUpdateCable("编辑线束库", lineCableName,true);
+            var remerkObj = this.radGridView1.CurrentRow.Cells[5].Value;
+            var remarkStr = "";
+            if (remerkObj != null)
+            {
+                remarkStr = remerkObj.ToString();
+            }
+            RadUpdateCable radUpdateCable = new RadUpdateCable("编辑线束库", lineCableName, true, remarkStr);
             if (radUpdateCable.ShowDialog() == DialogResult.OK)
             {
                 QueryCableLibInfo();
@@ -152,7 +158,7 @@ namespace CableTestManager.View.VInterface
 
         private void Tool_add_Click(object sender, EventArgs e)
         {
-            RadUpdateCable radUpdateCable = new RadUpdateCable("添加线束库库","",false);
+            RadUpdateCable radUpdateCable = new RadUpdateCable("添加线束库库","",false, "");
             if (radUpdateCable.ShowDialog() == DialogResult.OK)
             {
                 UserOperateRecord.UpdateOperateRecord($"添加线束库");
@@ -168,13 +174,14 @@ namespace CableTestManager.View.VInterface
             {
                 where = $"where CableName like '%{this.tool_queryFilter.Text}%'";
             }
-            var data = lineStructLibraryDetailManager.GetDataSetByFieldsAndWhere("distinct CableName", where).Tables[0];
+            var data = lineStructLibraryDetailManager.GetDataSetByFieldsAndWhere("distinct CableName,Remark,Operator", where).Tables[0];
             if (data.Rows.Count < 1)
                 return;
             int iRow = 0;
             foreach (DataRow dr in data.Rows)
             {
-                var lineStructName = dr["CableName"].ToString();
+                var lineStructName = dr[0].ToString();
+                
                 if (IsExistLineStruct(lineStructName))
                     continue;
                 this.radGridView1.Rows.AddNew();
@@ -184,6 +191,8 @@ namespace CableTestManager.View.VInterface
                 this.radGridView1.Rows[iRow].Cells[2].Value = resultString.Split(',').Length;
                 this.radGridView1.Rows[iRow].Cells[3].Value = resultString;
                 this.radGridView1.Rows[iRow].Cells[4].Value = lineStructLibraryDetailManager.GetRowCountByWhere($"where CableName='{lineStructName}'");
+                this.radGridView1.Rows[iRow].Cells[5].Value = dr[1].ToString();
+                this.radGridView1.Rows[iRow].Cells[6].Value = dr[2].ToString();
                 iRow++;
             }
         }

@@ -592,7 +592,8 @@ namespace CableTestManager.View
             ImportCableLibrary importCableLibrary = new ImportCableLibrary();
             if (importCableLibrary.ShowDialog() == DialogResult.OK)
             {
-                List<TCableTestLibrary> cableLibList = new List<TCableTestLibrary>(); 
+                List<TCableTestLibrary> cableLibList = new List<TCableTestLibrary>();
+                int row = 0;
                 foreach (var rowInfo in this.studyParamValidList)
                 {
                     if (rowInfo.TestReulst == "不导通")
@@ -600,7 +601,7 @@ namespace CableTestManager.View
                     else if (rowInfo.TestReulst == "导通")
                     {
                         TCableTestLibrary cableTestLibrary = new TCableTestLibrary();
-                        cableTestLibrary.ID = CableTestManager.Common.TablePrimaryKey.InsertCableLibPID();
+                        cableTestLibrary.ID = CableTestManager.Common.TablePrimaryKey.InsertCableLibPID() + row;
                         cableTestLibrary.CableName = importCableLibrary.cableLibName;
                         cableTestLibrary.MeasureMethod = importCableLibrary.testMethod + "";
                         int startPoint, endPoint;
@@ -617,6 +618,7 @@ namespace CableTestManager.View
                         cableTestLibrary.EndContactPoint = endPoint.ToString();
                         cableTestLibrary.UpdateDate = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                         cableLibList.Add(cableTestLibrary);
+                        row++;
                     }
                 }
                 var iRow = this.lineStructLibraryDetailManager.Insert(cableLibList);

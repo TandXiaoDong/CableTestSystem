@@ -6,7 +6,7 @@ namespace CableTestManager.Data.Implements
 {
     using CableTestManager.Entity;
     using CableTestManager.Data.Interface;
-    public class _TProjectBasicInfo_old_20200612_1Service : BaseService<_TProjectBasicInfo_old_20200612_1>, I_TProjectBasicInfo_old_20200612_1Service
+    public class _InterfaceInfoLibrary_old_20200618_1Service : BaseService<_InterfaceInfoLibrary_old_20200618_1>, I_InterfaceInfoLibrary_old_20200618_1Service
     {
     }
 }

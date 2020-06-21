@@ -1,7 +1,7 @@
 /************************************************************************************
  *      Copyright (C) 2019 FigKey,All Rights Reserved
  *      File:
- *				TCableTestLibrary.cs
+ *				_TCableTestLibrary_old_20200618_1.cs
  *      Description:
  *		
  *      Author:
@@ -19,14 +19,15 @@ using System.Text;
 namespace CableTestManager.Entity
 {
     /// <summary>
-    /// 实体类TCableTestLibrary
+    /// 实体类_TCableTestLibrary_old_20200618_1
     /// </summary>
     [Serializable]
-    public class TCableTestLibrary
+    public class _TCableTestLibrary_old_20200618_1
     {
         #region 私有字段
 
         private long _iD = 0;
+        private long _cableID = 0;
         private string _cableName = String.Empty;
         private string _startInterface = String.Empty;
         private string _startContactPoint = String.Empty;
@@ -42,7 +43,6 @@ namespace CableTestManager.Entity
         private long _isShortCircuitTest = 0;
         private string _remark = String.Empty;
         private string _updateDate = String.Empty;
-        private string _operator = String.Empty;
 
 
         #endregion
@@ -54,6 +54,13 @@ namespace CableTestManager.Entity
         {
             set { this._iD = value; }
             get { return this._iD; }
+        }
+
+
+        public long CableID
+        {
+            set { this._cableID = value; }
+            get { return this._cableID; }
         }
 
 
@@ -159,13 +166,6 @@ namespace CableTestManager.Entity
         {
             set { this._updateDate = value; }
             get { return this._updateDate; }
-        }
-
-
-        public string Operator
-        {
-            set { this._operator = value; }
-            get { return this._operator; }
         }
 
 
