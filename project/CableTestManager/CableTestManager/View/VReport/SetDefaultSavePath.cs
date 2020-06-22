@@ -38,7 +38,9 @@ namespace CableTestManager.View
 
         private void BtnSelectSavePath_Click(object sender, EventArgs e)
         {
-            this.textBox_savePath.Text = FileSelect.GetDirectorPath();
+            var rePath = FileSelect.GetDirectorPath();
+            if (rePath != "")
+                this.textBox_savePath.Text = reportDir;
         }
 
         private void BtnSubmit_Click(object sender, EventArgs e)

@@ -34,6 +34,18 @@ namespace CableTestManager.CUserManager
             this.tool_deleteSignalData.Click += Tool_deleteSignalData_Click;
             this.tool_deleteAllData.Click += Tool_deleteAllData_Click;
             this.tb_queryCondition.TextChanged += Tb_queryCondition_TextChanged;
+            this.dateTimePickerStartTime.ValueChanged += DateTimePickerStartTime_ValueChanged;
+            this.datePickerEndTime.ValueChanged += DatePickerEndTime_ValueChanged;
+        }
+
+        private void DatePickerEndTime_ValueChanged(object sender, EventArgs e)
+        {
+            QueryOperateData();
+        }
+
+        private void DateTimePickerStartTime_ValueChanged(object sender, EventArgs e)
+        {
+            QueryOperateData();
         }
 
         private void Tb_queryCondition_TextChanged(object sender, EventArgs e)

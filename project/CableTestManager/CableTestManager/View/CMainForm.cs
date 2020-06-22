@@ -77,9 +77,9 @@ namespace CableTestManager.View
         /// <summary>
         /// 项目测试序列，每次启动测试便生成一个新序列
         /// </summary>
-        private string projectTestNumber;
-        private string testStartDate;
-        private string testEndDate;
+        private string projectTestNumber = "";
+        private string testStartDate  = "";
+        private string testEndDate = "";
 
         /// <summary>
         /// 项目测试序列长度，超过最大长度会自动延长
@@ -558,17 +558,35 @@ namespace CableTestManager.View
         {
             if (this.radGridViewCableTest.RowCount <= 0)
                 return;
-            SaveTestResult();
-            TestReportInfo.ExportReport(this.deviceConfig.ReportDirectory, this.projectTestNumber);
+            ExportReport();
         }
 
+      
         private void Menu_PrintReport_Click(object sender, EventArgs e)
         {
             if (this.radGridViewCableTest.RowCount <= 0)
                 return;
-            SaveTestResult();
+            PrintReport();
+        }
+
+        private async void ExportReport()
+        {
+            await Task.Run(() =>
+            {
+                SaveTestResult();
+            });
+            TestReportInfo.ExportReport(this.deviceConfig.ReportDirectory, this.projectTestNumber);
+        }
+
+        private async void PrintReport()
+        {
+            await Task.Run(() =>
+            {
+                SaveTestResult();
+            });
             TestReportInfo.PrintReport(this.deviceConfig.ReportDirectory, this.projectTestNumber);
         }
+
 
         private void Menu_roleManager_Click(object sender, EventArgs e)
         {
@@ -1874,6 +1892,9 @@ namespace CableTestManager.View
                         this.lbx_conDevStatus.Text = "已连接";
                         this.lbx_serviceURL.Text = this.deviceConfig.ServerUrl;
                         this.lbx_servicePort.Text = this.deviceConfig.ServerPort.ToString();
+                        this.menu_ConductionTest.Enabled = true;
+                        this.menu_OneKeyTest.Enabled = true;
+                        this.curTestRowCount = 0;
 
                         if (tipMessage == SuperEasyClient.ConnectStatusEnum.ReConnected)
                         {
@@ -2726,6 +2747,7 @@ namespace CableTestManager.View
                 return;
             if (!IsSetEnvironmentParams())
                 return;
+            this.curTestRowCount = 0;//清除计数
             var voltageWithStandardCommand = CommonTestSendCommand(GetConductionTestInfo(CableTestProcessParams.CableTestType.PressureWithVoltageTest), voltageWithStandardFunCode);
             if (voltageWithStandardCommand.Length < 1)
                 return;
@@ -2746,6 +2768,7 @@ namespace CableTestManager.View
                 return;
             if (!IsSetEnvironmentParams())
                 return;
+            this.curTestRowCount = 0;//清除计数
             var insulateCommand = CommonTestSendCommand(GetConductionTestInfo(CableTestProcessParams.CableTestType.InsulateTest), insulateTestFunCode);
             if (insulateCommand.Length < 1)
                 return;
@@ -2767,6 +2790,7 @@ namespace CableTestManager.View
                 return;
             if (!IsSetEnvironmentParams())
                 return;
+            this.curTestRowCount = 0;//清除计数
             var shortCircuitCommand = CommonTestSendCommand(GetShortCircuitTestInfo(), shortCircuitTestFunCode);
             if (shortCircuitCommand.Length < 1)
                 return;
@@ -2867,6 +2891,7 @@ namespace CableTestManager.View
                 return;
             if (!IsSetEnvironmentParams())
                 return;
+            this.curTestRowCount = 0;//清除计数
             var conductionCommand = CommonTestSendCommand(GetConductionTestInfo(CableTestProcessParams.CableTestType.ConductTest), conductionTestFunCode);
             if (conductionCommand.Length < 1)
                 return;
@@ -3095,133 +3120,132 @@ namespace CableTestManager.View
         /// </summary>
         private void SaveTestResult()
         {
-            Task.Run(() =>
+            lock (this)
             {
-                lock (this)
+                if (this.radGridViewCableTest.Rows.Count < 1)
+                    return;
+                if (!IsExistTestRecore())//没有测试记录
+                    return;
+                if (IsExistSaveTestSerialNumber())//已保存该测试序列
                 {
-                    if (this.radGridViewCableTest.Rows.Count < 1)
-                        return;
-                    if (!IsExistTestRecore())//没有测试记录
-                        return;
-                    if (IsExistSaveTestSerialNumber())//已保存该测试序列
-                    {
-                        //delete current test number ,reSave latest test data
-                        var del1 = historyDataInfoManager.DeleteByWhere($"where TestSerialNumber='{this.projectTestNumber}'");
-                        var del2 = historyDataDetailManager.DeleteByWhere($"where TestSerialNumber='{this.projectTestNumber}'");
-                        UpdateCurrentTestNumber();
-                    }
-                    //var projectInfoData = this.projectInfoManager.GetDataSetByWhere($"where ProjectName = '{this.currentTestProject}'").Tables[0];
-                    var updateBasicCount = 0;
-                    var updateDetailCount = 0;
-
-                    #region project test basic info
-                    THistoryDataBasic historyDataInfo = new THistoryDataBasic();
-                    historyDataInfo.ID = TablePrimaryKey.InsertHistoryBasicPID();
-                    historyDataInfo.TestSerialNumber = this.projectTestNumber;
-                    historyDataInfo.ProjectName = this.projectInfo.ProjectName;
-                    historyDataInfo.TestCableName = this.projectInfo.TestCableName;
-                    historyDataInfo.TestStartDate = this.testStartDate;
-                    historyDataInfo.TestEndDate = this.testEndDate;
-                    historyDataInfo.TestOperator = LocalLogin.currentUserName;
-                    historyDataInfo.EnvironmentTemperature = this.projectInfo.Temperature.ToString();
-                    historyDataInfo.EnvironmentAmbientHumidity = this.projectInfo.AmbientHumidity.ToString();
-                    // CalFinalTestResult(this.projectInfo.ProjectName, this.projectInfo.TestCableName, this.projectTestNumber);
-                    historyDataInfo.ConductThreshold = this.projectInfo.ConductTestThreshold;
-                    historyDataInfo.ConductVoltage = this.projectInfo.ConductTestVoltage;
-                    historyDataInfo.ConductElect = this.projectInfo.ConductTestCurrentElect;
-                    historyDataInfo.ShortCircuitThreshold = this.projectInfo.ShortCircuitTestThreshold;
-                    historyDataInfo.InsulateThreshold = this.projectInfo.InsulateTestThreshold;
-                    historyDataInfo.InsulateHoldTime = this.projectInfo.InsulateTestHoldTime;
-                    historyDataInfo.InsulateVoltage = this.projectInfo.InsulateTestVoltage;
-                    historyDataInfo.InsulateRaiseTime = this.projectInfo.InsulateTestRaiseTime;
-                    historyDataInfo.VoltageWithStandardThreshold = this.projectInfo.VoltageWithStandardThreshold;
-                    historyDataInfo.VoltageWithStandardHoldTime = this.projectInfo.VoltageWithStandardHoldTime;
-                    historyDataInfo.VoltageWithStandardVoltage = this.projectInfo.VoltageWithStandardVoltage;
-
-                    historyDataInfo.ConductTestResult = CalTestItemResult(6);
-                    historyDataInfo.ShortCircuitTestResult = CalTestItemResult(8);
-                    historyDataInfo.InsulateTestResult = CalTestItemResult(10);
-                    if (historyDataInfo.ConductTestResult == "未测试")
-                    {
-                        historyDataInfo.FinalTestResult = "未测试";
-                    }
-                    else if (historyDataInfo.ConductTestResult == "合格" && historyDataInfo.ShortCircuitTestResult == "合格" && historyDataInfo.InsulateTestResult == "合格")
-                    {
-                        historyDataInfo.FinalTestResult = "合格";
-                    }
-                    else
-                    {
-                        historyDataInfo.FinalTestResult = "不合格";
-                    }
-
-                    historyDataInfo.ConductTestExceptCount = this.conductTestExceptCount;
-                    historyDataInfo.ShortcircuitTestExceptCount = this.shortCircuitTestExceptCount;
-                    historyDataInfo.InsulateTestExceptCount = this.insulateTestExceptCount;
-                    historyDataInfo.VoltageWithStandardTestExceptCount = this.voltageWithStandardTestExceptCount;
-                    updateBasicCount += historyDataInfoManager.Insert(historyDataInfo);
-                    #endregion
-
-                    #region project test detail info
-                    List<THistoryDataDetail> hisDataDetailList = new List<THistoryDataDetail>();
-                    int iRow = 1;
-                    foreach (var lv in this.radGridViewCableTest.Rows)
-                    {
-                        THistoryDataDetail historyDataDetail = new THistoryDataDetail();
-                        historyDataDetail.ID = TablePrimaryKey.InsertHistoryDetailPID() + iRow;
-                        historyDataDetail.TestSerialNumber = this.projectTestNumber.ToString();
-                        historyDataDetail.ProjectName = this.projectInfo.ProjectName;
-                        if (lv.Cells[1].Value != null)
-                            historyDataDetail.StartInterface = lv.Cells[1].Value.ToString();
-                        if (lv.Cells[2].Value != null)
-                            historyDataDetail.StartContactPoint = lv.Cells[2].Value.ToString();
-                        if (lv.Cells[3].Value != null)
-                            historyDataDetail.EndInterface = lv.Cells[3].Value.ToString();
-                        if (lv.Cells[4].Value != null)
-                            historyDataDetail.EndContactPoint = lv.Cells[4].Value.ToString();
-                        if (lv.Cells[5].Value != null)
-                            historyDataDetail.ConductValue = lv.Cells[5].Value.ToString();
-                        if (lv.Cells[6].Value != null)
-                            historyDataDetail.ConductTestResult = lv.Cells[6].Value.ToString();
-                        if (lv.Cells[7].Value != null)
-                            historyDataDetail.ShortCircuitValue = lv.Cells[7].Value.ToString();
-                        if (lv.Cells[8].Value != null)
-                            historyDataDetail.ShortCircuitTestResult = lv.Cells[8].Value.ToString();
-                        if (lv.Cells[9].Value != null)
-                            historyDataDetail.InsulateValue = lv.Cells[9].Value.ToString();
-                        if (lv.Cells[10].Value != null)
-                            historyDataDetail.InsulateTestResult = lv.Cells[10].Value.ToString();
-                        iRow++;
-                        hisDataDetailList.Add(historyDataDetail);
-                    }
-
-                    foreach (DataRow lv in this.dataSourceInsulateTest.Rows)
-                    {
-                        THistoryDataDetail historyDataDetail = new THistoryDataDetail();
-                        historyDataDetail.ID = TablePrimaryKey.InsertHistoryDetailPID() + iRow;
-                        historyDataDetail.TestSerialNumber = this.projectTestNumber.ToString();
-                        historyDataDetail.ProjectName = this.projectInfo.ProjectName;
-                        historyDataDetail.StartInterface = lv[1].ToString();
-                        historyDataDetail.StartContactPoint = lv[2].ToString();
-                        historyDataDetail.EndInterface = lv[3].ToString();
-                        historyDataDetail.EndContactPoint = lv[4].ToString();
-                        historyDataDetail.ConductValue = lv[5].ToString();
-                        historyDataDetail.ConductTestResult = lv[6].ToString();
-                        historyDataDetail.ShortCircuitValue = lv[7].ToString();
-                        historyDataDetail.ShortCircuitTestResult = lv[8].ToString();
-                        historyDataDetail.InsulateValue = lv[9].ToString();
-                        historyDataDetail.InsulateTestResult = lv[10].ToString();
-                        hisDataDetailList.Add(historyDataDetail);
-                    }
-
-                    updateDetailCount += historyDataDetailManager.Insert(hisDataDetailList);
-                    #endregion
-
-                    if (updateBasicCount > 0)
-                    {
-                        //success
-                    }
+                    //delete current test number ,reSave latest test data
+                    var del1 = historyDataInfoManager.DeleteByWhere($"where TestSerialNumber='{this.projectTestNumber}'");
+                    var del2 = historyDataDetailManager.DeleteByWhere($"where TestSerialNumber='{this.projectTestNumber}'");
+                    UpdateCurrentTestNumber();
                 }
-            });
+                //var projectInfoData = this.projectInfoManager.GetDataSetByWhere($"where ProjectName = '{this.currentTestProject}'").Tables[0];
+                var updateBasicCount = 0;
+                var updateDetailCount = 0;
+
+                #region project test basic info
+                THistoryDataBasic historyDataInfo = new THistoryDataBasic();
+                historyDataInfo.ID = TablePrimaryKey.InsertHistoryBasicPID();
+                historyDataInfo.TestSerialNumber = this.projectTestNumber;
+                historyDataInfo.ProjectName = this.projectInfo.ProjectName;
+                historyDataInfo.TestCableName = this.projectInfo.TestCableName;
+                historyDataInfo.TestStartDate = this.testStartDate;
+                historyDataInfo.TestEndDate = this.testEndDate;
+                historyDataInfo.TestOperator = LocalLogin.currentUserName;
+                historyDataInfo.EnvironmentTemperature = this.projectInfo.Temperature.ToString();
+                historyDataInfo.EnvironmentAmbientHumidity = this.projectInfo.AmbientHumidity.ToString();
+                // CalFinalTestResult(this.projectInfo.ProjectName, this.projectInfo.TestCableName, this.projectTestNumber);
+                historyDataInfo.ConductThreshold = this.projectInfo.ConductTestThreshold;
+                historyDataInfo.ConductVoltage = this.projectInfo.ConductTestVoltage;
+                historyDataInfo.ConductElect = this.projectInfo.ConductTestCurrentElect;
+                historyDataInfo.ShortCircuitThreshold = this.projectInfo.ShortCircuitTestThreshold;
+                historyDataInfo.InsulateThreshold = this.projectInfo.InsulateTestThreshold;
+                historyDataInfo.InsulateHoldTime = this.projectInfo.InsulateTestHoldTime;
+                historyDataInfo.InsulateVoltage = this.projectInfo.InsulateTestVoltage;
+                historyDataInfo.InsulateRaiseTime = this.projectInfo.InsulateTestRaiseTime;
+                historyDataInfo.VoltageWithStandardThreshold = this.projectInfo.VoltageWithStandardThreshold;
+                historyDataInfo.VoltageWithStandardHoldTime = this.projectInfo.VoltageWithStandardHoldTime;
+                historyDataInfo.VoltageWithStandardVoltage = this.projectInfo.VoltageWithStandardVoltage;
+
+                historyDataInfo.ConductTestResult = CalTestItemResult(6);
+                historyDataInfo.ShortCircuitTestResult = CalTestItemResult(8);
+                historyDataInfo.InsulateTestResult = CalTestItemResult(10);
+                if (historyDataInfo.ConductTestResult == "未测试")
+                {
+                    historyDataInfo.FinalTestResult = "未测试";
+                }
+                else if (historyDataInfo.ConductTestResult == "合格" && historyDataInfo.ShortCircuitTestResult == "合格" && historyDataInfo.InsulateTestResult == "合格")
+                {
+                    historyDataInfo.FinalTestResult = "合格";
+                }
+                else
+                {
+                    historyDataInfo.FinalTestResult = "不合格";
+                }
+
+                historyDataInfo.ConductTestExceptCount = this.conductTestExceptCount;
+                historyDataInfo.ShortcircuitTestExceptCount = this.shortCircuitTestExceptCount;
+                historyDataInfo.InsulateTestExceptCount = this.insulateTestExceptCount;
+                historyDataInfo.VoltageWithStandardTestExceptCount = this.voltageWithStandardTestExceptCount;
+                updateBasicCount += historyDataInfoManager.Insert(historyDataInfo);
+                #endregion
+
+                #region project test detail info
+                List<THistoryDataDetail> hisDataDetailList = new List<THistoryDataDetail>();
+                int iRow = 1;
+                foreach (var lv in this.radGridViewCableTest.Rows)
+                {
+                    THistoryDataDetail historyDataDetail = new THistoryDataDetail();
+                    historyDataDetail.ID = TablePrimaryKey.InsertHistoryDetailPID() + iRow;
+                    if (this.projectTestNumber == "")
+                        return;
+                    historyDataDetail.TestSerialNumber = this.projectTestNumber.ToString();
+                    historyDataDetail.ProjectName = this.projectInfo.ProjectName;
+                    if (lv.Cells[1].Value != null)
+                        historyDataDetail.StartInterface = lv.Cells[1].Value.ToString();
+                    if (lv.Cells[2].Value != null)
+                        historyDataDetail.StartContactPoint = lv.Cells[2].Value.ToString();
+                    if (lv.Cells[3].Value != null)
+                        historyDataDetail.EndInterface = lv.Cells[3].Value.ToString();
+                    if (lv.Cells[4].Value != null)
+                        historyDataDetail.EndContactPoint = lv.Cells[4].Value.ToString();
+                    if (lv.Cells[5].Value != null)
+                        historyDataDetail.ConductValue = lv.Cells[5].Value.ToString();
+                    if (lv.Cells[6].Value != null)
+                        historyDataDetail.ConductTestResult = lv.Cells[6].Value.ToString();
+                    if (lv.Cells[7].Value != null)
+                        historyDataDetail.ShortCircuitValue = lv.Cells[7].Value.ToString();
+                    if (lv.Cells[8].Value != null)
+                        historyDataDetail.ShortCircuitTestResult = lv.Cells[8].Value.ToString();
+                    if (lv.Cells[9].Value != null)
+                        historyDataDetail.InsulateValue = lv.Cells[9].Value.ToString();
+                    if (lv.Cells[10].Value != null)
+                        historyDataDetail.InsulateTestResult = lv.Cells[10].Value.ToString();
+                    iRow++;
+                    hisDataDetailList.Add(historyDataDetail);
+                }
+
+                foreach (DataRow lv in this.dataSourceInsulateTest.Rows)
+                {
+                    THistoryDataDetail historyDataDetail = new THistoryDataDetail();
+                    historyDataDetail.ID = TablePrimaryKey.InsertHistoryDetailPID() + iRow;
+                    historyDataDetail.TestSerialNumber = this.projectTestNumber.ToString();
+                    historyDataDetail.ProjectName = this.projectInfo.ProjectName;
+                    historyDataDetail.StartInterface = lv[1].ToString();
+                    historyDataDetail.StartContactPoint = lv[2].ToString();
+                    historyDataDetail.EndInterface = lv[3].ToString();
+                    historyDataDetail.EndContactPoint = lv[4].ToString();
+                    historyDataDetail.ConductValue = lv[5].ToString();
+                    historyDataDetail.ConductTestResult = lv[6].ToString();
+                    historyDataDetail.ShortCircuitValue = lv[7].ToString();
+                    historyDataDetail.ShortCircuitTestResult = lv[8].ToString();
+                    historyDataDetail.InsulateValue = lv[9].ToString();
+                    historyDataDetail.InsulateTestResult = lv[10].ToString();
+                    hisDataDetailList.Add(historyDataDetail);
+                }
+
+                updateDetailCount += historyDataDetailManager.Insert(hisDataDetailList);
+                #endregion
+
+                if (updateBasicCount > 0)
+                {
+                    //success
+                }
+            }
         }
 
         private void StartSelfCheck()

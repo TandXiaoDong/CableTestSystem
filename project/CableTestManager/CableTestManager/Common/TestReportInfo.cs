@@ -11,6 +11,7 @@ using System.Data;
 using CableTestManager.Business.Implements;
 using CableTestManager.Common;
 using System.Windows.Forms;
+using CommonUtils.Logger;
 
 namespace CableTestManager.Common
 {
@@ -28,6 +29,7 @@ namespace CableTestManager.Common
 
         public static bool ExportReport(string reportDir, string testSerial)
         {
+            LogHelper.Log.Info("开始生成报表...");
             if (!Directory.Exists(reportDir))
             {
                 Directory.CreateDirectory(reportDir);
@@ -185,6 +187,11 @@ namespace CableTestManager.Common
                 return "合格";
             }
             return "不合格";
+        }
+
+        public static bool DriverExists(string DriverName)
+        {
+            return System.IO.Directory.GetLogicalDrives().Contains(DriverName);
         }
     }
 }
