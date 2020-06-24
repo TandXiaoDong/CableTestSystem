@@ -51,6 +51,7 @@
             this.radGroupBox3 = new Telerik.WinControls.UI.RadGroupBox();
             this.btnClose = new Telerik.WinControls.UI.RadButton();
             this.btnApply = new Telerik.WinControls.UI.RadButton();
+            this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
             ((System.ComponentModel.ISupportInitialize)(this.dnConductionThreshold)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
@@ -133,9 +134,9 @@
             this.radLabel12.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.radLabel12.Location = new System.Drawing.Point(269, 131);
             this.radLabel12.Name = "radLabel12";
-            this.radLabel12.Size = new System.Drawing.Size(92, 21);
+            this.radLabel12.Size = new System.Drawing.Size(67, 21);
             this.radLabel12.TabIndex = 18;
-            this.radLabel12.Text = "S  (0.001~120)";
+            this.radLabel12.Text = "S  (1~120)";
             // 
             // radLabel13
             // 
@@ -262,6 +263,7 @@
             // 
             // btnClose
             // 
+            this.btnClose.BackColor = System.Drawing.Color.GhostWhite;
             this.btnClose.Location = new System.Drawing.Point(282, 360);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(120, 36);
@@ -271,6 +273,7 @@
             // 
             // btnApply
             // 
+            this.btnApply.BackColor = System.Drawing.Color.GhostWhite;
             this.btnApply.Location = new System.Drawing.Point(100, 360);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(120, 36);
@@ -355,5 +358,6 @@
         private Telerik.WinControls.UI.RadGroupBox radGroupBox3;
         private Telerik.WinControls.UI.RadButton btnClose;
         private Telerik.WinControls.UI.RadButton btnApply;
+        private Telerik.WinControls.Themes.MaterialBlueGreyTheme materialBlueGreyTheme1;
     }
 }

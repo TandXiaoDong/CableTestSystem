@@ -28,7 +28,7 @@ namespace CableTestManager.View.VProject
         private void Init()
         {
             this.dnConductionThreshold.Maximum = 1000000;
-            this.dnConductionThreshold.Minimum = 0;
+            this.dnConductionThreshold.Minimum = (decimal)0.1;
             this.dnConductionThreshold.Increment = 10;
             this.dnConductionThreshold.DecimalPlaces = 1;
             if (!this.IsEditView)
@@ -37,7 +37,7 @@ namespace CableTestManager.View.VProject
                 this.dnConductionThreshold.Value = (decimal)this.projectInfo.ConductTestThreshold;
 
             this.dnShortCircuitthreshold.Maximum = 1000;
-            this.dnShortCircuitthreshold.Minimum = 0;
+            this.dnShortCircuitthreshold.Minimum = (decimal)0.1;
             this.dnShortCircuitthreshold.Increment = 5;
             this.dnShortCircuitthreshold.DecimalPlaces = 1;
             if (!this.IsEditView)
@@ -46,7 +46,7 @@ namespace CableTestManager.View.VProject
                 this.dnShortCircuitthreshold.Value = (decimal)this.projectInfo.ShortCircuitTestThreshold;
 
             this.dnInsulateThreshold.Maximum = 1000;
-            this.dnInsulateThreshold.Minimum = 0;
+            this.dnInsulateThreshold.Minimum = (decimal)0.1;
             this.dnInsulateThreshold.Increment = 10;
             this.dnInsulateThreshold.DecimalPlaces = 1;
             if (!this.IsEditView)
@@ -55,9 +55,10 @@ namespace CableTestManager.View.VProject
                 this.dnInsulateThreshold.Value = (decimal)this.projectInfo.InsulateTestThreshold;
 
             this.dnInsulateHoldTime.Maximum = 120;
-            this.dnInsulateHoldTime.Minimum = 0;
+            this.dnInsulateHoldTime.Minimum = 1;
             this.dnInsulateHoldTime.Increment = 1;
             this.dnInsulateHoldTime.DecimalPlaces = 3;
+
             if (!this.IsEditView)
                 this.dnInsulateHoldTime.Value = (decimal)this.devConfig.InsulateHoldTime;
             else
