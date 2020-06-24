@@ -110,6 +110,7 @@ namespace CableTestManager.View
         //private RadGridView radGridViewSelfStudy;
         private bool IsSelfProcessReset = false;//自学习短路过多时，设备复位
         private bool IsFirstConnectDevice = true;
+        private bool IsFirstInsulateTest = true;
 
         public CMainForm()
         {
@@ -730,7 +731,7 @@ namespace CableTestManager.View
 
         private void SuperEasyClient_NoticeMessageEvent(ClientSocket.AppBase.MyPackageInfo packageInfo)
         {
-            LogHelper.Log.Info($"接收到消息:"+BitConverter.ToString(packageInfo.Data));
+            LogHelper.Log.Info($"接收到消息00:"+BitConverter.ToString(packageInfo.Data));
             //测试结果根据阈值判断是否合格
             //导通测试：小于阈值为合格
             //短路测试：大于阈值为合格
@@ -1109,6 +1110,7 @@ namespace CableTestManager.View
                     if (this.IsCalTestDataCompleted)
                     {
                         this.IsCalTestDataCompleted = false;
+                        this.IsFirstInsulateTest = false;
                         LogHelper.Log.Info("等待测试完成，退出循环...");
                         break;
                     }
@@ -1607,6 +1609,13 @@ namespace CableTestManager.View
                                     //已测试为不合格的情况，导通/短路更新，绝缘不更新，绝缘保存数据，打印到报表
                                     if (cableTestParams.StartIndex == 9)
                                     {
+                                        if (this.IsFirstInsulateTest)
+                                        {
+                                            rowInfo[cableTestParams.StartIndex] = testResultVal;
+                                            rowInfo[cableTestParams.StartIndex + 1] = testResult;
+                                            SetTestGridViewStyle(testResult, cableTestParams);
+                                            LogHelper.Log.Info($"update testResultVal={testResultVal},testResult={testResult}");
+                                        }
                                         DataRow insulateRow = this.dataSourceInsulateTest.NewRow();
                                         insulateRow["起点接口"] = rowInfo[1].ToString();
                                         insulateRow["起点接点"] = rowInfo[2].ToString();
@@ -1999,6 +2008,7 @@ namespace CableTestManager.View
                             if (radProjectCreat.ShowDialog() == DialogResult.OK)
                             {
                                 UpdateTreeView(radProjectCreat.projectName);
+                                this.projectInfo = ProjectBasicInfo.QueryProjectInfo(projectName);
                             }
                             break;
                         case WORK_WEAR:
@@ -2784,6 +2794,7 @@ namespace CableTestManager.View
             //清空绝缘异常数
             this.insulateTestExceptCount = 0;
             LogHelper.Log.Info("绝缘测试开始下发指令...");
+            this.IsFirstInsulateTest = true;
             UnEnableTestButton();
             SuperEasyClient.SendMessage(DeviceFunCodeEnum.RequestHead, insulateCommand);
             UpdateTestStatus("绝缘已开始测试，等待测试结果...");
