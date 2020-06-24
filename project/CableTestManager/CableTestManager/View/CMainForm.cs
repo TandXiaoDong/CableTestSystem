@@ -111,6 +111,7 @@ namespace CableTestManager.View
         private bool IsSelfProcessReset = false;//自学习短路过多时，设备复位
         private bool IsFirstConnectDevice = true;
         private bool IsFirstInsulateTest = true;
+        private List<string> curTestGridViewOrderList;
 
         public CMainForm()
         {
@@ -226,6 +227,7 @@ namespace CableTestManager.View
             //this.panelSelf.Controls.Add(this.radGridViewSelfStudy);
             //this.radGridViewSelfStudy.Dock = DockStyle.Fill;
 
+            this.curTestGridViewOrderList = new List<string>();
             this.deviceConfig = new DeviceConfig();
             this.cableTestProcessOneKey = new CableTestProcess();
             this.cableTestProcessSig = new CableTestProcessParams();
@@ -1556,7 +1558,7 @@ namespace CableTestManager.View
             }
         }
 
-        private int curTestRowCount;
+        //private int curTestRowCount;
         private void UpdateTestResultByTestPoint()
         {
             if (this.cableTestPramsQueue.Count <= 0)
@@ -1580,6 +1582,7 @@ namespace CableTestManager.View
 
                         foreach (DataRow rowInfo in this.dataSourceCableTest.Rows)
                         {
+                            var orderID = rowInfo[0].ToString();
                             var startDevPoint = GetDevPointPinByContactPoint(rowInfo[1].ToString(), rowInfo[2].ToString());
                             var endDevPoint = GetDevPointPinByContactPoint(rowInfo[3].ToString(), rowInfo[4].ToString());
                             if (startDevPoint == startPoint && endDevPoint == endPoint)
@@ -1639,7 +1642,11 @@ namespace CableTestManager.View
                                     pointB = rowInfo[4].ToString();
                                 }
                                 iRow++;
-                                curTestRowCount++;
+                                //curTestRowCount++;
+                                if (!this.curTestGridViewOrderList.Contains(orderID))
+                                {
+                                    this.curTestGridViewOrderList.Add(orderID);
+                                }
                             }
                         }
                     }
@@ -1649,10 +1656,10 @@ namespace CableTestManager.View
                         this.radGridViewCableTest.EndEdit();
                         this.radGridViewCableTest.CurrentRow = this.radGridViewCableTest.Rows[QueryGridViewRowIndex(pointA, pointB)];//更新到实际行数
                         var testCount = this.radGridViewCableTest.RowCount;
-                        if (this.curTestRowCount == testCount)
+                        if (this.curTestGridViewOrderList.Count == testCount)
                         {
                             this.IsCalTestDataCompleted = true;
-                            this.curTestRowCount = 0;
+                            this.curTestGridViewOrderList.Clear();
                             LogHelper.Log.Info($"测试完成.........");
                         }
                     }
@@ -1912,7 +1919,7 @@ namespace CableTestManager.View
                         this.lbx_servicePort.Text = this.deviceConfig.ServerPort.ToString();
                         this.menu_ConductionTest.Enabled = true;
                         this.menu_OneKeyTest.Enabled = true;
-                        this.curTestRowCount = 0;
+                        this.curTestGridViewOrderList.Clear();
 
                         if (tipMessage == SuperEasyClient.ConnectStatusEnum.ReConnected)
                         {
@@ -2766,7 +2773,7 @@ namespace CableTestManager.View
                 return;
             if (!IsSetEnvironmentParams())
                 return;
-            this.curTestRowCount = 0;//清除计数
+            this.curTestGridViewOrderList.Clear();//清除计数
             var voltageWithStandardCommand = CommonTestSendCommand(GetConductionTestInfo(CableTestProcessParams.CableTestType.PressureWithVoltageTest), voltageWithStandardFunCode);
             if (voltageWithStandardCommand.Length < 1)
                 return;
@@ -2787,7 +2794,7 @@ namespace CableTestManager.View
                 return;
             if (!IsSetEnvironmentParams())
                 return;
-            this.curTestRowCount = 0;//清除计数
+            this.curTestGridViewOrderList.Clear();//清除计数
             var insulateCommand = CommonTestSendCommand(GetConductionTestInfo(CableTestProcessParams.CableTestType.InsulateTest), insulateTestFunCode);
             if (insulateCommand.Length < 1)
                 return;
@@ -2810,7 +2817,7 @@ namespace CableTestManager.View
                 return;
             if (!IsSetEnvironmentParams())
                 return;
-            this.curTestRowCount = 0;//清除计数
+            this.curTestGridViewOrderList.Clear();//清除计数
             var shortCircuitCommand = CommonTestSendCommand(GetShortCircuitTestInfo(), shortCircuitTestFunCode);
             if (shortCircuitCommand.Length < 1)
                 return;
@@ -2911,7 +2918,7 @@ namespace CableTestManager.View
                 return;
             if (!IsSetEnvironmentParams())
                 return;
-            this.curTestRowCount = 0;//清除计数
+            this.curTestGridViewOrderList.Clear();//清除计数
             var conductionCommand = CommonTestSendCommand(GetConductionTestInfo(CableTestProcessParams.CableTestType.ConductTest), conductionTestFunCode);
             if (conductionCommand.Length < 1)
                 return;
