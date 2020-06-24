@@ -27,7 +27,8 @@ namespace CableTestManager.Data
     /// </summary>
     public class SQLiteHelper
 {
-    public static readonly string CONSTR = ConfigurationManager.ConnectionStrings["SQLiteString"].ConnectionString;
+        public static readonly string CONSTR = "Data Source=cabledata.db;Version=3;Password=abc12320200624..";
+    //public static readonly string CONSTR = ConfigurationManager.ConnectionStrings["SQLiteString"].ConnectionString;
 
     /// <summary>
     /// 获取连接对象
@@ -37,7 +38,9 @@ namespace CableTestManager.Data
     private static SQLiteConnection CreateConnection(string connectionString)
     {
         SQLiteConnection con = new SQLiteConnection(connectionString);
+            //con.SetPassword("abc12320200624..");
         con.Open();
+            //con.ChangePassword("abc12320200624..");//加密
         return con;
     }
     /// <summary>
