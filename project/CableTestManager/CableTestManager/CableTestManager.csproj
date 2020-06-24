@@ -525,6 +525,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\CableConfig.cs" />
     <Compile Include="Model\CableJudgeThreshold.cs" />
     <Compile Include="Model\CableLibParams.cs" />
     <Compile Include="Model\CableTestParams.cs" />

@@ -21,6 +21,7 @@ namespace CableTestManager.Common
         private const string DEVICE_CONFIG_SERVER_PORT_KEY = "servicePort";
         private const string REPORT_SECTION_PATH = "REPORT";
         private const string REPORT__KEY_FILE_DIR = "reportDir";
+        private const string REPORT_KEY_REPORT_TITLE = "reportTitle";
 
         private const string DEVICE_CONFIG_SECTION_DEVICE = "DEVICE";
         private const string DEVICE_CONFIG_KEY_COMPENSATE = "compensateState";
@@ -60,6 +61,7 @@ namespace CableTestManager.Common
             else
             {
                 deviceConfig.ReportDirectory = INIFile.GetValue(REPORT_SECTION_PATH, REPORT__KEY_FILE_DIR, configPath).ToString();
+                deviceConfig.TestReportTitle = INIFile.GetValue(REPORT_SECTION_PATH, REPORT_KEY_REPORT_TITLE, configPath).ToString();
                 deviceConfig.ServerUrl = INIFile.GetValue(DEVICE_CONFIG_SECTION, DEVICE_CONFIG_SERVER_URL_KEY, configPath).ToString();
                 var portStr = INIFile.GetValue(DEVICE_CONFIG_SECTION, DEVICE_CONFIG_SERVER_PORT_KEY, configPath).ToString();
                 int port = 0;
@@ -118,6 +120,7 @@ namespace CableTestManager.Common
         public static void SaveDeviceConfig(DeviceConfig deviceConfig)
         {
             INIFile.SetValue(REPORT_SECTION_PATH, REPORT__KEY_FILE_DIR, deviceConfig.ReportDirectory, curConfigPath);
+            INIFile.SetValue(REPORT_SECTION_PATH, REPORT_KEY_REPORT_TITLE, deviceConfig.TestReportTitle, curConfigPath);
             INIFile.SetValue(CONFIG_SECTION_TEST_NAME, PROJECT_TEST_NUMBER_LEN_KEY, deviceConfig.ProjectTestNumberLen.ToString(), curConfigPath);
             INIFile.SetValue(DEVICE_CONFIG_SECTION, DEVICE_CONFIG_SERVER_URL_KEY, deviceConfig.ServerUrl, curConfigPath);
             INIFile.SetValue(DEVICE_CONFIG_SECTION, DEVICE_CONFIG_SERVER_PORT_KEY, deviceConfig.ServerPort.ToString(), curConfigPath);

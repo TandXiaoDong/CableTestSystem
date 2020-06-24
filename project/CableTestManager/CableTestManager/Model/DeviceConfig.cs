@@ -26,6 +26,7 @@ namespace CableTestManager.Model
         private double insulateVoltage = 10;
         private double insulateHoldTime = 1;
         private double pressureWithVoltageThreshold = 100;
+        private string testReportTitle = "线束测试报告";
 
         /// <summary>
         /// 补偿状态，电阻/绝缘补偿通用
@@ -120,6 +121,12 @@ namespace CableTestManager.Model
         {
             get { return this.projectTestNumberLen; }
             set { this.projectTestNumberLen = value; }
+        }
+
+        public string TestReportTitle
+        {
+            get { return this.testReportTitle; }
+            set { this.testReportTitle = value; }
         }
     }
 }

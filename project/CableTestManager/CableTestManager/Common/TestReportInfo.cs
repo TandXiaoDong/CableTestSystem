@@ -9,7 +9,7 @@ using CommonUtils.PDF;
 using CableTestManager.CUserManager;
 using System.Data;
 using CableTestManager.Business.Implements;
-using CableTestManager.Common;
+using CableTestManager.Model;
 using System.Windows.Forms;
 using CommonUtils.Logger;
 
@@ -18,16 +18,16 @@ namespace CableTestManager.Common
     public class TestReportInfo
     {
         private static string curReportAbsFile;
-        private static bool ExportTestReport(string testSerial, string pdfFilePath)
+        private static bool ExportTestReport(string testSerial, string pdfFilePath, DeviceConfig dconfig)
         {
             if (String.IsNullOrEmpty(testSerial) || testSerial == "")
                 return false;
             var hisBasicInfo = TestHisBasicInfo.QueryProTestHisBasicInfo(testSerial);
-            ExportPDF(pdfFilePath, hisBasicInfo, testSerial);
+            ExportPDF(pdfFilePath, hisBasicInfo, testSerial, dconfig);
             return true;
         }
 
-        public static bool ExportReport(string reportDir, string testSerial)
+        public static bool ExportReport(string reportDir, string testSerial, DeviceConfig dconfig)
         {
             LogHelper.Log.Info("开始生成报表...");
             if (!Directory.Exists(reportDir))
@@ -35,7 +35,7 @@ namespace CableTestManager.Common
                 Directory.CreateDirectory(reportDir);
             }
             curReportAbsFile = reportDir + "线束测试报告_" + testSerial + ".pdf";
-            if (TestReportInfo.ExportTestReport(testSerial, curReportAbsFile))
+            if (TestReportInfo.ExportTestReport(testSerial, curReportAbsFile, dconfig))
             {
                 if (MessageBox.Show("测试报告已生成，是否打开测试报告？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
                 {
@@ -49,7 +49,7 @@ namespace CableTestManager.Common
             return false;
         }
 
-        public static void PrintReport(string reportDir, string testSerial)
+        public static void PrintReport(string reportDir, string testSerial, DeviceConfig dconfig)
         {
             if (File.Exists(curReportAbsFile))
             {
@@ -57,7 +57,7 @@ namespace CableTestManager.Common
             }
             else
             {
-                if (!ExportReport(reportDir, testSerial))
+                if (!ExportReport(reportDir, testSerial, dconfig))
                     return;
                 if (File.Exists(curReportAbsFile))
                 {
@@ -66,7 +66,7 @@ namespace CableTestManager.Common
             }
         }
 
-        private static void ExportPDF(string pdfFilePath, THistoryDataBasic hisInfo, string testSerial)
+        private static void ExportPDF(string pdfFilePath, THistoryDataBasic hisInfo, string testSerial, DeviceConfig dconfig)
         {
             var detailData = QueryTestHisDetail(testSerial);
             using (Stream fs = new FileStream(pdfFilePath, FileMode.Create))
@@ -75,7 +75,11 @@ namespace CableTestManager.Common
                 pdf.Open(fs);
                 pdf.SetBaseFont(@"C:\Windows\Fonts\SIMHEI.TTF");
                 //pdf.AddParagraph(sb.ToString(), 15, 1, 20, 0, 0);
-                pdf.AddParagraph("测试报告\r\n", 20);
+                if (dconfig.TestReportTitle == "")
+                {
+                    dconfig.TestReportTitle = "线束测试报告";
+                }
+                pdf.AddParagraph($"{dconfig.TestReportTitle}\r\n", 20);
                 pdf.AddLine(71);
                 pdf.AddParagraph($"线束名称：{hisInfo.TestCableName}     测试结果：{CalFinalTestResult(hisInfo.ProjectName, hisInfo.TestCableName, testSerial)}", 15);
                 pdf.AddParagraph($"环境湿度：{hisInfo.EnvironmentAmbientHumidity}%        测试温度：{hisInfo.EnvironmentTemperature}℃        测试人员：{hisInfo.TestOperator}\r\n", 15);

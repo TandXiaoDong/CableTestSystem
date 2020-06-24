@@ -28,112 +28,82 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.radioButton_ShowFormat_Mea = new System.Windows.Forms.RadioButton();
-            this.radioButton_ShowFormat_Err = new System.Windows.Forms.RadioButton();
-            this.radioButton_ShowFormat_All = new System.Windows.Forms.RadioButton();
-            this.btnQuit = new System.Windows.Forms.Button();
-            this.btnSubmit = new System.Windows.Forms.Button();
-            this.groupBox2.SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportFormatSet));
+            this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
+            this.tb_reportTitle = new Telerik.WinControls.UI.RadTextBox();
+            this.btn_apply = new Telerik.WinControls.UI.RadButton();
+            this.btn_cancel = new Telerik.WinControls.UI.RadButton();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_reportTitle)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_apply)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_cancel)).BeginInit();
             this.SuspendLayout();
             // 
-            // groupBox2
+            // radLabel1
             // 
-            this.groupBox2.Controls.Add(this.radioButton_ShowFormat_Mea);
-            this.groupBox2.Controls.Add(this.radioButton_ShowFormat_Err);
-            this.groupBox2.Controls.Add(this.radioButton_ShowFormat_All);
-            this.groupBox2.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox2.Location = new System.Drawing.Point(160, 61);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(480, 256);
-            this.groupBox2.TabIndex = 37;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "报表默认格式设置";
+            this.radLabel1.Location = new System.Drawing.Point(12, 52);
+            this.radLabel1.Name = "radLabel1";
+            this.radLabel1.Size = new System.Drawing.Size(86, 21);
+            this.radLabel1.TabIndex = 0;
+            this.radLabel1.Text = "报告标题：";
+            this.radLabel1.ThemeName = "MaterialBlueGrey";
             // 
-            // radioButton_ShowFormat_Mea
+            // tb_reportTitle
             // 
-            this.radioButton_ShowFormat_Mea.AutoSize = true;
-            this.radioButton_ShowFormat_Mea.Location = new System.Drawing.Point(179, 173);
-            this.radioButton_ShowFormat_Mea.Margin = new System.Windows.Forms.Padding(2);
-            this.radioButton_ShowFormat_Mea.Name = "radioButton_ShowFormat_Mea";
-            this.radioButton_ShowFormat_Mea.Size = new System.Drawing.Size(130, 19);
-            this.radioButton_ShowFormat_Mea.TabIndex = 1;
-            this.radioButton_ShowFormat_Mea.Text = "仅显示测量数据";
-            this.radioButton_ShowFormat_Mea.UseVisualStyleBackColor = true;
+            this.tb_reportTitle.Location = new System.Drawing.Point(104, 37);
+            this.tb_reportTitle.Name = "tb_reportTitle";
+            this.tb_reportTitle.Size = new System.Drawing.Size(442, 36);
+            this.tb_reportTitle.TabIndex = 1;
+            this.tb_reportTitle.ThemeName = "MaterialBlueGrey";
             // 
-            // radioButton_ShowFormat_Err
+            // btn_apply
             // 
-            this.radioButton_ShowFormat_Err.AutoSize = true;
-            this.radioButton_ShowFormat_Err.Location = new System.Drawing.Point(179, 119);
-            this.radioButton_ShowFormat_Err.Margin = new System.Windows.Forms.Padding(2);
-            this.radioButton_ShowFormat_Err.Name = "radioButton_ShowFormat_Err";
-            this.radioButton_ShowFormat_Err.Size = new System.Drawing.Size(130, 19);
-            this.radioButton_ShowFormat_Err.TabIndex = 1;
-            this.radioButton_ShowFormat_Err.Text = "仅显示异常数据";
-            this.radioButton_ShowFormat_Err.UseVisualStyleBackColor = true;
+            this.btn_apply.Location = new System.Drawing.Point(209, 103);
+            this.btn_apply.Name = "btn_apply";
+            this.btn_apply.Size = new System.Drawing.Size(120, 36);
+            this.btn_apply.TabIndex = 2;
+            this.btn_apply.Text = "确定";
+            this.btn_apply.ThemeName = "MaterialBlueGrey";
             // 
-            // radioButton_ShowFormat_All
+            // btn_cancel
             // 
-            this.radioButton_ShowFormat_All.AutoSize = true;
-            this.radioButton_ShowFormat_All.Checked = true;
-            this.radioButton_ShowFormat_All.Location = new System.Drawing.Point(179, 66);
-            this.radioButton_ShowFormat_All.Margin = new System.Windows.Forms.Padding(2);
-            this.radioButton_ShowFormat_All.Name = "radioButton_ShowFormat_All";
-            this.radioButton_ShowFormat_All.Size = new System.Drawing.Size(115, 19);
-            this.radioButton_ShowFormat_All.TabIndex = 1;
-            this.radioButton_ShowFormat_All.TabStop = true;
-            this.radioButton_ShowFormat_All.Text = "显示所有数据";
-            this.radioButton_ShowFormat_All.UseVisualStyleBackColor = true;
-            // 
-            // btnQuit
-            // 
-            this.btnQuit.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnQuit.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnQuit.Location = new System.Drawing.Point(424, 366);
-            this.btnQuit.Margin = new System.Windows.Forms.Padding(2);
-            this.btnQuit.Name = "btnQuit";
-            this.btnQuit.Size = new System.Drawing.Size(90, 24);
-            this.btnQuit.TabIndex = 36;
-            this.btnQuit.Text = "取消";
-            this.btnQuit.UseVisualStyleBackColor = true;
-            // 
-            // btnSubmit
-            // 
-            this.btnSubmit.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnSubmit.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnSubmit.Location = new System.Drawing.Point(289, 366);
-            this.btnSubmit.Margin = new System.Windows.Forms.Padding(2);
-            this.btnSubmit.Name = "btnSubmit";
-            this.btnSubmit.Size = new System.Drawing.Size(90, 24);
-            this.btnSubmit.TabIndex = 35;
-            this.btnSubmit.Text = "确定";
-            this.btnSubmit.UseVisualStyleBackColor = true;
+            this.btn_cancel.Location = new System.Drawing.Point(426, 103);
+            this.btn_cancel.Name = "btn_cancel";
+            this.btn_cancel.Size = new System.Drawing.Size(120, 36);
+            this.btn_cancel.TabIndex = 3;
+            this.btn_cancel.Text = "取消";
+            this.btn_cancel.ThemeName = "MaterialBlueGrey";
             // 
             // ReportFormatSet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.btnQuit);
-            this.Controls.Add(this.btnSubmit);
+            this.ClientSize = new System.Drawing.Size(577, 160);
+            this.Controls.Add(this.btn_cancel);
+            this.Controls.Add(this.btn_apply);
+            this.Controls.Add(this.tb_reportTitle);
+            this.Controls.Add(this.radLabel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ReportFormatSet";
-            this.Text = "报表默认格式设置";
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "报表设置";
+            this.Load += new System.EventHandler(this.ReportFormatSet_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_reportTitle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_apply)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_cancel)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RadioButton radioButton_ShowFormat_Mea;
-        private System.Windows.Forms.RadioButton radioButton_ShowFormat_Err;
-        private System.Windows.Forms.RadioButton radioButton_ShowFormat_All;
-        private System.Windows.Forms.Button btnQuit;
-        private System.Windows.Forms.Button btnSubmit;
+        private Telerik.WinControls.UI.RadLabel radLabel1;
+        private Telerik.WinControls.UI.RadTextBox tb_reportTitle;
+        private Telerik.WinControls.UI.RadButton btn_apply;
+        private Telerik.WinControls.UI.RadButton btn_cancel;
     }
 }

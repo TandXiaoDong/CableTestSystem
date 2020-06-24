@@ -11,6 +11,7 @@ using WindowsFormTelerik.GridViewExportData;
 using CableTestManager.Business.Implements;
 using CableTestManager.CUserManager;
 using CableTestManager.Common;
+using CableTestManager.Model;
 
 namespace CableTestManager.View.VProject
 {
@@ -19,12 +20,14 @@ namespace CableTestManager.View.VProject
         private THistoryDataBasicManager historyDataInfoManager;
         private THistoryDataDetailManager historyDataDetailManager;
         private string exportPath;
+        private DeviceConfig dConfig;
 
-        public RadTestDataBasicInfo(string path)
+        public RadTestDataBasicInfo(string path, DeviceConfig config)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterParent;
             this.exportPath = path;
+            this.dConfig = config;
         }
 
         private void RadTestDataBasicInfo_Load(object sender, EventArgs e)
@@ -146,7 +149,7 @@ namespace CableTestManager.View.VProject
                 return;
             }
             var testSerial = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
-            RadTestDataDetail testDataDetail = new RadTestDataDetail(testSerial, this.exportPath);
+            RadTestDataDetail testDataDetail = new RadTestDataDetail(testSerial, this.exportPath, this.dConfig);
             testDataDetail.ShowDialog();
         }
 

@@ -127,11 +127,11 @@ namespace CableTestManager.View.VInterface
                 return;
             }
             var LineStructName = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
-            if (IsInterUsed(LineStructName))
-            {
-                MessageBox.Show($"线束{LineStructName}已被项目使用,删除失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            //if (IsInterUsed(LineStructName))
+            //{
+            //    MessageBox.Show($"线束{LineStructName}已被项目使用,删除失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
             if (MessageBox.Show($"确认要删除线束代号{LineStructName}?", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2) != DialogResult.OK)
             {
                 return;

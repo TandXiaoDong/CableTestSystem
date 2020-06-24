@@ -341,6 +341,7 @@ namespace CableTestManager.View
             this.tool_importCableLib.Click += Tool_importCableLib_Click;
             this.tool_reportSavePath.Click += Tool_reportSavePath_Click;
             this.tool_stop.Click += Tool_stop_Click;
+            this.tool_reportDefaultFormat.Click += Tool_reportDefaultFormat_Click; ;
             #endregion
 
             #region menu event
@@ -392,6 +393,14 @@ namespace CableTestManager.View
 
             SuperEasyClient.NoticeConnectEvent += SuperEasyClient_NoticeConnectEvent;
             SuperEasyClient.NoticeMessageEvent += SuperEasyClient_NoticeMessageEvent;
+        }
+
+        private void Tool_reportDefaultFormat_Click(object sender, EventArgs e)
+        {
+            ReportFormatSet reportFormatSet = new ReportFormatSet(this.deviceConfig);
+            if (reportFormatSet.ShowDialog() == DialogResult.OK)
+            {
+            }
         }
 
         private void Menu_helper_Click(object sender, EventArgs e)
@@ -575,7 +584,7 @@ namespace CableTestManager.View
             {
                 SaveTestResult();
             });
-            TestReportInfo.ExportReport(this.deviceConfig.ReportDirectory, this.projectTestNumber);
+            TestReportInfo.ExportReport(this.deviceConfig.ReportDirectory, this.projectTestNumber, this.deviceConfig);
         }
 
         private async void PrintReport()
@@ -584,7 +593,7 @@ namespace CableTestManager.View
             {
                 SaveTestResult();
             });
-            TestReportInfo.PrintReport(this.deviceConfig.ReportDirectory, this.projectTestNumber);
+            TestReportInfo.PrintReport(this.deviceConfig.ReportDirectory, this.projectTestNumber, this.deviceConfig);
         }
 
 
@@ -782,7 +791,7 @@ namespace CableTestManager.View
             }
             else if (packageInfo.Data[4] == 0xf4 && packageInfo.Data[5] == 0xbb)//绝缘测试
             {
-                TestItemProcess(packageInfo, 9, this.projectInfo.InsulateTestThreshold, this.projectInfo.InsulateResCompensation * 1000000);
+                TestItemProcess(packageInfo, 9, this.projectInfo.InsulateTestThreshold * 1000000, this.projectInfo.InsulateResCompensation);
             }
             else if (packageInfo.Data[4] == 0xf4 && packageInfo.Data[5] == 0xcc)//绝缘测试结束
             {
@@ -2066,7 +2075,7 @@ namespace CableTestManager.View
         #region menu event
         private void Menu_historyData_Click(object sender, EventArgs e)
         {
-            RadTestDataBasicInfo radTestDataBasicInfo = new RadTestDataBasicInfo(this.deviceConfig.ReportDirectory);
+            RadTestDataBasicInfo radTestDataBasicInfo = new RadTestDataBasicInfo(this.deviceConfig.ReportDirectory, this.deviceConfig);
             radTestDataBasicInfo.ShowDialog();
         }
 
@@ -2391,7 +2400,7 @@ namespace CableTestManager.View
 
         private void Tool_HistoryData_Click(object sender, EventArgs e)
         {
-            RadTestDataBasicInfo testDataBasicInfo = new RadTestDataBasicInfo(this.deviceConfig.ReportDirectory);
+            RadTestDataBasicInfo testDataBasicInfo = new RadTestDataBasicInfo(this.deviceConfig.ReportDirectory, this.deviceConfig);
             testDataBasicInfo.ShowDialog();
         }
 
@@ -3120,6 +3129,7 @@ namespace CableTestManager.View
         /// </summary>
         private void SaveTestResult()
         {
+
             lock (this)
             {
                 if (this.radGridViewCableTest.Rows.Count < 1)
@@ -3136,6 +3146,9 @@ namespace CableTestManager.View
                 //var projectInfoData = this.projectInfoManager.GetDataSetByWhere($"where ProjectName = '{this.currentTestProject}'").Tables[0];
                 var updateBasicCount = 0;
                 var updateDetailCount = 0;
+
+                if (this.projectTestNumber == "")
+                    return;
 
                 #region project test basic info
                 THistoryDataBasic historyDataInfo = new THistoryDataBasic();
@@ -3186,13 +3199,11 @@ namespace CableTestManager.View
 
                 #region project test detail info
                 List<THistoryDataDetail> hisDataDetailList = new List<THistoryDataDetail>();
-                int iRow = 1;
+                int iRow = 0;
                 foreach (var lv in this.radGridViewCableTest.Rows)
                 {
                     THistoryDataDetail historyDataDetail = new THistoryDataDetail();
                     historyDataDetail.ID = TablePrimaryKey.InsertHistoryDetailPID() + iRow;
-                    if (this.projectTestNumber == "")
-                        return;
                     historyDataDetail.TestSerialNumber = this.projectTestNumber.ToString();
                     historyDataDetail.ProjectName = this.projectInfo.ProjectName;
                     if (lv.Cells[1].Value != null)
@@ -3246,6 +3257,7 @@ namespace CableTestManager.View
                     //success
                 }
             }
+
         }
 
         private void StartSelfCheck()

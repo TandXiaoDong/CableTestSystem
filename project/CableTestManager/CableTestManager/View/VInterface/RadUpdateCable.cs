@@ -35,7 +35,10 @@ namespace CableTestManager.View.VInterface
         private const string COLUMN_START_POINT = "起始接点";
         private const string COLUMN_END_INTER = "最终接口";
         private const string COLUMN_END_POINT = "最终接点";
-        private DataTable cableAddDatasource,cableDelDatasource;
+        //private DataTable cableAddDatasource,cableDelDatasource;
+
+        private List<CableConfig> cableAddList;
+        private List<CableConfig> cableDelList;
 
         public RadUpdateCable(string title,string lineCableName,bool IsEdit,string remark)
         {
@@ -54,6 +57,8 @@ namespace CableTestManager.View.VInterface
 
         private void Init()
         {
+            this.cableAddList = new List<CableConfig>();
+            this.cableDelList = new List<CableConfig>();
             this.StartPosition = FormStartPosition.CenterParent;
             this.rdb2Method.CheckState = CheckState.Checked;
             InitDataTable();
@@ -75,18 +80,19 @@ namespace CableTestManager.View.VInterface
             this.checkPressureProof.CheckState = CheckState.Checked;
 
             GetLineStructDetailData(lineCableName);
+            CheckMeasureMethodValid();
         }
 
         private void InitDataTable()
         {
-            this.cableAddDatasource = new DataTable();
-            this.cableAddDatasource.Columns.Add(COLUMN_ORDER);
-            this.cableAddDatasource.Columns.Add(COLUMN_START_INTER);
-            this.cableAddDatasource.Columns.Add(COLUMN_START_POINT);
-            this.cableAddDatasource.Columns.Add(COLUMN_END_INTER);
-            this.cableAddDatasource.Columns.Add(COLUMN_END_POINT);
+            //this.cableAddDatasource = new DataTable();
+            //this.cableAddDatasource.Columns.Add(COLUMN_ORDER);
+            //this.cableAddDatasource.Columns.Add(COLUMN_START_INTER);
+            //this.cableAddDatasource.Columns.Add(COLUMN_START_POINT);
+            //this.cableAddDatasource.Columns.Add(COLUMN_END_INTER);
+            //this.cableAddDatasource.Columns.Add(COLUMN_END_POINT);
 
-            this.cableDelDatasource = this.cableAddDatasource.Clone();
+            //this.cableDelDatasource = this.cableAddDatasource.Clone();
         }
 
         private void EventHandlers()
@@ -190,11 +196,11 @@ namespace CableTestManager.View.VInterface
         {
             if (this.radGridView1.RowCount < 1)
                 return;
-            if (IsInterUsed(this.lineCableName))
-            {
-                MessageBox.Show($"线束{this.lineCableName}已被项目使用,删除失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            //if (IsInterUsed(this.lineCableName))
+            //{
+            //    MessageBox.Show($"线束{this.lineCableName}已被项目使用,删除失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
             for (int i = this.radGridView1.RowCount - 1; i >= 0; i--)
             {
                 AddDelCableInfo(i);
@@ -207,11 +213,11 @@ namespace CableTestManager.View.VInterface
             int cIndex = this.radGridView1.CurrentRow.Index;
             if (cIndex < 0)
                 return;
-            if (IsInterUsed(this.lineCableName))
-            {
-                MessageBox.Show($"线束{this.lineCableName}已被项目使用,删除失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            //if (IsInterUsed(this.lineCableName))
+            //{
+            //    MessageBox.Show($"线束{this.lineCableName}已被项目使用,删除失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
             AddDelCableInfo(cIndex);
             this.radGridView1.Rows[cIndex].Delete();
         }
@@ -223,12 +229,25 @@ namespace CableTestManager.View.VInterface
             var endInterName = this.radGridView1.Rows[rowIndex].Cells[3].Value.ToString();
             var endContact = this.radGridView1.Rows[rowIndex].Cells[4].Value.ToString();
 
-            DataRow dataRow = this.cableDelDatasource.NewRow();
-            dataRow[COLUMN_START_INTER] = startInterName;
-            dataRow[COLUMN_START_POINT] = startContact;
-            dataRow[COLUMN_END_INTER] = endInterName;
-            dataRow[COLUMN_END_POINT] = endContact;
-            this.cableDelDatasource.Rows.Add(dataRow);
+            CableConfig cableConfig = new CableConfig();
+            cableConfig.StartInterface = startInterName;
+            cableConfig.StartInterPoint = startContact;
+            cableConfig.EndInterface = endInterName;
+            cableConfig.EndInterPoint = endContact;
+            this.cableDelList.Add(cableConfig);
+
+            var curExistList = this.cableAddList.Find(m => m.StartInterface == startInterName && m.StartInterPoint == startContact && m.EndInterface == endInterName && m.EndInterPoint == endContact);
+            if (curExistList != null)
+            {
+                this.cableAddList.Remove(curExistList);
+            }
+
+            //DataRow dataRow = this.cableDelDatasource.NewRow();
+            //dataRow[COLUMN_START_INTER] = startInterName;
+            //dataRow[COLUMN_START_POINT] = startContact;
+            //dataRow[COLUMN_END_INTER] = endInterName;
+            //dataRow[COLUMN_END_POINT] = endContact;
+            //this.cableDelDatasource.Rows.Add(dataRow);
         }
 
         private bool IsInterUsed(string cableName)
@@ -511,13 +530,20 @@ namespace CableTestManager.View.VInterface
             this.radGridView1.Rows[rowCount - 1].Cells[3].Value = this.cb_endInterface.Text;
             this.radGridView1.Rows[rowCount - 1].Cells[4].Value = endContact;
 
-            DataRow dataRow = this.cableAddDatasource.NewRow();
-            dataRow[COLUMN_ORDER] = rowCount;
-            dataRow[COLUMN_START_INTER] = this.cb_startInterface.Text;
-            dataRow[COLUMN_START_POINT] = startContact;
-            dataRow[COLUMN_END_INTER] = this.cb_endInterface.Text;
-            dataRow[COLUMN_END_POINT] = endContact;
-            this.cableAddDatasource.Rows.Add(dataRow);
+            CableConfig cableConfig = new CableConfig();
+            cableConfig.StartInterface = this.cb_startInterface.Text;
+            cableConfig.StartInterPoint = startContact;
+            cableConfig.EndInterface = this.cb_endInterface.Text;
+            cableConfig.EndInterPoint = endContact;
+            this.cableAddList.Add(cableConfig);
+
+            //DataRow dataRow = this.cableAddDatasource.NewRow();
+            //dataRow[COLUMN_ORDER] = rowCount;
+            //dataRow[COLUMN_START_INTER] = this.cb_startInterface.Text;
+            //dataRow[COLUMN_START_POINT] = startContact;
+            //dataRow[COLUMN_END_INTER] = this.cb_endInterface.Text;
+            //dataRow[COLUMN_END_POINT] = endContact;
+            //this.cableAddDatasource.Rows.Add(dataRow);
         }
 
         private void BatchAddConnect()
@@ -661,12 +687,12 @@ namespace CableTestManager.View.VInterface
         {
             int rowCount = 0;
             List<TCableTestLibrary> cableLibList = new List<TCableTestLibrary>();
-            foreach (DataRow rowInfo in this.cableAddDatasource.Rows)
+            foreach (var rowInfo in this.cableAddList)
             {
-                var startInterface = rowInfo[1].ToString();
-                var startContactPoint = rowInfo[2].ToString();
-                var endInterface = rowInfo[3].ToString();
-                var endContactPoint = rowInfo[4].ToString();
+                var startInterface = rowInfo.StartInterface;
+                var startContactPoint = rowInfo.StartInterPoint;
+                var endInterface = rowInfo.EndInterface;
+                var endContactPoint = rowInfo.EndInterPoint;
 
                 TCableTestLibrary lineStructLibraryDetail = new TCableTestLibrary();
                 lineStructLibraryDetail.ID = CableTestManager.Common.TablePrimaryKey.InsertCableLibPID() + rowCount;
@@ -693,25 +719,25 @@ namespace CableTestManager.View.VInterface
                 rowCount++;
             }
             var row = lineStructManager.Insert(cableLibList);
-            this.cableAddDatasource.Clear();
+            this.cableAddList.Clear();
             return row;
         }
 
         private int UpdateCableInfo()
         {
             int rowCount = 0;
-            foreach (DataRow rowInfo in this.cableDelDatasource.Rows)
+            foreach (var rowInfo in this.cableDelList)
             {
-                var startInterface = rowInfo[1].ToString();
-                var startContactPoint = rowInfo[2].ToString();
-                var endInterface = rowInfo[3].ToString();
-                var endContactPoint = rowInfo[4].ToString();
+                var startInterface = rowInfo.StartInterface;
+                var startContactPoint = rowInfo.StartInterPoint;
+                var endInterface = rowInfo.EndInterface;
+                var endContactPoint = rowInfo.EndInterPoint;
 
                 TCableTestLibrary lineStructLibraryDetail = new TCableTestLibrary();
                 lineStructLibraryDetail.ID = GetCablePrimary(this.rtbCableName.Text.Trim(), startInterface, startContactPoint, endInterface, endContactPoint);
                 rowCount += this.lineStructManager.Delete(lineStructLibraryDetail.ID);
             }
-            this.cableDelDatasource.Clear();
+            this.cableDelList.Clear();
             return rowCount;
         }
 
