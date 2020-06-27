@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CMainForm));
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition7 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition8 = new Telerik.WinControls.UI.TableViewDefinition();
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition9 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition3 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition2 = new Telerik.WinControls.UI.TableViewDefinition();
             this.radMenuItem1 = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_newProject = new Telerik.WinControls.UI.RadMenuItem();
             this.menu_closeProject = new Telerik.WinControls.UI.RadMenuItem();
@@ -425,6 +425,7 @@
             // 
             this.menu_connectCfg.Name = "menu_connectCfg";
             this.menu_connectCfg.Text = "服务器配置";
+            this.menu_connectCfg.Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
             // 
             // radMenuItem7
             // 
@@ -835,7 +836,7 @@
             // 
             // radDock1
             // 
-            this.radDock1.ActiveWindow = this.documentWindow1;
+            this.radDock1.ActiveWindow = this.toolWindow1;
             this.radDock1.CausesValidation = false;
             this.radDock1.Controls.Add(this.toolTabStrip3);
             this.radDock1.Controls.Add(this.documentContainer2);
@@ -874,7 +875,7 @@
             // 
             // 
             // 
-            this.radGridViewCableTest.MasterTemplate.ViewDefinition = tableViewDefinition7;
+            this.radGridViewCableTest.MasterTemplate.ViewDefinition = tableViewDefinition3;
             this.radGridViewCableTest.Name = "radGridViewCableTest";
             this.radGridViewCableTest.Size = new System.Drawing.Size(1089, 422);
             this.radGridViewCableTest.TabIndex = 7;
@@ -1175,7 +1176,7 @@
             // 
             // 
             // 
-            this.radGridViewProb.MasterTemplate.ViewDefinition = tableViewDefinition8;
+            this.radGridViewProb.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.radGridViewProb.Name = "radGridViewProb";
             this.radGridViewProb.Size = new System.Drawing.Size(1089, 490);
             this.radGridViewProb.TabIndex = 8;
@@ -1220,7 +1221,7 @@
             // 
             // 
             // 
-            this.radGridViewSelfStudy.MasterTemplate.ViewDefinition = tableViewDefinition9;
+            this.radGridViewSelfStudy.MasterTemplate.ViewDefinition = tableViewDefinition2;
             this.radGridViewSelfStudy.Name = "radGridViewSelfStudy";
             this.radGridViewSelfStudy.Size = new System.Drawing.Size(1089, 462);
             this.radGridViewSelfStudy.TabIndex = 7;

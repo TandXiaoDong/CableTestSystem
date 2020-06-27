@@ -408,10 +408,28 @@ namespace CableTestManager.View
 
         private void Menu_helper_Click(object sender, EventArgs e)
         {
-            var helperFile = AppDomain.CurrentDomain.BaseDirectory + "temp\\线束测试操作编程说明书.docx";
+            var fileName = "预埋线缆综合测试仪_说明书.doc";
+            var helperFile = AppDomain.CurrentDomain.BaseDirectory + $"temp\\{fileName}";
             if (File.Exists(helperFile))
             {
                 System.Diagnostics.Process.Start(helperFile);
+            }
+            else
+            {
+                helperFile = AppDomain.CurrentDomain.BaseDirectory + "temp\\";
+                DirectoryInfo directoryInfo = new DirectoryInfo(helperFile);
+                FileInfo[] fileInfos = directoryInfo.GetFiles();
+                if (fileInfos.Length > 0)
+                {
+                    if (File.Exists(fileInfos[0].FullName))
+                    {
+                        File.Move(fileInfos[0].FullName, helperFile + fileName);
+                        if (File.Exists(helperFile + fileName))
+                        {
+                            System.Diagnostics.Process.Start(helperFile + fileName);
+                        }
+                    }
+                }
             }
         }
 
@@ -733,7 +751,7 @@ namespace CableTestManager.View
 
         private void SuperEasyClient_NoticeMessageEvent(ClientSocket.AppBase.MyPackageInfo packageInfo)
         {
-            LogHelper.Log.Info($"接收到消息00:"+BitConverter.ToString(packageInfo.Data));
+            //LogHelper.Log.Info($"接收到消息00:"+BitConverter.ToString(packageInfo.Data));
             //测试结果根据阈值判断是否合格
             //导通测试：小于阈值为合格
             //短路测试：大于阈值为合格
@@ -838,11 +856,11 @@ namespace CableTestManager.View
 
             if (calResult >= min && calResult <= max)
             {
-                LogHelper.Log.Info($"设备自检结果：自检结果在500正负10%范围内 val={calResult}");
+                //LogHelper.Log.Info($"设备自检结果：自检结果在500正负10%范围内 val={calResult}");
             }
             else
             {
-                LogHelper.Log.Info("设备自检结果：自检结果不在500正负10%范围内");
+                //LogHelper.Log.Info("设备自检结果：自检结果不在500正负10%范围内");
                 SendResetDeviceCommand();
             }
         }
@@ -2876,7 +2894,7 @@ namespace CableTestManager.View
             var voltage = "0000";
             var holdTime = "00";
             hexString = Convert.ToString(method).PadLeft(2, '0') + voltage + holdTime + hexString;
-            LogHelper.Log.Info("短路测试内容："+hexString);
+            //LogHelper.Log.Info("短路测试内容："+hexString);
             return hexString;
         }
         #endregion

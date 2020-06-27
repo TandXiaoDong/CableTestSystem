@@ -227,7 +227,7 @@ namespace CableTestManager.ClientSocket
                 response.AddRange(message);
             }
             client.Send(response.ToArray());
-            LogHelper.Log.Info($"发送指令：" + BitConverter.ToString(response.ToArray()));
+            //LogHelper.Log.Info($"发送指令：" + BitConverter.ToString(response.ToArray()));
         }
     }
 }
