@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CableTestManager.Business.Implements;
+using CommonUtils.Logger;
 
 namespace CableTestManager.Common
 {
@@ -71,13 +72,17 @@ namespace CableTestManager.Common
 
         public static long InsertHistoryDetailPID()
         {
-            long id = -1;
+            int id = -1;
             THistoryDataDetailManager objManager = new THistoryDataDetailManager();
             var dt = objManager.GetDataSetByWhere("order by ID DESC limit 1").Tables[0];
             if (dt.Rows.Count < 1)
                 return 0;
-            if (long.TryParse(dt.Rows[0]["ID"].ToString(), out id))
+            if (int.TryParse(dt.Rows[0]["ID"].ToString(), out id))
                 return id + 1;
+            else
+            {
+                LogHelper.Log.Error("Option His Detail PID FAILT..."+id);
+            }
             return id;
         }
 

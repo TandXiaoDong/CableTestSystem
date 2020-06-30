@@ -693,6 +693,7 @@ namespace CableTestManager.View
             this.studyParamValidList.Clear();
             this.tb_selfStudyTip.Clear();
             this.tb_selfStudyTip.Visible = false;
+            this.tb_selfStudyTip.ForeColor = Color.Black;
         }
 
         private void ClearProbGrid()
@@ -780,7 +781,8 @@ namespace CableTestManager.View
                 //if (rowCount <= 0)
                 //    return;
                 //this.radGridViewSelfStudy.CurrentRow = this.radGridViewSelfStudy.Rows[rowCount - 1];
-                SelfStudyTextState(true, "自学习测试已完成");
+                LogHelper.Log.Info("自学习测试完成...");
+                SelfStudyTextState(true, "自学习测试已完成",true);
             }
             else if (packageInfo.Data[4] == 0xf6 && packageInfo.Data[5] == 0xbb)//探针
             {
@@ -1915,7 +1917,7 @@ namespace CableTestManager.View
         {
             this.tb_selfStudyTip.ReadOnly = false;
             this.tb_selfStudyTip.Visible = true;
-            this.tb_selfStudyTip.Text = text;
+            this.tb_selfStudyTip.Text = text.Trim();
             this.tb_selfStudyTip.BackColor = Color.Red;
             this.tb_selfStudyTip.ReadOnly = true;
             this.tool_importCableLib.Enabled = false;
@@ -2383,7 +2385,7 @@ namespace CableTestManager.View
             if (this.studyConfig.StudyTestType == SelfStudyConfig.SutdyTestTypeEnum.SelfTestByLimit)
             {
                 var selftStudyString = this.studyConfig.MeasureMethod + "01" + DecConvert2ByteHexStr(this.studyConfig.LimitMin) + DecConvert2ByteHexStr(this.studyConfig.LimitMax);
-                SelfStudyTextState(true, "自学习测试中...");
+                SelfStudyTextState(true, "自学习测试中...", false);
                 SendSelfStudyOrProbCommand(selftStudyString, selfStudyTestFunCode);
             }
             else if (this.studyConfig.StudyTestType == SelfStudyConfig.SutdyTestTypeEnum.SelfTestByInterface)
@@ -2394,17 +2396,21 @@ namespace CableTestManager.View
             }
         }
 
-        private void SelfStudyTextState(bool b, string text)
+        private void SelfStudyTextState(bool b, string text, bool IsOver)
         {
             this.Invoke(new Action(()=>
             {
-                this.tb_selfStudyTip.ReadOnly = false;
+                //this.tb_selfStudyTip.ReadOnly = false;
                 this.tb_selfStudyTip.Visible = b;
                 this.tb_selfStudyTip.Text = text;
                 this.tb_selfStudyTip.Font = new Font("粗体", 14f);
                 this.tb_selfStudyTip.TextAlign = HorizontalAlignment.Center;
-                this.tb_selfStudyTip.ReadOnly = true;
                 this.tb_selfStudyTip.ForeColor = Color.Red;
+                //this.tb_selfStudyTip.ReadOnly = true;
+                if (IsOver)
+                {
+                    this.tb_selfStudyTip.BackColor = Color.White;
+                }
             }));
         }
 
@@ -3165,7 +3171,6 @@ namespace CableTestManager.View
         /// </summary>
         private void SaveTestResult()
         {
-
             lock (this)
             {
                 if (this.radGridViewCableTest.Rows.Count < 1)
@@ -3293,7 +3298,6 @@ namespace CableTestManager.View
                     //success
                 }
             }
-
         }
 
         private void StartSelfCheck()

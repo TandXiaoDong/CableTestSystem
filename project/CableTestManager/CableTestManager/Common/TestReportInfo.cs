@@ -92,10 +92,24 @@ namespace CableTestManager.Common
                 pdf.AddParagraph($"绝缘电压：{hisInfo.InsulateVoltage}V", 15);
                 pdf.AddLine(241);
                 pdf.AddParagraph($"异常明细\r\n\n", 20);
-                pdf.AddParagraph("线束测试异常明细", QueryCableTestExceptTable(detailData), 15);
+                var exceptData = QueryCableTestExceptTable(detailData);
+                pdf.AddParagraph("线束测试异常明细", exceptData, 15);
+                if (exceptData.Rows.Count <= 0)
+                {
+                    pdf.AddParagraph($"无\r\n\n", 20);
+                }
+
                 //pdf.AddParagraph("\r\n", 15);
                 pdf.AddParagraph("测试数据\r\n\r", 20);
-                pdf.AddParagraph("线束测试合格明细", QueryCableTestPassTable(detailData), 15);
+                var normalData = QueryCableTestPassTable(detailData);
+                if (normalData.Rows.Count > 0)
+                {
+                    pdf.AddParagraph("线束测试合格明细", normalData, 15);
+                }
+                else
+                {
+                    pdf.AddParagraph($"无\r\n\n", 20);
+                }
                 pdf.Close();
             }
         }
@@ -104,6 +118,7 @@ namespace CableTestManager.Common
         {
             #region init table
             DataTable dataSource = new DataTable();
+            dataSource.Columns.Add("序号");
             dataSource.Columns.Add("起点接口");
             dataSource.Columns.Add("起点接点");
             dataSource.Columns.Add("终点接口");
@@ -112,7 +127,7 @@ namespace CableTestManager.Common
             dataSource.Columns.Add("导通测试结果");
             dataSource.Columns.Add("短路测试(Ω)");
             dataSource.Columns.Add("短路测试结果");
-            dataSource.Columns.Add("绝缘电阻(Ω)");
+            dataSource.Columns.Add("绝缘电阻(MΩ)");
             dataSource.Columns.Add("绝缘测试结果");
             //dataSource.Columns.Add("耐压电流(Ω)");
             //dataSource.Columns.Add("耐压测试结果");
@@ -122,9 +137,11 @@ namespace CableTestManager.Common
             var data = detailManage.GetDataSetByWhere($"where TestSerialNumber = '{testSerial}'").Tables[0];
             if (data.Rows.Count <= 0)
                 return dataSource;
+            int iRow = 1;
             foreach (DataRow dataRow in data.Rows)
             {
                 DataRow dr = dataSource.NewRow();
+                dr["序号"] = iRow;
                 dr["起点接口"] = dataRow["StartInterface"].ToString();
                 dr["起点接点"] = dataRow["StartContactPoint"].ToString();
                 dr["终点接口"] = dataRow["EndInterface"].ToString();
@@ -133,9 +150,18 @@ namespace CableTestManager.Common
                 dr["导通测试结果"] = dataRow["ConductTestResult"].ToString();
                 dr["短路测试(Ω)"] = dataRow["ShortCircuitValue"].ToString();
                 dr["短路测试结果"] = dataRow["ShortCircuitTestResult"].ToString();
-                dr["绝缘电阻(Ω)"] = dataRow["InsulateValue"].ToString();
+                double insulateVal;
+                if (double.TryParse(dataRow["InsulateValue"].ToString(), out insulateVal))
+                {
+                    dr["绝缘电阻(MΩ)"] = (insulateVal / 1000000).ToString("f1");
+                }
+                else
+                {
+                    dr["绝缘电阻(MΩ)"] = "--";
+                }
                 dr["绝缘测试结果"] = dataRow["InsulateTestResult"].ToString();
                 dataSource.Rows.Add(dr);
+                iRow++;
             }
             return dataSource;
         }
