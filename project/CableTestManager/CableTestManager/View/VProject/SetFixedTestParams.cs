@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using Telerik.WinControls;
 using CableTestManager.Entity;
 using CableTestManager.Model;
+using CableTestManager.CUserManager;
 
 namespace CableTestManager.View.VProject
 {
@@ -36,8 +37,8 @@ namespace CableTestManager.View.VProject
             else
                 this.dnConductionThreshold.Value = (decimal)this.projectInfo.ConductTestThreshold;
 
-            this.dnShortCircuitthreshold.Maximum = 1000;
-            this.dnShortCircuitthreshold.Minimum = (decimal)0.1;
+            this.dnShortCircuitthreshold.Maximum = 1000000000;
+            this.dnShortCircuitthreshold.Minimum = (decimal)1000;
             this.dnShortCircuitthreshold.Increment = 5;
             this.dnShortCircuitthreshold.DecimalPlaces = 1;
             if (!this.IsEditView)
@@ -72,6 +73,30 @@ namespace CableTestManager.View.VProject
                 this.dnInsulateVoltage.Value = (decimal)this.devConfig.InsulateVoltage;
             else
                 this.dnInsulateVoltage.Value = (decimal)this.projectInfo.InsulateTestVoltage;
+
+            InitEnable();
+        }
+
+        private void InitEnable()
+        {
+            if (LocalLogin.currentUserType != "管理员")
+            {
+                ControlEnable(false);
+            }
+            else
+            {
+                ControlEnable(true);
+            }
+        }
+
+        private void ControlEnable(bool IsEnable)
+        {
+            this.dnConductionThreshold.Enabled = IsEnable;
+            this.dnShortCircuitthreshold.Enabled = IsEnable;
+            this.dnInsulateThreshold.Enabled = IsEnable;
+            this.dnInsulateThreshold.Enabled = IsEnable;
+            this.dnInsulateVoltage.Enabled = IsEnable;
+            this.dnInsulateHoldTime.Enabled = IsEnable;
         }
 
         private void EventHandlers()

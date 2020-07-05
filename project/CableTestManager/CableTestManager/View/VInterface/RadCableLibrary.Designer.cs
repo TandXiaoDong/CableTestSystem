@@ -49,6 +49,7 @@
             this.radGridView1 = new Telerik.WinControls.UI.RadGridView();
             this.office2013LightTheme1 = new Telerik.WinControls.Themes.Office2013LightTheme();
             this.telerikMetroTouchTheme1 = new Telerik.WinControls.Themes.TelerikMetroTouchTheme();
+            this.tool_delAll = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).BeginInit();
@@ -65,6 +66,7 @@
             this.tool_add,
             this.tool_edit,
             this.tool_delete,
+            this.tool_delAll,
             this.tool_export});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -81,6 +83,7 @@
             // 
             // tool_queryFilter
             // 
+            this.tool_queryFilter.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.tool_queryFilter.Name = "tool_queryFilter";
             this.tool_queryFilter.Size = new System.Drawing.Size(130, 28);
             // 
@@ -178,6 +181,14 @@
             this.radGridView1.TabIndex = 3;
             this.radGridView1.ThemeName = "TelerikMetroTouch";
             // 
+            // tool_delAll
+            // 
+            this.tool_delAll.Image = global::CableTestManager.Properties.Resources.删除16_sig;
+            this.tool_delAll.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_delAll.Name = "tool_delAll";
+            this.tool_delAll.Size = new System.Drawing.Size(94, 25);
+            this.tool_delAll.Text = "删除所有";
+            // 
             // RadCableLibrary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -218,5 +229,6 @@
         private Telerik.WinControls.UI.RadGridView radGridView1;
         private Telerik.WinControls.Themes.Office2013LightTheme office2013LightTheme1;
         private Telerik.WinControls.Themes.TelerikMetroTouchTheme telerikMetroTouchTheme1;
+        private System.Windows.Forms.ToolStripButton tool_delAll;
     }
 }

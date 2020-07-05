@@ -145,9 +145,9 @@ namespace CableTestManager.View.VProject
         private void QueryPlugLineStructInfo()
         {
             RadGridViewProperties.ClearGridView(this.radGridView1,null);
-            var selectSQL = "";
+            var selectSQL = "order by ID desc";
             if (this.rtbCableCondition.Text.Trim() != "")
-                selectSQL = $"where CableName like '%{this.rtbCableCondition.Text.Trim()}%'";
+                selectSQL = $"where CableName like '%{this.rtbCableCondition.Text.Trim()}%' order by ID desc";
             var data = lineStructLibraryDetailManager.GetDataSetByFieldsAndWhere("distinct CableName", selectSQL).Tables[0];
             if (data.Rows.Count < 1)
                 return;

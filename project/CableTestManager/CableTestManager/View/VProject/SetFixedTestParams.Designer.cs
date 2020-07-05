@@ -198,9 +198,9 @@
             this.radLabel4.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.radLabel4.Location = new System.Drawing.Point(269, 49);
             this.radLabel4.Name = "radLabel4";
-            this.radLabel4.Size = new System.Drawing.Size(88, 21);
+            this.radLabel4.Size = new System.Drawing.Size(70, 21);
             this.radLabel4.TabIndex = 3;
-            this.radLabel4.Text = "Ω  (0.1~1000)";
+            this.radLabel4.Text = "Ω  (>1000)";
             // 
             // dnShortCircuitthreshold
             // 

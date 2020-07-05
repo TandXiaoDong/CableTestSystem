@@ -67,6 +67,7 @@ namespace CableTestManager.View.VInterface
         {
             this.tool_add.Click += Tool_add_Click;
             this.tool_delete.Click += Tool_delete_Click;
+            this.tool_delAll.Click += Tool_delAll_Click;
             this.tool_edit.Click += Tool_edit_Click;
             this.tool_export.Click += Tool_export_Click;
             this.tool_query.Click += Tool_query_Click;
@@ -123,7 +124,7 @@ namespace CableTestManager.View.VInterface
             var b = RadGridViewProperties.IsSelectRow(this.radGridView1);
             if (!b)
             {
-                MessageBox.Show("请选择要删除的线束代号！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("请选择要删除的线束！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             var LineStructName = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
@@ -132,7 +133,7 @@ namespace CableTestManager.View.VInterface
             //    MessageBox.Show($"线束{LineStructName}已被项目使用,删除失败！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             //    return;
             //}
-            if (MessageBox.Show($"确认要删除线束代号{LineStructName}?", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2) != DialogResult.OK)
+            if (MessageBox.Show($"确认要删除线束{LineStructName}?", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2) != DialogResult.OK)
             {
                 return;
             }
@@ -141,6 +142,21 @@ namespace CableTestManager.View.VInterface
             {
                 MessageBox.Show("删除成功！","提示",MessageBoxButtons.OK);
                 UserOperateRecord.UpdateOperateRecord($"删除线束库{LineStructName}");
+                QueryCableLibInfo();
+            }
+        }
+
+        private void Tool_delAll_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show($"确认要删除所有线束?", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+            {
+                return;
+            }
+            var delRow = lineStructLibraryDetailManager.DeleteByWhere("");
+            if (delRow > 0)
+            {
+                MessageBox.Show("删除成功！", "提示", MessageBoxButtons.OK);
+                UserOperateRecord.UpdateOperateRecord($"删除所有线束");
                 QueryCableLibInfo();
             }
         }

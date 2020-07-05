@@ -52,6 +52,7 @@ namespace CableTestManager.View.VProject
             this.btn_openProject.Click += Btn_openProject_Click;
             this.btn_editProject.Click += Btn_editProject_Click;
             this.btn_deleteProject.Click += Btn_deleteProject_Click;
+            this.menu_delAll.Click += Menu_delAll_Click;
             this.FormClosed += ProjectManage_FormClosed;
         }
 
@@ -106,7 +107,7 @@ namespace CableTestManager.View.VProject
                 return;
             }
             var selectProject = this.radGridView1.CurrentRow.Cells[1].Value.ToString();
-            if (MessageBox.Show($"确定要删除项目{selectProject}", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+            if (MessageBox.Show($"确定要删除项目{selectProject}？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.OK)
             {
                 return;
             }
@@ -115,6 +116,23 @@ namespace CableTestManager.View.VProject
             {
                 UserOperateRecord.UpdateOperateRecord($"删除项目{selectProject}");
                 MessageBox.Show($"已删除项目{selectProject}！","提示",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            }
+            QueryProjectInfo();
+            //this.DialogResult = DialogResult.OK;
+            operateType = OperateType.DeleteProject;
+        }
+
+        private void Menu_delAll_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show($"确定要删除所有项目？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.OK)
+            {
+                return;
+            }
+            var delRow = projectInfoManager.DeleteByWhere("");
+            if (delRow > 0)
+            {
+                UserOperateRecord.UpdateOperateRecord($"删除所有项目");
+                MessageBox.Show($"已删除所有项目！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             QueryProjectInfo();
             //this.DialogResult = DialogResult.OK;
@@ -162,9 +180,9 @@ namespace CableTestManager.View.VProject
         private void QueryProjectInfo()
         {
             ClearGridVIew();
-            var selectSQL = "";
+            var selectSQL = "order by ID desc";
             if (this.tb_queryFilter.Text.Trim() != "")
-                selectSQL = $"where ProjectName like '%{this.tb_queryFilter.Text.Trim()}%'";
+                selectSQL = $"where ProjectName like '%{this.tb_queryFilter.Text.Trim()}%' order by ID desc";
             var dt = projectInfoManager.GetDataSetByWhere(selectSQL).Tables[0];
             if (dt.Rows.Count < 1)
                 return;

@@ -40,6 +40,7 @@
             this.btn_defineStudyByPin = new Telerik.WinControls.UI.RadButton();
             this.btn_cancelByPin = new Telerik.WinControls.UI.RadButton();
             this.radGroupBox1 = new Telerik.WinControls.UI.RadGroupBox();
+            this.radLabel4 = new Telerik.WinControls.UI.RadLabel();
             this.mulInterB = new Telerik.WinControls.UI.RadMultiColumnComboBox();
             this.mulInterA = new Telerik.WinControls.UI.RadMultiColumnComboBox();
             this.radLabel10 = new Telerik.WinControls.UI.RadLabel();
@@ -50,6 +51,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabPageLimit = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.radLabel3 = new Telerik.WinControls.UI.RadLabel();
             this.radLabel6 = new Telerik.WinControls.UI.RadLabel();
             this.btn_fcancel = new Telerik.WinControls.UI.RadButton();
             this.radLabel7 = new Telerik.WinControls.UI.RadLabel();
@@ -58,8 +60,6 @@
             this.num_fmax = new System.Windows.Forms.NumericUpDown();
             this.num_fmin = new System.Windows.Forms.NumericUpDown();
             this.num_fthreshold = new System.Windows.Forms.NumericUpDown();
-            this.radLabel3 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel4 = new Telerik.WinControls.UI.RadLabel();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.conductionThresholdByPin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel5)).BeginInit();
@@ -68,6 +68,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btn_cancelByPin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).BeginInit();
             this.radGroupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mulInterB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mulInterB.EditorControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mulInterB.EditorControl.MasterTemplate)).BeginInit();
@@ -81,6 +82,7 @@
             this.panel1.SuspendLayout();
             this.tabPageLimit.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_fcancel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel7)).BeginInit();
@@ -89,8 +91,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.num_fmax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_fmin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_fthreshold)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -169,6 +169,14 @@
             this.radGroupBox1.TabIndex = 17;
             this.radGroupBox1.Text = "接口选择";
             this.radGroupBox1.ThemeName = "Office2013Light";
+            // 
+            // radLabel4
+            // 
+            this.radLabel4.Location = new System.Drawing.Point(351, 206);
+            this.radLabel4.Name = "radLabel4";
+            this.radLabel4.Size = new System.Drawing.Size(60, 18);
+            this.radLabel4.TabIndex = 26;
+            this.radLabel4.Text = "(0~1000Ω)";
             // 
             // mulInterB
             // 
@@ -311,6 +319,14 @@
             this.panel2.Size = new System.Drawing.Size(429, 356);
             this.panel2.TabIndex = 0;
             // 
+            // radLabel3
+            // 
+            this.radLabel3.Location = new System.Drawing.Point(337, 192);
+            this.radLabel3.Name = "radLabel3";
+            this.radLabel3.Size = new System.Drawing.Size(60, 18);
+            this.radLabel3.TabIndex = 25;
+            this.radLabel3.Text = "(0~1000Ω)";
+            // 
             // radLabel6
             // 
             this.radLabel6.Location = new System.Drawing.Point(66, 96);
@@ -322,6 +338,7 @@
             // 
             // btn_fcancel
             // 
+            this.btn_fcancel.BackColor = System.Drawing.Color.GhostWhite;
             this.btn_fcancel.Location = new System.Drawing.Point(221, 279);
             this.btn_fcancel.Name = "btn_fcancel";
             this.btn_fcancel.Size = new System.Drawing.Size(106, 36);
@@ -340,6 +357,7 @@
             // 
             // btn_fstart
             // 
+            this.btn_fstart.BackColor = System.Drawing.Color.GhostWhite;
             this.btn_fstart.Location = new System.Drawing.Point(87, 279);
             this.btn_fstart.Name = "btn_fstart";
             this.btn_fstart.Size = new System.Drawing.Size(105, 36);
@@ -380,22 +398,6 @@
             this.num_fthreshold.Size = new System.Drawing.Size(155, 26);
             this.num_fthreshold.TabIndex = 22;
             // 
-            // radLabel3
-            // 
-            this.radLabel3.Location = new System.Drawing.Point(337, 192);
-            this.radLabel3.Name = "radLabel3";
-            this.radLabel3.Size = new System.Drawing.Size(60, 18);
-            this.radLabel3.TabIndex = 25;
-            this.radLabel3.Text = "(0~1000Ω)";
-            // 
-            // radLabel4
-            // 
-            this.radLabel4.Location = new System.Drawing.Point(351, 206);
-            this.radLabel4.Name = "radLabel4";
-            this.radLabel4.Size = new System.Drawing.Size(60, 18);
-            this.radLabel4.TabIndex = 26;
-            this.radLabel4.Text = "(0~1000Ω)";
-            // 
             // frmSefStudy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -421,6 +423,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).EndInit();
             this.radGroupBox1.ResumeLayout(false);
             this.radGroupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mulInterB.EditorControl.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mulInterB.EditorControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mulInterB)).EndInit();
@@ -435,6 +438,7 @@
             this.tabPageLimit.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_fcancel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel7)).EndInit();
@@ -443,8 +447,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.num_fmax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_fmin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_fthreshold)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 

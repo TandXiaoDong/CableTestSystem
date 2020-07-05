@@ -12,6 +12,7 @@ using WindowsFormTelerik.ControlCommon;
 using CableTestManager.Common;
 using Telerik.WinControls.UI;
 using CableTestManager.Model;
+using System.Configuration;
 
 namespace CableTestManager.View.VSelfStydy
 {
@@ -20,6 +21,11 @@ namespace CableTestManager.View.VSelfStydy
         private InterfaceInfoLibraryManager InterfaceInfoLibrary;
         public List<SelfStudyTestParams> studyTestParamsList;
         private SelfStudyConfig studyConfig;
+        public double selfStudyTestTotalCount;
+        private List<int> devPointAList;//目前六张卡，前三张卡为A,后三张为B
+        private List<int> devPointBList;
+        private int aListOrderMin;//A中序号的最小值
+        private int aListOrderMax;//B中序号的最大值
 
         public frmSefStudy(SelfStudyConfig config)
         {
@@ -51,8 +57,49 @@ namespace CableTestManager.View.VSelfStydy
             this.studyTestParamsList = new List<SelfStudyTestParams>();
         }
 
+        private void InitDefaultDevPoint()
+        {
+            this.devPointAList = new List<int>();
+            this.devPointBList = new List<int>();
+            //add A point
+            for (int i = 1; i < 49; i++)
+            {
+                this.devPointAList.Add(i);
+            }
+            for (int i = 65; i < 113; i++)
+            {
+                this.devPointAList.Add(i);
+            }
+            for (int i = 129; i < 177; i++)
+            {
+                this.devPointAList.Add(i);
+            }
+            //add B point
+            for (int i = 193; i < 241; i++)
+            {
+                this.devPointBList.Add(i);
+            }
+            for (int i = 257; i < 305; i++)
+            {
+                this.devPointBList.Add(i);
+            }
+            for (int i = 321; i < 369; i++)
+            {
+                this.devPointBList.Add(i);
+            }
+        }
+
         private void frmSefStudy_Load(object sender, EventArgs e)
         {
+            if(this.studyConfig.TestInterAList != null)
+            {
+                this.studyConfig.TestInterAList.Clear();
+            }
+            if (this.studyConfig.TestInterBList != null)
+            {
+                this.studyConfig.TestInterBList.Clear();
+            }
+            //InitDefaultDevPoint();
             this.mulInterA.MultiColumnComboBoxElement.Columns.Add("A");
             this.mulInterB.MultiColumnComboBoxElement.Columns.Add("B");
             StudyProbCom.InitMulCombox(this.mulInterA);
@@ -80,12 +127,63 @@ namespace CableTestManager.View.VSelfStydy
 
         private void Btn_fstart_Click(object sender, EventArgs e)
         {
-            this.studyConfig.StudyTestType = SelfStudyConfig.SutdyTestTypeEnum.SelfTestByLimit;
-            this.studyConfig.LimitMin = (int)this.num_fmin.Value;
-            this.studyConfig.LimitMax = (int)this.num_fmax.Value;
+            //this.studyConfig.LimitMin = (int)this.num_fmin.Value;
+            //this.studyConfig.LimitMax = (int)this.num_fmax.Value;
+            var min = (int)this.num_fmin.Value;
+            var max = (int)this.num_fmax.Value;
+            if (max < min)
+            {
+                MessageBox.Show("最大值应大于最小值！","提示",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            List<string> interList = GetInterfaceInfo();
+            if (interList.Count != 2)
+            {
+                MessageBox.Show("请检查接口库配置，接口库需正确配置两个端的接口才可使用该方法测试！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            var list1 = GetAllDevPointByInter(interList[0]);
+            var list2 = GetAllDevPointByInter(interList[1]);
+            list1.Sort();
+            list2.Sort();
+            var cardCountStr = ConfigurationManager.AppSettings["cardCount"].ToString();
+            int cardCount;
+            if (!int.TryParse(cardCountStr, out cardCount))
+            {
+                MessageBox.Show("请检查卡槽数配置，配置文件位于应用程序路径下的CableTestManager.exe.config文件，配置参数为cardCount！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            var judgeValue = (cardCount / 2) * 64;
+            if (IsCheckACard(list1, judgeValue))
+            {
+                this.studyConfig.TestInterAList = ConvertDevPointHex(GetPartDevPointAByLimit(min, max, list1));
+                this.studyConfig.TestInterBList = ConvertDevPointHex(GetPartDevPointBByLimit(list2));
+            }
+            else
+            {
+                this.studyConfig.TestInterAList = ConvertDevPointHex(GetPartDevPointAByLimit(min, max, list2));
+                this.studyConfig.TestInterBList = ConvertDevPointHex(GetPartDevPointBByLimit(list1));
+            }
+            //this.studyConfig.TestInterAList = ConvertDevPointHex(GetPartDevPointAByLimit(min, max , this.devPointAList));
+            //this.studyConfig.TestInterBList = ConvertDevPointHex(GetPartDevPointBByLimit(this.devPointBList));
             this.studyConfig.TestThresholdVal = (float)this.num_fthreshold.Value;
+            this.studyConfig.StudyTestType = SelfStudyConfig.SutdyTestTypeEnum.SelfTestByLimit;
+            this.selfStudyTestTotalCount = (max - min + 1);
+            
             this.Close();
             this.DialogResult = DialogResult.OK;
+        }
+
+        private bool IsCheckACard(List<int> list, int judgeValue)
+        {
+            foreach (var val in list)
+            {
+                if (val > judgeValue)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private void AddSelfStudyTestParams(string interfaceName, string contactPoint, string devPoint)
@@ -145,8 +243,31 @@ namespace CableTestManager.View.VSelfStydy
             this.studyConfig.TestInterBList = ConvertDevPointHex(GetAllDevPointByInter(this.mulInterB.Text.Trim()));
             this.studyConfig.TestThresholdVal = (float)this.conductionThresholdByPin.Value;
             this.studyConfig.StudyTestType = SelfStudyConfig.SutdyTestTypeEnum.SelfTestByInterface;
+            this.selfStudyTestTotalCount = GetInterListCount(this.mulInterA.Text.Trim());
             this.Close();
             this.DialogResult = DialogResult.OK;
+        }
+
+        private int GetInterListCount(string interName)
+        {
+            return this.InterfaceInfoLibrary.GetRowCountByWhere($"where InterfaceNo='{interName}'");
+        }
+
+        private List<string> GetInterfaceInfo()
+        {
+            List<string> list = new List<string>();
+            var data = this.InterfaceInfoLibrary.GetDataSetByFieldsAndWhere($"distinct InterfaceNo","").Tables[0];
+            if (data.Rows.Count > 0)
+            {
+                foreach (DataRow dr in data.Rows)
+                {
+                    if (!list.Contains(dr[0].ToString()))
+                    {
+                        list.Add(dr[0].ToString());
+                    }
+                }
+            }
+            return list;
         }
 
         private List<int> GetAllDevPointByInter(string interName)
@@ -184,6 +305,83 @@ namespace CableTestManager.View.VSelfStydy
                 list.AddRange(sigList);
                 list.AddRange(douList);
             }
+            return list;
+        }
+
+        private List<int> GetPartDevPointAByLimit(int min, int max, List<int> devPointList)
+        {
+            List<int> list = new List<int>();
+            List<int> aOrderList = new List<int>();
+            int i = 0;
+            foreach (var val in devPointList)
+            {
+                if (i >= min - 1 && i <= max -1)
+                {
+                    list.Add(val);
+                    aOrderList.Add(i);
+                }
+                i++;
+            }
+            if (list.Count <= 0)
+                return list;
+            list.Sort();
+            aOrderList.Sort();
+            this.aListOrderMin = aOrderList[0];
+            this.aListOrderMax = aOrderList[aOrderList.Count - 1];
+            //分奇数偶数
+            List<int> sigList = new List<int>();
+            List<int> douList = new List<int>();
+            foreach (var val in list)
+            {
+                if ((val + 1) % 2 == 0)
+                {
+                    sigList.Add(val);
+                }
+                else
+                {
+                    douList.Add(val);
+                }
+            }
+            list.Clear();
+            list.AddRange(sigList);
+            list.AddRange(douList);
+
+            return list;
+        }
+
+        private List<int> GetPartDevPointBByLimit(List<int> devPointList)
+        {
+            List<int> list = new List<int>();
+            int i = 0;
+            foreach (var val in devPointList)
+            {
+                if (i >= this.aListOrderMin && i <= this.aListOrderMax)
+                {
+                    list.Add(val);
+                }
+                i++;
+            }
+            if (list.Count <= 0)
+                return list;
+            list.Sort();
+            //分奇数偶数
+            List<int> sigList = new List<int>();
+            List<int> douList = new List<int>();
+            foreach (var val in list)
+            {
+                if ((val + 1) % 2 == 0)
+                {
+                    sigList.Add(val);
+                }
+                else
+                {
+                    douList.Add(val);
+                }
+            }
+            list.Clear();
+            list.AddRange(sigList);
+            list.AddRange(douList);
+
             return list;
         }
 

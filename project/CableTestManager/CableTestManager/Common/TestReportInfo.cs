@@ -81,8 +81,8 @@ namespace CableTestManager.Common
                 }
                 pdf.AddParagraph($"{dconfig.TestReportTitle}\r\n", 20);
                 pdf.AddLine(71);
-                pdf.AddParagraph($"线束名称：{hisInfo.TestCableName}     测试结果：{CalFinalTestResult(hisInfo.ProjectName, hisInfo.TestCableName, testSerial)}", 15);
-                pdf.AddParagraph($"环境湿度：{hisInfo.EnvironmentAmbientHumidity}%        测试温度：{hisInfo.EnvironmentTemperature}℃        测试人员：{hisInfo.TestOperator}\r\n", 15);
+                pdf.AddParagraph($"线束名称：{hisInfo.TestCableName}        测试结果：{CalFinalTestResult(hisInfo.ProjectName, hisInfo.TestCableName, testSerial)}", 15);
+                pdf.AddParagraph($"测试温度：{hisInfo.EnvironmentTemperature}℃        环境湿度：{hisInfo.EnvironmentAmbientHumidity}%RH           测试人员：{hisInfo.TestOperator}\r\n", 15);
                 pdf.AddParagraph($"测试日期：{hisInfo.TestStartDate} - {hisInfo.TestEndDate}\r\n", 15);
                 pdf.AddLine(144);
                 pdf.AddParagraph($"测试参数\r\n", 20);

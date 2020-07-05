@@ -95,6 +95,7 @@
             this.cb_measureMethod.EditorControl.ShowGroupPanel = false;
             this.cb_measureMethod.EditorControl.Size = new System.Drawing.Size(240, 150);
             this.cb_measureMethod.EditorControl.TabIndex = 0;
+            this.cb_measureMethod.Enabled = false;
             this.cb_measureMethod.Location = new System.Drawing.Point(111, 86);
             this.cb_measureMethod.Name = "cb_measureMethod";
             this.cb_measureMethod.Size = new System.Drawing.Size(186, 36);

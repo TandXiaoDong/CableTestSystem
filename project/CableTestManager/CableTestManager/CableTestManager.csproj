@@ -934,6 +934,12 @@
     <Compile Include="View\VSelfStydy\frmSefStudy.Designer.cs">
       <DependentUpon>frmSefStudy.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\VSelfStydy\FrmSelfStudyExcept.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\VSelfStydy\FrmSelfStudyExcept.Designer.cs">
+      <DependentUpon>FrmSelfStudyExcept.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\VSelfStydy\ImportCableLibrary.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1239,6 +1245,9 @@
     <EmbeddedResource Include="View\VSelfStydy\frmSefStudy.resx">
       <DependentUpon>frmSefStudy.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\VSelfStydy\FrmSelfStudyExcept.resx">
+      <DependentUpon>FrmSelfStudyExcept.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\VSelfStydy\ImportCableLibrary.resx">
       <DependentUpon>ImportCableLibrary.cs</DependentUpon>
     </EmbeddedResource>
@@ -1430,6 +1439,7 @@
     <EmbeddedResource Include="CableTestManager\Entity\EntityMapper.xml" />
     <Content Include="完善.txt" />
     <Content Include="完善与优化.txt" />
+    <Content Include="设备后续升级或改动.txt" />
     <Content Include="需求梳理.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

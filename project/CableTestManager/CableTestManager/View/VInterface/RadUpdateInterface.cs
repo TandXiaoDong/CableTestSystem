@@ -360,6 +360,7 @@ namespace CableTestManager.View.VAdd
                     startPinIndex++;
                     startInterfacePointIndex++;
                 }
+                this.radGridView1.CurrentRow = this.radGridView1.Rows[this.radGridView1.RowCount - 1];
             }
         }
 
@@ -381,6 +382,7 @@ namespace CableTestManager.View.VAdd
                     return;
                 }
                 AddGridViewRow(interfacePointName, testMethod, switchStandPointNo,"");
+                this.radGridView1.CurrentRow = this.radGridView1.Rows[this.radGridView1.RowCount - 1];
             }
         }
 
@@ -950,7 +952,7 @@ namespace CableTestManager.View.VAdd
                         MessageBox.Show($"接点{interfacePointName}已存在！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return true;
                     }
-                    if (interfaceNo == currentInterNo && pointNo.Contains(switchPointNo))
+                    if (interfaceNo == currentInterNo && pointNo == switchPointNo)
                     {
                         MessageBox.Show($"针脚{switchPointNo}已在接点{interfacePointName}中定义！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return true;
@@ -963,7 +965,7 @@ namespace CableTestManager.View.VAdd
                         MessageBox.Show($"接点{interfacePointName}已存在！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return true;
                     }
-                    if (interfaceNo == currentInterNo && switchPointNo.Contains(pointNo))
+                    if (interfaceNo == currentInterNo && switchPointNo.Contains(pointNo))//判断不准确，后续优化
                     {
                         MessageBox.Show($"针脚{switchPointNo}已在接点{interfacePointName}中定义！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return true;

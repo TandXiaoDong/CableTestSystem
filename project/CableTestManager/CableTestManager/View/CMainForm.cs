@@ -90,6 +90,8 @@ namespace CableTestManager.View
         private Queue<SelfStudyParams> studyParamQueue;
         private Queue<SelfStudyParams> probParamQueue = new Queue<SelfStudyParams>();
         private List<SelfStudyParams> studyParamValidList;//有效数据导入到线束库
+        private List<SelfStudyParams> studyParamExceptList;//异常数据用于排查问题
+        private List<SelfStudyParams> studyParamMulRelateList;//一个点对应多个关系
         private Queue<CableTestParams> cableTestPramsQueue;
         private DataTable dataSourceSelfStudy,dataSourceCableTest, dataSourceInsulateTest, dataSourceProb;
         private bool IsFirstSetGridDTStyle, IsFirstSetGridUnDTStyle, IsFirstSetGridOpenCirStyle;
@@ -106,12 +108,14 @@ namespace CableTestManager.View
         private bool IsShowProStatus;
         private bool IsShowSysStatus;
         private bool IsCalTestDataCompleted;
+        private bool IsCalSelfStudyCompleted;
         private DeviceConfig deviceConfig;
         //private RadGridView radGridViewSelfStudy;
         private bool IsSelfProcessReset = false;//自学习短路过多时，设备复位
         private bool IsFirstConnectDevice = true;
         private bool IsFirstInsulateTest = true;
         private List<string> curTestGridViewOrderList;
+        private double selfStudyTestTotalCount;//根据接口或范围自学习的总数量
 
         public CMainForm()
         {
@@ -216,6 +220,7 @@ namespace CableTestManager.View
             this.lbx_serviceURL.Text = "";
             this.lbx_servicePort.Text = "";
             this.lbx_monitorDate.Text = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+         
             //this.StartPosition = FormStartPosition.CenterScreen;
             //this.WindowState = FormWindowState.Maximized;
             //this.radDock1.DocumentTabsVisible = false;
@@ -234,6 +239,8 @@ namespace CableTestManager.View
             this.cableTestProcessQueue = new Queue<CableTestProcessParams.CableTestType>();
             this.studyParamQueue = new Queue<SelfStudyParams>();
             this.studyParamValidList = new List<SelfStudyParams>();
+            this.studyParamExceptList = new List<SelfStudyParams>();
+            this.studyParamMulRelateList = new List<SelfStudyParams>();
             this.cableTestPramsQueue = new Queue<CableTestParams>();
             this.projectInfoManager = new TProjectBasicInfoManager();
             this.historyDataInfoManager = new THistoryDataBasicManager();
@@ -344,7 +351,8 @@ namespace CableTestManager.View
             this.tool_importCableLib.Click += Tool_importCableLib_Click;
             this.tool_reportSavePath.Click += Tool_reportSavePath_Click;
             this.tool_stop.Click += Tool_stop_Click;
-            this.tool_reportDefaultFormat.Click += Tool_reportDefaultFormat_Click; ;
+            this.tool_reportDefaultFormat.Click += Tool_reportDefaultFormat_Click;
+            this.tool_selfExceptData.Click += Tool_selfExceptData_Click;
             #endregion
 
             #region menu event
@@ -398,6 +406,15 @@ namespace CableTestManager.View
             SuperEasyClient.NoticeMessageEvent += SuperEasyClient_NoticeMessageEvent;
         }
 
+        private void Tool_selfExceptData_Click(object sender, EventArgs e)
+        {
+            FrmSelfStudyExcept frmSelfStudyExcept = new FrmSelfStudyExcept(this.studyParamExceptList, this.studyParamValidList, this.studyParamMulRelateList);
+            if (frmSelfStudyExcept.ShowDialog() == DialogResult.OK)
+            { 
+
+            }
+        }
+
         private void Tool_reportDefaultFormat_Click(object sender, EventArgs e)
         {
             ReportFormatSet reportFormatSet = new ReportFormatSet(this.deviceConfig);
@@ -441,7 +458,7 @@ namespace CableTestManager.View
 
         private void CMainForm_SizeChanged(object sender, EventArgs e)
         {
-            this.lbx_testStatus.Location = new Point(this.panelStatus.Width / 2 - this.lbx_testStatus.Width / 2);
+            this.lbx_testStatus.Location = new Point(this.panelStatus.Width / 2 - this.lbx_testStatus.Width / 3);
         }
 
         private void Tool_stop_Click(object sender, EventArgs e)
@@ -691,7 +708,10 @@ namespace CableTestManager.View
             this.dataSourceSelfStudy.Rows.Clear();
             this.radGridViewSelfStudy.DataSource = this.dataSourceSelfStudy;
             this.studyParamValidList.Clear();
+            this.studyParamExceptList.Clear();
             this.tb_selfStudyTip.Clear();
+            this.studyParamExceptList.Clear();
+            this.studyParamMulRelateList.Clear();
             this.tb_selfStudyTip.Visible = false;
             this.tb_selfStudyTip.ForeColor = Color.Black;
         }
@@ -782,7 +802,7 @@ namespace CableTestManager.View
                 //    return;
                 //this.radGridViewSelfStudy.CurrentRow = this.radGridViewSelfStudy.Rows[rowCount - 1];
                 LogHelper.Log.Info("自学习测试完成...");
-                SelfStudyTextState(true, "自学习测试已完成",true);
+                SelfStudyTextOverState(true, "自学习测试已完成");
             }
             else if (packageInfo.Data[4] == 0xf6 && packageInfo.Data[5] == 0xbb)//探针
             {
@@ -791,7 +811,7 @@ namespace CableTestManager.View
             else if (packageInfo.Data[4] == 0xf6 && packageInfo.Data[5] == 0xcc)//探针结束
             {
                 //this.refreshDataTimer.Enabled = false;
-                ProbTestTextState(true, "探针测试已完成");
+                ProbTestTextState(true, "探针测试已完成", true);
             }
             else if (packageInfo.Data[4] == 0xf2 && packageInfo.Data[5] == 0xbb)//导通测试
             {
@@ -970,19 +990,7 @@ namespace CableTestManager.View
             {
                 calResult = GetRanDouble();
             }
-            var selfStudyResult = "";
-            if (calResult < this.studyConfig.TestThresholdVal)
-                selfStudyResult = "导通";
-            else if (calResult >= this.studyConfig.TestThresholdVal)
-            {
-                selfStudyResult = "不导通";
-                return;
-            }
-            if (resistanceVal == 0xffffffff)
-            {
-                selfStudyResult = "开路";
-                return;
-            }
+
             //只接收导通的数据
             SelfStudyParams studyParams = new SelfStudyParams();
             studyParams.DevStartPoint = Convert.ToInt32(startInterPoint, 16).ToString();
@@ -995,8 +1003,27 @@ namespace CableTestManager.View
             {
                 studyParams.TestResultVal = calResult.ToString("f2");
             }
-            studyParams.TestReulst = selfStudyResult;
-            this.studyParamQueue.Enqueue(studyParams);
+            var selfStudyResult = "";
+            if (calResult < this.studyConfig.TestThresholdVal)
+            {
+                selfStudyResult = "导通";
+                studyParams.TestReulst = selfStudyResult;
+                this.studyParamQueue.Enqueue(studyParams);
+            }
+            else if (calResult >= this.studyConfig.TestThresholdVal)
+            {
+                if (resistanceVal == 0xffffffff)
+                {
+                    selfStudyResult = "开路";
+                }
+                else
+                {
+                    selfStudyResult = "不导通";
+                }
+                studyParams.TestReulst = selfStudyResult;
+                this.studyParamExceptList.Add(studyParams);
+                return;
+            }
         }
 
         private void ProbTestProcess(MyPackageInfo packageInfo)
@@ -1031,17 +1058,22 @@ namespace CableTestManager.View
             }
             var selfStudyResult = "";
             if (calResult < this.probConfig.TestThresholdVal)
+            {
                 selfStudyResult = "导通";
+            }
             else if (calResult >= this.probConfig.TestThresholdVal)
             {
-                selfStudyResult = "不导通";
+                if (resistanceVal == 0xffffffff)
+                {
+                    selfStudyResult = "开路";
+                }
+                else
+                {
+                    selfStudyResult = "不导通";
+                }
                 return;
             }
-            if (resistanceVal == 0xffffffff)
-            {
-                selfStudyResult = "开路";
-                return;
-            }
+
             //只接收导通的数据
             SelfStudyParams studyParams = new SelfStudyParams();
             studyParams.DevStartPoint = Convert.ToInt32(startInterPoint, 16).ToString();
@@ -1378,6 +1410,7 @@ namespace CableTestManager.View
             }));
         }
 
+        private int selfStudyRevTotalCount;
         private void UpdateTestSelfStudyGridView()
         {
             lock (this)
@@ -1391,14 +1424,14 @@ namespace CableTestManager.View
                     int iRow = 0;
                     for (int i = 0;i < this.studyParamQueue.Count;i++)
                     {
-                        var selfParams = this.studyParamQueue.Dequeue();
+                        SelfStudyParams selfParams = this.studyParamQueue.Dequeue();
                         var pointOrderA = GetOrderPointByDevPoint(selfParams.DevStartPoint, 0, selfParams).StartPointOrder;
                         var pointOrderB = GetOrderPointByDevPoint(selfParams.DevEndPoint, 1, selfParams).EndPointOrder;
                         var testResultVal = selfParams.TestResultVal;
                         var testResult = selfParams.TestReulst;
                         if (pointOrderA == "" || pointOrderB == "")
                             continue;//接口表不存在
-                        if (IsSelfGridView2Exist(this.dataSourceSelfStudy, pointOrderA, pointOrderB))
+                        if (IsSelfGridView2Exist(this.dataSourceSelfStudy, pointOrderA, pointOrderB, selfParams))
                         {
                             //更新当前值
                             continue;
@@ -1413,6 +1446,7 @@ namespace CableTestManager.View
                         dr[4] = testResult;
                         this.dataSourceSelfStudy.Rows.Add(dr);
                         SetGridStyleByTestValue(testResult);
+                        this.selfStudyRevTotalCount++;
                         iRow++;
                     }
                     if (iRow > 0)
@@ -1428,6 +1462,11 @@ namespace CableTestManager.View
                             this.studyParamQueue.Clear();
                             SendResetDeviceCommand();
                             SelfStudyLog("提示：短路芯线数量过多，请检查线路后再试！");
+                        }
+                        if (this.selfStudyRevTotalCount == this.selfStudyTestTotalCount)
+                        {
+                            this.IsCalSelfStudyCompleted = true;
+                            LogHelper.Log.Info("自学习完成...");
                         }
                     }
                 }));
@@ -1860,7 +1899,7 @@ namespace CableTestManager.View
             return "不合格";
         }
 
-        private bool IsSelfGridView2Exist(DataTable dataSource,string cpointOrderA, string cpointOrderB)
+        private bool IsSelfGridView2Exist(DataTable dataSource,string cpointOrderA, string cpointOrderB, SelfStudyParams studyParams)
         {
             if (dataSource.Rows.Count < 1)
                 return false;
@@ -1878,12 +1917,14 @@ namespace CableTestManager.View
                 else if (cpointOrderA == pointA && cpointOrderB != pointB)//第2个点不同
                 {
                     //A接口的点与B接口另一个点也导通
+                    this.studyParamMulRelateList.Add(studyParams);
                     SelfStudyLog($"警告：A接口的接点{pointA}已与B接口的接点{pointB}导通；A接口的接点{pointA}与B接口的接点{cpointOrderB}也导通；请检查线束关系是否异常！");
                     return false;//异常警告,界面继续显示
                 }
                 else if (cpointOrderA != pointA && cpointOrderB == pointB)//第1个点不同
                 {
                     //B接口的点与A接口的另一个点也导通
+                    this.studyParamMulRelateList.Add(studyParams);
                     SelfStudyLog($"警告：B接口的接点{pointB}已与A接口的接点{pointA}导通；B接口的接点{pointB}与A接口的接点{cpointOrderA}也导通；请检查线束关系是否异常！");
                     return false;//异常警告
                 }
@@ -2086,6 +2127,7 @@ namespace CableTestManager.View
             this.radDock1.RemoveAllDocumentWindows();
             this.radDock1.AddDocument(this.documentWindow1);
             QueryTestInfoByProjectName(projectName);
+            this.lbx_testStatus.Location = new Point(this.panelStatus.Width / 2 - this.lbx_testStatus.Width / 3);
         }
 
         private void UpdateCloseProState()
@@ -2344,11 +2386,13 @@ namespace CableTestManager.View
                 if (this.probConfig.ProbTestType == ProbTestConfig.ProbTestTypeEnum.ProbTestByLimit)
                 {
                     var selftStudyString = this.probConfig.MeasureMethod + "01" + DecConvert2ByteHexStr(this.probConfig.LimitMin) + DecConvert2ByteHexStr(this.probConfig.LimitMax);
+                    ProbTestTextState(true, "探针测试中...", false);
                     SendSelfStudyOrProbCommand(selftStudyString, probTestFunCode);
                 }
                 else if (this.probConfig.ProbTestType == ProbTestConfig.ProbTestTypeEnum.ProbTestByInterface)
                 {
                     var selftStudyString = probConfig.MeasureMethod + "02" + this.probConfig.TestInterAList;
+                    ProbTestTextState(true, "探针测试中...", false);
                     SendSelfStudyOrProbCommand(selftStudyString, probTestFunCode);
                 }
             }
@@ -2367,6 +2411,7 @@ namespace CableTestManager.View
             {
                 InitSelfParams();
                 SendSelfComand();
+                this.selfStudyTestTotalCount = sefStudy.selfStudyTestTotalCount;
             }
         }
 
@@ -2376,7 +2421,11 @@ namespace CableTestManager.View
                 return;
             this.radDock1.RemoveAllDocumentWindows();
             this.radDock1.AddDocument(this.documentWindow2);
-            this.tool_importCableLib.Enabled = true;
+            this.tool_importCableLib.Enabled = false;
+            this.tool_selfExceptData.Visible = false;
+            this.selfStudyRevTotalCount = 0;
+            this.IsCalSelfStudyCompleted = false;
+            this.tb_selfStudyTip.ReadOnly = false;
             ClearSelfGrid();
         }
 
@@ -2384,47 +2433,113 @@ namespace CableTestManager.View
         {
             if (this.studyConfig.StudyTestType == SelfStudyConfig.SutdyTestTypeEnum.SelfTestByLimit)
             {
-                var selftStudyString = this.studyConfig.MeasureMethod + "01" + DecConvert2ByteHexStr(this.studyConfig.LimitMin) + DecConvert2ByteHexStr(this.studyConfig.LimitMax);
-                SelfStudyTextState(true, "自学习测试中...", false);
+                //修改为接口类型02
+                //var selftStudyString = this.studyConfig.MeasureMethod + "01" + DecConvert2ByteHexStr(this.studyConfig.LimitMin) + DecConvert2ByteHexStr(this.studyConfig.LimitMax);
+                var selftStudyString = this.studyConfig.MeasureMethod + "02" + this.studyConfig.TestInterAList + "0000" + this.studyConfig.TestInterBList;
+                SelfStudyTextState(true, "自学习测试中...");
                 SendSelfStudyOrProbCommand(selftStudyString, selfStudyTestFunCode);
             }
             else if (this.studyConfig.StudyTestType == SelfStudyConfig.SutdyTestTypeEnum.SelfTestByInterface)
             {
-                var selftStudyString = studyConfig.MeasureMethod + "02" + this.studyConfig.TestInterAList + "0000" + this.studyConfig.TestInterBList;
-                ProbTestTextState(true, "探针测试中...");
+                var selftStudyString = studyConfig.MeasureMethod + "02" + this.studyConfig.TestInterAList + "0000" + this.studyConfig.TestInterBList;//0000A部分结束
+                SelfStudyTextState(true, "自学习测试中...");
                 SendSelfStudyOrProbCommand(selftStudyString, selfStudyTestFunCode);
             }
         }
 
-        private void SelfStudyTextState(bool b, string text, bool IsOver)
+        private void SelfStudyTextState(bool isVisible, string text)
         {
             this.Invoke(new Action(()=>
             {
                 //this.tb_selfStudyTip.ReadOnly = false;
-                this.tb_selfStudyTip.Visible = b;
+                this.tb_selfStudyTip.Visible = isVisible;
                 this.tb_selfStudyTip.Text = text;
                 this.tb_selfStudyTip.Font = new Font("粗体", 14f);
                 this.tb_selfStudyTip.TextAlign = HorizontalAlignment.Center;
-                this.tb_selfStudyTip.ForeColor = Color.Red;
+                //this.tb_selfStudyTip.ForeColor = Color.Red;
                 //this.tb_selfStudyTip.ReadOnly = true;
-                if (IsOver)
+            }));
+        }
+
+        private async void SelfStudyTextOverState(bool isVisible, string text)
+        {
+            await Task.Run(() =>
+            {
+                while (true)
                 {
-                    this.tb_selfStudyTip.BackColor = Color.White;
+                    if (this.IsCalSelfStudyCompleted)
+                    {
+                        this.IsCalSelfStudyCompleted = false;
+                        LogHelper.Log.Info("等待自学习完成，退出循环...");
+                        break;
+                    }
+                    else
+                    {
+                        Thread.Sleep(1000);
+                        if (this.IsCalSelfStudyCompleted)
+                        {
+                            this.IsCalSelfStudyCompleted = false;
+                            LogHelper.Log.Info("等待自学习完成，退出循环...");
+                            break;
+                        }
+                        break;
+                    }
+                    Thread.Sleep(1);
+                }
+            });
+            this.Invoke(new Action(() =>
+            {
+                //this.tb_selfStudyTip.ReadOnly = false;
+                this.tb_selfStudyTip.Visible = isVisible;
+                this.tb_selfStudyTip.Text = text;
+                this.tb_selfStudyTip.Font = new Font("粗体", 14f);
+                this.tb_selfStudyTip.TextAlign = HorizontalAlignment.Center;
+                //this.tb_selfStudyTip.ForeColor = Color.Red;
+
+                this.tb_selfStudyTip.BackColor = Color.White;
+                this.tb_selfStudyTip.ReadOnly = true;
+                if (this.selfStudyTestTotalCount == this.radGridViewSelfStudy.RowCount)
+                {
+                    this.tool_importCableLib.Enabled = true;
+                    if (this.studyParamMulRelateList.Count + this.studyParamExceptList.Count > 0)
+                    {
+                        this.tool_selfExceptData.Visible = true;
+                    }
+                    else
+                    {
+                        this.tool_selfExceptData.Visible = false;
+                    }
+                }
+                else
+                {
+                    this.tool_importCableLib.Enabled = false;
+                    if (this.studyParamMulRelateList.Count + this.studyParamExceptList.Count > 0)
+                    {
+                        this.tool_selfExceptData.Visible = true;
+                    }
+                    else
+                    {
+                        this.tool_selfExceptData.Visible = false;
+                    }
                 }
             }));
         }
 
-        private void ProbTestTextState(bool b, string text)
+        private void ProbTestTextState(bool isVisible, string text, bool IsOver)
         {
             this.Invoke(new Action(() =>
             {
-                this.tb_probTip.ReadOnly = false;
-                this.tb_probTip.Visible = b;
+                //this.tb_probTip.ReadOnly = false;
+                this.tb_probTip.Visible = isVisible;
                 this.tb_probTip.Text = text;
                 this.tb_probTip.Font = new Font("粗体", 14f);
                 this.tb_probTip.TextAlign = HorizontalAlignment.Center;
-                this.tb_probTip.ReadOnly = true;
+                //this.tb_probTip.ReadOnly = true;
                 this.tb_probTip.ForeColor = Color.Red;
+                if (IsOver)
+                {
+                    this.tb_probTip.BackColor = Color.White;
+                }
             }));
         }
 
@@ -2528,7 +2643,7 @@ namespace CableTestManager.View
         {
             //select project
             this.radTreeView1.Nodes.Clear();
-            var projectInfoData = projectInfoManager.GetDataSetByFieldsAndWhere("distinct ProjectName", "").Tables[0];
+            var projectInfoData = projectInfoManager.GetDataSetByFieldsAndWhere("distinct ProjectName", "order by ID desc").Tables[0];
             if (projectInfoData.Rows.Count < 1)
                 return;
             ImageList imageList = new ImageList();
@@ -2828,7 +2943,7 @@ namespace CableTestManager.View
             this.IsFirstInsulateTest = true;
             UnEnableTestButton();
             SuperEasyClient.SendMessage(DeviceFunCodeEnum.RequestHead, insulateCommand);
-            UpdateTestStatus("绝缘已开始测试，等待测试结果...");
+            UpdateTestStatus("绝缘测试中，高压危险，请勿触碰！");
             //MessageBox.Show("绝缘测试指令已下发", "提示", MessageBoxButtons.OK);
         }
 

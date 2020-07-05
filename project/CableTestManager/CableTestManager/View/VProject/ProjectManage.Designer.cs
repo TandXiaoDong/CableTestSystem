@@ -49,6 +49,7 @@
             this.btn_openProject = new Telerik.WinControls.UI.RadMenuItem();
             this.btn_editProject = new Telerik.WinControls.UI.RadMenuItem();
             this.btn_deleteProject = new Telerik.WinControls.UI.RadMenuItem();
+            this.menu_delAll = new Telerik.WinControls.UI.RadMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_queryFilter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
@@ -161,6 +162,7 @@
             this.btn_openProject,
             this.btn_editProject,
             this.btn_deleteProject,
+            this.menu_delAll,
             this.btn_cancel});
             this.radMenu1.Location = new System.Drawing.Point(0, 0);
             this.radMenu1.Name = "radMenu1";
@@ -187,6 +189,12 @@
             this.btn_deleteProject.Image = global::CableTestManager.Properties.Resources.delete16;
             this.btn_deleteProject.Name = "btn_deleteProject";
             this.btn_deleteProject.Text = "删除项目";
+            // 
+            // menu_delAll
+            // 
+            this.menu_delAll.Image = global::CableTestManager.Properties.Resources.删除16_sig;
+            this.menu_delAll.Name = "menu_delAll";
+            this.menu_delAll.Text = "删除所有项目";
             // 
             // ProjectManage
             // 
@@ -235,5 +243,6 @@
         private Telerik.WinControls.UI.RadMenuItem btn_deleteProject;
         private Telerik.WinControls.UI.RadMenuItem btn_cancel;
         private Telerik.WinControls.UI.RadMenu radMenu1;
+        private Telerik.WinControls.UI.RadMenuItem menu_delAll;
     }
 }

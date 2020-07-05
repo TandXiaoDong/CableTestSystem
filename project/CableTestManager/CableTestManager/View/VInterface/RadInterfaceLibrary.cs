@@ -170,6 +170,16 @@ namespace CableTestManager.View.VInterface
                 this.radGridView1.Rows[i].Cells[6].Value = dr["Operator"].ToString();
                 i++;
             }
+
+            //判断是否已经添加了两端的接口，限制只能添加两个接口
+            if (this.radGridView1.RowCount == 2)
+            {
+                this.tool_add.Enabled = false;
+            }
+            else
+            {
+                this.tool_add.Enabled = true;
+            }
         }
 
         private void ClearGridView()
