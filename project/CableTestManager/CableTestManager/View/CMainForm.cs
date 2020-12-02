@@ -116,7 +116,7 @@ namespace CableTestManager.View
         private bool IsFirstInsulateTest = true;
         private List<string> curTestGridViewOrderList;
         private double selfStudyTestTotalCount;//根据接口或范围自学习的总数量
-
+        private object obj = new object();
         public CMainForm()
         {
             InitializeComponent();
@@ -1094,70 +1094,77 @@ namespace CableTestManager.View
         private void TestItemComplete(CableTestProcessParams.CableTestType cableTestType, CableTestProcessParams.CableTestType sigTestType)
         {
             //this.refreshDataTimer.Enabled = false;
-            if (this.cableTestProcessOneKey.CableTestMethodEnum == CableTestProcess.CableTestMethod.OneKeyTest)
+            try
             {
-                //更新状态
-                this.Invoke(new Action(() =>
+                if (this.cableTestProcessOneKey.CableTestMethodEnum == CableTestProcess.CableTestMethod.OneKeyTest)
                 {
-                    switch (cableTestType)
+                    //更新状态
+                    this.Invoke(new Action(() =>
                     {
-                        case CableTestProcessParams.CableTestType.ConductTest:
-                            {
-                                IsCheckTestCompleted(CableTestProcessParams.CableTestType.ConductTest, CableTestProcessParams.CableTestType.None, cableTestType);
-                            }
-                            break;
-                        case CableTestProcessParams.CableTestType.ShortCircuitTest:
-                            {
-                                IsCheckTestCompleted(CableTestProcessParams.CableTestType.ShortCircuitTest, CableTestProcessParams.CableTestType.None, cableTestType);
-                            }
-                            break;
-                        case CableTestProcessParams.CableTestType.InsulateTest:
-                            {
-                                IsCheckTestCompleted(CableTestProcessParams.CableTestType.InsulateTest, CableTestProcessParams.CableTestType.None, cableTestType);
-                            }
-                            break;
-                        case CableTestProcessParams.CableTestType.PressureWithVoltageTest:
-                            {
-                                IsCheckTestCompleted(CableTestProcessParams.CableTestType.PressureWithVoltageTest, CableTestProcessParams.CableTestType.None, cableTestType);
-                            }
-                            break;
-                    }
-                }));
+                        switch (cableTestType)
+                        {
+                            case CableTestProcessParams.CableTestType.ConductTest:
+                                {
+                                    IsCheckTestCompleted(CableTestProcessParams.CableTestType.ConductTest, CableTestProcessParams.CableTestType.None, cableTestType);
+                                }
+                                break;
+                            case CableTestProcessParams.CableTestType.ShortCircuitTest:
+                                {
+                                    IsCheckTestCompleted(CableTestProcessParams.CableTestType.ShortCircuitTest, CableTestProcessParams.CableTestType.None, cableTestType);
+                                }
+                                break;
+                            case CableTestProcessParams.CableTestType.InsulateTest:
+                                {
+                                    IsCheckTestCompleted(CableTestProcessParams.CableTestType.InsulateTest, CableTestProcessParams.CableTestType.None, cableTestType);
+                                }
+                                break;
+                            case CableTestProcessParams.CableTestType.PressureWithVoltageTest:
+                                {
+                                    IsCheckTestCompleted(CableTestProcessParams.CableTestType.PressureWithVoltageTest, CableTestProcessParams.CableTestType.None, cableTestType);
+                                }
+                                break;
+                        }
+                    }));
+                }
+                else
+                {
+                    this.Invoke(new Action(() =>
+                    {
+                        switch (sigTestType)
+                        {
+                            case CableTestProcessParams.CableTestType.ConductTest:
+                                {
+                                    IsCheckTestCompleted(CableTestProcessParams.CableTestType.None, sigTestType, CableTestProcessParams.CableTestType.None);
+                                }
+                                break;
+                            case CableTestProcessParams.CableTestType.ShortCircuitTest:
+                                {
+                                    IsCheckTestCompleted(CableTestProcessParams.CableTestType.None, sigTestType, CableTestProcessParams.CableTestType.None);
+                                }
+                                break;
+                            case CableTestProcessParams.CableTestType.InsulateTest:
+                                {
+                                    IsCheckTestCompleted(CableTestProcessParams.CableTestType.None, sigTestType, CableTestProcessParams.CableTestType.None);
+                                }
+                                break;
+                            case CableTestProcessParams.CableTestType.PressureWithVoltageTest:
+                                {
+                                    IsCheckTestCompleted(CableTestProcessParams.CableTestType.None, sigTestType, CableTestProcessParams.CableTestType.None);
+                                }
+                                break;
+                        }
+                    }));
+                }
             }
-            else
+            catch (Exception ex)
             {
-                this.Invoke(new Action(() =>
-                {
-                    switch (sigTestType)
-                    {
-                        case CableTestProcessParams.CableTestType.ConductTest:
-                            {
-                                IsCheckTestCompleted(CableTestProcessParams.CableTestType.None, sigTestType, CableTestProcessParams.CableTestType.None);
-                            }
-                            break;
-                        case CableTestProcessParams.CableTestType.ShortCircuitTest:
-                            {
-                                IsCheckTestCompleted(CableTestProcessParams.CableTestType.None, sigTestType, CableTestProcessParams.CableTestType.None);
-                            }
-                            break;
-                        case CableTestProcessParams.CableTestType.InsulateTest:
-                            {
-                                IsCheckTestCompleted(CableTestProcessParams.CableTestType.None, sigTestType, CableTestProcessParams.CableTestType.None);
-                            }
-                            break;
-                        case CableTestProcessParams.CableTestType.PressureWithVoltageTest:
-                            {
-                                IsCheckTestCompleted(CableTestProcessParams.CableTestType.None, sigTestType, CableTestProcessParams.CableTestType.None);
-                            }
-                            break;
-                    }
-                }));
+                LogHelper.Log.Error("【TestItemComplete】 err=" +ex.Message + ex.StackTrace);
             }
         }
 
         private async void IsCheckTestCompleted(CableTestProcessParams.CableTestType oneKeyTestType, CableTestProcessParams.CableTestType sigTestType, CableTestProcessParams.CableTestType cableTestType)
         {
-            await Task.Run(()=>
+            await Task.Run(new Action(()=>
             {
                 while (true)
                 {
@@ -1170,7 +1177,7 @@ namespace CableTestManager.View
                     }
                     Thread.Sleep(1);
                 }
-            });
+            }));
 
             if (this.cableTestProcessOneKey.CableTestMethodEnum == CableTestProcess.CableTestMethod.OneKeyTest)
             {
@@ -1278,7 +1285,7 @@ namespace CableTestManager.View
 
                 LogHelper.Log.Info("当前测试项完成，开始检查下一项目....");
                 //更新当前测试项完成状态
-                var curTestObj = this.cableTestProcessOneKey.CableTestProcessParamsList.Find(obj => obj.CableTestTypeEnum == cableTestType);
+                CableTestProcessParams curTestObj = this.cableTestProcessOneKey.CableTestProcessParamsList.Find(obj => obj.CableTestTypeEnum == cableTestType);
                 curTestObj.TestItemStateEnum = CableTestProcessParams.TestState.Completed;
                 curTestObj.TestItemEndDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
@@ -1624,12 +1631,13 @@ namespace CableTestManager.View
                 return;
             this.Invoke(new Action(() =>
             {
-                lock (this)
+                lock (this.obj)
                 {
                     int count = this.cableTestPramsQueue.Count;
                     int iRow = 0;//已测试的行数据
                     var pointA = "";
                     var pointB = "";
+                    bool IsBreak = false;
                     this.radGridViewCableTest.BeginEdit();
                     for (int i = 0; i < count; i++)
                     {
@@ -1646,11 +1654,12 @@ namespace CableTestManager.View
                             var endDevPoint = GetDevPointPinByContactPoint(rowInfo[3].ToString(), rowInfo[4].ToString());
                             if (startDevPoint == startPoint && endDevPoint == endPoint)
                             {
+                                LogHelper.Log.Info($"orderID={orderID}");
                                 //LogHelper.Log.Info($"startDevPoint={startDevPoint},startPoint={startPoint},endDevPoint={endDevPoint},endPoint={endPoint},testResultVal={testResultVal},testResult={testResult}");
                                 //更新测试记录
                                 var tVal = rowInfo[cableTestParams.StartIndex].ToString();
-                                var tResult = rowInfo[cableTestParams.StartIndex + 1].ToString();
-                                if (String.IsNullOrEmpty(tResult) || tResult == "--")//更新未测试的记录
+                                var tResult = rowInfo[cableTestParams.StartIndex + 1].ToString().Trim();
+                                if (string.IsNullOrEmpty(tResult) || tResult == "--")//更新未测试的记录
                                 {
                                     //update test result
                                     rowInfo[cableTestParams.StartIndex] = testResultVal;
@@ -1676,7 +1685,7 @@ namespace CableTestManager.View
                                             rowInfo[cableTestParams.StartIndex] = testResultVal;
                                             rowInfo[cableTestParams.StartIndex + 1] = testResult;
                                             SetTestGridViewStyle(testResult, cableTestParams);
-                                            LogHelper.Log.Info($"update testResultVal={testResultVal},testResult={testResult}");
+                                            //LogHelper.Log.Info($"update testResultVal={testResultVal},testResult={testResult}");
                                         }
                                         DataRow insulateRow = this.dataSourceInsulateTest.NewRow();
                                         insulateRow["起点接口"] = rowInfo[1].ToString();
@@ -1705,8 +1714,19 @@ namespace CableTestManager.View
                                 if (!this.curTestGridViewOrderList.Contains(orderID))
                                 {
                                     this.curTestGridViewOrderList.Add(orderID);
+                                    if (this.curTestGridViewOrderList.Count >= this.radGridViewCableTest.RowCount)
+                                    {
+                                        //当前测试项已经完成
+                                        LogHelper.Log.Info("当前测试项完成，结束循环....");
+                                        IsBreak = true;
+                                        break;
+                                    }
                                 }
                             }
+                        }
+                        if (IsBreak)
+                        {
+                            break;
                         }
                     }
                     if (iRow >= 1)//解析到新数据
@@ -1715,12 +1735,17 @@ namespace CableTestManager.View
                         this.radGridViewCableTest.EndEdit();
                         this.radGridViewCableTest.CurrentRow = this.radGridViewCableTest.Rows[QueryGridViewRowIndex(pointA, pointB)];//更新到实际行数
                         var testCount = this.radGridViewCableTest.RowCount;
+                        LogHelper.Log.Info($"testCount={testCount},this.curTestGridViewOrderList.Count={this.curTestGridViewOrderList.Count}, cableTestPramsQueue={cableTestPramsQueue.Count}");
                         if (this.curTestGridViewOrderList.Count == testCount)
                         {
+                            this.curTestGridViewOrderList = new List<string>();
+                            LogHelper.Log.Info($"测试完成........." + curTestGridViewOrderList.Count);
                             this.IsCalTestDataCompleted = true;
-                            this.curTestGridViewOrderList.Clear();
-                            LogHelper.Log.Info($"测试完成.........");
                         }
+                    }
+                    else
+                    {
+                        LogHelper.Log.Info("没有解析到有效数据...");
                     }
                 }
             }));
